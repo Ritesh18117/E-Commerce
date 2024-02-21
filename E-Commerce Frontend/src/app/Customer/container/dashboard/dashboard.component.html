@@ -1,0 +1,40 @@
+<div class="container mt-4" style="min-height: 80vh;">
+    <div class="row border">
+        <div class="col-md-3 border p-2 pb-3">
+            <div class="border-bottom p-1">
+                <img src="../../../assets/person_icon.png" class="img-fluid" alt="">
+            &nbsp; &nbsp; &nbsp; Hello Username
+            </div>
+            <a (click)="renderProfile()"  class="text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Personal Infromation
+                </div>
+            </a>
+            <a (click)="renderMyOrders()" class="text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; My Orders
+                </div>
+            </a>
+            <a (click)="renderMyAddress()"  class="text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/address_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Manage Address
+                </div>
+            </a>
+            <a routerLink="/cart" class="text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/cart_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Go To Cart
+                </div>
+            </a>
+        </div>
+        <div class="col-md-9 border p-3">
+            <app-profile *ngIf="profile"></app-profile>
+            <app-my-orders *ngIf="myOrders"></app-my-orders>
+            <app-my-address *ngIf="myAddress"></app-my-address>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

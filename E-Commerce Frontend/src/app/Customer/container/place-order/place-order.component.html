@@ -1,0 +1,190 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 border">
+
+            <div class="container mt-4">
+                <h2>My Orders</h2>
+
+                <div class="border p-3">
+                    <h4>Delivary Address</h4>
+                    <form class="p-3">
+                        <div class="form-check mb-3" *ngFor="let address of myAddresses; let i=index">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                [id]="'flexRadioDefault' + i" value="address" [checked]="i === 0" (change)="selectAddress(address)">
+                        
+                            <label class="form-check-label" [for]="'flexRadioDefault' + i">
+                                <div class="card card-body">
+                                    <h5 class="card-title">{{address.name}}&nbsp; &nbsp; &nbsp; </h5>
+                                    <h6>{{address.contact}}</h6>
+                                    <p class="card-text">Address : {{address.address1}}&nbsp;
+                                        {{address.address2}}&nbsp;
+                                        {{address.city}}&nbsp;
+                                        {{address.state}}&nbsp;
+                                        {{address.zipcode}}&nbsp;
+                                    </p>
+                                </div>
+                            </label>
+                        </div>
+                        
+
+                        <button class="btn btn-primary" (click)="showAddressForm()">Add Address</button>
+                        <form #myForm="ngForm" class="mt-5 border p-3" (ngSubmit)="onSubmit()" [hidden]="!showForm">
+                            <h2>Add Address</h2>
+                            <div class="row m-3">
+                                <div class="col-md-6">
+                                    <input type="text" name="Name" [(ngModel)]="addAddress.name"
+                                        class="form-control form-control-lg" id="colFormLabelLg" placeholder="Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="contact" [(ngModel)]="addAddress.contact"
+                                        class="form-control form-control-lg" id="colFormLabelLg" placeholder="Contact">
+                                </div>
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="address">Address</label>
+                                <input type="text" name="address" [(ngModel)]="addAddress.address1"
+                                    class="form-control form-control-lg" placeholder="1234 Main St">
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="address2">Address 2</label>
+                                <input name="address2" type="text" [(ngModel)]="addAddress.address2"
+                                    class="form-control form-control-lg" placeholder="Apartment, studio, or floor">
+                            </div>
+                            <div class="row m-3">
+                                <div class="form-group col-md-6">
+                                    <label for="city">City</label>
+                                    <input name="city" type="text" [(ngModel)]="addAddress.city" placeholder="City"
+                                        class="form-control form-control-lg" id="inputCity">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="state">State</label>
+                                    <input name="state" type="text" [(ngModel)]="addAddress.state" placeholder="State"
+                                        class="form-control form-control-lg" id="inputState">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="zip">Zip</label>
+                                    <input name="zip" type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="addAddress.zipcode" placeholder="Zips" id="inputZip">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary m-3">Add</button>
+                        </form>
+                    </form>
+                </div>
+
+                <div class="border">
+                    <h2 class="m-4">Produt Summary</h2>
+                    <div class=" p-3 d-flex " *ngFor="let item of cardItems">
+                        <div class="detail col-md-9">
+                            {{item.product.name}} <br>
+                            Delivery Date : 20-10-2023 <br>
+                            Color : {{item.product.color}} &nbsp; | &nbsp; Size : {{item.productVariation.size}} <br>
+                            Quantity : {{item.quantity}}
+                        </div>
+                        <div class="detail col-md-2">
+                            <img src="{{item.product.imageURL}}" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border">
+                    <h2 class="m-4">Select Payment Method</h2>
+                    <form class="p-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="googlePay" value="googlePay" (change)="selectedPayment('google')">
+                            <label class="form-check-label" for="googlePay">
+                                <div class="card">
+                                    <div class="card-body">
+                                        Google Pay &nbsp; &nbsp; <i class="fa fa-2x fa-google"></i>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="onlinePayment" value="onlinePayment" (change)="selectedPayment('online')">
+                            <label class="form-check-label" for="onlinePayment">
+                                <div class="card">
+                                    <div class="card-body">
+                                        Online Payment &nbsp; &nbsp; <i class="fab fa-2x fa-cc-visa"></i>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod" checked (change)="selectedPayment('cod')">
+                            <label class="form-check-label" for="cod">
+                                <div class="card">
+                                    <div class="card-body">
+                                        Cash On Delivery (COD) &nbsp; &nbsp; <i class="fa fa-2x fa-money"></i>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="p-3 d-flex border">
+                    <div class="detail col-md-9">
+                        <!-- Order Confirmation will be sent to {{selectedAddress.contact}} -->
+                    </div>
+                    <div class="detail col-md-3">
+                        <button class="m-3 p-2 place-order">Continue</button>
+                    </div>
+                </div>
+            </div>                
+        </div>
+
+
+
+        <div class="col-md-4 border">
+            <!-- 20% width -->
+            <div class="border-bottom p-3">
+                PRICE DETAILS
+            </div>
+            <div class="m-2 border-bottom">
+                <div class="price row p-2">
+                    <div class="col-8 ">
+                        Price({{totalQuantity}} item)
+                    </div>
+                    <div class="col-4">
+                        &nbsp; &nbsp;${{total}}
+                    </div>
+                </div>
+                <div class="discount row p-2 ">
+                    <div class="col-8">
+                        Discount
+                    </div>
+                    <div class="col-4">
+                        - ${{discount}}
+                    </div>
+                </div>
+                <div class="delivery row p-2">
+                    <div class="col-8">
+                        Delivery Changes
+                    </div>
+                    <div class="col-4" style="color: green;">
+                        &nbsp; &nbsp;$49
+                    </div>
+                </div>
+            </div>
+            <div class="p-3">
+                <div class="border-bottom row pb-3">
+                    <div class="col-8">
+                        Total Amount
+                    </div>
+                    <div class="col-4">
+                        &nbsp; &nbsp;${{total - discount + delivery}}
+                    </div>
+                </div>
+            </div>
+            <div class="m-3" style="color: green;">
+                You will save ${{discount}} in this order
+            </div>
+            <div class="detail d-flex justify-content-end">
+                <button class="m-3 p-2 place-order">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>

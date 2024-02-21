@@ -1,0 +1,55 @@
+<h2>My Addresses</h2>
+<div class="m-3">
+    <div class="row">
+        <div class="col-sm-6 mb-2" *ngFor="let address of myAddresses; let i=index">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{address.name}}&nbsp; &nbsp; &nbsp; </h5>
+                    <h6>{{address.contact}}</h6>
+                    <p class="card-text">Address : {{address.address1}}&nbsp;
+                        {{address.address2}}&nbsp;
+                        {{address.city}}&nbsp;
+                        {{address.state}}&nbsp;
+                        {{address.zipcode}}&nbsp;
+                    </p>
+                     <button class="btn btn-danger" (click)="deleteAddress(address.id)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <form #myForm="ngForm" class="mt-5 border p-3" (ngSubmit)="onSubmit()">
+        <h2>Add Address</h2>
+        <div class="row m-3">
+            <div class="col-md-6">
+                <input type="text" name="Name" [(ngModel)]="addAddress.name" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Name">
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="contact" [(ngModel)]="addAddress.contact" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Contact">
+            </div>
+        </div>
+        <div class="form-group m-3">
+            <label for="address">Address</label>
+            <input type="text" name="address" [(ngModel)]="addAddress.address1" class="form-control form-control-lg" placeholder="1234 Main St">
+        </div>
+        <div class="form-group m-3">
+            <label for="address2">Address 2</label>
+            <input name="address2" type="text" [(ngModel)]="addAddress.address2" class="form-control form-control-lg"
+                placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="row m-3">
+            <div class="form-group col-md-6">
+                <label for="city">City</label>
+                <input name="city" type="text" [(ngModel)]="addAddress.city" placeholder="City" class="form-control form-control-lg" id="inputCity">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="state">State</label>
+                <input name="state" type="text" [(ngModel)]="addAddress.state" placeholder="State" class="form-control form-control-lg" id="inputState">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="zip" >Zip</label>
+                <input name="zip" type="text" class="form-control form-control-lg"  [(ngModel)]="addAddress.zipcode" placeholder="Zips" id="inputZip">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary m-3">Sign in</button>
+    </form>

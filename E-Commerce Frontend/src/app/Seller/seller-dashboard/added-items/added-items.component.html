@@ -1,0 +1,13 @@
+<h2>My Added Products</h2>
+<div class="mt-4 border p-3 row" *ngFor="let product of myProducts">
+    <div class="detail col-md-9">
+        Product Name : {{product.name}} <br>
+        Sales Price : {{product.price}} <br>
+        Status : {{product.approvalStatus}}
+    </div>
+    <div class="detail col-md-3">
+        <img src="{{product.imageURL}}" class="img-fluid">
+    </div>
+</div>
+ 
+

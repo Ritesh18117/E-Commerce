@@ -1,0 +1,71 @@
+<h2>Company Information</h2>
+<form action="" class="mt-4" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-6">
+            <input [disabled]="!editProfile" type="text" name="name" [value]="profile.name " [(ngModel)]="profile.name" class="form-control form-control-lg" id="colFormLabelLg" placeholder="name">
+        </div>
+        <!-- <div class="col-6">
+            <input [disabled]="!editProfile" type="text" name="lastname" [value]="profile.name.split(' ')[1]" [(ngModel)]="profile.lastname" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Lastname">
+        </div> -->
+    </div>
+    <div class="row">
+        <div class=" col-6 pt-4">
+            <h6>Email</h6>
+            <input [disabled]="!editProfile" type="email" name="email"  class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" [value]="profile.user.username">
+        </div>
+        <div class=" col-6 pt-4">
+            <h6>Contact</h6>
+            <input [disabled]="!editProfile" type="text" name="contact" [(ngModel)]="profile.contact" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" [value]="profile.Contact">
+        </div>
+    </div>
+    <div class="m-2 pt-4">
+        <h6 class="mb-3">Your Gender</h6>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="male">
+            <label class="form-check-label" for="inlineRadio1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female">
+            <label class="form-check-label" for="inlineRadio2">Female</label>
+        </div>
+    </div>
+    <button class="m-3 btn btn-secondary" (click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
+    <button class="m-3 btn btn-primary" *ngIf="editProfile">Submit</button>
+</form>
+<!-- <h2>Personal Information</h2>
+<form class="mt-4" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-5">
+            <input type="text" name="firstname" [(ngModel)]="profile.firstname" class="form-control form-control-lg" placeholder="First Name">
+        </div>
+        <div class="col-5">
+            <input type="text" name="lastname" [(ngModel)]="profile.lastname" class="form-control form-control-lg" placeholder="Last Name">
+        </div>
+    </div>
+    <div class="m-2 pt-4">
+        <h6 class="mb-3">Your Gender</h6>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="male">
+            <label class="form-check-label" for="inlineRadio1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female">
+            <label class="form-check-label" for="inlineRadio2">Female</label>
+        </div>
+    </div>
+    <div class="m-2 pt-4">
+        <h6>Email</h6>
+        <div class="col-5">
+            <input disabled type="email" class="form-control form-control-lg" placeholder="{{ myProfile.user?.username }}" value="{{ myProfile.user?.username }}">
+        </div>
+    </div>
+    <div class="m-2 pt-4">
+        <h6>Mobile</h6>
+        <div class="col-5">
+            <input type="text" name="contact" [(ngModel)]="profile.contact" class="form-control form-control-lg" placeholder="Contact" value="{{ myProfile.contact }}">
+        </div>
+    </div>
+    <button type="submit" class="mt-3 btn btn-primary">Submit</button>
+</form> -->

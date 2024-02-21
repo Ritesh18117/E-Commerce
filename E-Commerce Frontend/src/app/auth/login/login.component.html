@@ -1,0 +1,33 @@
+<div class="m-2">
+    <div class="container d-flex justify-content-center align-center">
+      <div class="container p-0 shadow">
+        <img src="../../../assets/login img.jpg" alt="Placeholder Image" class="img-fluid">
+      </div>
+      <div class="container border form-div">
+        <div class="wrapper">
+            <div class="" style="width: 80%; margin: auto;">
+                <h4>GET IN TOUCH</h4>
+                <h2 class="form-headline">Login</h2>
+                <form id="submit-form" (ngSubmit)="login()">
+                    <p class="full-width">
+                        <input id="email" name="email" [(ngModel)]="user.email" class="form-input" type="email" placeholder="Your Email*">
+                        <small class="name-error"></small>
+                    </p>
+                    <p class="full-width">
+                        <input id="passowrd" name="Password" [(ngModel)]="user.password" class="form-input" type="text" placeholder="Password*" required>
+                        <small></small>
+                    </p>
+                    <p class="full-width">
+                        <input type="checkbox" id="checkbox" name="checkbox" checked> Yes, I would like to receive
+                        communications by call / email about Company's services.
+                    </p>
+                    <p class="full-width">
+                        <input type="submit" class="submit-btn" value="Submit">
+                    </p>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

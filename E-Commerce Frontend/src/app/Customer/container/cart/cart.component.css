@@ -1,0 +1,21 @@
+.add-remove{
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 40px;
+    background-color: rgb(113, 214, 227);
+}
+.add-remove:hover{
+    background-color: rgb(16, 157, 179);
+}
+
+.place-order{
+    background-color: rgb(113, 214, 227);
+    color: Black;
+    border: 0.5px solid black;
+    border-radius: 6px;
+}
+.place-order:hover{
+    background-color: rgb(16, 157, 179);
+    /* color: white; */
+    border: 0.5px solid black;
+}

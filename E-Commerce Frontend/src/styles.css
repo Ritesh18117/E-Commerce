@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap:wght@100&family=Martian+Mono:wght@400;700&family=Montserrat:wght@300;400&family=Nunito:ital,wght@0,700;1,500&family=Tilt+Prism&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700&family=Montserrat:wght@300;400&family=Tilt+Prism&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Nunito', sans-serif;
+}

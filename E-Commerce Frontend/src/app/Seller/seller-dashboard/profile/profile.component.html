@@ -1,0 +1,49 @@
+<h2>Company Information</h2>
+<form action="" class="mt-4" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-6">
+            <input [disabled]="!editProfile" type="text" name="companyName" [value]="profile.companyName" [(ngModel)]="profile.companyName" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Company Name">
+        </div>
+        <div class="col-6">
+            <input [disabled]="!editProfile" type="text" name="c  ompanyType" [value]="profile.companyType" [(ngModel)]="profile.companyType" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Type">
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-6 pt-4">
+            <h6>Contact Email</h6>
+            <input [disabled]="!editProfile" type="email" name="email" [(ngModel)]="profile.contactEmail" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="showshop@showshop.com" [value]="profile.email">
+        </div>
+        <div class=" col-6 pt-4">
+            <h6>Company Contact</h6>
+            <input [disabled]="!editProfile" type="text" name="contact" [(ngModel)]="profile.contactInfo" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" [value]="profile.contactInfo">
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-6 pt-4">
+            <h6>GST Number</h6>
+            <input [disabled]="!editProfile" type="text" name="gst" [(ngModel)]="profile.gstNumber" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" [value]="profile.gstNumber">
+        </div>
+        <div class=" col-6 pt-4">
+            <h6>Address</h6>
+            <input [disabled]="!editProfile" type="text" name="place" [(ngModel)]="profile.address" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" [value]="profile.address" >
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-6 pt-4">
+            <h6>Licence Number</h6>
+            <input [disabled]="!editProfile" type="text" name="Licence" [(ngModel)]="profile.licenceNumber" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" [value]="profile.licenceNumber">
+        </div>
+        <div class=" col-6 pt-4">
+            <h6>Website</h6>
+            <input [disabled]="!editProfile" type="text" name="Website" [(ngModel)]="profile.website" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" [value]="profile.website" >
+        </div>
+    </div>
+    <button class="m-3 btn btn-secondary" (click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
+    <button class="m-3 btn btn-primary" *ngIf="editProfile">Submit</button>
+</form>

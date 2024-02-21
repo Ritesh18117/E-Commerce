@@ -1,0 +1,83 @@
+<div class="container" style="min-height: 80vh;">
+    <div class="row m-4">
+        <div class="col-md-8 border" >
+            <h2>Your Cart</h2>
+            <!-- 80% width -->
+            <div class="row border" *ngFor="let item of cardItems; let i=index;">
+                <div class="col-md-3 mt-4 m-3">
+                    <img src="{{item.product.imageURL}}" class="img-fluid">
+                </div>
+                <div class=" row col-md-8 mt-4 m-3 p-1">
+                    <div class="col-7">
+                        {{item.product.name}}
+                        <p>Color : {{item.product.color}} &nbsp; &nbsp; | &nbsp; &nbsp;Size : {{item.productVariation.size}}</p>
+                        <p style="color: green;">Price - ${{item.product.price}} &nbsp; | &nbsp; Discount : ${{(item.product.discount * item.product.price)/100 }}</p>
+                    </div>
+                    <div class="col-5">
+                        Delivary Expected 10-10-2023
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <button class="add-remove p-2" (click)="minus(item)"> - </button> <div class="border p-2 m-1" style="display: inline-block;">&nbsp; {{item.quantity}} &nbsp;</div> <button (click)="plus(item)" class=" add-remove p-2"> + </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button (click)="removeItem(item.id)" class="mt-3 btn btn-danger">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+        <div class="col-md-4 border" >
+            <!-- 20% width -->
+            <div class="border-bottom p-3">
+                PRICE DETAILS
+            </div>
+            <div class="m-2 border-bottom">
+                <div class="price row p-2">
+                    <div class="col-8 ">
+                        Price({{totalQuantity}} item)
+                    </div>
+                    <div class="col-4">
+                        &nbsp; &nbsp;${{total}}
+                    </div>
+                </div>
+                <div class="discount row p-2 ">
+                    <div class="col-8">
+                        Discount
+                    </div>
+                    <div class="col-4">
+                        - ${{discount}}
+                    </div>
+                </div>
+                <div class="delivery row p-2">
+                    <div class="col-8">
+                        Delivery Changes
+                    </div>
+                    <div class="col-4" style="color: green;">
+                        &nbsp; &nbsp;$49
+                    </div>
+                </div>
+            </div>
+            <div class="p-3">
+                <div class="border-bottom row pb-3">
+                    <div class="col-8">
+                        Total Amount
+                    </div>
+                    <div class="col-4">
+                        &nbsp; &nbsp;${{total - discount + delivery}}
+                    </div>
+                </div>
+            </div>
+            <div class="m-3" style="color: green;">
+                You will save ${{discount}} in this order
+            </div>
+            <div>
+                <button routerLink="/placeOrder" class="m-3 p-3 place-order">PLACE ORDER</button>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
