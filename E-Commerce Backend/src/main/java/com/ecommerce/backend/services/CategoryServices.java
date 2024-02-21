@@ -19,7 +19,6 @@ public class CategoryServices {
     public ResponseEntity<List<Category>> getAllCategory(){
         try{
             List<Category> categories = (List<Category>) categoryRepository.findAll();
-            System.out.println(categories);
             if(categories.size() <= 0){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }

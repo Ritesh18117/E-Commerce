@@ -53,7 +53,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String newToken = jwtService.generateToken(username); // Assuming username is valid here
             response.setHeader("Authorization", "Bearer " + newToken);
         }
-        System.out.println(username + " Hell Yeah");
         filterChain.doFilter(request, response);
     }
 }

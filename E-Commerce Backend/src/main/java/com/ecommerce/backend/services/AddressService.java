@@ -69,7 +69,6 @@ public class AddressService {
                 System.out.println(address.getCustomer());
             }
             addressRepository.save(address);
-            System.out.println("HEllo");
             return ResponseEntity.of(Optional.of(address));
         } catch (Exception e){
             e.printStackTrace();

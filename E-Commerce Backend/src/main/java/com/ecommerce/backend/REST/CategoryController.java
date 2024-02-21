@@ -22,7 +22,6 @@ public class CategoryController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Category>> getAllCategory(){
-        System.out.println("helloer");
         return categoryServices.getAllCategory();
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")

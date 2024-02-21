@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { TopHeaderComponent } from './top-header/top-header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContainerComponent } from './Customer/container/container.component';
-import { SerachComponent } from './Customer/container/Serach/Serach.component';
+import { SerachComponent } from './Customer/container/serach/Serach.component';
 import { ProductsListComponent } from './Customer/container/products-list/products-list.component';
 import { ProductComponent } from './Customer/container/products-list/product/product.component'
 import { FormsModule } from '@angular/forms';
@@ -32,6 +32,18 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 
 @NgModule({
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    AuthModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    SellerModule,
+    ToastrModule.forRoot()
+  ],
   declarations: [
     AppComponent,
     TopHeaderComponent,
@@ -52,19 +64,7 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
     MyAddressComponent,
     PlaceOrderComponent
   ],
-  imports: [
-    HttpClientModule,
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    AuthModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    SellerModule,
-    ToastrModule.forRoot()
-  ],
-  providers: [
+    providers: [
     AuthService,
     JwtHelperService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

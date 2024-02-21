@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ProductVariationService {
 
-  getProductVariationByIdURL = '/api/productVariation/getProductVariationById'
+  getProductVariationByIdURL = '/api/productVariation/getProductVariationById';
+  addProductVariationURL = '/api/productVariation/addProductVariation';
   
   constructor(private http :HttpClient) { }
 
@@ -15,5 +16,9 @@ export class ProductVariationService {
     return this.http.get<any>(`${this.getProductVariationByIdURL}/${id}`)
   }
 
+  addProductVariation(token:string,productVariation:any){
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.post<any>(this.addProductVariationURL, productVariation, { headers });
+  }
 
 }

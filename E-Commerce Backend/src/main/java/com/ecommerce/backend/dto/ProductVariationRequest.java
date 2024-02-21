@@ -4,14 +4,14 @@ import com.ecommerce.backend.entities.Product;
 
 import java.util.ArrayList;
 
-public class ProductVariation {
+public class ProductVariationRequest {
     private Product product;
     private ArrayList<ArrayList<String>> size_quant;
 
-    public ProductVariation() {
+    public ProductVariationRequest() {
     }
 
-    public ProductVariation(Product product, ArrayList<ArrayList<String>> size_quant) {
+    public ProductVariationRequest(Product product, ArrayList<ArrayList<String>> size_quant) {
         this.product = product;
         this.size_quant = size_quant;
     }
