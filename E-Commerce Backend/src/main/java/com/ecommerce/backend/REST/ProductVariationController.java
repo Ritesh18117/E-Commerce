@@ -33,11 +33,6 @@ public class ProductVariationController {
         return productVariationServices.addProductVariation(authorizationHeader,productVariationRequest);
     }
 
-//    @PreAuthorize("hasRole('ROLE_SELLER')")
-//    @PatchMapping("/updateProductVariation")
-//    public ResponseEntity<Optional<ProductVariation>> updateProductVariation(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody ProductVariation productVariation){
-//        return productVariationServices.updateProductVariation(authorizationHeader,productVariation);
-//    }
 
     @PreAuthorize("hasRole('ROLE_SELLER')")
     @PatchMapping("/updateProductVariation")

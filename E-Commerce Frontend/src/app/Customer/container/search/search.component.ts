@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-Serach',
-  templateUrl: './Serach.component.html',
-  styleUrls: ['./Serach.component.css']
+  selector: 'app-Search',
+  templateUrl: './Search.component.html',
+  styleUrls: ['./Search.component.css']
 })
-export class SerachComponent {
+export class SearchComponent {
   searchValue:string= ""; // for getting value from input 
   searched:string  = "";  // for showing it in searched paragraph (for using ngIf)
 

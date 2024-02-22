@@ -1,5 +1,5 @@
 <div class="container" >
-    <app-Serach (searchTextChange)="searchIt($event)"></app-Serach>
+    <app-Search (searchTextChange)="searchIt($event)"></app-Search>
     <app-products-list [searched]="searched" #productListComponent></app-products-list>
     <div>Hello</div>
     <div *ngIf="productListComponent.showProductDetails">

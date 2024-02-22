@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { TopHeaderComponent } from './top-header/top-header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContainerComponent } from './Customer/container/container.component';
-import { SerachComponent } from './Customer/container/serach/Serach.component';
+import { SearchComponent } from './Customer/container/search/search.component';
 import { ProductsListComponent } from './Customer/container/products-list/products-list.component';
 import { ProductComponent } from './Customer/container/products-list/product/product.component'
 import { FormsModule } from '@angular/forms';
@@ -29,6 +29,8 @@ import { SellerModule } from './Seller/seller.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth/auth.service';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { AdminModule } from './admin/admin.module';
+
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SellerModule,
+    AdminModule,
     ToastrModule.forRoot()
   ],
   declarations: [
@@ -49,7 +52,7 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
     TopHeaderComponent,
     NavbarComponent,
     ContainerComponent,
-    SerachComponent,
+    SearchComponent,
     ProductsListComponent,
     ProductComponent,
     FilterComponent,

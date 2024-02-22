@@ -1,0 +1,40 @@
+<div class="m-2">
+    <div class="container d-flex justify-content-center align-center">
+      <div class="container p-0 shadow">
+        <img src="../../../assets/signupImg.jpg" alt="Placeholder Image" class="img-fluid">
+      </div>
+      <div class="container border form-div">
+        <div class="wrapper">
+            <div class="" style="width: 80%; margin: auto;">
+                <h4>GET IN TOUCH</h4>
+                <h2 class="form-headline">Create Admin's Account</h2>
+                <form id="submit-form" (ngSubmit)="onSubmit()">
+                    <p class="full-width">
+                        <input id="email" name="email" class="form-input" type="email" placeholder="Your Email*" [(ngModel)]="user.email">
+                        <small class="name-error"></small>
+                    </p>
+                    <p class="full-width">
+                        <input id="passowrd" name="password" class="form-input" type="password" placeholder="Password*"  [(ngModel)]="user.password" required>
+                        <small></small>
+                    </p>
+                    <p class="full-width">
+                        <input  id="confirm-password" name="confirmPassword" class="form-input" [(ngModel)]="user.confirmPassword" type="password" placeholder="Confirm Password*" required>
+                        <small></small>
+                    </p>
+                    <p class="full-width">
+                        <input type="checkbox" id="checkbox" name="checkbox" checked> Yes, I would like to receive
+                        communications by call / email about Company's services.
+                    </p>
+                    <p class="full-width">
+                        <!-- <input type="submit" class="submit-btn" value="Submit" onclick="checkValidations()"> -->
+                        <button class="submit-btn" type="submit">Submit</button>
+                        <!-- <button class="reset-btn" onclick="reset()">Reset</button> -->
+                    </p>
+                </form>
+            </div>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+  

@@ -8,6 +8,7 @@ import { authGuard } from './auth/auth.guard';
 import { DashboardComponent } from './Customer/container/dashboard/dashboard.component';
 import { PlaceOrderComponent } from './Customer/container/place-order/place-order.component';
 import { sellerAuthGuard } from './Seller/auth/auth.guard';
+import { adminAuthGuard } from './admin/auth/auth.guard';
 
 const routes: Routes = [
     { path: '', component: ContainerComponent },
@@ -18,6 +19,11 @@ const routes: Routes = [
       loadChildren: () => import('./Seller/seller.module').then(m => m.SellerModule),
       canActivate: [sellerAuthGuard]
     }, 
+    {
+      path: 'admin',
+      loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+      canActivate: [adminAuthGuard]
+    },
     {
       path: 'auth',
       loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
