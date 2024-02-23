@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { SellerAuthService } from '../Seller/auth/auth.service';
+import { AdminAuthService } from '../admin/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,7 @@ import { SellerAuthService } from '../Seller/auth/auth.service';
 })
 export class NavbarComponent {
 
-  constructor(private _authService:AuthService, private _sellerAuthService:SellerAuthService){ }
+  constructor(private _authService:AuthService, private _sellerAuthService:SellerAuthService, private _adminAuthService:AdminAuthService){ }
 
 
   role:string = "" ;
@@ -33,6 +34,11 @@ export class NavbarComponent {
 
   Sellerlogout(){
     this._sellerAuthService.logout();
+    this.role = "";
+  }
+
+  Adminlogout(){
+    this._adminAuthService.logout();
     this.role = "";
   }
 }

@@ -8,7 +8,6 @@ import { AddShoesComponent } from './seller-dashboard/add-shoes/add-shoes.compon
 import { AddedItemsComponent } from './seller-dashboard/added-items/added-items.component';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [

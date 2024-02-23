@@ -1,0 +1,48 @@
+<div class="container mt-4" style="min-height: 80vh;">
+    <div class="row border">
+        <div class="col-md-3 border p-2 pb-3">
+            <div class="border-bottom p-1">
+                <img src="../../../assets/person_icon.png" class="img-fluid" alt="">
+            &nbsp; &nbsp; &nbsp; Hello Admin
+            </div>
+            <a role="button" (click)="renderAdminInfo()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Admin Infromation
+                </div>
+            </a>
+            <a role="button" (click)="renderVerifiedSeller()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Verified Seller
+                </div>
+            </a>
+            <a role="button" (click)="renderverifySeller()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/cart_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Verify Seller
+                </div>
+            </a>
+            <a role="button" (click)="renderVerifiedProduct()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Verified Product
+                </div>
+            </a>
+            <a role="button" (click)="renderVerifyProduct()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/cart_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Verify Product
+                </div>
+            </a>
+        </div>
+        <div class="col-md-9 border p-3">
+            <app-admin-info *ngIf="adminInfo"></app-admin-info>
+            <app-verified-seller *ngIf="verifiedSeller"></app-verified-seller>
+            <app-verify-seller *ngIf="verifySeller"></app-verify-seller>
+            <app-verified-product *ngIf="verifiedProduct"></app-verified-product>
+            <app-verify-product *ngIf="verifyProduct"></app-verify-product>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

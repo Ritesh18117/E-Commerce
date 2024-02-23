@@ -20,3 +20,5 @@ export class LoginComponent {
     this._router.navigate(['/home']);
   }
 }
+
+

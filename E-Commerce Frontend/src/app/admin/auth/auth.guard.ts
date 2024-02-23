@@ -7,42 +7,43 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
   const isLoggedIn = "true";
   const url = state.url;
 
-  // For Redirecting Page to Dashboard if User if Loggedin
-  if(url === '/admin/login'){
+  if(url === '/admins/dashboard'){
     if(token === null){
-      return true;
-    }else{
-      _router.navigate(['/dashboard']);
-      return false;
-    }
-  }
-
-    // For Redirecting Page to Dashboard if User if Loggedin
-  if(url === '/admin/signup'){
-    if(token === null){
-      return true;
-    }else{
-      _router.navigate(['/dashboard']);
-      return false;
-    }
-  }
-
-    // For Redirecting Page to Dashboard if User if Loggedin
-  if(url === '/admin/changepassword'){
-    if(token === null){
-      return true;
-    }else{
-      _router.navigate(['/dashboard']);
-      return false;
-    }
-  }
-
-  if(url === '/admin/dashboard'){
-    if(token === null){
+      // console.log("I have token");
       _router.navigate(['/']);
       return false;
     }else{
       return true;
+    }
+  }
+
+  // For Redirecting Page to Dashboard if User if Loggedin
+  if(url === '/admins/login'){
+    if(token === null){
+      return true;
+    }else{
+      _router.navigate(['/admins/dashboard']);
+      return false;
+    }
+  }
+
+    // For Redirecting Page to Dashboard if User if Loggedin
+  if(url === '/admins/signup'){
+    if(token === null){
+      return true;
+    }else{
+      _router.navigate(['/admins/dashboard']);
+      return false;
+    }
+  }
+
+    // For Redirecting Page to Dashboard if User if Loggedin
+  if(url === '/admins/changepassword'){
+    if(token === null){
+      return true;
+    }else{
+      _router.navigate(['/admins/dashboard']);
+      return false;
     }
   }
 

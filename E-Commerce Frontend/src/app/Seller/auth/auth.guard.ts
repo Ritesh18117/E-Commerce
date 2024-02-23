@@ -12,7 +12,7 @@ export const sellerAuthGuard: CanActivateFn = (route, state) => {
     if(token === null){
       return true;
     }else{
-      _router.navigate(['/dashboard']);
+      _router.navigate(['/seller/dashboard']);
       return false;
     }
   }
@@ -22,7 +22,7 @@ export const sellerAuthGuard: CanActivateFn = (route, state) => {
     if(token === null){
       return true;
     }else{
-      _router.navigate(['/dashboard']);
+      _router.navigate(['/seller/dashboard']);
       return false;
     }
   }
@@ -32,7 +32,7 @@ export const sellerAuthGuard: CanActivateFn = (route, state) => {
     if(token === null){
       return true;
     }else{
-      _router.navigate(['/dashboard']);
+      _router.navigate(['/seller/dashboard']);
       return false;
     }
   }

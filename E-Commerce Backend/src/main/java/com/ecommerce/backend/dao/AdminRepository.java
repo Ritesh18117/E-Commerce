@@ -1,2 +1,7 @@
-package com.ecommerce.backend.dao;public interface AdminRepository {
+package com.ecommerce.backend.dao;
+
+import com.ecommerce.backend.entities.Admin;
+import org.springframework.data.repository.CrudRepository;
+
+public interface AdminRepository extends CrudRepository<Admin, Long> {
 }

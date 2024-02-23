@@ -9,8 +9,9 @@ const routes: Routes = [
   // Redirect /seller to /seller/login
   { path: '', redirectTo: 'signup', pathMatch: 'full' },
 
+  //  Do not uncomment this, this takes me 2 days to find out this is the routing problem
   // Redirect invalid paths to /seller/login
-  { path: '**', redirectTo: 'signup', pathMatch: 'full' }
+  // { path: '**', redirectTo: 'signup', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -15,15 +15,15 @@ const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent }, 
     {
-      path: 'seller',
-      loadChildren: () => import('./Seller/seller.module').then(m => m.SellerModule),
-      canActivate: [sellerAuthGuard]
-    }, 
-    {
       path: 'admin',
       loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
       canActivate: [adminAuthGuard]
     },
+    {
+      path: 'seller',
+      loadChildren: () => import('./Seller/seller.module').then(m => m.SellerModule),
+      canActivate: [sellerAuthGuard]
+    }, 
     {
       path: 'auth',
       loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),

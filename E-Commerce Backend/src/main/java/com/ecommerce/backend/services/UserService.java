@@ -1,5 +1,6 @@
 package com.ecommerce.backend.services;
 
+import com.ecommerce.backend.entities.Admin;
 import com.ecommerce.backend.entities.Customer;
 import com.ecommerce.backend.entities.User;
 import com.ecommerce.backend.dao.UserRepository;
@@ -30,6 +31,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     private CustomerService customerService;
     @Autowired
+    private AdminService adminService;
+    @Autowired
     @Lazy
     private PasswordEncoder encoder;
     @Override
@@ -59,13 +62,10 @@ public class UserService implements UserDetailsService {
     }
     public ResponseEntity<User> addUser(@RequestBody NewUserRequest user){
         try{
-            System.out.println(user.getConfirmPassword());
-            System.out.println(user.getPassword());
             if(Objects.equals(user.getPassword(), user.getConfirmPassword())){
-                System.out.println(user.getEmail());
                 User newUser = new User();
                 newUser.setPassword(encoder.encode(user.getPassword()));
-                newUser.setUsername(user.getEmail());
+                newUser.setUsername(user.getUsername());
                 newUser.setRole(user.getRole());
                 userRepository.save(newUser);
                 if(Objects.equals(user.getRole(), "ROLE_SELLER")){
@@ -78,6 +78,11 @@ public class UserService implements UserDetailsService {
                     Customer customer = new Customer();
                     customer.setUser(newUser);
                     customerService.addCustomer(customer);
+                }
+                if(Objects.equals(user.getRole(), "ROLE_ADMIN")){
+                    Admin admin = new Admin();
+                    admin.setUser(newUser);
+                    adminService.addAdmin(admin);
                 }
                 return ResponseEntity.of(Optional.of(newUser));
             } else{

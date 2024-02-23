@@ -1,7 +1,7 @@
 package com.ecommerce.backend.dto;
 
 public class NewUserRequest {
-    private String email;
+    private String username;
     private String password;
     private String confirmPassword;
     private String role;
@@ -9,19 +9,19 @@ public class NewUserRequest {
     public NewUserRequest() {
     }
 
-    public NewUserRequest(String email, String password, String confirmPassword, String role) {
-        this.email = email;
+    public NewUserRequest(String username, String password, String confirmPassword, String role) {
+        this.username = username;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.role = role;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
