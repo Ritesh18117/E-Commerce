@@ -7,7 +7,8 @@
                     Product Name : {{product.name}} <br>
                     Sales Price : {{product.price}} <br>
                     Status : <span style="color:green" *ngIf="product.approvalStatus == 'true'">Approved</span> 
-                             <span *ngIf="product.approvalStatus == 'false'" style="color:red">Not Approved</span> <br>
+                             <span *ngIf="product.approvalStatus == 'false'" style="color:red">Not Approved</span>
+                             <span *ngIf="product.approvalStatus == 'rejected'" style="color:red">Rejected</span> <br>
                     <a role="button" class="link-primary" (click)="editProduct()" >Edit</a>
                     <a role="button" *ngIf="product.approvalStatus == 'true'" class="link-primary m-4" (click)="addQuantityShowMethod(product.id)">Add Quantity</a>
                 </div>

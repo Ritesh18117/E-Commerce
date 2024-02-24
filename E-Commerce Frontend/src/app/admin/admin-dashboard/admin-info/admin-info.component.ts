@@ -24,7 +24,6 @@ export class AdminInfoComponent {
     try {
       const data = await this.adminService.myProfile(this.token).toPromise();
       this.profile = data;
-      console.log(data);
     } catch (error) {
       console.error("ERROR!!!", error);
     }
@@ -37,13 +36,12 @@ export class AdminInfoComponent {
   onSubmit() {
     this.adminService.updateProfile(this.token,this.profile).subscribe(
       (data) => {
-        console.log(data);
         this.profile = data;
         this.toastr.success('Profile Updated', 'Success');
         this.editProfile = !this.editProfile;
       }, (error) => {
         console.error("Error", error);
-        this.toastr.error('Profile Updating Error', 'Success');
+        this.toastr.error('Profile Updating Error', 'Error');
       }
     )
   }

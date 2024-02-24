@@ -45,6 +45,24 @@ public class ProductController {
         return productService.getAllProduct();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/notApprovedProducts")
+    public ResponseEntity<List<Product>> notApprovedProducts(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return productService.notApprovedProduct(authorizationHeader);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/approveProduct/{productId}")
+    public ResponseEntity<Map<String, String>> approveProduct(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long productId){
+        return productService.approveProduct(authorizationHeader,productId);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/rejectProduct/{productId}")
+    public ResponseEntity<Map<String, String>> rejectProduct(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long productId){
+        return productService.rejectProduct(authorizationHeader,productId);
+    }
+
 }
 
 

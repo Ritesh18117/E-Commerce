@@ -68,16 +68,31 @@ export class AddShoesComponent {
       this.token = sessionStorage.getItem('token');
       this._productService.addProduct(this.token,this.product).subscribe(
         (data) => {
-          console.log(data);
           this.toastr.success('Product Added!!', 'Success');
+          this.resetProduct();
         }, (error) =>{
           console.error("ERROR", error);
+          this.toastr.error('Error Adding product', 'Error');
         }
       )
     } catch (error) {
       console.error("Error submitting form", error);
       this.toastr.error('Error submitting form', 'Error');
     }
+  }
+
+  resetProduct(): void {
+    this.product = {
+      name: "",
+      category: { id: "" },
+      gender: "",
+      color: "",
+      price: 0,
+      discount: 0,
+      margin: 0,
+      imageURL: "",
+      description: "",
+    };
   }
   
 }

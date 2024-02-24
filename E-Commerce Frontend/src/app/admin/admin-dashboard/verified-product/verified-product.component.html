@@ -1,1 +1,24 @@
-<p>verify-product</p>
+<h2>My Added Products</h2>
+<ng-container *ngFor="let product of products">
+    <div class="mt-4 border p-3 row">
+        <div class="row">
+            <div class="row">
+                <div class="detail col-md-9">
+                    Product Name : {{product.name}} <br>
+                    Sales Price : {{product.price}} <br>
+                    Discount (%) : {{product.discount}}% <br>
+                    Margin (%) : {{product.margin}}% <br>
+                    Status : <span style="color:green" *ngIf="product.approvalStatus == 'true'">Approved</span> <br>
+                             <span *ngIf="product.approvalStatus == 'false'" style="color:red">Not Approved</span> <br> <br>
+                    <button class="btn btn-success btn-sm" (click)="approveProduct(product.id)">Approve</button> &nbsp; &nbsp;
+                    <button class="btn btn-danger btn-sm" (click)="rejectProduct(product.id)">Reject</button>
+                </div>
+                <div class="detail col-md-3">
+                    <img src="{{product.imageURL}}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+ 
+
