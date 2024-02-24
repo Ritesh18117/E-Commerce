@@ -49,4 +49,16 @@ public class AdminController {
     public ResponseEntity<Admin> addAdmin(@RequestBody Admin admin){
         return adminService.addAdmin(admin);
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/myProfile")
+    public ResponseEntity<Admin> myProfile(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return adminService.myProfile(authorizationHeader);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/updateProfile")
+    public ResponseEntity<Admin> updateProfile(@RequestBody Admin updateAdmin,@RequestHeader(value = "Authorization") String authorizationHeader){
+        return adminService.updateProfile(authorizationHeader,updateAdmin);
+    }
 }

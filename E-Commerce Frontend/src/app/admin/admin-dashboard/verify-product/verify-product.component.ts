@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './verify-product.component.css'
 })
 export class VerifyProductComponent {
-
+  onSubmit(){
+    
+  }
 }

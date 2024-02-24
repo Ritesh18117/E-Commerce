@@ -15,17 +15,19 @@ public class Admin {
     private String name;
     private String contact;
     private String personalMailId;
+    private String address;
     private String status;
 
     public Admin() {
     }
 
-    public Admin(Long id, User user, String name, String contact, String personalMailId, String status) {
+    public Admin(Long id, User user, String name, String contact, String personalMailId, String address, String status) {
         this.id = id;
         this.user = user;
         this.name = name;
         this.contact = contact;
         this.personalMailId = personalMailId;
+        this.address = address;
         this.status = status;
     }
 
@@ -69,6 +71,13 @@ public class Admin {
         this.personalMailId = personalMailId;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getStatus() {
         return status;

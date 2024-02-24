@@ -1,1 +1,38 @@
-<p>Admin Information page</p>
+<h2>Admin Information</h2>
+<form action="" class="mt-4" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-6">
+            <h6>Employee ID</h6>
+            <input disabled type="text" [value]="profile.id" name="companyName" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Employee ID">
+        </div>
+        <div class="col-6">
+            <h6>Employee Name</h6>
+            <input [disabled]="!editProfile" [value]="profile.name" [(ngModel)]="profile.name" type="text" name="c  ompanyType" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Employee Name">
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-6 pt-4">
+            <h6>Personal Email</h6>
+            <input [value]="profile.personalMailId" [(ngModel)]="profile.personalMailId" type="email" name="email" [disabled]="!editProfile" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="xyz@gmail.com" >
+        </div>
+        <div class=" col-6 pt-4">
+            <h6>Contact</h6>
+            <input type="text" [value]="profile.contact" [(ngModel)]="profile.contact" name="contact" [disabled]="!editProfile" class="form-control form-control-lg" id="colFormLabelLg">
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-6 pt-4">
+            <h6>Address</h6>
+            <input [disabled]="!editProfile" [value]="profile.address" [(ngModel)]="profile.address" type="text" name="Licence" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" >
+        </div>
+        <div class=" col-6 pt-4">
+            <h6>Status</h6>
+            <input disabled type="text" [value]="profile.status" name="Licence" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" >
+        </div>
+    </div>
+    <button *ngIf="!editProfile" class="m-3 btn btn-secondary" (click)="editProfileMethod()">Edit Profile</button>
+    <button *ngIf="editProfile" class="m-3 btn btn-primary">Submit</button>
+</form>
