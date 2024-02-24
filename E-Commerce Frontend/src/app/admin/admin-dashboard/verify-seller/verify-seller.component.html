@@ -1,1 +1,28 @@
-<p>verify-seller works!</p>
+<h2>Sellers for Approval</h2>
+<ng-container *ngFor="let seller of sellers">
+    <div class="mt-4 border p-3 row">
+        <div class="row">
+            <div class="row">
+                <div class="detail col-md-9">
+                    Seller Id : {{seller.id}} <br>
+                    Company Name : {{seller.companyName}} <br>
+                    Company Type : {{seller.companyType}} <br>
+                    GST Number : {{seller.gstNumber}} <br>
+                    Licence Number : {{seller.licenceNumber}} <br>
+                    Contact Email : {{seller.contactEmail}} <br>
+                    Website : {{seller.website}} <br>
+                    Address : {{seller.address}} 
+                    Status : <span style="color:green" *ngIf="seller.approvalStatus == 'true'">Approved</span> <br>
+                             <span *ngIf="seller.approvalStatus == 'false'" style="color:red">Not Approved</span> <br> <br>
+                    <button class="btn btn-success btn-sm" (click)="approveSeller(seller.id)">Approve</button> &nbsp; &nbsp;
+                    <button class="btn btn-danger btn-sm" (click)="rejectSeller(seller.id)">Reject</button>
+                </div>
+                <div class="detail col-md-3">
+                    <img src="{{seller.imageURL}}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+ 
+

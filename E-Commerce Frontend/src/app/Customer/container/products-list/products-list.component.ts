@@ -1,6 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
-import { Product } from 'src/app/Models/Product';
 import { ProductVariation } from 'src/app/Models/ProductVariation';
+import { CategoryService } from 'src/app/Services/category.service';
 import { ProductServiceService } from 'src/app/Services/product-service.service';
 
 @Component({
@@ -11,12 +11,12 @@ import { ProductServiceService } from 'src/app/Services/product-service.service'
 export class ProductsListComponent {
 
   products!: any;
+  categories: any;
 
   constructor(private productService:ProductServiceService){}
 
   ngOnInit(): void {
     this.getApprovedProducts();
-    
   }
 
   getApprovedProducts() {
@@ -37,18 +37,5 @@ export class ProductsListComponent {
 
  @Input() 
   searched:string ='';
-  
-  // For Sending Data to Filter Component 
-  // total = this.products.length;
-  // inStock = this.products.filter(x => x.is_in_inventory === true).length;
-  // notInStock = this.products.filter(x => x.is_in_inventory === false).length;
-
-  selectedRadioButton: string = 'all';
-
-  // For Radio Buttons
-  onFilterChanged(event: string){
-    console.log(event);
-    this.selectedRadioButton = event;
-  }
 
 }

@@ -1,7 +1,9 @@
 package com.ecommerce.backend.services;
 
+import com.ecommerce.backend.dao.AdminRepository;
 import com.ecommerce.backend.dao.SellerRepository;
 import com.ecommerce.backend.dao.UserRepository;
+import com.ecommerce.backend.entities.Admin;
 import com.ecommerce.backend.entities.Seller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class SellerService {
@@ -22,6 +23,8 @@ public class SellerService {
     private UserRepository userRepository;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private AdminRepository adminRepository;
 
     // It is here for testing else move to AdminService
     public ResponseEntity<List<Seller>> getAllSeller(){
@@ -82,6 +85,72 @@ public class SellerService {
             savedSeller.getUser().setPassword(null);
             return ResponseEntity.of(Optional.of(savedSeller));
         }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<List<Seller>> notApprovedSellers(@RequestHeader(value = "Authorization") String authorizationHeader){
+        try{
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Admin admin = adminRepository.findByUserId(userId);
+
+            if(admin != null && Objects.equals(admin.getStatus(), "Active")){
+                List<Seller> sellers = sellerRepository.findAllByApprovalStatus("false");
+                for(Seller seller : sellers){
+                    seller.setUser(null);
+                }
+                return ResponseEntity.of(Optional.of(sellers));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<Map<String,String>> approveSeller(@RequestHeader(value = "Authorization") String authorizationHeader,Long sellerId){
+        try{
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Admin admin = adminRepository.findByUserId(userId);
+            if(admin != null && Objects.equals(admin.getStatus(), "Active")){
+                Optional<Seller> seller = sellerRepository.findById(sellerId);
+                seller.get().setApprovalStatus("true");
+                sellerRepository.save(seller.get());
+                Map<String, String> op = new HashMap<>();
+                op.put("Message", "Successfully Approved Seller!!!");
+                return ResponseEntity.of(Optional.of(op));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<Map<String,String>> rejectSeller(@RequestHeader(value = "Authorization") String authorizationHeader,Long sellerId){
+        try{
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Admin admin = adminRepository.findByUserId(userId);
+            if(admin != null && Objects.equals(admin.getStatus(), "Active")){
+                Optional<Seller> seller = sellerRepository.findById(sellerId);
+                seller.get().setApprovalStatus("rejected");
+                sellerRepository.save(seller.get());
+                Map<String, String> op = new HashMap<>();
+                op.put("Message", "Seller Rejected!!!");
+                return ResponseEntity.of(Optional.of(op));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

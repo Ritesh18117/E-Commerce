@@ -1,13 +1,9 @@
-<app-filter class="container" 
-    (SelectedFilterRadioButton)="onFilterChanged($event)"></app-filter>
-<p>{{searched}}</p>
+<app-filter class="container"></app-filter>
 <div class="product-list d-flex flex-wrap justify-content-center" style="background-color: #e0f9f6;">
     <ng-container *ngFor="let product of products" >
-        <ng-container *ngIf="selectedRadioButton ==='all' || product.is_in_inventory.toString() === selectedRadioButton">
-            <app-product (click) = "selectedProduct = product; showProductDetails = true"
+        <app-product (click) = "selectedProduct = product; showProductDetails = true"
                  [product]="product"
                 *ngIf="searched === '' || product.name.toLowerCase().includes(searched.toLowerCase().trim())">
             </app-product>
-        </ng-container>
     </ng-container>
 </div>

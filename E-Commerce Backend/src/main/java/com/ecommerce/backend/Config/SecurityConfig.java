@@ -42,7 +42,7 @@ public class SecurityConfig {
         System.out.println("Hi from Security COnfig");
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/seller/**").hasRole("SELLER")
+                        .requestMatchers("/api/seller/**").permitAll()
                         .requestMatchers("/api/customer/**").hasRole("CUSTOMER")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/user/**").permitAll()
