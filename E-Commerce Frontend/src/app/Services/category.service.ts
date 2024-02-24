@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class CategoryService {
 
   private getAllCategoryURL = '/api/category/getAll';
+  private getByCategoryIdURL = "/api/category/getProductByCategoryId";
 
   constructor(private http:HttpClient) { }
 
@@ -15,4 +16,7 @@ export class CategoryService {
     return this.http.get(`${this.getAllCategoryURL}`);
   }
 
+  getByCategoryId(categoryId:number):Observable<any>{
+    return this.http.get(`${this.getByCategoryIdURL}/${categoryId}`);
+  }
 }

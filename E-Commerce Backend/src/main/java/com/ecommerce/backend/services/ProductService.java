@@ -116,6 +116,45 @@ public class ProductService {
         }
     }
 
+    public ResponseEntity<List<Map<String, Object>>> findByCategories(Long category_id){
+        try {
+            List<ProductVariation> productVariations = (List<ProductVariation>) productVariationRepository.findAllByProductCategoryId(category_id);
+
+            Map<String,List<String>> groupedData = new HashMap<>();
+            for (ProductVariation pv : productVariations) {
+                String key = String.valueOf(pv.getProduct().getId());
+
+                if (!groupedData.containsKey(key)) {
+                    groupedData.put(key, new ArrayList<>());
+                }
+
+                List<String> sizeQuanList = groupedData.get(key);
+                sizeQuanList.add(pv.getSize() + ", " + pv.getQuantity());
+            }
+
+            List<Map<String, Object>> outputList = new ArrayList<>();
+            for (Map.Entry<String, List<String>> entry : groupedData.entrySet()) {
+                Map<String, Object> productGroup = new HashMap<>();
+                Optional<Product> product = productRepository.findById(Long.valueOf(entry.getKey()));
+
+                if(product.isPresent() && Objects.equals(product.get().getApprovalStatus(), "true")){
+                    product.get().setSeller(null);
+                    product.get().setMargin(null);
+                    productGroup.put("product", product);
+                    productGroup.put("size_quan", entry.getValue());
+
+                    outputList.add(productGroup);
+                }else{
+                    continue;
+                }
+            }
+            return ResponseEntity.of(Optional.of(outputList));
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     public ResponseEntity<List<Product>> notApprovedProduct(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
             String token = extractTokenFromHeader(authorizationHeader);

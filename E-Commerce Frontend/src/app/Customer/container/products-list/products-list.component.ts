@@ -13,7 +13,14 @@ export class ProductsListComponent {
   products!: any;
   categories: any;
 
-  constructor(private productService:ProductServiceService){}
+  // For Showing in Product Details
+  selectedProduct!: ProductVariation;
+  showProductDetails:boolean = false;
+
+  @Input() 
+  searched:string ='';
+
+  constructor(private productService:ProductServiceService,private categoryService:CategoryService){}
 
   ngOnInit(): void {
     this.getApprovedProducts();
@@ -23,7 +30,6 @@ export class ProductsListComponent {
     this.productService.getApprovedProducts().subscribe(
       (data) => {
         this.products = data;
-        console.log(this.products);
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -31,11 +37,18 @@ export class ProductsListComponent {
     );
   }
 
-  // For Showing in Product Details
-  selectedProduct!: ProductVariation;
-  showProductDetails:boolean = false;
-
- @Input() 
-  searched:string ='';
+  onCategoryFilter(categoryId:number){
+    if(categoryId === 0){
+      this.getApprovedProducts();
+    }else{
+      this.categoryService.getByCategoryId(categoryId).subscribe(
+        (data) =>{
+          this.products = data;
+        },(error) =>{
+          console.error("ERROR", error);
+        }
+      )
+    }
+  }
 
 }

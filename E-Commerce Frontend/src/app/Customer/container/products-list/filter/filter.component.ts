@@ -10,6 +10,8 @@ export class FilterComponent {
 
   categories:any;
 
+  @Output() filterNotify: EventEmitter<number> = new EventEmitter();
+
   constructor(private categoryService:CategoryService){}
 
   ngOnInit(){
@@ -19,16 +21,14 @@ export class FilterComponent {
   getCategories(){
     this.categoryService.getAllCategory().subscribe(
       (data) =>{
-        this.categories = data;
-        console.log(data);
-        
+        this.categories = data;        
       }, (error) =>{
         console.error("Error", error);
       }
     )
   }
 
-  filter(category:string){
-    
+  filter(categoryId:number){
+    this.filterNotify.emit(categoryId);
   }
 }

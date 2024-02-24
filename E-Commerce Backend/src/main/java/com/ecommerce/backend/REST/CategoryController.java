@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/category")
@@ -28,5 +29,10 @@ public class CategoryController {
     @PostMapping("/addCategory")
     public ResponseEntity<Category> addCategory(@RequestBody Category category){
         return categoryServices.addCategory(category);
+    }
+
+    @GetMapping("/getProductByCategoryId/{categoryId}")
+    public ResponseEntity<List<Map<String, Object>>> getProductByCategoryId(@PathVariable Long categoryId){
+        return categoryServices.findByCategoryId(categoryId);
     }
 }
