@@ -63,6 +63,11 @@ public class ProductController {
         return productService.rejectProduct(authorizationHeader,productId);
     }
 
+    @GetMapping("/getByProductId/{product_id}")
+    public ResponseEntity<List<Map<String, Object>>> getByProductId(@PathVariable Long product_id){
+        return productService.findByProductId(product_id);
+    }
+
 }
 
 

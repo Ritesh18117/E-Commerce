@@ -31,12 +31,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let x of size_quant; let i=index">
-                            <th scope="row">{{i+1}}</th>
-                            <td>{{x[0]}}</td>
-                            <td>{{x[1]}}</td>
-                            <td><a role="button" style="color: Red;" class="link-danger" (click)="deleteQuantity(i)"> Delete</a></td>
-                          </tr>
+                            <tr *ngFor="let x of parsedValues; let i=index">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{x.first}}</td>
+                                <td>{{x.second}}</td>
+                                <td>
+                                    <a role="button" style="color: Red;" class="link-danger" (click)="deleteQuantity(i,product.id,x.first)">Delete</a>
+                                </td>
+                            </tr>
                         </tbody>
                       </table>
                 </div>

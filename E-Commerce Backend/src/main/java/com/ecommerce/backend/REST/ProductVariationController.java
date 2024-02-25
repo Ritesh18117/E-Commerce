@@ -33,7 +33,6 @@ public class ProductVariationController {
         return productVariationServices.addProductVariation(authorizationHeader,productVariationRequest);
     }
 
-
     @PreAuthorize("hasRole('ROLE_SELLER')")
     @PatchMapping("/updateProductVariation")
     public ResponseEntity<Optional<ProductVariation>> updateProductVariation(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody ProductVariation productVariation){
@@ -43,6 +42,12 @@ public class ProductVariationController {
     @GetMapping("/getProductVariationById/{id}")
     public ResponseEntity<ProductVariation> getProductVariationById(@PathVariable Long id){
         return productVariationServices.getProductVariationById(id);
+    }
+
+    @PreAuthorize("hasRole('ROLE_SELLER')")
+    @DeleteMapping("/deleteByProductVariationId/{productId}/{size}")
+    public ResponseEntity<Map<String,String>> deleteByProductIdAndSize(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long productId,@PathVariable String size){
+        return productVariationServices.deleteByProductIdAndSize(authorizationHeader,productId,size);
     }
 
 }

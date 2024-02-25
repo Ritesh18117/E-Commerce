@@ -1,7 +1,3 @@
-// Product Variation is A Table which contains the Amount, Color and Size of the Product which is Connected to each other,
-// It contains that " Which product of which size and which color is available in which quantity."
-//  color, Size and Quantity should be sync together so that people should not order anything that is already sold
-//  or anything that is of different color
 package com.ecommerce.backend.entities;
 
 import jakarta.persistence.*;

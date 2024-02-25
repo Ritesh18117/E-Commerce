@@ -4,6 +4,7 @@ import { ProductServiceService } from 'src/app/Services/product-service.service'
 import { ProductVariationService } from 'src/app/Services/product-variation.service';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/Services/category.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-added-items',
@@ -44,28 +45,62 @@ export class AddedItemsComponent {
     this.editProductTag = !this.editProductTag;
   }
 
+  parsedValues: { first: string; second: string }[] = [];
   addQuantityShowMethod(productId: any) {
-    this.size_quant = [];
+    this.parsedValues = [];
+    this._productService.getProductById(productId).subscribe(
+      (data) =>{
+        let size_quanttity:Array<[string, string]> = data[0].size_quan;
+        // Logic for Seperating the size and quant from size_quant
+        size_quanttity.forEach((tuple) => {
+          let firstString: string = tuple[0];
+          let s = "";
+          for(let i = 0;i < tuple.length;i++){
+            if(i > 1){
+              s += tuple[i];
+            }
+          }
+          this.parsedValues.push({first:firstString,second:s.trim()})
+        });
+      }, (error) =>{
+        console.error("Error", error);
+      }
+    )
     this.activeProductId = this.activeProductId === productId ? null : productId; // Toggle the active product ID
   }
 
   addQuantity() {
     if (this.size !== "" && this.quantity !== "") {
-      let sizeQuant: [string, string] = [this.size, this.quantity];
-      this.size_quant.push(sizeQuant);
-      console.log(this.size_quant);
-      
+      this.parsedValues.push({first:this.size,second:this.quantity});      
       this.size = "";
       this.quantity = "";
     }
   }
 
-  deleteQuantity(index:number){
-    this.size_quant.splice(index, 1);
+  deleteQuantity(index:number,productId:number,size:string){
+    // this.size_quant.splice(index, 1);
+    console.log(size);
+    
+    this._productVariationService.deleteByProductIdAndSize(this.token,productId,size).subscribe(
+      (data) =>{
+        console.log(data);
+        this.toastr.success("Productvariation Deleted Successfully!!","Success");
+      }, (error) =>{
+        console.error("ERROR",error);
+        // this.toastr.error("Productvariation Deletion Error","Error");
+      }
+    );
+    this.parsedValues.splice(index,1);
   }
 
   Submit(product_id: number) {
-    let productVariation: {
+
+    this.parsedValues.forEach((item) => {
+      let tuple: [string, string] = [item.first, item.second];
+      this.size_quant.push(tuple);
+    });
+
+    let productVariation: { // API DATA to Send
       product: {
         id: number;
       };
@@ -76,7 +111,7 @@ export class AddedItemsComponent {
       },
       size_quant: this.size_quant,
     };
-    this.token = sessionStorage.getItem('token');
+
     this._productVariationService.addProductVariation(this.token,productVariation).subscribe(
       (data) => {
         console.log(data);

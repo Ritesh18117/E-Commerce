@@ -13,6 +13,7 @@ export class ProductServiceService {
   private getNotApprovedProductsURL = '/api/product/notApprovedProducts';
   private approveProductURL = '/api/product/approveProduct';
   private rejectProductURL = '/api/product/rejectProduct';
+  private getProductByIdURL = "/api/product/getByProductId"
 
   constructor(private http: HttpClient) { }
 
@@ -43,5 +44,9 @@ export class ProductServiceService {
   rejectProduct(token:string,productId:number):Observable<any>{
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.get<any>(`${this.rejectProductURL}/${productId}`, { headers });
+  }
+
+  getProductById(productId:number):Observable<any>{
+    return this.http.get(`${this.getProductByIdURL}/${productId}`);
   }
 }

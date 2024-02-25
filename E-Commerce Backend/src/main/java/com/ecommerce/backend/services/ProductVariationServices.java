@@ -81,14 +81,33 @@ public class ProductVariationServices {
 
             if (Objects.equals(seller.getId(), product.get().getSeller().getId())){
                 if(Objects.equals(product.get().getApprovalStatus(), "true")){
-                    for(ArrayList<String> size_quant : productVariationRequest.getSize_quant()){
-                        String size = size_quant.get(0);
-                        String quantity = size_quant.get(1);
-                        ProductVariation productVariation = new ProductVariation();
-                        productVariation.setProduct(product.get());
-                        productVariation.setSize(size);
-                        productVariation.setQuantity(Integer.parseInt(quantity));
-                        productVariationRepository.save(productVariation);
+//                    List<ProductVariation> productVariations = productVariationRepository.findAllByProductId(productVariationRequest.getProduct().getId());
+//                    for(ArrayList<String> size_quant : productVariationRequest.getSize_quant()){
+//                        String size = size_quant.get(0);
+//                        String quantity = size_quant.get(1);
+//                        ProductVariation productVariation = new ProductVariation();
+//                        productVariation.setProduct(product.get());
+//                        productVariation.setSize(size);
+//                        productVariation.setQuantity(Integer.parseInt(quantity));
+//                        productVariationRepository.save(productVariation);
+//                    }
+                    List<ProductVariation> existingVariations = productVariationRepository.findAllByProductId(productVariationRequest.getProduct().getId());
+
+                    for (ArrayList<String> sizeQuant : productVariationRequest.getSize_quant()) {
+                        String size = sizeQuant.get(0);
+
+                        // Check if the size already exists in the database
+                        boolean sizeExists = existingVariations.stream()
+                                .anyMatch(variation -> variation.getSize().equals(size));
+
+                        if (!sizeExists) {
+                            String quantity = sizeQuant.get(1);
+                            ProductVariation productVariation = new ProductVariation();
+                            productVariation.setProduct(productVariationRequest.getProduct());
+                            productVariation.setSize(size);
+                            productVariation.setQuantity(Integer.parseInt(quantity));
+                            productVariationRepository.save(productVariation);
+                        }
                     }
                     Map<String, Object> output = new HashMap<>();
                     output.put("message","Added Successfully!!");
@@ -143,6 +162,30 @@ public class ProductVariationServices {
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<Map<String,String>> deleteByProductIdAndSize(@RequestHeader(value = "Authorization") String authorizationHeader, Long productId,String size){
+        try{
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Seller seller = sellerRepository.findByUserId(userId);
+
+            ProductVariation productVariation = productVariationRepository.findByProductIdAndSize(productId,size);
+            System.out.println(productId + " " + size);
+            System.out.println(productVariation.getId());
+            if (Objects.equals(seller.getId(), productVariation.getProduct().getSeller().getId())) {
+                productVariationRepository.deleteById(productVariation.getId());
+                Map<String, String> output = new HashMap<>();
+                output.put("Message", "Deleted Successfully!!");
+                return ResponseEntity.of(Optional.of(output));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

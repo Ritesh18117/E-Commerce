@@ -9,6 +9,7 @@ export class ProductVariationService {
 
   getProductVariationByIdURL = '/api/productVariation/getProductVariationById';
   addProductVariationURL = '/api/productVariation/addProductVariation';
+  deleteByProductIdAndSizeURL = "/api/productVariation/deleteByProductVariationId";
   
   constructor(private http :HttpClient) { }
 
@@ -21,4 +22,8 @@ export class ProductVariationService {
     return this.http.post<any>(this.addProductVariationURL, productVariation, { headers });
   }
 
+  deleteByProductIdAndSize(token:string,productId:number,size:string){
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.delete<any>(`${this.deleteByProductIdAndSizeURL}/${productId}/${size}`, { headers });
+  }
 }
