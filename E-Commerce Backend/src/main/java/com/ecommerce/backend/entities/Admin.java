@@ -2,6 +2,9 @@ package com.ecommerce.backend.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "admins")
 public class Admin {
@@ -17,6 +20,9 @@ public class Admin {
     private String personalMailId;
     private String address;
     private String status;
+//    @OneToMany(mappedBy = "verifiedBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Long> verifiedSellers = new ArrayList<>();
+    private List<Long> verifiedProducts = new ArrayList<>();
 
     public Admin() {
     }

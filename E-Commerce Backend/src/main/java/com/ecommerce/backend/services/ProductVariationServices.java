@@ -81,34 +81,32 @@ public class ProductVariationServices {
 
             if (Objects.equals(seller.getId(), product.get().getSeller().getId())){
                 if(Objects.equals(product.get().getApprovalStatus(), "true")){
-//                    List<ProductVariation> productVariations = productVariationRepository.findAllByProductId(productVariationRequest.getProduct().getId());
-//                    for(ArrayList<String> size_quant : productVariationRequest.getSize_quant()){
-//                        String size = size_quant.get(0);
-//                        String quantity = size_quant.get(1);
-//                        ProductVariation productVariation = new ProductVariation();
-//                        productVariation.setProduct(product.get());
-//                        productVariation.setSize(size);
-//                        productVariation.setQuantity(Integer.parseInt(quantity));
-//                        productVariationRepository.save(productVariation);
-//                    }
                     List<ProductVariation> existingVariations = productVariationRepository.findAllByProductId(productVariationRequest.getProduct().getId());
 
                     for (ArrayList<String> sizeQuant : productVariationRequest.getSize_quant()) {
                         String size = sizeQuant.get(0);
+                        String quantity = sizeQuant.get(1);
 
-                        // Check if the size already exists in the database
-                        boolean sizeExists = existingVariations.stream()
-                                .anyMatch(variation -> variation.getSize().equals(size));
+                        // Attempt to find an existing variation for this size
+                        Optional<ProductVariation> existingVariationOptional = existingVariations.stream()
+                                .filter(variation -> variation.getSize().equals(size))
+                                .findFirst();
 
-                        if (!sizeExists) {
-                            String quantity = sizeQuant.get(1);
+                        if (existingVariationOptional.isPresent()) {
+                            // If exists, update the quantity of the existing variation
+                            ProductVariation existingVariation = existingVariationOptional.get();
+                            existingVariation.setQuantity(Integer.parseInt(quantity));
+                            productVariationRepository.save(existingVariation);
+                        } else {
+                            // If not exists, create a new variation
                             ProductVariation productVariation = new ProductVariation();
-                            productVariation.setProduct(productVariationRequest.getProduct());
+                            productVariation.setProduct(product.get()); // Ensure you're setting the fetched product, not the one from the request directly
                             productVariation.setSize(size);
                             productVariation.setQuantity(Integer.parseInt(quantity));
                             productVariationRepository.save(productVariation);
                         }
                     }
+
                     Map<String, Object> output = new HashMap<>();
                     output.put("message","Added Successfully!!");
                     return ResponseEntity.of(Optional.of(output));
