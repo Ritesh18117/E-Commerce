@@ -12,36 +12,36 @@ import { first } from 'rxjs';
   styleUrls: ['./added-items.component.css']
 })
 export class AddedItemsComponent {
-  
-  token:any;
-  myProducts:any;
-  size_quant:Array<[string, string]> = [];
-  size:string = "";
-  quantity:string = "";
+
+  token: any;
+  myProducts: any;
+  size_quant: Array<[string, string]> = [];
+  size: string = "";
+  quantity: string = "";
 
   activeProductId: any = null;
-  editProductTag:boolean = false;
+  editProductTag: boolean = false;
 
-  categories:any;
+  categories: any;
 
-  constructor(private _categoryService:CategoryService,private toastr: ToastrService,private _productService:ProductServiceService, private _productVariationService:ProductVariationService){}
-  
-  async ngOnInit(){
+  constructor(private _categoryService: CategoryService, private toastr: ToastrService, private _productService: ProductServiceService, private _productVariationService: ProductVariationService) { }
+
+  async ngOnInit() {
     this.token = sessionStorage.getItem('token');
     await this.getSellerProduct();
   }
 
-  async getSellerProduct():Promise<any>{
-    try{
-        const data = await this._productService.getSellersProduct(this.token).toPromise();
-        this.myProducts = data;
-        console.log(this.myProducts);
-    } catch(error){
-      console.error("Error",error);
+  async getSellerProduct(): Promise<any> {
+    try {
+      const data = await this._productService.getSellersProduct(this.token).toPromise();
+      this.myProducts = data;
+      console.log(this.myProducts);
+    } catch (error) {
+      console.error("Error", error);
     }
   }
 
-  editProduct(){
+  editProduct() {
     this.editProductTag = !this.editProductTag;
   }
 
@@ -49,20 +49,30 @@ export class AddedItemsComponent {
   addQuantityShowMethod(productId: any) {
     this.parsedValues = [];
     this._productService.getProductById(productId).subscribe(
-      (data) =>{
-        let size_quanttity:Array<[string, string]> = data[0].size_quan;
+      (data) => {
+        let size_quanttity: Array<[string, string]> = data[0].size_quan;
         // Logic for Seperating the size and quant from size_quant
         size_quanttity.forEach((tuple) => {
-          let firstString: string = tuple[0];
+          var firstString: string;
           let s = "";
-          for(let i = 0;i < tuple.length;i++){
-            if(i > 1){
-              s += tuple[i];
+          if (tuple[0] != "N") {
+            firstString = tuple[0];
+            for (let i = 0; i < tuple.length; i++) {
+              if (i > 1) {
+                s += tuple[i];
+              }
+            }
+          } else {
+            firstString = tuple[0] + tuple[1];
+            for (let i = 0; i < tuple.length; i++) {
+              if (i > 3) {
+                s += tuple[i];
+              }
             }
           }
-          this.parsedValues.push({first:firstString,second:s.trim()})
+          this.parsedValues.push({ first: firstString, second: s.trim() })
         });
-      }, (error) =>{
+      }, (error) => {
         console.error("Error", error);
       }
     )
@@ -71,26 +81,26 @@ export class AddedItemsComponent {
 
   addQuantity() {
     if (this.size !== "" && this.quantity !== "") {
-      this.parsedValues.push({first:this.size,second:this.quantity});      
+      this.parsedValues.push({ first: this.size, second: this.quantity });
       this.size = "";
       this.quantity = "";
     }
   }
 
-  deleteQuantity(index:number,productId:number,size:string){
+  deleteQuantity(index: number, productId: number, size: string) {
     // this.size_quant.splice(index, 1);
     console.log(size);
-    
-    this._productVariationService.deleteByProductIdAndSize(this.token,productId,size).subscribe(
-      (data) =>{
+
+    this._productVariationService.deleteByProductIdAndSize(this.token, productId, size).subscribe(
+      (data) => {
         console.log(data);
-        this.toastr.success("Productvariation Deleted Successfully!!","Success");
-      }, (error) =>{
-        console.error("ERROR",error);
+        this.toastr.success("Productvariation Deleted Successfully!!", "Success");
+      }, (error) => {
+        console.error("ERROR", error);
         // this.toastr.error("Productvariation Deletion Error","Error");
       }
     );
-    this.parsedValues.splice(index,1);
+    this.parsedValues.splice(index, 1);
   }
 
   Submit(product_id: number) {
@@ -112,11 +122,11 @@ export class AddedItemsComponent {
       size_quant: this.size_quant,
     };
 
-    this._productVariationService.addProductVariation(this.token,productVariation).subscribe(
+    this._productVariationService.addProductVariation(this.token, productVariation).subscribe(
       (data) => {
         console.log(data);
         this.toastr.success('Product Added!!', 'Success');
-      }, (error) =>{
+      }, (error) => {
         console.error("ERROR", error);
         this.toastr.error('Error submitting form', 'Error');
       }
@@ -124,15 +134,15 @@ export class AddedItemsComponent {
     this.size_quant = [];
     this.addQuantityShowMethod(product_id);
   }
-  
-  getCategory(){
+
+  getCategory() {
     this._categoryService.getAllCategory().subscribe(
-      (data) =>{
+      (data) => {
         console.log(data);
         this.categories = data;
-      }, 
+      },
       (error) => {
-        console.error("ERROR",error);
+        console.error("ERROR", error);
       }
     )
   }
