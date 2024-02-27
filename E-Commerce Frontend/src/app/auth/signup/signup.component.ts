@@ -11,7 +11,7 @@ import { LoginService } from 'src/app/Services/login.service';
 export class SignupComponent {
 
   user = {
-    email: "",
+    username: "",
     password: "",
     confirmPassword: "",
     role:"ROLE_CUSTOMER"
@@ -19,19 +19,25 @@ export class SignupComponent {
 
   constructor(private toastr: ToastrService,private _loginService:LoginService){}
 
-  onSubmit(){
-    this._loginService.newuser(this.user).subscribe(
-      (data) =>{
-        console.log(data);
-        this.toastr.success("Customer Account Created Successfully!","Success");
-      }, (error) => {
-        console.error("Error",error);
-        this.toastr.error("Account Created Error!","Error");
-      }
-    )
-    
+  onSubmit() {
     console.log(this.user);
-    this.user.email = "";
+    
+    this._loginService.newuser(this.user).subscribe(
+      (data) => {
+        console.log(data);
+        this.clearUserData();
+        this.toastr.success("Seller Account Created Successfully!!", "success");
+      }, (error) =>{
+        console.error(error);
+        this.toastr.error("Seller Account Created Error!!", "error");
+      } 
+    )
+  }
+  
+  // Utility function to clear user data
+  clearUserData() {
+    console.log(this.user); // Log the user data if necessary before clearing
+    this.user.username = "";
     this.user.confirmPassword = "";
     this.user.password = "";
   }
