@@ -27,9 +27,13 @@ export class ProductsListComponent {
   }
 
   getApprovedProducts() {
+    console.log("Hello");
+    
     this.productService.getApprovedProducts().subscribe(
       (data) => {
         this.products = data;
+        console.log(data);
+        
       },
       (error) => {
         console.error('Error fetching data:', error);
