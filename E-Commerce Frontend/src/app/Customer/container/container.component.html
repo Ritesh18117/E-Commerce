@@ -1,10 +1,10 @@
 <div class="container" >
-    <app-Search (searchTextChange)="searchIt($event)"></app-Search>
-    <app-products-list [searched]="searched" #productListComponent></app-products-list>
+    <app-Search></app-Search>
+    <app-products-list #productListComponent></app-products-list>
     <div>Hello</div>
     <div *ngIf="productListComponent.showProductDetails">
         <app-product-details *ngIf="productListComponent.selectedProduct" 
         [productListComp]="productListComponent" 
-        (onClose)="onProductDetailsClose();" (addItemToCard)="addItemToCard($event);"></app-product-details>
+        (onClose)="onProductDetailsClose();"></app-product-details>
     </div>
 </div>

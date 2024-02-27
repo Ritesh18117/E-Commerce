@@ -17,9 +17,6 @@ export class ProductsListComponent {
   selectedProduct!: ProductVariation;
   showProductDetails:boolean = false;
 
-  @Input() 
-  searched:string ='';
-
   constructor(private productService:ProductServiceService,private categoryService:CategoryService){}
 
   ngOnInit(): void {

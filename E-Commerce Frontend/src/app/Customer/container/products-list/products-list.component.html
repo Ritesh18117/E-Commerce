@@ -2,8 +2,7 @@
 <div class="product-list d-flex flex-wrap justify-content-center" style="background-color: #e0f9f6;">
     <ng-container *ngFor="let product of products" >
         <app-product (click) = "selectedProduct = product; showProductDetails = true"
-                 [product]="product"
-                *ngIf="searched === '' || product.name.toLowerCase().includes(searched.toLowerCase().trim())">
+                 [product]="product">
             </app-product>
     </ng-container>
 </div>
