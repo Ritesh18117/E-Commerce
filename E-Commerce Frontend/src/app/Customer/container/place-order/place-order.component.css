@@ -1,11 +1,10 @@
 .place-order{
-    background-color: rgb(113, 214, 227);
-    color: Black;
-    border: 0.5px solid black;
+    background-color: #368422;
+    color:white;
+    border: 0.5px solid #368422;
     border-radius: 6px;
 }
 .place-order:hover{
-    background-color: rgb(16, 157, 179);
+    opacity: 0.8;
     /* color: white; */
-    border: 0.5px solid black;
 }
