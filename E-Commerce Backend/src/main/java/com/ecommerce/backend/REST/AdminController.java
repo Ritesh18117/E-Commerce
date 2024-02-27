@@ -21,6 +21,11 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private ProductService productService;
+
+    @GetMapping("/test")
+    public String test(){
+        return "Test";
+    }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/getAllSeller")
     public ResponseEntity<List<Seller>> getAllSeller(){

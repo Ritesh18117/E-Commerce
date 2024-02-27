@@ -13,7 +13,9 @@ export class ProductServiceService {
   private getNotApprovedProductsURL = '/api/product/notApprovedProducts';
   private approveProductURL = '/api/product/approveProduct';
   private rejectProductURL = '/api/product/rejectProduct';
-  private getProductByIdURL = "/api/product/getByProductId"
+  private getProductByIdURL = "/api/product/getByProductId";
+  private getMyProductVerifyListURL = "/api/product/getMyProductVerifyList";
+  private revokeProductVerifyURL = "/api/product/revokeProductVerify";
 
   constructor(private http: HttpClient) { }
 
@@ -49,4 +51,15 @@ export class ProductServiceService {
   getProductById(productId:number):Observable<any>{
     return this.http.get(`${this.getProductByIdURL}/${productId}`);
   }
+
+  getMyProductVerifyList(token:string){
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(this.getMyProductVerifyListURL, { headers });
+  }
+
+  revokeProductVerify(token:string,productId:number){
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(`${this.revokeProductVerifyURL}/${productId}`, { headers });
+  }
+  
 }

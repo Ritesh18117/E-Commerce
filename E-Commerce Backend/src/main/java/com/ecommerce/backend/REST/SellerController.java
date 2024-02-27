@@ -55,4 +55,16 @@ public class SellerController {
     public ResponseEntity<Map<String,String>> rejectSeller(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable Long sellerId){
         return sellerService.rejectSeller(authorizationHeader,sellerId);
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getMySellerVerifyList")
+    public ResponseEntity<List<Seller>> getMySellerVerifyList(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return sellerService.getMySellerVerifyList(authorizationHeader);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/revokeSellerVerify/{sellerId}")
+    public ResponseEntity<Map<String,String>> revokeSellerVerify(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long sellerId){
+        return sellerService.revokeSellerVerify(authorizationHeader,sellerId);
+    }
 }

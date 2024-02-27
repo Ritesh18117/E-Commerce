@@ -2,7 +2,6 @@ package com.ecommerce.backend.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,14 +19,17 @@ public class Admin {
     private String personalMailId;
     private String address;
     private String status;
-//    @OneToMany(mappedBy = "verifiedBy", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Long> verifiedSellers = new ArrayList<>();
-    private List<Long> verifiedProducts = new ArrayList<>();
+
+    private List<Long> verifiedSellers;
+
+    private List<Long> verifiedProducts;
+
+
 
     public Admin() {
     }
 
-    public Admin(Long id, User user, String name, String contact, String personalMailId, String address, String status) {
+    public Admin(Long id, User user, String name, String contact, String personalMailId, String address, String status, List<Long> verifiedSeller, List<Long> verifiedProduct) {
         this.id = id;
         this.user = user;
         this.name = name;
@@ -35,6 +37,8 @@ public class Admin {
         this.personalMailId = personalMailId;
         this.address = address;
         this.status = status;
+        this.verifiedSellers = verifiedSeller;
+        this.verifiedProducts = verifiedProduct;
     }
 
     public Long getId() {
@@ -91,5 +95,38 @@ public class Admin {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<Long> getVerifiedSeller() {
+        return verifiedSellers;
+    }
+
+    public void setVerifiedSeller(List<Long> verifiedSeller) {
+        this.verifiedSellers = verifiedSeller;
+    }
+
+    public List<Long> getVerifiedProduct() {
+        return verifiedProducts;
+    }
+
+    public void setVerifiedProduct(List<Long> verifiedProduct) {
+        this.verifiedProducts = verifiedProduct;
+    }
+
+    public void addSeller(Long sellerId) {
+        System.out.println("AddSeller");
+        verifiedSellers.add(sellerId);
+    }
+
+    public void removeSeller(Long sellerId) {
+        verifiedSellers.remove(sellerId);
+    }
+
+    public void addProduct(Long productId) {
+        verifiedProducts.add(productId);
+    }
+
+    public void removeProduct(Long productId) {
+        verifiedProducts.remove(productId);
     }
 }

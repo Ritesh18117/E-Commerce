@@ -5,6 +5,7 @@ import com.ecommerce.backend.entities.Admin;
 import com.ecommerce.backend.entities.Customer;
 import com.ecommerce.backend.entities.Product;
 import com.ecommerce.backend.entities.Seller;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
