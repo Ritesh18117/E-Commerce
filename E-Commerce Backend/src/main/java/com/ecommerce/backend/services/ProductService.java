@@ -216,6 +216,8 @@ public class ProductService {
                 Optional<Product> product = productRepository.findById(productId);
                 if(product.isPresent()){
                     product.get().setApprovalStatus("true");
+                    product.get().setVerifiedBy(admin);
+                    admin.addProduct(product.get().getId());
                     productRepository.save(product.get());
                     Map<String, String> output = new HashMap<>();
                     output.put("message", "Successfully Approved!!");
@@ -242,6 +244,8 @@ public class ProductService {
                 Optional<Product> product = productRepository.findById(productId);
                 if(product.isPresent()){
                     product.get().setApprovalStatus("rejected");
+                    product.get().setVerifiedBy(admin);
+                    admin.addProduct(product.get().getId());
                     productRepository.save(product.get());
                     Map<String, String> output = new HashMap<>();
                     output.put("message", "Product Rejected!s!!");
@@ -258,6 +262,50 @@ public class ProductService {
         }
     }
 
+    public ResponseEntity<List<Product>> getMyProductVerifyList(@RequestHeader(value = "Authorization") String authorizationHeader){
+        try{
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Admin admin = adminRepository.findByUserId(userId);
+            List<Product> verifiedProducts = new ArrayList<>();
+            for(Long productId : admin.getVerifiedProduct()){
+                Optional<Product> product = productRepository.findById(productId);
+                product.get().setSeller(null);
+                product.get().setCategory(null);
+                product.get().setVerifiedBy(null);
+                verifiedProducts.add(product.get());
+            }
+            return ResponseEntity.of(Optional.of(verifiedProducts));
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<Map<String,String>> revokeProductVerify(@RequestHeader(value = "Authorization") String authorizationHeader, Long productId){
+        try{
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Admin admin = adminRepository.findByUserId(userId);
+            Optional<Product> product = productRepository.findById(productId);
+            if(product.isPresent()){
+                product.get().setVerifiedBy(null);
+                product.get().setApprovalStatus("false");
+                admin.removeProduct(productId);
+                productRepository.save(product.get());
+                Map<String,String> output = new HashMap<>();
+                output.put("Message","Successfully Revoked");
+                return ResponseEntity.of(Optional.of(output));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     //For testing here Otherwise move to Admin Service
     public ResponseEntity<List<Product>> getAllProduct(){

@@ -31,22 +31,27 @@ public class Product {
     private String imageURL;
     private String approvalStatus;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "verified_by_admin_id")
+    private Admin verifiedBy;
+
     public Product() {
     }
 
-    public Product(Long id, Seller seller, Category category, String color, String name, Double price, Double discount, Double margin, String gender, String description, String imageURL, String approvalStatus) {
+    public Product(Long id, Seller seller, Category category, String name, Double price, Double discount, Double margin, String gender, String color, String description, String imageURL, String approvalStatus, Admin verifiedBy) {
         this.id = id;
         this.seller = seller;
         this.category = category;
         this.name = name;
-        this.color = color;
         this.price = price;
         this.discount = discount;
         this.margin = margin;
         this.gender = gender;
+        this.color = color;
         this.description = description;
         this.imageURL = imageURL;
         this.approvalStatus = approvalStatus;
+        this.verifiedBy = verifiedBy;
     }
 
     public String getColor() {
@@ -143,5 +148,13 @@ public class Product {
 
     public void setApprovalStatus(String approvalStatus) {
         this.approvalStatus = approvalStatus;
+    }
+
+    public Admin getVerifiedBy() {
+        return verifiedBy;
+    }
+
+    public void setVerifiedBy(Admin verifiedBy) {
+        this.verifiedBy = verifiedBy;
     }
 }

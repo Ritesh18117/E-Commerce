@@ -27,12 +27,15 @@ public class Seller {
     private String address;
     private String approvalStatus;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "verified_by_admin_id")
+    private Admin verifiedBy;
+
     public Seller() {
     }
 
-    public Seller(Long sellerId, User user, String contactInfo, String companyName,
-                  String companyType, String gstNumber, String licenceNumber,String contactEmail,String website, String address, String approvalStatus) {
-        this.id = sellerId;
+    public Seller(Long id, User user, String contactInfo, String companyName, String companyType, String gstNumber, String licenceNumber, String contactEmail, String website, String address, String approvalStatus, Admin verifiedBy) {
+        this.id = id;
         this.user = user;
         this.contactInfo = contactInfo;
         this.companyName = companyName;
@@ -43,6 +46,7 @@ public class Seller {
         this.website = website;
         this.address = address;
         this.approvalStatus = approvalStatus;
+        this.verifiedBy = verifiedBy;
     }
 
     public String getContactEmail() {
@@ -131,5 +135,13 @@ public class Seller {
 
     public void setApprovalStatus(String approvalStatus) {
         this.approvalStatus = approvalStatus;
+    }
+
+    public Admin getVerifiedBy() {
+        return verifiedBy;
+    }
+
+    public void setVerifiedBy(Admin verifiedBy) {
+        this.verifiedBy = verifiedBy;
     }
 }
