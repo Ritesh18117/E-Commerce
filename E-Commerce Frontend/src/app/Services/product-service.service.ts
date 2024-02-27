@@ -16,6 +16,7 @@ export class ProductServiceService {
   private getProductByIdURL = "/api/product/getByProductId";
   private getMyProductVerifyListURL = "/api/product/getMyProductVerifyList";
   private revokeProductVerifyURL = "/api/product/revokeProductVerify";
+  private searchURL = "/api/product/search";
 
   constructor(private http: HttpClient) { }
 
@@ -60,6 +61,10 @@ export class ProductServiceService {
   revokeProductVerify(token:string,productId:number){
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.get<any>(`${this.revokeProductVerifyURL}/${productId}`, { headers });
+  }
+
+  search(searchItem:string):Observable<any>{
+    return this.http.get<any>(`${this.searchURL}/${searchItem}`);
   }
   
 }

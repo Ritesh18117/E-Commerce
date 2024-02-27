@@ -19,4 +19,5 @@ export class CategoryService {
   getByCategoryId(categoryId:number):Observable<any>{
     return this.http.get(`${this.getByCategoryIdURL}/${categoryId}`);
   }
+
 }

@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
     <input type="text" [(ngModel)]="searchValue" placeholder="Serach" name="" id="">
-    <button (click)="onClick($event)"><i class="fa fa-Serach"></i></button>
+    <button (click)="onClick()" type="submit"><i class="fa fa-Serach" ></i></button>
 </div>
 <p *ngIf="searched">Showing Results for : {{searched}}</p>
