@@ -121,6 +121,8 @@ public class SellerService {
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Seller> seller = sellerRepository.findById(sellerId);
                 seller.get().setApprovalStatus("true");
+                seller.get().setVerifiedBy(admin);
+                admin.addSeller(seller.get().getId());
                 sellerRepository.save(seller.get());
                 Map<String, String> op = new HashMap<>();
                 op.put("Message", "Successfully Approved Seller!!!");
@@ -143,6 +145,8 @@ public class SellerService {
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Seller> seller = sellerRepository.findById(sellerId);
                 seller.get().setApprovalStatus("rejected");
+                seller.get().setVerifiedBy(admin);
+                admin.addSeller(seller.get().getId());
                 sellerRepository.save(seller.get());
                 Map<String, String> op = new HashMap<>();
                 op.put("Message", "Seller Rejected!!!");
@@ -156,6 +160,49 @@ public class SellerService {
         }
     }
 
+    public ResponseEntity<List<Seller>> getMySellerVerifyList(@RequestHeader(value = "Authorization") String authorizationHeader){
+        try{
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Admin admin = adminRepository.findByUserId(userId);
+            List<Seller> verifiedSellers = new ArrayList<>();
+            for(Long sellerId : admin.getVerifiedSeller()){
+                Optional<Seller> seller = sellerRepository.findById(sellerId);
+                seller.get().setUser(null);
+                seller.get().setVerifiedBy(null);
+                verifiedSellers.add(seller.get());
+            }
+            return ResponseEntity.of(Optional.of(verifiedSellers));
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<Map<String,String>> revokeSellerVerify(@RequestHeader(value = "Authorization") String authorizationHeader, Long sellerId){
+        try{
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Admin admin = adminRepository.findByUserId(userId);
+            Optional<Seller> seller = sellerRepository.findById(sellerId);
+            if(seller.isPresent()){
+                seller.get().setVerifiedBy(null);
+                seller.get().setApprovalStatus("false");
+                admin.removeSeller(sellerId);
+                sellerRepository.save(seller.get());
+                Map<String,String> output = new HashMap<>();
+                output.put("Message","Successfully Revoked");
+                return ResponseEntity.of(Optional.of(output));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
     private String extractTokenFromHeader(String authorizationHeader) {
         // Check if the Authorization header is not null and starts with "Bearer "
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {

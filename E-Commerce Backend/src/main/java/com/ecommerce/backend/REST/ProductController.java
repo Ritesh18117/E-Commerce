@@ -68,6 +68,17 @@ public class ProductController {
         return productService.findByProductId(product_id);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getMyProductVerifyList")
+    public ResponseEntity<List<Product>> getMyProductVerifyList(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return productService.getMyProductVerifyList(authorizationHeader);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/revokeProductVerify/{productId}")
+    public ResponseEntity<Map<String,String>> revokeProductVerify(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long productId){
+        return productService.revokeProductVerify(authorizationHeader,productId);
+    }
 }
 
 
