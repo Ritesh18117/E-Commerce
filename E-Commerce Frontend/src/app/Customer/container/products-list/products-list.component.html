@@ -1,5 +1,5 @@
 <app-filter class="container" (filterNotify)="  onCategoryFilter($event)"></app-filter>
-<div class="product-list d-flex flex-wrap justify-content-center" style="background-color: #e0f9f6;">
+<div class="product-list d-flex flex-wrap justify-content-center" style="background-color: #efe8e8;border-radius:15px;">
     <ng-container *ngFor="let product of products" >
         <app-product (click) = "selectedProduct = product; showProductDetails = true"
                  [product]="product"
