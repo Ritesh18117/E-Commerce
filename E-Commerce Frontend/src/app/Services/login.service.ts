@@ -12,12 +12,14 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  postData(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<any> {
     const credentials = { username, password };
     return this.http.post<any>(`${this.loginURL}`, credentials);
   }
   
   newuser(user:any): Observable<any> {
+    // console.log(user.email);
+    
     return this.http.post<any>(`${this.signupURL}`, user);
   }
 }

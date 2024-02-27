@@ -12,7 +12,7 @@ export class AdminAuthService {
   constructor(private _loginService : LoginService,private _router:Router) { }
 
   login(username:string,password:string){
-    this._loginService.postData(username,password).subscribe(
+    this._loginService.login(username,password).subscribe(
       (response) => {
         if (response && response.token) {
           // Save token and role in session storage

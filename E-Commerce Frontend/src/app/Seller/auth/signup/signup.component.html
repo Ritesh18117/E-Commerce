@@ -10,7 +10,7 @@
                 <h2 class="form-headline">Create Seller's Account</h2>
                 <form id="submit-form" (ngSubmit)="onSubmit()">
                     <p class="full-width">
-                        <input id="email" name="email" class="form-input" type="email" placeholder="Your Email*" [(ngModel)]="user.email">
+                        <input id="email" name="email" class="form-input" type="email" placeholder="Your Email*" [(ngModel)]="user.username" required>
                         <small class="name-error"></small>
                     </p>
                     <p class="full-width">

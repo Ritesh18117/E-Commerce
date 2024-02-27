@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/Services/login.service';
 
@@ -16,14 +17,16 @@ export class SignupComponent {
     role:"ROLE_CUSTOMER"
   }
 
-  constructor(private _loginService:LoginService){}
+  constructor(private toastr: ToastrService,private _loginService:LoginService){}
 
   onSubmit(){
     this._loginService.newuser(this.user).subscribe(
       (data) =>{
         console.log(data);
+        this.toastr.success("Customer Account Created Successfully!","Success");
       }, (error) => {
         console.error("Error",error);
+        this.toastr.error("Account Created Error!","Error");
       }
     )
     

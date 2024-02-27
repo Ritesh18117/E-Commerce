@@ -13,8 +13,8 @@ export class AuthService {
   constructor(private _loginService : LoginService,private _router:Router) { }
 
   login(username:string,password:string){
-    this._loginService.postData(username,password).subscribe(
-      (response) => {
+    this._loginService.login(username,password).subscribe(
+      (response) => { 
         if (response && response.token) {
           // Save token and role in session storage
           sessionStorage.setItem('token', response.token);
