@@ -12,6 +12,7 @@ import { SellerAuthService } from '../../auth/auth.service';
 export class AddShoesComponent {
   size:string = "";
   quantity:string = "";
+  img:string = "";
 
   product = {
     name:"",
@@ -23,6 +24,7 @@ export class AddShoesComponent {
     margin:0,
     imageURL:"",
     description:"",
+    images:[] as string[]
   }
 
       // Product data to send
@@ -92,7 +94,19 @@ export class AddShoesComponent {
       margin: 0,
       imageURL: "",
       description: "",
+      images:[]
     };
+  }
+
+  addImage(){
+    if(this.img !== ""){
+      this.product.images.push(this.img);
+      this.img = ""
+    }
+  }
+
+  deleteImage(index:number){
+    this.product.images.splice(index,1);
   }
   
 }
