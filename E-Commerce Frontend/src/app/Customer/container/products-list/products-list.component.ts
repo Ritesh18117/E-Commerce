@@ -17,20 +17,27 @@ export class ProductsListComponent {
   selectedProduct!: ProductVariation;
   showProductDetails:boolean = false;
 
+  @Input()
+  searchValue!: string;
+
   constructor(private productService:ProductServiceService,private categoryService:CategoryService){}
 
   ngOnInit(): void {
     this.getApprovedProducts();
   }
 
-  getApprovedProducts() {
-    console.log("Hello");
+  ngOnChanges() {
+    console.log("ONCHANGE");
     
+    this.onSearch();
+  }
+
+  getApprovedProducts() {
     this.productService.getApprovedProducts().subscribe(
       (data) => {
-        this.products = data;
         console.log(data);
         
+        this.products = data;
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -50,6 +57,17 @@ export class ProductsListComponent {
         }
       )
     }
+  }
+
+  onSearch(){
+    this.productService.search(this.searchValue).subscribe(
+      (data) => {
+        this.products = data;
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
   }
 
 }

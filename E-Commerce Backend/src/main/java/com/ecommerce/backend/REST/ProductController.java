@@ -79,6 +79,16 @@ public class ProductController {
     public ResponseEntity<Map<String,String>> revokeProductVerify(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long productId){
         return productService.revokeProductVerify(authorizationHeader,productId);
     }
+
+    @GetMapping("/search/{searchItem}")
+    public ResponseEntity<List<Map<String,Object>>> search(@PathVariable String searchItem){
+        return productService.search(searchItem);
+    }
+
+//    @PostMapping("/update/{productId}")
+//    public ResponseEntity<String> update(@PathVariable Long productId,@RequestBody List<String> images){
+//        return productService.updateProduct(productId,images);
+//    }
 }
 
 

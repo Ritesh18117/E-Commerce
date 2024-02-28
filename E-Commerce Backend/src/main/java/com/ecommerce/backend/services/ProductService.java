@@ -1,10 +1,7 @@
 package com.ecommerce.backend.services;
 
 import com.ecommerce.backend.dao.*;
-import com.ecommerce.backend.entities.Admin;
-import com.ecommerce.backend.entities.ProductVariation;
-import com.ecommerce.backend.entities.Seller;
-import com.ecommerce.backend.entities.Product;
+import com.ecommerce.backend.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +23,8 @@ public class ProductService {
     private SellerRepository sellerRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
     @Autowired
     private AdminRepository adminRepository;
 
@@ -50,6 +49,21 @@ public class ProductService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+//    public ResponseEntity<String> updateProduct(Long productId,List<String> images){
+//        try {
+//            Optional<Product> product = productRepository.findById(productId);
+//            for(String img : images){
+//                product.get().addImage(img);
+//            }
+//            productRepository.save(product.get());
+//            return ResponseEntity.ok("Success");
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
+
 
     public ResponseEntity<List<Product>> myProducts(@RequestHeader(value = "Authorization") String authorizationHeader) {
         try{
@@ -315,6 +329,23 @@ public class ProductService {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             return ResponseEntity.of(Optional.of(products));
         } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<List<Map<String, Object>>> search(String searchItem){
+        try{
+            List<String> categories = categoryRepository.findAllCategoryNames();
+            searchItem = searchItem.substring(0, 1).toUpperCase() + searchItem.substring(1).toLowerCase();
+            if(categories.contains(searchItem)){
+                int index = categories.indexOf(searchItem);
+                Category category = categoryRepository.findByCategoryName(categories.get(index));
+                return this.findByCategories(category.getId());
+            }else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch(Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

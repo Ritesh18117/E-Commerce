@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class SellerDashboardComponent {
 
-  profile:boolean = false;
-  addShoes:boolean = true;
+  profile:boolean = true;
+  addShoes:boolean = false;
   addedItems:boolean = false;
 
   renderProfile(){
