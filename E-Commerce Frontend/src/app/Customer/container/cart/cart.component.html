@@ -11,10 +11,10 @@
                     <div class="col-7">
                         {{item.product.name}}
                         <p>Color : {{item.product.color}} &nbsp; &nbsp; | &nbsp; &nbsp;Size : {{item.productVariation.size}}</p>
-                        <p style="color: green;">Price - ${{item.product.price}} &nbsp; | &nbsp; Discount : ${{(item.product.discount * item.product.price)/100 }}</p>
+                        <p style="color: green;">Price - ₹{{item.product.price}} &nbsp; | &nbsp; Discount : ₹{{(item.product.discount * item.product.price)/100 }}</p>
                     </div>
                     <div class="col-5">
-                        Delivary Expected 10-10-2023
+                        Delivery Expected 10-10-2023
                     </div>
                     <div class="row">
                         <div class="col-md-10">
@@ -41,7 +41,7 @@
                         Price({{totalQuantity}} item)
                     </div>
                     <div class="col-4">
-                        &nbsp; &nbsp;${{total}}
+                        &nbsp; &nbsp;₹{{total}}
                     </div>
                 </div>
                 <div class="discount row p-2 ">
@@ -49,7 +49,7 @@
                         Discount
                     </div>
                     <div class="col-4">
-                        - ${{discount}}
+                        - ₹{{discount}}
                     </div>
                 </div>
                 <div class="delivery row p-2">
@@ -57,7 +57,7 @@
                         Delivery Changes
                     </div>
                     <div class="col-4" style="color: green;">
-                        &nbsp; &nbsp;$49
+                        &nbsp; &nbsp;₹49
                     </div>
                 </div>
             </div>
@@ -67,12 +67,12 @@
                         Total Amount
                     </div>
                     <div class="col-4">
-                        &nbsp; &nbsp;${{total - discount + delivery}}
+                        &nbsp; &nbsp;₹{{total - discount + delivery}}
                     </div>
                 </div>
             </div>
             <div class="m-3" style="color: green;">
-                You will save ${{discount}} in this order
+                You will save ₹{{discount}} in this order
             </div>
             <div>
                 <button routerLink="/placeOrder" class="m-3 p-3 place-order">PLACE ORDER</button>
