@@ -84,6 +84,11 @@ public class ProductController {
     public ResponseEntity<List<Map<String,Object>>> search(@PathVariable String searchItem){
         return productService.search(searchItem);
     }
+
+//    @PostMapping("/update/{productId}")
+//    public ResponseEntity<String> update(@PathVariable Long productId,@RequestBody List<String> images){
+//        return productService.updateProduct(productId,images);
+//    }
 }
 
 

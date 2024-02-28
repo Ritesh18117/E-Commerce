@@ -35,6 +35,8 @@ export class ProductsListComponent {
   getApprovedProducts() {
     this.productService.getApprovedProducts().subscribe(
       (data) => {
+        console.log(data);
+        
         this.products = data;
       },
       (error) => {

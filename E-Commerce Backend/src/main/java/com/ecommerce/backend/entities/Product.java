@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -30,6 +32,7 @@ public class Product {
     private String description;
     private String imageURL;
     private String approvalStatus;
+    private List<String> images;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "verified_by_admin_id")
@@ -38,7 +41,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, Seller seller, Category category, String name, Double price, Double discount, Double margin, String gender, String color, String description, String imageURL, String approvalStatus, Admin verifiedBy) {
+    public Product(Long id, Seller seller, Category category, String name, Double price, Double discount, Double margin, String gender, String color, String description, String imageURL, String approvalStatus, Admin verifiedBy,List<String> images) {
         this.id = id;
         this.seller = seller;
         this.category = category;
@@ -51,7 +54,16 @@ public class Product {
         this.description = description;
         this.imageURL = imageURL;
         this.approvalStatus = approvalStatus;
+        this.images = images;
         this.verifiedBy = verifiedBy;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public String getColor() {
@@ -156,5 +168,13 @@ public class Product {
 
     public void setVerifiedBy(Admin verifiedBy) {
         this.verifiedBy = verifiedBy;
+    }
+
+    public void addImage(String image) {
+        images.add(image);
+    }
+
+    public void removeImage(String image) {
+        images.remove(image);
     }
 }

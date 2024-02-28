@@ -50,6 +50,21 @@ public class ProductService {
         }
     }
 
+//    public ResponseEntity<String> updateProduct(Long productId,List<String> images){
+//        try {
+//            Optional<Product> product = productRepository.findById(productId);
+//            for(String img : images){
+//                product.get().addImage(img);
+//            }
+//            productRepository.save(product.get());
+//            return ResponseEntity.ok("Success");
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
+
+
     public ResponseEntity<List<Product>> myProducts(@RequestHeader(value = "Authorization") String authorizationHeader) {
         try{
             String token = extractTokenFromHeader(authorizationHeader);
