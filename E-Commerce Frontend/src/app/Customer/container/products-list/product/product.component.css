@@ -13,3 +13,12 @@
     transform: translateY(-5px);
     cursor: pointer;
   }
+  #img{
+    height: 18rem;
+object-fit: cover; 
+object-position: 0 0; 
+}
+
+  .card{
+    height: 35rem;
+  }
