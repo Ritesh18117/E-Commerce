@@ -2,7 +2,7 @@
 <ng-container *ngFor="let order of myOrders">
     <div class="mt-4 border p-3 row">
         <div class="detail col-md-3" >
-            <img [src]="order.productVariation.product.imageURL" class="img-fluid">
+            <img [src]="order.productVariation.product.imageURL" class="img-fluid" [routerLink]="['/product', order.productVariation.product.id]">
         </div>
         <div class="detail col-md-9">
             {{order.productVariation.product.name}} <br>
@@ -28,3 +28,4 @@
         </div>
     </div>
 </ng-container>
+<router-outlet></router-outlet>
