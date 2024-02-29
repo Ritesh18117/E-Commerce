@@ -1,121 +1,175 @@
-.overlay{
-    position: absolute; /* Sit on top of the page content */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.3); /* Black background with opacity */
-    z-index: 5; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
-}
 
-.ekart--product--details--info{
-    position: absolute;
-    z-index: 10;
-    background-color: white;
+
+.main-container {
+    position: fixed;
+    background-color: #fefefe;
     transition: 1s;
-    width: 480px;
+    width: 100%;
     top: 0;
     right: 0;
     bottom: 0;
-    padding: 10px 25px;
-}
-.ekart-product-detail-close{
-    text-align: right;
-    color:#28282B;
-    font-size: 20px;
-    font-weight: lighter;
-    padding: 5px 0px;
-}
-.ekart-product-detail-image{
-    width: 100%;
-    height: 320px;
-}
-.ekart-product-detail{
-    padding: 10px 0px;
-}
-.ekart-product-detail-gbc{
-    margin: 20px 0px;
-}
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    
+  }
+  
+  
+    .close-button{
+    grid-column:1/span 2;
+    height:30px;
+    display: flex;
+    justify-content: right;
+    padding:25px;
+    }
+  
+    .close-button:hover {
+      cursor: pointer;
+    }
 
-.ekart-product-detail-gbc > span{
-    background-color: #36454F;
-    margin-left: 0px;
-    padding: 5px 20px;
-    font-size: 14px;
-    color: white;
-}
+    img{
+      
+        display: block;
+        margin: auto;
+        height: fit-content;
+     
+  
+    }
+    
+    .product-detail{
+  /* background-color: rgba(196, 191, 167, 0.571); */
+  padding: 15px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color:#020401;
+  height:100%;
+  
+    }
+    .product-detail>div{
+padding-bottom: 10px;
+    }
+  
+    .p-name{
+  text-transform: uppercase;
+  display:flex;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  font-weight:bold;
+  font-style:normal;
+  font-size: 4rem;
+  color: #3a3a3a;
+  padding-bottom: 10px;
 
-.ekart-product-detail-name{
-    margin: 20px auto;
-}
-.ekart-product-detail-price{
-    font-size: 14px;
-    margin:30px 0px;
-    padding: 25px 10px;
-    background-color: #FCF55F;
-    border:#FFC000 2px solid;
-    border-radius: 5px;
-}
-.ekart-product-detail-size{
-    margin: 30px 0px;
-}
-span{
-    padding: 5px 10px;
-    margin: 5px 5px;
-    border-radius: 5px;
-}
-.ekart-product-detail-available-size{
-    margin: 0px 0px;
-    background-color: #28282B; 
-    color:white;
-    border-radius: 0px;
-    padding: 10px 15px;
-    font-size: 16px;
-}
-.ekart-product-detail-available-color{
-    border-radius: 60%;
-    padding: 8px 13px;
-    margin: 4px;
-}
-.ekart-product-detail-desc{
-    margin-top: 30px;
-    font-size: 14px;
-}
-.ekart-product-detail-addtoCart{
-    margin: 20px 0px;
-}
-.btn-add-to-cart{
-    border: none;
-    background-color: rgb(113, 214, 227);
-    padding: 10px 30px;
-    font-size: 20px;
-    color: black;
-}
-.btn-add-to-cart:hover{
-    /* color: white; */
-    background-color: rgb(16, 157, 179);
-    font-size: 21px;
-    border: 1px solid black;
-}
+  }
+  
+  
+    hr{
+    display:block;
+    background-color:#070404;
+    height: 1px;
+    /* width:50%; */
+    margin: auto;
+    
+  }
+ 
+  .gc{
+    font-weight: 800;
 
-.scroll {
-    overflow-y: scroll;
-}
-.scroll::-webkit-scrollbar {
-    width:5px;
-}
-.scroll::-webkit-scrollbar-track {
-    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3); 
-    border-radius:5px;
-}
-.scroll::-webkit-scrollbar-thumb {
-    border-radius:5px;
-    -webkit-box-shadow: inset 0 0 6px #28282B; 
-}
 
-.fa:hover{
-    cursor: pointer;
-}
+  }
+    .price{
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding-bottom: 10px;
+
+    }
+    .price>span>s{
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+    #price{
+      font-size:2rem;
+      padding-right: 10px;
+      color: #3a3a3a;
+  
+    }
+    #inclusive-of-tax{
+      font-size:medium;
+    }
+
+    span{
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      padding-right: 5px;
+      color: #3a3a3a;
+    }
+  
+  
+    .gender-category{
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      text-transform:capitalize;
+      justify-content: center;
+      display: flex;
+      font-size: 1.3rem;
+      padding-bottom: 10px;
+
+   }
+   .gender-category>span{
+    margin:8px;
+  }
+  
+    .desc{
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size:1.5rem;
+      color: #3a3a3a;
+      padding-bottom: 10px;
+    }
+  #desc{
+    font-size: 1.3rem;
+    
+  }
+  #size{
+    font-size:1.3rem;
+  }
+  
+    .form-select{
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      width:fit-content;
+      font-size: 1.3rem;
+    }
+    .add-to-cart{
+      grid-column-start:2;
+      justify-content:center;
+      padding-top:40px;
+    }
+    .btn-add-to-cart{
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+  
+    .btn-add-to-cart {
+      border: none;
+      background-color: #ff9908;
+      padding: 10px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      color: rgb(255, 255, 255);
+      border-radius:25px;
+    }
+    .btn-add-to-cart:hover {
+         opacity: 0.9;
+          }
+  
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap')
+    
