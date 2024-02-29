@@ -13,10 +13,6 @@ export class ProductsListComponent {
   products!: any;
   categories: any;
 
-  // For Showing in Product Details
-  selectedProduct!: ProductVariation;
-  showProductDetails:boolean = false;
-
   @Input()
   searchValue!: string;
 
@@ -27,16 +23,12 @@ export class ProductsListComponent {
   }
 
   ngOnChanges() {
-    console.log("ONCHANGE");
-    
     this.onSearch();
   }
 
   getApprovedProducts() {
     this.productService.getApprovedProducts().subscribe(
       (data) => {
-        console.log(data);
-        
         this.products = data;
       },
       (error) => {

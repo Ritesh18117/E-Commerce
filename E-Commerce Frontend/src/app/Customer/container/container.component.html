@@ -1,9 +1,5 @@
 <div class="container">
     <app-Search (searchItem)="searchReceive($event)"></app-Search>
     <app-products-list #productListComponent [searchValue]="searchValue"></app-products-list>
-    <div>Hello</div>
-    <div *ngIf="productListComponent.showProductDetails">
-        <app-product-details *ngIf="productListComponent.selectedProduct" [productListComp]="productListComponent"
-            (onClose)="onProductDetailsClose();"></app-product-details>
-    </div>
 </div>
+<router-outlet></router-outlet>

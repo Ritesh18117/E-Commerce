@@ -12,14 +12,6 @@ export class ContainerComponent {
   // For Item add to card 
   cardItems: cardItem[] = [];
   searchValue:string = "";
-  
-
-  @ViewChild(ProductsListComponent) productListComponent!: ProductsListComponent;
-
-  // For Closing Button in product Details Component
-  onProductDetailsClose() {
-    this.productListComponent.showProductDetails = false;
-  }
 
   searchReceive(searchValue:string){
     this.searchValue = searchValue; 

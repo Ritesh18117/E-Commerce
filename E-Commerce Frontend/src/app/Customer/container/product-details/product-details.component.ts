@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ProductsListComponent } from '../products-list/products-list.component';
 import { cardItem } from 'src/app/Models/cardItem';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartItemService } from 'src/app/Services/cart-item.service';
+import { ProductServiceService } from 'src/app/Services/product-service.service';
 
 @Component({
   selector: 'app-product-details',
@@ -15,37 +15,42 @@ export class ProductDetailsComponent {
   constructor(
     private toastr: ToastrService,
     private _authService: AuthService,
-    private _cartItemService: CartItemService
+    private _cartItemService: CartItemService,
+    private route: ActivatedRoute,
+    private _productService:ProductServiceService
   ) {}
-
-  @Input() productListComp!: ProductsListComponent;
 
   // For Loading product when component is loaded
   product!: any;
   role:any = "null";
   cardItem!: cardItem;
+  productId: string | null = null;
+  // Variables for card Items
+  selectedSize: number = -1;
 
   // Load product at first to show to details page
   ngOnInit() {
-    this.product = this.productListComp.selectedProduct;    
     this.role = sessionStorage.getItem('role');
+    this.productId = this.route.snapshot.paramMap.get('id');
+    this.getProductById();
   }
 
-  // For Closing Card
-  @Output() onClose: EventEmitter<void> = new EventEmitter<void>();
-
-  // For Closing Button (will be sent to container component)
-  onClosed() {
-    this.onClose.emit();
+  getProductById(){
+    if (this.productId !== null) {
+      this._productService.getProductById(parseInt(this.productId)).subscribe(
+        (data) => {
+          this.product = data;
+        }, (error) => {
+          console.error("Error", error);
+          this.toastr.error("Product Finding Error!!","error");
+        }
+      );
+    }
   }
-
-  // Variables for card Items
-  selectedSize: number = -1;
 
   // Size Selection
   pickSize(event: any) {
     this.selectedSize = event.target.value;
-    console.log(this.selectedSize);
   }
 
   // Add to card

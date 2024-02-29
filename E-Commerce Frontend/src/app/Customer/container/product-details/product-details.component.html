@@ -1,25 +1,25 @@
-<div class="ekart--product--details--info scroll" >
+<div class="ekart--product--details--info scroll" *ngIf="product">
     <div class="ekart-product-detail-close">
-        <i class="fa fa-times" aria-hidden="true" (click)="onClosed()"></i>
+        <i class="fa fa-times" aria-hidden="true" routerLink="/"></i>
     </div>
     <div class="ekart-product-detail-image">
-        <img [src]="product.product.imageURL" class="ekart-product-detail-image">
+        <img [src]="product[0].product.imageURL" class="ekart-product-detail-image">
     </div>
 
     <div class="ekart-product-detail">
         <div class="ekart-product-detail-name">
-            <h2>{{product.product.name}}</h2>
+            <h2>{{product[0].product.name}}</h2>
         </div>
         <div class="ekart-product-detail-gbc">
-            <span>{{product.product.gender}}</span>
-            <span>{{product.product.category.categoryName}}</span>
+            <span>{{product[0].product.gender}}</span>
+            <span>{{product[0].product.category.categoryName}}</span>
         </div>
         <div class="ekart-product-detail-price">
             <p>
                 <b>Price Each Pair:</b>
                 <div>
-                    <span style="background-color: red; color:white">₹{{product.product.price}}</span>
-                    <span style="background-color: green; color:white">₹{{product.product.price - (product.product.discount * product.product.price) /100}}</span> 
+                    <span style="background-color: red; color:white">₹{{product[0].product.price}}</span>
+                    <span style="background-color: green; color:white">₹{{product[0].product.price - (product[0].product.discount * product[0].product.price) /100}}</span> 
                     (Inclusive of all taxes)
                 </div>
 
@@ -33,7 +33,7 @@
                 <form action="">
                     <select class="form-select" aria-label="Default select example" style="border: 0.5px solid black;" (change)="pickSize($event)">
                         <option selected [value]="-1">Select Size</option>
-                        <ng-container *ngFor="let size of product.size_quan">
+                        <ng-container *ngFor="let size of product[0].size_quan">
                             <option [value]="size.split(',')[0]">{{ size.split(',')[0]}}</option>
                         </ng-container>
                     </select>
@@ -47,12 +47,12 @@
             </div>
             
             <div style="margin-top: 5px">
-                <p>{{product.product.description}}</p>
+                <p>{{product[0].product.description}}</p>
             </div>
         </div>
     </div>
     <div class="ekart-product-detail-addtoCart" >
-                   <button class="btn-add-to-cart" *ngIf="role == 'ROLE_CUSTOMER'" (click)="addToCard(product)">ADD TO CART</button>
+                   <button class="btn-add-to-cart" *ngIf="role == 'ROLE_CUSTOMER'" (click)="addToCard(product[0])">ADD TO CART</button>
         <ng-template #notifyMe>
             <button class="btn-add-to-cart">NOTIFY ME</button>
         </ng-template>
@@ -60,78 +60,3 @@
 </div>
 <div class="overlay"></div>
 <router-outlet></router-outlet>
-<!-- 
-<div class="ekart--product--details--info scroll" >
-    <div class="ekart-product-detail-close">
-        <i class="fa fa-times" aria-hidden="true" (click)="onClosed()"></i>
-    </div>
-    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active" *ngFor="let img of product.product.images">
-            <img [src]="img" class="d-block w-100" alt="...">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-
-    <div class="ekart-product-detail">
-        <div class="ekart-product-detail-name">
-            <h2>{{product.product.name}}</h2>
-        </div>
-        <div class="ekart-product-detail-gbc">
-            <span>{{product.product.gender}}</span>
-            <span>{{product.product.category.categoryName}}</span>
-        </div>
-        <div class="ekart-product-detail-price">
-            <p>
-                <b>Price Each Pair:</b>
-                <div>
-                    <span style="background-color: red; color:white">${{product.product.price}}</span>
-                    <span style="background-color: green; color:white">${{product.product.price - (product.product.discount * product.product.price) /100}}</span> 
-                    (Inclusive of all taxes)
-                </div>
-
-        </div>
-
-        <div class="ekart-product-detail-size">
-            <div style="padding: 5px 0px;border-bottom: #ccc 2px solid">
-                <h4>Available Size</h4>
-            </div>
-            <diV style="margin-top: 20px">
-                <form action="">
-                    <select class="form-select" aria-label="Default select example" style="border: 0.5px solid black;" (change)="pickSize($event)">
-                        <option selected [value]="-1">Select Size</option>
-                        <ng-container *ngFor="let size of product.size_quan">
-                            <option [value]="size.split(',')[0]">{{ size.split(',')[0]}}</option>
-                        </ng-container>
-                    </select>
-                </form>
-            </diV>
-        </div>
-
-        <div class="ekart-product-detail-desc">
-            <div style="padding: 5px 0px;border-bottom: #ccc 2px solid">
-                <h4>Product Description </h4>
-            </div>
-            
-            <div style="margin-top: 5px">
-                <p>{{product.product.description}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="ekart-product-detail-addtoCart" >
-                   <button class="btn-add-to-cart" *ngIf="role == 'ROLE_CUSTOMER'" (click)="addToCard(product)">ADD TO CART</button>
-        <ng-template #notifyMe>
-            <button class="btn-add-to-cart">NOTIFY ME</button>
-        </ng-template>
-    </div>
-</div>
-<div class="overlay"></div>
-<router-outlet></router-outlet> -->

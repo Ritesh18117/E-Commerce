@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Product } from 'src/app/Models/Product';
-import { ProductVariation } from 'src/app/Models/ProductVariation';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -8,6 +7,5 @@ import { ProductVariation } from 'src/app/Models/ProductVariation';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent {
-  @Input()
-  product!: any;
+  @Input() product!: any;
 }

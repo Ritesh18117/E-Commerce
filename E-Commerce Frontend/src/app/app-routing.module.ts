@@ -9,11 +9,13 @@ import { DashboardComponent } from './Customer/container/dashboard/dashboard.com
 import { PlaceOrderComponent } from './Customer/container/place-order/place-order.component';
 import { sellerAuthGuard } from './Seller/auth/auth.guard';
 import { adminAuthGuard } from './admin/auth/auth.guard';
+import { ProductDetailsComponent } from './Customer/container/product-details/product-details.component';
 
 const routes: Routes = [
     { path: '', component: ContainerComponent },
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent }, 
+    { path: 'product/:id', component: ProductDetailsComponent }, // Add this line
     {
       path: 'admin',
       loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
