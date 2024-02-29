@@ -1,11 +1,4 @@
-.price{
-    background-color: black;
-    color: white;
-    padding: 3px;
-    width: 65px;
-    display: flex;
-    justify-content: center;
-}
+
 
 .card-hover:hover {
     /* Define the styles for hover effect here */
@@ -17,8 +10,27 @@
     height: 18rem;
 object-fit: cover; 
 object-position: 0 0; 
-}
+border-radius:16px 16px 0px 0px ;
 
+
+}
+#name{
+    height:2rem;
+    font-weight: bolder;
+
+}
+#price{
+    background-color: rgb(49, 48, 48);
+    color: rgb(255, 255, 255);
+    padding: 3px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+}
   .card{
     height: 35rem;
+    border-radius: 16px;
+    background-color: #f4f4f4;
+
   }

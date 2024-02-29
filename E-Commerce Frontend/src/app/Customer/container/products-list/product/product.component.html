@@ -1,9 +1,20 @@
 <div class="card m-3 card-hover" style="width: 18rem;">
+<<<<<<< HEAD
     <img [src]="product.product.imageURL" class="card-img-top" alt="..." id="img">
     <div class="card-body">
         <h5 class="card-title">{{product.product.name}}</h5>
         <h5 class="price">₹{{product.product.price}}</h5>
         <p class="card-text">{{product.product.description}}
+=======
+    <ng-container>
+        <img [src]="product.product.imageURL" class="card-img-top" id="img" alt="...">
+    </ng-container>
+    <div class="card-body">
+        <h5 class="card-title" id="name">{{product.product.name}}</h5>
+        <h5 class="price" id="price">₹{{product.product.price}}</h5>
+        <hr>
+        <p class="card-text" id="description">{{product.product.description}}
+>>>>>>> 03472dfe0fd2bf72960129423b934e7a33b75609
         </p>
     </div>
 </div>

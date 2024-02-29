@@ -2,15 +2,29 @@ input{
     width: 70%;
     height: 40px;
     padding: 0px 15px;
-    margin: 80px 0px;
+    margin: 50px 0px;
     border: 1px solid black;
-    border-right: 0px solid black;
+    border-right: none;
+}
+input:hover{
+  border-right: none;
+}
+input:active{
+  border-right: none;
 }
 button{
     width: 45px;
     height: 40px;
-    margin: 80px 0px;
-    background-color: #46e0d6;
+    margin: 50px 0px;
+    background-color: #b1b1b1;
     color: black;
     border: 1px solid black;
+    border-left: none;
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }
