@@ -5,22 +5,22 @@ import com.ecommerce.backend.entities.Address;
 import java.util.List;
 
 public class OrderRequest {
-    private List<ProductRequest> products;
+    private List<ProductRequest> productVariations;
     private Address address;
     private String comment;
 
-    public OrderRequest(List<ProductRequest> products, Address address, String comment) {
-        this.products = products;
+    public OrderRequest(List<ProductRequest> productVariations, Address address, String comment) {
+        this.productVariations = productVariations;
         this.address = address;
         this.comment = comment;
     }
 
-    public List<ProductRequest> getProducts() {
-        return products;
+    public List<ProductRequest> getProductVariations() {
+        return productVariations;
     }
 
-    public void setProducts(List<ProductRequest> products) {
-        this.products = products;
+    public void setProductVariations(List<ProductRequest> productVariations) {
+        this.productVariations = productVariations;
     }
 
     public Address getAddress() {
@@ -39,12 +39,4 @@ public class OrderRequest {
         this.comment = comment;
     }
 
-    @Override
-    public String toString() {
-        return "OrderRequest{" +
-                "products=" + products +
-                ", address=" + address +
-                ", comment='" + comment + '\'' +
-                '}';
-    }
 }

@@ -15,8 +15,8 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "product_variation_id")
+    private ProductVariation productVariation;
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
@@ -30,12 +30,12 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long id, Customer customer, Product product, Address address,
+    public Order(Long id, Customer customer, ProductVariation productVariation, Address address,
                  String orderStatus, Date orderDate, Double totalPrice, Date deliveryDate,
                  Date dateOfDelivery, int quantity, String comment) {
         this.id = id;
         this.customer = customer;
-        this.product = product;
+        this.productVariation = productVariation;
         this.address = address;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
@@ -62,12 +62,12 @@ public class Order {
         this.customer = customer;
     }
 
-    public Product getProduct() {
-        return product;
+    public ProductVariation getProductVariation() {
+        return productVariation;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductVariation(ProductVariation productVariation) {
+        this.productVariation = productVariation;
     }
 
     public Address getAddress() {

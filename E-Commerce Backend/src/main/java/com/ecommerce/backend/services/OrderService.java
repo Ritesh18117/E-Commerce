@@ -1,15 +1,9 @@
 package com.ecommerce.backend.services;
 
-import com.ecommerce.backend.entities.Customer;
-import com.ecommerce.backend.entities.Order;
-import com.ecommerce.backend.dao.CustomerRepository;
-import com.ecommerce.backend.dao.OrderRepository;
-import com.ecommerce.backend.dao.ProductRepository;
-import com.ecommerce.backend.dao.UserRepository;
+import com.ecommerce.backend.dao.*;
+import com.ecommerce.backend.entities.*;
 import com.ecommerce.backend.dto.OrderRequest;
 import com.ecommerce.backend.dto.ProductRequest;
-import com.ecommerce.backend.entities.Address;
-import com.ecommerce.backend.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +27,8 @@ public class OrderService {
     private CustomerRepository customerRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ProductVariationRepository productVariationRepository;
 
     public ResponseEntity<List<Order>> getAllOrder(){
         try{
@@ -53,23 +49,46 @@ public class OrderService {
             String username = jwtService.extractUsername(token);
             Long userId = userRepository.findByUsername(username).getId();
             Customer customer = customerRepository.findByUserId(userId);
-            List<ProductRequest> products = orderRequest.getProducts();
+            List<ProductRequest> productVariations = orderRequest.getProductVariations();
             Address address = orderRequest.getAddress();
-            for(ProductRequest product : products){
+            for(ProductRequest productRequest : productVariations){
                 Order order = new Order();
                 order.setCustomer(customer);
-                Optional<Product> productOptional = productRepository.findById(product.getId());
-                productOptional.ifPresent(product1 -> order.setProduct(product1));
+                Optional<ProductVariation> productVariationOptional = productVariationRepository.findById(productRequest.getId());
+                productVariationOptional.ifPresent(productVariation -> order.setProductVariation(productVariation));
                 order.setAddress(orderRequest.getAddress());
                 order.setOrderStatus("false");
                 order.setOrderDate(Date.valueOf(LocalDate.now()));
-                order.setQuantity(product.getQuantity());
+                order.setQuantity(productRequest.getQuantity());
                 order.setComment(orderRequest.getComment());
                 order.setDateOfDelivery(Date.valueOf(LocalDate.now().plusDays(7)));
-                productOptional.ifPresent(product1 -> order.setTotalPrice((product1.getPrice() * product.getQuantity()) - ((product.getQuantity() * product1.getPrice())/100 * product1.getDiscount())));
+                productVariationOptional.ifPresent(productVariation -> order.setTotalPrice((productVariationOptional.get().getProduct().getPrice() * productRequest.getQuantity()) - ((productRequest.getQuantity() * productVariationOptional.get().getProduct().getPrice())/100 * productVariationOptional.get().getProduct().getDiscount())));
                 orderRepository.save(order);
+                productVariationOptional.get().setQuantity(productVariationOptional.get().getQuantity() - productRequest.getQuantity());
             }
             return ResponseEntity.ok("Order Placed Successfully!");
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    public ResponseEntity<List<Order>> myOrders(@RequestHeader(value = "Authorization") String authorizationHeader){
+        try{
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Customer customer = customerRepository.findByUserId(userId);
+            List<Order> orders = (List<Order>) orderRepository.findAll();
+            if(!orders.isEmpty()){
+                for(Order order : orders){
+                    order.getCustomer().setUser(null);
+                    order.getProductVariation().getProduct().setSeller(null);
+                    order.getProductVariation().getProduct().setVerifiedBy(null);
+                }
+                return ResponseEntity.of(Optional.of(orders));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         } catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

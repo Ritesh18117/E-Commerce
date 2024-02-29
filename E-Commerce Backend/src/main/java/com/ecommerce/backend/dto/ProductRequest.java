@@ -1,6 +1,7 @@
 package com.ecommerce.backend.dto;
 
 public class ProductRequest {
+    //productVariationId
     private Long id;
     private int quantity;
 

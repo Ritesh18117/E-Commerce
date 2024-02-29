@@ -1,42 +1,30 @@
 <h2>My Orders</h2>
-<div class="mt-4 border p-3 row">
-    <div class="detail col-md-9">
-        Product Name <br>
-        Delivery Date : 20-10-2023 <br>
-        Status : Delivery Pending
+<ng-container *ngFor="let order of myOrders">
+    <div class="mt-4 border p-3 row">
+        <div class="detail col-md-3" >
+            <img [src]="order.productVariation.product.imageURL" class="img-fluid">
+        </div>
+        <div class="detail col-md-9">
+            {{order.productVariation.product.name}} <br>
+            Delivery Date : {{order.dateOfDelivery}} <br>
+            Delivered : <span style="color:green" *ngIf="order.orderStatus == 'true'">Delivered</span> 
+                        <span *ngIf="order.orderStatus == 'false'" style="color:red">Pending</span><br>
+                        <a role="button" class="link-primary mg" *ngIf="!order.showDetails" (click)="showDetailsMethod(order)">View Details</a>
+            <div *ngIf="order.showDetails">
+                <span>Delivery Address : </span> 
+                        {{order.address.name}}&nbsp;( {{order.address.contact}} ) <br>
+                        {{order.address.address1}}&nbsp;
+                        {{order.address.address2}}&nbsp;
+                        {{order.address.city}}&nbsp;
+                        {{order.address.state}}&nbsp;
+                        {{order.address.zipcode}}&nbsp; <br>
+                
+                <span>Ordered Date : {{order.orderDate}}</span> <br>
+                <span>Quantity : {{order.quantity}}</span> <br>
+                <span *ngIf="order.productVariation.size != ''">Size : {{order.productVariation.size}}</span> <br>
+                <span>Total Price : ₹ <span style="color: green;">{{order.totalPrice}}</span></span> <br>
+                <a role="button" class="link-primary mg" *ngIf="order.showDetails" (click)="hideDetailsMethod(order)">Hide Details</a>
+            </div>
+        </div>
     </div>
-    <div class="detail col-md-3">
-        <img src="../../../../assets/aboutCard3.jpg" class="img-fluid">
-    </div>
-</div>
-<div class="mt-4 border p-3 row">
-    <div class="detail col-md-9">
-        Product Name <br>
-        Delivery Date : 20-10-2023 <br>
-        Status : Delivery Pending
-    </div>
-    <div class="detail col-md-3">
-        <img src="../../../../assets/aboutCard3.jpg" class="img-fluid">
-    </div>
-</div>
-<div class="mt-4 border p-3 row">
-    <div class="detail col-md-9">
-        Product Name <br>
-        Delivery Date : 20-10-2023 <br>
-        Status : Delivery Pending
-    </div>
-    <div class="detail col-md-3">
-        <img src="../../../../assets/aboutCard3.jpg" class="img-fluid">
-    </div>
-</div>
-<div class="mt-4 border p-3 row">
-    <div class="detail col-md-9">
-        Product Name <br>
-        Delivery Date : 20-10-2023 <br>
-        Status : Delivery Pending
-    </div>
-    <div class="detail col-md-3">
-        <img src="../../../../assets/aboutCard3.jpg" class="img-fluid">
-    </div>
-</div>
-
+</ng-container>
