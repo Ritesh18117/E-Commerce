@@ -26,7 +26,9 @@ export class ProductDetailsComponent {
   cardItem!: cardItem;
   productId: string | null = null;
   // Variables for card Items
-  selectedSize: number = -1;
+  selectedSize: string = "";
+  inStock:number = -1;
+  selectedImage:any;
 
   // Load product at first to show to details page
   ngOnInit() {
@@ -35,11 +37,32 @@ export class ProductDetailsComponent {
     this.getProductById();
   }
 
+  parsedValues: { size: string; quantity: string }[] = [];
   getProductById(){
     if (this.productId !== null) {
       this._productService.getProductById(parseInt(this.productId)).subscribe(
         (data) => {
           this.product = data;
+          this.selectedImage = data[0].product.imageURL;
+          let size_quanttity: Array<[string, string]> = data[0].size_quan;
+          // Logic for Seperating the size and quant from size_quant
+          size_quanttity.forEach((tuple) => {
+            let first = "";
+            let s = "";
+            let comaOccurs = false;
+            // size = tuple[0] + tuple[1];
+            for (let i = 0; i < tuple.length; i++) {
+              if(comaOccurs == false && tuple[i] != ","){
+                first += tuple[0];
+                comaOccurs = true;
+              }
+              if(comaOccurs == true && tuple[i] !=" "){
+                s += tuple[i];
+              }
+            }
+            this.parsedValues.push({ size: first, quantity: s.trim() })
+          });
+
         }, (error) => {
           console.error("Error", error);
           this.toastr.error("Product Finding Error!!","error");
@@ -50,8 +73,15 @@ export class ProductDetailsComponent {
 
   // Size Selection
   pickSize(event: any) {
-    this.selectedSize = event.target.value;
+    const selectedSize = event.target.value;
+    const selectedSizeObject = this.parsedValues.find(x => x.size === selectedSize);
+
+    if (selectedSizeObject) {
+      this.selectedSize = selectedSizeObject.size;
+      this.inStock = parseInt(selectedSizeObject.quantity);
+    }
   }
+  
 
   // Add to card
   addToCard(product: any) {
@@ -60,7 +90,7 @@ export class ProductDetailsComponent {
       if (!this.cardItem) {
         this.cardItem = product;
       }
-      if (this.selectedSize != -1) {
+      if (this.selectedSize != "") {
         const addToCartItem = {
           product_id: `${product.product.id}`,
           size: `${this.selectedSize}`,

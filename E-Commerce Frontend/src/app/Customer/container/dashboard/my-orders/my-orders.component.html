@@ -6,12 +6,12 @@
         </div>
         <div class="detail col-md-9">
             {{order.productVariation.product.name}} <br>
-            Delivery Date : {{order.dateOfDelivery}} <br>
-            Delivered : <span style="color:green" *ngIf="order.orderStatus == 'true'">Delivered</span> 
+            &#9745; Delivery Date : {{order.dateOfDelivery}} <br>
+            &#9745; Delivered : <span style="color:green" *ngIf="order.orderStatus == 'true'">Delivered</span> 
                         <span *ngIf="order.orderStatus == 'false'" style="color:red">Pending</span><br>
                         <a role="button" class="link-primary mg" *ngIf="!order.showDetails" (click)="showDetailsMethod(order)">View Details</a>
             <div *ngIf="order.showDetails">
-                <span>Delivery Address : </span> 
+                <span>&#9745; Delivery Address : </span> 
                         {{order.address.name}}&nbsp;( {{order.address.contact}} ) <br>
                         {{order.address.address1}}&nbsp;
                         {{order.address.address2}}&nbsp;
@@ -19,10 +19,10 @@
                         {{order.address.state}}&nbsp;
                         {{order.address.zipcode}}&nbsp; <br>
                 
-                <span>Ordered Date : {{order.orderDate}}</span> <br>
-                <span>Quantity : {{order.quantity}}</span> <br>
-                <span *ngIf="order.productVariation.size != ''">Size : {{order.productVariation.size}}</span> <br>
-                <span>Total Price : ₹ <span style="color: green;">{{order.totalPrice}}</span></span> <br>
+                <span>&#9745; Ordered Date : {{order.orderDate}}</span> <br>
+                <span>&#9745; Quantity : {{order.quantity}}</span> <br>
+                <span *ngIf="order.productVariation.size != ''">&#9745; Size : {{order.productVariation.size}}</span> <br>
+                <span>&#9745; Total Price : ₹ <span style="color: green;">{{order.totalPrice}}</span></span> <br>
                 <a role="button" class="link-primary mg" *ngIf="order.showDetails" (click)="hideDetailsMethod(order)">Hide Details</a>
             </div>
         </div>

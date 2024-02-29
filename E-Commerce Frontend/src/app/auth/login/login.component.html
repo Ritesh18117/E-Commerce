@@ -1,29 +1,28 @@
-
-
 <div class="container border form-div">
     <div class="wrapper">
-            <div class="form-headline">
-                <h2>Welcome</h2>
-            <h4 >Login to your account</h4>
-            </div>
-                <form id="submit-form" (ngSubmit)="login()">
-                    <p class="full-width">
-                        <input id="email" name="email" [(ngModel)]="user.email" class="form-input" type="email" placeholder="Email">
-                        <small class="name-error"></small>
-                    </p>
-                    <p class="full-width">
-                        <input  id="passowrd" name="Password"   [(ngModel)]="user.password" class="form-input" type="password" placeholder="Password" required>
-                        <small></small>
-                    </p>
-                    <p class="full-width">
-                        <input type="checkbox" id="checkbox" name="checkbox" checked> Yes, I would like to receive
-                        communications by call / email about Sikkim Mart's services.
-                    </p>
-                    <p class="full-width">
-                        <input type="submit" class="submit-btn" value="Submit">
-                    </p>
-                </form>
-                By creating an account or logging in, you agree to Sikkim Mart's Conditions of Use and Privacy Policy.
-            </div>
+        <div class="form-headline">
+            <h2>Welcome</h2>
+            <h4>Login to your account</h4>
         </div>
-  
+        <form id="submit-form" (ngSubmit)="login()">
+            <p class="full-width">
+                <input id="email" name="email" [(ngModel)]="user.email" class="form-input" type="email"
+                    placeholder="Email">
+                <small class="name-error"></small>
+            </p>
+            <p class="full-width">
+                <input id="passowrd" name="Password" [(ngModel)]="user.password" class="form-input" type="password"
+                    placeholder="Password" required>
+                <small></small>
+            </p>
+            <p class="full-width">
+                <input type="checkbox" id="checkbox" name="checkbox" checked> Yes, I would like to receive
+                communications by call / email about Sikkim Mart's services.
+            </p>
+            <p class="full-width">
+                <input type="submit" class="submit-btn" value="Submit">
+            </p>
+        </form>
+        By creating an account or logging in, you agree to Sikkim Mart's Conditions of Use and Privacy Policy.
+    </div>
+</div>
