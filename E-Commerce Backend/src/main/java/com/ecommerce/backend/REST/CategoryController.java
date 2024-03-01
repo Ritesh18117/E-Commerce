@@ -27,8 +27,14 @@ public class CategoryController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/addCategory")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category){
-        return categoryServices.addCategory(category);
+    public ResponseEntity<Category> addCategory(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestBody Category category){
+        return categoryServices.addCategory(authorizationHeader,category);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/deleteCategoryById/{categoryId}")
+    public ResponseEntity<Map<String,String>> deleteCategoryById(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable Long categoryId){
+        return categoryServices.deleteCategroyById(authorizationHeader,categoryId);
     }
 
     @GetMapping("/getProductByCategoryId/{categoryId}")

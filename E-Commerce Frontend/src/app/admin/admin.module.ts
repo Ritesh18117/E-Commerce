@@ -10,6 +10,7 @@ import { VerifiedSellerComponent } from './admin-dashboard/verified-seller/verif
 import { VerifiedProductComponent } from './admin-dashboard/verified-product/verified-product.component';
 import { VerifyProductComponent } from './admin-dashboard/verify-product/verify-product.component';
 import { AdminInfoComponent } from './admin-dashboard/admin-info/admin-info.component';
+import { AddCategoryComponent } from './admin-dashboard/add-category/add-category.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AdminInfoComponent } from './admin-dashboard/admin-info/admin-info.comp
     VerifiedSellerComponent,
     VerifiedProductComponent,
     VerifyProductComponent,
-    AdminInfoComponent
+    AdminInfoComponent,
+    AddCategoryComponent
   ],
   imports: [
     CommonModule,
