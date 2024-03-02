@@ -103,7 +103,7 @@ img{
     text-decoration: line-through;
 }
 .new-price span{
-    color: #256eff;
+    color: green;
 }
 .product-detail h2{
     text-transform: capitalize;
