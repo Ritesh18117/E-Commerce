@@ -32,6 +32,7 @@ export class ProductDetailsComponent {
 
   // Load product at first to show to details page
   ngOnInit() {
+    this.getCurrentUrl();
     this.role = sessionStorage.getItem('role');
     this.productId = this.route.snapshot.paramMap.get('id');
     this.getProductById();
@@ -52,14 +53,17 @@ export class ProductDetailsComponent {
             let comaOccurs = false;
             // size = tuple[0] + tuple[1];
             for (let i = 0; i < tuple.length; i++) {
-              if(comaOccurs == false && tuple[i] != ","){
-                first += tuple[0];
+              if(tuple[i] == ","){
                 comaOccurs = true;
               }
-              if(comaOccurs == true && tuple[i] !=" "){
+              if(comaOccurs == false && tuple[i] != ","){
+                first += tuple[i];
+              }
+              if(comaOccurs == true && tuple[i] !=" " && tuple[i] != ","){
                 s += tuple[i];
               }
             }
+            
             this.parsedValues.push({ size: first, quantity: s.trim() })
           });
 
@@ -77,8 +81,13 @@ export class ProductDetailsComponent {
     const selectedSizeObject = this.parsedValues.find(x => x.size === selectedSize);
 
     if (selectedSizeObject) {
+      console.log("Hello");
+      
       this.selectedSize = selectedSizeObject.size;
+      console.log(selectedSizeObject.quantity);
+      
       this.inStock = parseInt(selectedSizeObject.quantity);
+      console.log(this.inStock);
     }
   }
   
@@ -113,5 +122,34 @@ export class ProductDetailsComponent {
     } else {
       this.toastr.warning('Please login First!!');
     }
+  }
+
+
+  // Social Media Share
+  currentUrl = "http://localhost:4200/"; // Replace with your actual page URL
+
+  getCurrentUrl() {
+    this.currentUrl += this.route.snapshot.url.map(segment => segment.path).join('/');
+    console.log('Current URL:', this.currentUrl);
+  }
+
+  shareOnFacebook() {
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.currentUrl)}`, '_blank');
+  }
+
+  shareOnTwitter() {
+    window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.currentUrl)}`, '_blank');
+  }
+
+  shareOnInstagram() {
+    window.open(`https://www.instagram.com/?url=${encodeURIComponent(this.currentUrl)}`, '_blank');
+  }
+
+  shareOnWhatsApp() {
+    window.open(`whatsapp://send?text=${encodeURIComponent(this.currentUrl)}`, '_blank');
+  }
+
+  shareOnSnapchat() {
+    window.open(`https://www.snapchat.com/add/${encodeURIComponent(this.currentUrl)}`, '_blank');
   }
 }
