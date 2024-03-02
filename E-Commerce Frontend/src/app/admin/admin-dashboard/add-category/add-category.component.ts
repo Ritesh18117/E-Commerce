@@ -44,10 +44,14 @@ export class AddCategoryComponent {
       (data) =>{
         console.log(data);
         this.allCategory.splice(index,1);
-        this._toastr.success("Category Deleted Successfully!","Success");
+        this._toastr.success("Category Deleted Successfully!","Success", {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
       }, (error) =>{
         console.error("Error",error);
-        this._toastr.error("Categorgy Deletion Error!","Error");        
+        this._toastr.error("Categorgy Deletion Error!","Error", {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });        
       }
     )
   }
@@ -57,16 +61,22 @@ export class AddCategoryComponent {
       this._categoryService.addCategory(this.token,this.category).subscribe(
         (data) =>{
           console.log(data);
-          this._toastr.success("Category Added Successfully!!","Success");
+          this._toastr.success("Category Added Successfully!!","Success", {
+            timeOut: 500, // Toast will disappear after 0.5 seconds
+          });
           this.resetCategory();
           this.showCategory();
         }, (error) =>{
           console.error("Error",error);
-          this._toastr.error("Error Posting Data!!",error);
+          this._toastr.error("Error Posting Data!!","error", {
+            timeOut: 500, // Toast will disappear after 0.5 seconds
+          });
         }
       )
     } else{
-      this._toastr.error("Please provide Category Name!","Error");
+      this._toastr.error("Please provide Category Name!","Error", {
+        timeOut: 500, // Toast will disappear after 0.5 seconds
+      });
     }
   }
 

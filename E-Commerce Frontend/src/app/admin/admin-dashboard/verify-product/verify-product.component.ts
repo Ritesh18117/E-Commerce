@@ -35,11 +35,15 @@ export class VerifyProductComponent {
     this._productServices.approveProduct(this.token,productId).subscribe(
       (data) =>{
         console.log(data);
-        this.toastr.success("Product Approved Successfully!!", "Success")
+        this.toastr.success("Product Approved Successfully!!", "Success", {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        })
         this.ngOnInit();
       }, (error) => {
         console.error("Error Approving", error);
-        this.toastr.error('Product Approval Error!!', 'Error');
+        this.toastr.error('Product Approval Error!!', 'Error', {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
       }
     );
   }
@@ -48,11 +52,15 @@ export class VerifyProductComponent {
     this._productServices.rejectProduct(this.token,productId).subscribe(
       (data) =>{
         console.log(data);
-        this.toastr.success("Product Rejected Successfully!!", "Success")
+        this.toastr.success("Product Rejected Successfully!!", "Success", {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        })
         this.ngOnInit();
       }, (error) => {
         console.error("Error Approving", error);
-        this.toastr.error('Product Rejection Error!!', 'Error');
+        this.toastr.error('Product Rejection Error!!', 'Error', {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
       }
     );
   }

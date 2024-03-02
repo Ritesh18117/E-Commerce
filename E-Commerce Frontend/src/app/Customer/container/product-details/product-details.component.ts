@@ -69,7 +69,9 @@ export class ProductDetailsComponent {
 
         }, (error) => {
           console.error("Error", error);
-          this.toastr.error("Product Finding Error!!","error");
+          this.toastr.error("Product Finding Error!!","error", {
+            timeOut: 500, // Toast will disappear after 0.5 seconds
+          });
         }
       );
     }
@@ -115,12 +117,18 @@ export class ProductDetailsComponent {
             console.error('Error Found');
           }
         );
-        this.toastr.success('Product Added!!', 'Success');
+        this.toastr.success('Product Added!!', 'Success', {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
       } else {
-        this.toastr.warning('Please Select Size!', 'warning');
+        this.toastr.warning('Please Select Size!', 'warning', {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
       }
     } else {
-      this.toastr.warning('Please login First!!');
+      this.toastr.warning('Please login First!!',"warning", {
+        timeOut: 500, // Toast will disappear after 0.5 seconds
+      });
     }
   }
 

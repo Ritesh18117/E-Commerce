@@ -70,16 +70,22 @@ export class AddShoesComponent {
       this.token = sessionStorage.getItem('token');
       this._productService.addProduct(this.token,this.product).subscribe(
         (data) => {
-          this.toastr.success('Product Added!!', 'Success');
+          this.toastr.success('Product Added!!', 'Success', {
+            timeOut: 500, // Toast will disappear after 0.5 seconds
+          });
           this.resetProduct();
         }, (error) =>{
           console.error("ERROR", error);
-          this.toastr.error('Error Adding product', 'Error');
+          this.toastr.error('Error Adding product', 'Error', {
+            timeOut: 500, // Toast will disappear after 0.5 seconds
+          });
         }
       )
     } catch (error) {
       console.error("Error submitting form", error);
-      this.toastr.error('Error submitting form', 'Error');
+      this.toastr.error('Error submitting form', 'Error', {
+        timeOut: 500, // Toast will disappear after 0.5 seconds
+      });
     }
   }
 

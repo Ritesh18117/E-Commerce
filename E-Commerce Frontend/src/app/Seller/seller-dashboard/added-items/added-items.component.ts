@@ -94,7 +94,9 @@ export class AddedItemsComponent {
     this._productVariationService.deleteByProductIdAndSize(this.token, productId, size).subscribe(
       (data) => {
         console.log(data);
-        this.toastr.success("Productvariation Deleted Successfully!!", "Success");
+        this.toastr.success("Productvariation Deleted Successfully!!", "Success", {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
       }, (error) => {
         console.error("ERROR", error);
         // this.toastr.error("Productvariation Deletion Error","Error");
@@ -125,10 +127,14 @@ export class AddedItemsComponent {
     this._productVariationService.addProductVariation(this.token, productVariation).subscribe(
       (data) => {
         console.log(data);
-        this.toastr.success('Product Added!!', 'Success');
+        this.toastr.success('Product Added!!', 'Success', {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
       }, (error) => {
         console.error("ERROR", error);
-        this.toastr.error('Error submitting form', 'Error');
+        this.toastr.error('Error submitting form', 'Error', {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
       }
     )
     this.size_quant = [];

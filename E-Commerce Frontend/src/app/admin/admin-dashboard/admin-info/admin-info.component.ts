@@ -37,11 +37,15 @@ export class AdminInfoComponent {
     this.adminService.updateProfile(this.token,this.profile).subscribe(
       (data) => {
         this.profile = data;
-        this.toastr.success('Profile Updated', 'Success');
+        this.toastr.success('Profile Updated', 'Success', {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
         this.editProfile = !this.editProfile;
       }, (error) => {
         console.error("Error", error);
-        this.toastr.error('Profile Updating Error', 'Error');
+        this.toastr.error('Profile Updating Error', 'Error', {
+          timeOut: 500, // Toast will disappear after 0.5 seconds
+        });
       }
     )
   }
