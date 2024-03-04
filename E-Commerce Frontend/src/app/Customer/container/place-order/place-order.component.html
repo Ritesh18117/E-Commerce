@@ -28,7 +28,7 @@
                         
 
                         <button class="btn btn-primary" (click)="showAddressForm()">Add Address</button>
-                        <form #myForm="ngForm" class="mt-5 border p-3" (ngSubmit)="onSubmit()" [hidden]="!showForm">
+                        <form #myForm="ngForm" class="mt-5 border p-3" (ngSubmit)="onAddressSubmit()" [hidden]="!showForm">
                             <h2>Add Address</h2>
                             <div class="row m-3">
                                 <div class="col-md-6">
@@ -183,7 +183,7 @@
                 You will save ${{discount}} in this order
             </div>
             <div class="detail d-flex justify-content-end">
-                <button class="m-3 p-2 place-order">Continue</button>
+                <button class="m-3 p-2 place-order" (click)="placeOrder()">Continue</button>
             </div>
         </div>
     </div>

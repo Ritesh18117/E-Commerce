@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/order")
@@ -25,10 +26,10 @@ public class OrderController {
     public ResponseEntity<List<Order>> getAllOrder(){
         return orderService.getAllOrder();
     }
+    // https://chat.openai.com/share/665ce237-6222-4842-82ec-73e8254153e4
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @PostMapping("/placeOrder")
-    // https://chat.openai.com/share/665ce237-6222-4842-82ec-73e8254153e4
-    public ResponseEntity<String> addOrder(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody OrderRequest orderRequest){
+    public ResponseEntity<Map<String,String>> addOrder(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody OrderRequest orderRequest){
         return orderService.placeOrder(authorizationHeader,orderRequest);
     }
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")

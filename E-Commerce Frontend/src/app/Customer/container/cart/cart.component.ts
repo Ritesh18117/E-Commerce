@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./cart.component.css']
 })
 export class CardComponent {
-  cardItems:any;
+  cardItems:any[] = [];
   token:any;
 
   total:number = 0;
@@ -30,6 +30,7 @@ export class CardComponent {
     this._cartItemService.getMyCart(this.token).subscribe(
       (data) => {
         this.cardItems = data;
+        
         this.discount = 0;
         this.total = 0;
         this.totalQuantity = 0;

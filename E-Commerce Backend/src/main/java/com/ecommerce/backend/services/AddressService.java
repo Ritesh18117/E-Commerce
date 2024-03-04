@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Component
-public class AddressService {
+public class    AddressService {
     @Autowired
     private AddressRepository addressRepository;
     @Autowired
@@ -46,8 +46,10 @@ public class AddressService {
             String username = jwtService.extractUsername(token);
             Long userId = userRepository.findByUsername(username).getId();
             Customer customer = customerRepository.findByUserId(userId);
-            customer.getUser().setUsername(null);
             List<Address> addresses = addressRepository.getAddressesByCustomerId(customer.getId());
+            for(Address a : addresses){
+                a.setCustomer(null);
+            }
             return ResponseEntity.of(Optional.of(addresses));
         }catch (Exception e){
             e.printStackTrace();

@@ -1,9 +1,13 @@
 package com.ecommerce.backend.services;
 
 import com.ecommerce.backend.dao.*;
-import com.ecommerce.backend.entities.*;
 import com.ecommerce.backend.dto.OrderRequest;
 import com.ecommerce.backend.dto.ProductRequest;
+import com.ecommerce.backend.entities.Address;
+import com.ecommerce.backend.entities.Customer;
+import com.ecommerce.backend.entities.Order;
+import com.ecommerce.backend.entities.ProductVariation;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -29,6 +35,8 @@ public class OrderService {
     private ProductRepository productRepository;
     @Autowired
     private ProductVariationRepository productVariationRepository;
+    @Autowired
+    private CartItemsRepository cartItemsRepository;
 
     public ResponseEntity<List<Order>> getAllOrder(){
         try{
@@ -43,7 +51,8 @@ public class OrderService {
         }
     }
 
-    public ResponseEntity<String> placeOrder(@RequestHeader(value = "Authorization") String authorizationHeader, OrderRequest orderRequest){
+    @Transactional
+    public ResponseEntity<Map<String,String>> placeOrder(@RequestHeader(value = "Authorization") String authorizationHeader, OrderRequest orderRequest){
         try{
             String token = extractTokenFromHeader(authorizationHeader);
             String username = jwtService.extractUsername(token);
@@ -53,7 +62,7 @@ public class OrderService {
             Address address = orderRequest.getAddress();
             for(ProductRequest productRequest : productVariations){
                 Order order = new Order();
-                order.setCustomer(customer);
+                order.setCustomer(customer); b
                 Optional<ProductVariation> productVariationOptional = productVariationRepository.findById(productRequest.getId());
                 productVariationOptional.ifPresent(productVariation -> order.setProductVariation(productVariation));
                 order.setAddress(orderRequest.getAddress());
@@ -65,8 +74,11 @@ public class OrderService {
                 productVariationOptional.ifPresent(productVariation -> order.setTotalPrice((productVariationOptional.get().getProduct().getPrice() * productRequest.getQuantity()) - ((productRequest.getQuantity() * productVariationOptional.get().getProduct().getPrice())/100 * productVariationOptional.get().getProduct().getDiscount())));
                 orderRepository.save(order);
                 productVariationOptional.get().setQuantity(productVariationOptional.get().getQuantity() - productRequest.getQuantity());
+                cartItemsRepository.deleteByCustomerIdAndProductVariationId(customer.getId(), productVariationOptional.get().getId());
             }
-            return ResponseEntity.ok("Order Placed Successfully!");
+            Map<String,String> output = new HashMap<>();
+            output.put("Message","Order Placed Succcessfully!!!");
+            return ResponseEntity.of(Optional.of(output));
         } catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

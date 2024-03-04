@@ -59,15 +59,9 @@
         <h2>about this item: </h2>
         <p>{{product[0].product.description}}</p>
         <ul>
-<<<<<<< HEAD
-          <li>Color: &nbsp;<span [style.background-color]="product[0].product.color">  &nbsp; &nbsp;</span></li>
-          <li>Available: 
-              <span style="color: green;" *ngIf="inStock > 0 || inStock == -1; else outOfStock" >in stock</span></li>
-=======
           <li>Color: &nbsp;<span [style.background-color]="product[0].product.color" style="border:0.5px solid black;">&nbsp; &nbsp;</span>
           </li>          <li>Available: 
               <span style="color: green;" *ngIf="inStock > 0 || inStock == -1; else outOfStock" >In stock</span></li>
->>>>>>> 185ca2392034ef6cce16ead6717e4c5dadc744e1
               <ng-template #outOfStock>
                   <span style="color: red;">out of stock</span>
               </ng-template>

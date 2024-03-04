@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -75,7 +75,7 @@
                 You will save ₹{{discount}} in this order
             </div>
             <div>
-                <button routerLink="/placeOrder" class="m-3 p-3 place-order">PLACE ORDER</button>
+                <button [disabled]="cardItems.length === 0" routerLink="/placeOrder" class="m-3 p-3 place-order">PLACE ORDER</button>
             </div>
         </div>
     </div>
