@@ -1,2 +1,6 @@
-package com.ecommerce.backend.enums;public class AdminStatus {
+package com.ecommerce.backend.enums;
+
+enum AdminStatus {
+    Active,
+    inActive
 }
