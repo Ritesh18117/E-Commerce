@@ -17,6 +17,7 @@ export class ProductServiceService {
   private getMyProductVerifyListURL = "/api/product/getMyProductVerifyList";
   private revokeProductVerifyURL = "/api/product/revokeProductVerify";
   private searchURL = "/api/product/search";
+  private updateProductURL = "/api/product/updateProduct";
 
   constructor(private http: HttpClient) { }
 
@@ -65,6 +66,11 @@ export class ProductServiceService {
 
   search(searchItem:string):Observable<any>{
     return this.http.get<any>(`${this.searchURL}/${searchItem}`);
+  }
+
+  updateProduct(token:any,product:any){
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.patch<any>(this.updateProductURL, product, { headers });
   }
   
 }

@@ -21,11 +21,11 @@ public class OrderTracking {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private OrderStatus status;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDateTime statusChangedAt;
     @Column(nullable = false)
     private LocalDateTime createdAt;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
     public OrderTracking(){
     }

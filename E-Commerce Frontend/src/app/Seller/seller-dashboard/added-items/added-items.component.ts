@@ -24,11 +24,15 @@ export class AddedItemsComponent {
 
   categories: any;
 
-  constructor(private _categoryService: CategoryService, private toastr: ToastrService, private _productService: ProductServiceService, private _productVariationService: ProductVariationService) { }
+  constructor(private _categoryService: CategoryService, 
+    private toastr: ToastrService, 
+    private _productService: ProductServiceService, 
+    private _productVariationService: ProductVariationService) { }
 
   async ngOnInit() {
     this.token = sessionStorage.getItem('token');
     await this.getSellerProduct();
+    this.getCategory();
   }
 
   async getSellerProduct(): Promise<any> {
@@ -145,11 +149,39 @@ export class AddedItemsComponent {
     this._categoryService.getAllCategory().subscribe(
       (data) => {
         console.log(data);
+        
         this.categories = data;
       },
       (error) => {
         console.error("ERROR", error);
       }
     )
+  }
+
+  img:string = "";
+
+  onEditSubmit(product:any){
+    console.log(product);
+    product.category.categoryName = "";
+    product.category.description = "";
+    this._productService.updateProduct(this.token,product).subscribe(
+      (data) =>{
+        console.log(data);
+
+      }, (error) =>{
+        console.error(error);
+      }
+    )
+  }
+
+  deleteImage(index:number,product:any){
+    product.images.splice(index,1);
+  }
+
+  addImage(product:any){
+    if(this.img !== ""){
+      product.images.push(this.img);
+      this.img = ""
+    }
   }
 }

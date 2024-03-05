@@ -3,10 +3,8 @@ package com.ecommerce.backend.services;
 import com.ecommerce.backend.dao.*;
 import com.ecommerce.backend.dto.OrderRequest;
 import com.ecommerce.backend.dto.ProductRequest;
-import com.ecommerce.backend.entities.Address;
-import com.ecommerce.backend.entities.Customer;
-import com.ecommerce.backend.entities.Order;
-import com.ecommerce.backend.entities.ProductVariation;
+import com.ecommerce.backend.entities.*;
+import com.ecommerce.backend.enums.OrderStatus;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +36,8 @@ public class OrderService {
     private ProductVariationRepository productVariationRepository;
     @Autowired
     private CartItemsRepository cartItemsRepository;
+    @Autowired
+    private OrderTrackingRepository orderTrackingRepository;
 
     public ResponseEntity<List<Order>> getAllOrder(){
         try{
@@ -61,8 +62,9 @@ public class OrderService {
             List<ProductRequest> productVariations = orderRequest.getProductVariations();
             Address address = orderRequest.getAddress();
             for(ProductRequest productRequest : productVariations){
+                // Placing Order
                 Order order = new Order();
-                order.setCustomer(customer); b
+                order.setCustomer(customer);
                 Optional<ProductVariation> productVariationOptional = productVariationRepository.findById(productRequest.getId());
                 productVariationOptional.ifPresent(productVariation -> order.setProductVariation(productVariation));
                 order.setAddress(orderRequest.getAddress());
@@ -74,7 +76,16 @@ public class OrderService {
                 productVariationOptional.ifPresent(productVariation -> order.setTotalPrice((productVariationOptional.get().getProduct().getPrice() * productRequest.getQuantity()) - ((productRequest.getQuantity() * productVariationOptional.get().getProduct().getPrice())/100 * productVariationOptional.get().getProduct().getDiscount())));
                 orderRepository.save(order);
                 productVariationOptional.get().setQuantity(productVariationOptional.get().getQuantity() - productRequest.getQuantity());
+                // Removing Item from Cart
                 cartItemsRepository.deleteByCustomerIdAndProductVariationId(customer.getId(), productVariationOptional.get().getId());
+                // For Order Tracking
+                OrderTracking orderTracking = new OrderTracking();
+                orderTracking.setOrder(order);
+                orderTracking.setSeller(productVariationOptional.get().getProduct().getSeller());
+                orderTracking.setCreatedAt(LocalDateTime.now());
+                orderTracking.setStatus(OrderStatus.ORDER_PLACED);
+                orderTracking.setUpdatedAt(LocalDateTime.now());
+                orderTrackingRepository.save(orderTracking);
             }
             Map<String,String> output = new HashMap<>();
             output.put("Message","Order Placed Succcessfully!!!");

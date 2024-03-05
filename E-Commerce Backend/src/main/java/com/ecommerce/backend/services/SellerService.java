@@ -55,11 +55,10 @@ public class SellerService {
         try{
             String token = extractTokenFromHeader(authorizationHeader);
             String username = jwtService.extractUsername(token);
-            System.out.println(username);
             Long userId = userRepository.findByUsername(username).getId();
-            System.out.println("Seller Id from id route : " + userId);
             Seller seller =sellerRepository.findByUserId(userId);
             seller.getUser().setPassword(null);
+            seller.setVerifiedBy(null);
             return ResponseEntity.of(Optional.of(Optional.of(seller)));
         } catch (Exception e){
             e.printStackTrace();

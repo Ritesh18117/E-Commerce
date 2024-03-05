@@ -1,6 +1,7 @@
 package com.ecommerce.backend.enums;
 
 public enum OrderStatus {
+    ORDER_PLACED("Order Placed"),
     PACKED("Packed"),
     SHIPPED("Shipped"),
     AT_DELIVERY_CENTRE("At Delivery Centre"),

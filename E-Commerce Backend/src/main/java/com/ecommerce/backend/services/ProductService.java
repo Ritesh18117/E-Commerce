@@ -50,19 +50,38 @@ public class ProductService {
         }
     }
 
-//    public ResponseEntity<String> updateProduct(Long productId,List<String> images){
-//        try {
-//            Optional<Product> product = productRepository.findById(productId);
-//            for(String img : images){
-//                product.get().addImage(img);
-//            }
-//            productRepository.save(product.get());
-//            return ResponseEntity.ok("Success");
-//        } catch (Exception e){
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+    public ResponseEntity<Product> updateProduct(@RequestHeader(value = "Authorization") String authorizationHeader,Product product){
+        try {
+            String token = extractTokenFromHeader(authorizationHeader);
+            String username = jwtService.extractUsername(token);
+            Long userId = userRepository.findByUsername(username).getId();
+            Seller seller = sellerRepository.findByUserId(userId);
+
+            Optional<Product> existingProduct = productRepository.findById(product.getId());
+            if (existingProduct.isPresent()) {
+                Product oldProduct = existingProduct.get();
+                oldProduct.setSeller(seller);
+                oldProduct.getCategory().setId(product.getCategory().getId());
+                oldProduct.setName(product.getName());
+                oldProduct.setPrice(product.getPrice());
+                oldProduct.setDiscount(product.getDiscount());
+                oldProduct.setMargin(product.getMargin());
+                oldProduct.setGender(product.getGender());
+                oldProduct.setColor(product.getColor());
+                oldProduct.setDescription(product.getDescription());
+                oldProduct.setImageURL(product.getImageURL());
+                oldProduct.setApprovalStatus("false");
+                oldProduct.setImages(product.getImages());
+                productRepository.save(oldProduct);
+                return ResponseEntity.of(Optional.of(oldProduct));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 
     public ResponseEntity<List<Product>> myProducts(@RequestHeader(value = "Authorization") String authorizationHeader) {
@@ -74,6 +93,7 @@ public class ProductService {
             List<Product> products = productRepository.findBySeller_Id(seller.getId());
             for(Product product : products){
                 product.setSeller(null);
+                product.setVerifiedBy(null);
             }
             return ResponseEntity.of(Optional.of(products));
         } catch (Exception e){

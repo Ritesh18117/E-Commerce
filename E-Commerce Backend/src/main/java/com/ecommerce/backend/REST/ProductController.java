@@ -85,10 +85,11 @@ public class ProductController {
         return productService.search(searchItem);
     }
 
-//    @PostMapping("/update/{productId}")
-//    public ResponseEntity<String> update(@PathVariable Long productId,@RequestBody List<String> images){
-//        return productService.updateProduct(productId,images);
-//    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/updateProduct")
+    public ResponseEntity<Product> update(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestBody Product product){
+        return productService.updateProduct(authorizationHeader,product);
+    }
 }
 
 
