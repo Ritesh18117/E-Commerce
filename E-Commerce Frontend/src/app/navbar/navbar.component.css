@@ -38,3 +38,9 @@ a:hover {
   margin: 0;
   padding: 0;
 }
+.greet-user{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}

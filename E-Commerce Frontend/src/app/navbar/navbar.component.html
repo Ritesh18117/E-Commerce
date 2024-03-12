@@ -16,15 +16,17 @@
           <li class="nav-item">
             <a *ngIf="role == ''" class="nav-link" routerLink="/auth/signup">Sign-up</a>
           </li>
-          <li class="nav-item">
-            <a *ngIf="role == 'ROLE_CUSTOMER'" class="nav-link" routerLink="/cart"><span
-                class="material-symbols-outlined"> shopping_cart </span></a>
-          </li>
+          
+          <span *ngIf="role == 'ROLE_CUSTOMER'" class="greet-user">Hello Username</span>
           <li class="nav-item">
             <a *ngIf="role == 'ROLE_CUSTOMER'" class="nav-link" routerLink="/dashboard"><span
                 class="material-symbols-outlined">
                 account_circle
               </span></a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="role == 'ROLE_CUSTOMER'" class="nav-link" routerLink="/cart"><span
+                class="material-symbols-outlined"> shopping_cart </span></a>
           </li>
           <li class="nav-item">
             <a *ngIf="role == 'ROLE_CUSTOMER'" class="nav-link" routerLink="" (click)="logout()"><span
@@ -34,6 +36,7 @@
       </div>
 
       <ul class="navbar-nav">
+        <span *ngIf="role == 'ROLE_SELLER'" class="greet-user">Hello Username</span>
         <li class="nav-item">
           <a *ngIf="role == 'ROLE_SELLER'" class="nav-link" routerLink="/seller/dashboard"><span
               class="material-symbols-outlined"> account_circle </span></a>

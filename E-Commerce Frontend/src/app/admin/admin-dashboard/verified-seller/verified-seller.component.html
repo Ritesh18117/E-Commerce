@@ -1,5 +1,5 @@
-<h2>Sellers for Approval</h2>
-<ng-container *ngFor="let seller of sellerVerifiedList">
+<h2>Approved Sellers</h2>
+<!-- <ng-container *ngFor="let seller of sellerVerifiedList">
     <div class="mt-4 border p-3 row">
         <div class="detail col-md-9">
             Seller Id : {{seller.id}} <br>
@@ -11,8 +11,36 @@
             Website : {{seller.website}} <br>
             Address : {{seller.address}} <br>
             Status : <span style="color:green" *ngIf="seller.approvalStatus == 'true'">Approved</span> <br>
-            <span *ngIf="seller.approvalStatus == 'rejected'" style="color:red">Rejected</span> <br> 
+            <span *ngIf="seller.approvalStatus == 'rejected'" style="color:red">Rejected</span> <br>
             <button class="btn btn-danger btn-sm" (click)="revoke(seller.id)">Revoke</button>
         </div>
     </div>
-</ng-container>
+</ng-container> -->
+<table>
+    <tr>
+        <th>Seller Id</th>
+        <th>Company Name</th>
+        <th>Company Type</th>
+        <th>GST Number</th>
+        <th>License Number</th>
+        <th>Contact Email</th>
+        <th>Status</th>
+        <th>Revoke Seller</th>
+    </tr>
+    <ng-container *ngFor="let seller of sellerVerifiedList">
+        <tr>
+            <td>{{seller.id}}</td>
+            <td>{{seller.companyName}}</td>
+            <td>{{seller.companyType}}</td>
+            <td>{{seller.gstNumber}}</td>
+            <td>{{seller.licenceNumber}}</td>
+            <td>{{seller.contactEmail}}</td>
+            <td> <span style="color:green" *ngIf="seller.approvalStatus == 'true'">Approved</span>
+                <span *ngIf="seller.approvalStatus == 'rejected'" style="color:red">Rejected</span>
+            </td>
+            <td>
+                <button class="btn btn-danger btn-sm" (click)="revoke(seller.id)">Revoke</button>
+            </td>
+        </tr>
+    </ng-container>
+</table>
