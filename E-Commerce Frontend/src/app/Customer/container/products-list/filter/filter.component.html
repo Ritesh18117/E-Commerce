@@ -1,7 +1,9 @@
 <div class="filter">
-     &nbsp; <span>Categories : </span> &nbsp;
-     <button class="btn btn-light border" (click)="filter(0)">All</button> &nbsp; 
+     <!-- <div id="cat">Browse by<br> Category</div> -->
+          <button class="btn " id ="all" (click)="filter(0)">All</button> &nbsp; 
+
      <ng-container *ngFor="let category of categories">
-        <button class="btn btn-light border" (click)="filter(category.id)">{{category.categoryName}}</button> &nbsp; 
+       <button type="button" class="btn " (click)="filter(category.id)">{{category.categoryName}}</button> &nbsp; 
      </ng-container>
 </div>
+
