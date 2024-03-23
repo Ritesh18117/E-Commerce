@@ -48,9 +48,7 @@ public class CustomerService {
 
     public ResponseEntity<Customer> myProfile(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer customer = customerRepository.findByUserId(userId);
             customer.getUser().setPassword(null);
             return ResponseEntity.of(Optional.of(customer));
@@ -62,9 +60,7 @@ public class CustomerService {
 
     public ResponseEntity<Customer> updateProfile(@RequestBody Customer updatedCustomer, @RequestHeader(value = "Authorization") String authorizationHeader){
         try {
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer existingCustomer = customerRepository.findByUserId(userId);
 
             updatedCustomer.setUser(existingCustomer.getUser());
@@ -78,14 +74,5 @@ public class CustomerService {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
     }
 }

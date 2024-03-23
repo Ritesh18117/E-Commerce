@@ -1,10 +1,12 @@
 package com.ecommerce.backend.services;
 
+import com.ecommerce.backend.dao.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,8 @@ import java.util.function.Function;
 
 @Component
 public class JwtService {
+    @Autowired
+    private UserRepository userRepository;
 
     public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
     public String generateToken(String userName) {
@@ -72,4 +76,18 @@ public class JwtService {
         return extractClaim(token, claims -> claims.get("role", String.class));
     }
 
+    public String extractTokenFromHeader(String authorizationHeader) {
+        // Check if the Authorization header is not null and starts with "Bearer "
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            // Extract the token part by removing "Bearer " prefix
+            return authorizationHeader.substring(7); // "Bearer ".length() == 7
+        }
+        return null; // Return null or handle accordingly if token extraction fails
+    }
+
+    public Long extractUserIdFromHeader(String authorizationHeader){
+        String token = extractTokenFromHeader(authorizationHeader);
+        String username = extractUsername(token);
+        return userRepository.findByUsername(username).getId();
+    }
 }

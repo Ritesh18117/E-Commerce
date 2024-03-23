@@ -84,9 +84,7 @@ public class AdminService {
 
     public ResponseEntity<Admin> myProfile(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             if (admin != null){
                 admin.getUser().setPassword(null);
@@ -101,9 +99,7 @@ public class AdminService {
 
     public ResponseEntity<Admin> updateProfile(@RequestHeader(value = "Authorization") String authorizationHeader, Admin updatedAdmin){
         try {
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin existingAdmin = adminRepository.findByUserId(userId);
             System.out.println("Admin Id : " + existingAdmin.getId());
 
@@ -125,15 +121,6 @@ public class AdminService {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
     }
 
 }

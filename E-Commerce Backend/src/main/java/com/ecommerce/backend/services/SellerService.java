@@ -53,9 +53,7 @@ public class SellerService {
 
     public ResponseEntity<Optional<Seller>> getSellerById(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller seller =sellerRepository.findByUserId(userId);
             seller.getUser().setPassword(null);
             seller.setVerifiedBy(null);
@@ -68,9 +66,7 @@ public class SellerService {
 
     public ResponseEntity<Seller> updateSellerProfile(@RequestBody Seller updatedSeller,@RequestHeader(value = "Authorization") String authorizationHeader){
         try {
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller existingSeller = sellerRepository.findByUserId(userId);
 
             String existingApprovalStatus = existingSeller.getApprovalStatus();
@@ -91,9 +87,7 @@ public class SellerService {
 
     public ResponseEntity<List<Seller>> notApprovedSellers(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
 
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
@@ -113,9 +107,7 @@ public class SellerService {
 
     public ResponseEntity<Map<String,String>> approveSeller(@RequestHeader(value = "Authorization") String authorizationHeader,Long sellerId){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Seller> seller = sellerRepository.findById(sellerId);
@@ -137,9 +129,7 @@ public class SellerService {
 
     public ResponseEntity<Map<String,String>> rejectSeller(@RequestHeader(value = "Authorization") String authorizationHeader,Long sellerId){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Seller> seller = sellerRepository.findById(sellerId);
@@ -161,9 +151,7 @@ public class SellerService {
 
     public ResponseEntity<List<Seller>> getMySellerVerifyList(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             List<Seller> verifiedSellers = new ArrayList<>();
             for(Long sellerId : admin.getVerifiedSeller()){
@@ -181,9 +169,7 @@ public class SellerService {
 
     public ResponseEntity<Map<String,String>> revokeSellerVerify(@RequestHeader(value = "Authorization") String authorizationHeader, Long sellerId){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             Optional<Seller> seller = sellerRepository.findById(sellerId);
             if(seller.isPresent()){
@@ -202,13 +188,4 @@ public class SellerService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
-    }
-
 }

@@ -1,4 +1,7 @@
-<h2>Company Information</h2>
+<h2>Company Information <span *ngIf="profile.approvalStatus == 'rejected'" style="color: red;">({{profile.approvalStatus}})</span>  
+    <span *ngIf="profile.approvalStatus == 'true'" style="color: green;">(Approved)</span>
+    <span *ngIf="profile.approvalStatus == 'false'" style="color: yellowgreen;">(Approval Pending)</span>
+</h2>
 <form action="" class="mt-4" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-6">

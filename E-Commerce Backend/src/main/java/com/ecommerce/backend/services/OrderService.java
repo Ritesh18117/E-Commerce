@@ -55,9 +55,7 @@ public class OrderService {
     @Transactional
     public ResponseEntity<Map<String,String>> placeOrder(@RequestHeader(value = "Authorization") String authorizationHeader, OrderRequest orderRequest){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer customer = customerRepository.findByUserId(userId);
             List<ProductRequest> productVariations = orderRequest.getProductVariations();
             Address address = orderRequest.getAddress();
@@ -97,9 +95,7 @@ public class OrderService {
     }
     public ResponseEntity<List<Order>> myOrders(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer customer = customerRepository.findByUserId(userId);
             List<Order> orders = (List<Order>) orderRepository.findAll();
             if(!orders.isEmpty()){
@@ -117,15 +113,5 @@ public class OrderService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
-    }
-
 }
 

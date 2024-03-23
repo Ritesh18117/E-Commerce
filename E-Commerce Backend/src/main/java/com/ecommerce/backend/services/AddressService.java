@@ -42,9 +42,7 @@ public class    AddressService {
     }
     public ResponseEntity<List<Address>> myAddresses(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer customer = customerRepository.findByUserId(userId);
             List<Address> addresses = addressRepository.getAddressesByCustomerId(customer.getId());
             for(Address a : addresses){
@@ -59,8 +57,7 @@ public class    AddressService {
 
     public ResponseEntity<Address> addAddress(@RequestBody Address address,@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            System.out.println(address.getName());
-            String token = extractTokenFromHeader(authorizationHeader);
+            String token = jwtService.extractTokenFromHeader(authorizationHeader);
             String username = jwtService.extractUsername(token);
             Long userId = userRepository.findByUsername(username).getId();
             if( userId != null && Objects.equals(userRepository.findByUsername(username).getRole(), "ROLE_CUSTOMER")){
@@ -80,7 +77,7 @@ public class    AddressService {
 
     public ResponseEntity<String> deleteAddress(long id,@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
+            String token = jwtService.extractTokenFromHeader(authorizationHeader);
             String username = jwtService.extractUsername(token);
             Long userId = userRepository.findByUsername(username).getId();
             if( userId != null && Objects.equals(userRepository.findByUsername(username).getRole(), "ROLE_CUSTOMER")){
@@ -100,13 +97,5 @@ public class    AddressService {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
     }
 }

@@ -30,9 +30,7 @@ public class ProductService {
 
     public ResponseEntity<Product> addProduct(@RequestBody Product product,@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller seller = sellerRepository.findByUserId(userId);
             product.setSeller(seller);
             product.setApprovalStatus("false");
@@ -52,9 +50,7 @@ public class ProductService {
 
     public ResponseEntity<Product> updateProduct(@RequestHeader(value = "Authorization") String authorizationHeader,Product product){
         try {
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller seller = sellerRepository.findByUserId(userId);
 
             Optional<Product> existingProduct = productRepository.findById(product.getId());
@@ -86,9 +82,7 @@ public class ProductService {
 
     public ResponseEntity<List<Product>> myProducts(@RequestHeader(value = "Authorization") String authorizationHeader) {
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller seller = sellerRepository.findByUserId(userId);
             List<Product> products = productRepository.findBySeller_Id(seller.getId());
             for(Product product : products){
@@ -221,9 +215,7 @@ public class ProductService {
 
     public ResponseEntity<List<Product>> notApprovedProduct(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             if (admin != null){
                 List<Product> products = productRepository.findAllByApprovalStatus("false");
@@ -242,9 +234,7 @@ public class ProductService {
 
     public ResponseEntity<Map<String, String>> approveProduct(@RequestHeader(value = "Authorization") String authorizationHeader, Long productId){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Product> product = productRepository.findById(productId);
@@ -270,9 +260,7 @@ public class ProductService {
 
     public ResponseEntity<Map<String, String>> rejectProduct(@RequestHeader(value = "Authorization") String authorizationHeader, Long productId){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Product> product = productRepository.findById(productId);
@@ -298,9 +286,7 @@ public class ProductService {
 
     public ResponseEntity<List<Product>> getMyProductVerifyList(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             List<Product> verifiedProducts = new ArrayList<>();
             for(Long productId : admin.getVerifiedProduct()){
@@ -319,9 +305,7 @@ public class ProductService {
 
     public ResponseEntity<Map<String,String>> revokeProductVerify(@RequestHeader(value = "Authorization") String authorizationHeader, Long productId){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             Optional<Product> product = productRepository.findById(productId);
             if(product.isPresent()){
@@ -369,14 +353,5 @@ public class ProductService {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
     }
 }

@@ -38,6 +38,7 @@ export class ProfileComponent {
   onSubmit(){
     this._sellerService.updateProfile(this.token,this.profile).subscribe(
       (data) =>{
+        console.log(data);
         this.profile = data;
         this.editProfile = !this.editProfile;
         this.toastr.success('Product Added!!', 'Success', {

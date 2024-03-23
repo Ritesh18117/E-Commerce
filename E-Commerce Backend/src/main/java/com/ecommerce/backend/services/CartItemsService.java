@@ -34,9 +34,7 @@ public class CartItemsService {
 
     public ResponseEntity<List<CartItems>> getMyCart(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer customer = customerRepository.findByUserId(userId);
             List<CartItems> cartItems = cartItemsRepository.findAllByCustomerId(customer.getId());
             for(CartItems x : cartItems){
@@ -55,9 +53,7 @@ public class CartItemsService {
             ProductVariation productVariation = productVariationRepository.findByProductIdAndSize(cartItemRequest.getProduct_id(),cartItemRequest.getSize());
             Optional<Product> product = productRepository.findById(productVariation.getProduct().getId());
             if(Objects.equals(product.get().getApprovalStatus(), "true") && productVariation != null) {
-                String token = extractTokenFromHeader(authorizationHeader);
-                String username = jwtService.extractUsername(token);
-                Long userId = userRepository.findByUsername(username).getId();
+                Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
                 Customer customer = customerRepository.findByUserId(userId);
 
                 CartItems cartItems = new CartItems();
@@ -76,20 +72,10 @@ public class CartItemsService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
-    }
 
     public ResponseEntity<Map<String, String>> removeCartItem(@RequestHeader(value = "Authorization") String authorizationHeader, Long cartItem_id) {
         try {
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer customer = customerRepository.findByUserId(userId);
 
             if (customer != null) {
@@ -122,9 +108,7 @@ public class CartItemsService {
 
     public ResponseEntity<Map<String, String>> addQuantity(Long cartItemId,@RequestHeader(value = "Authorization") String authorizationHeader){
         try {
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer customer = customerRepository.findByUserId(userId);
 
             Optional<CartItems> existingCartItemOptional = cartItemsRepository.findById(cartItemId);
@@ -154,9 +138,7 @@ public class CartItemsService {
 
     public ResponseEntity<Map<String, String>> substractQuantity(Long cartItemId,@RequestHeader(value = "Authorization") String authorizationHeader){
         try {
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer customer = customerRepository.findByUserId(userId);
 
             Optional<CartItems> existingCartItemOptional = cartItemsRepository.findById(cartItemId);

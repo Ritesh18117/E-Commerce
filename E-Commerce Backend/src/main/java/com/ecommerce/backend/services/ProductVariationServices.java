@@ -72,9 +72,7 @@ public class ProductVariationServices {
 
     public ResponseEntity<Map<String, Object>> addProductVariation(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestBody ProductVariationRequest productVariationRequest){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller seller = sellerRepository.findByUserId(userId);
             Optional<Product> product = productRepository.findById(productVariationRequest.getProduct().getId());
             System.out.println(productVariationRequest.getSize_quant());
@@ -126,10 +124,7 @@ public class ProductVariationServices {
 
     public ResponseEntity<Optional<ProductVariation>> updateProductVariation(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody ProductVariation updatedproductVariation){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            System.out.println(username);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller seller = sellerRepository.findByUserId(userId);
             Optional<Product> product = productRepository.findById(updatedproductVariation.getProduct().getId());
             if (seller.getId() == product.get().getSeller().getId()){
@@ -167,14 +162,10 @@ public class ProductVariationServices {
 
     public ResponseEntity<Map<String,String>> deleteByProductIdAndSize(@RequestHeader(value = "Authorization") String authorizationHeader, Long productId,String size){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller seller = sellerRepository.findByUserId(userId);
 
             ProductVariation productVariation = productVariationRepository.findByProductIdAndSize(productId,size);
-            System.out.println(productId + " " + size);
-            System.out.println(productVariation.getId());
             if (Objects.equals(seller.getId(), productVariation.getProduct().getSeller().getId())) {
                 productVariationRepository.deleteById(productVariation.getId());
                 Map<String, String> output = new HashMap<>();
@@ -187,14 +178,5 @@ public class ProductVariationServices {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
     }
 }

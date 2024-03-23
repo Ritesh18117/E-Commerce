@@ -41,9 +41,7 @@ public class CategoryServices {
 
     public ResponseEntity<Category> addCategory(@RequestHeader(value = "Authorization") String authorizationHeader, Category category){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             if (Objects.equals(admin.getStatus(), "Active")){
                 categoryRepository.save(category);                   
@@ -59,9 +57,7 @@ public class CategoryServices {
 
     public ResponseEntity<Map<String,String>> deleteCategroyById(@RequestHeader(value = "Authorization") String authorizationHeader,Long categoryId){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             if(Objects.equals(admin.getStatus(),"Active")){
                 Optional<Category> category = categoryRepository.findById(categoryId);
@@ -84,15 +80,5 @@ public class CategoryServices {
 
     public ResponseEntity<List<Map<String, Object>>> findByCategoryId(Long categoryId){
         return productService.findByCategories(categoryId);
-    }
-
-
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
     }
 }

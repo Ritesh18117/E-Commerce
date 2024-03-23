@@ -108,9 +108,7 @@ public class UserService implements UserDetailsService {
 
     public ResponseEntity<Map<String,String>> getUsername(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
-            String token = extractTokenFromHeader(authorizationHeader);
-            String username = jwtService.extractUsername(token);
-            Long userId = userRepository.findByUsername(username).getId();
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Optional<User> user = userRepository.findById(userId);
             if (Objects.equals(user.get().getRole(), "ROLE_SELLER")) {
                 Seller seller = sellerRepository.findByUserId(userId);
@@ -133,14 +131,5 @@ public class UserService implements UserDetailsService {
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-
-    private String extractTokenFromHeader(String authorizationHeader) {
-        // Check if the Authorization header is not null and starts with "Bearer "
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            // Extract the token part by removing "Bearer " prefix
-            return authorizationHeader.substring(7); // "Bearer ".length() == 7
-        }
-        return null; // Return null or handle accordingly if token extraction fails
     }
 }
