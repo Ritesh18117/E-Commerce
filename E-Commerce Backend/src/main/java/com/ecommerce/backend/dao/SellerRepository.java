@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface SellerRepository extends CrudRepository<Seller, Long> {
     Seller findByUserId(Long userId);
-    String findCompanyNameByUserId(@Param("user_id") Long userId);
     List<Seller> findAllByApprovalStatus(String approvalStatus);
+    Seller findByGstNumber(String gstNumber);
+    Seller findByLicenceNumber(String licenceNumber);
+    Seller findByCompanyName(String companyName);
 }

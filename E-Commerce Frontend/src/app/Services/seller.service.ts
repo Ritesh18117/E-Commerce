@@ -14,6 +14,10 @@ export class SellerService {
   private rejectSellerURL = "/api/seller/rejectSeller";
   private mySellerVerifyListURL = "/api/seller/getMySellerVerifyList";
   private revokeSellerVerifyURL = "/api/seller/revokeSellerVerify";
+  private getSellerByGSTURL = "/api/seller/getSellerByGST";
+  private getSellerByLicenceNumberURL = "/api/seller/getSellerByLicenceNumber";
+  private getSellerByCompanyNameURL = "/api/seller/getSellerByCompanyName";
+  private getSellerBySellerIdURL = "/api/seller/getSellerBySellerId";
 
   constructor(private http: HttpClient) { }
 
@@ -42,13 +46,33 @@ export class SellerService {
     return this.http.get<any>(`${this.rejectSellerURL}/${sellerId}`, { headers });
   }
 
-  mySellerVerifyList(token:string){
+  mySellerVerifyList(token:string):Observable<any>{
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.get<any>(this.mySellerVerifyListURL, { headers });
   }
 
-  revokeSellerVerify(token:string,sellerId:number){
+  revokeSellerVerify(token:string,sellerId:number):Observable<any>{
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.get<any>(`${this.revokeSellerVerifyURL}/${sellerId}`, { headers });
+  }
+
+  getSellerByGST(token:string,gst:string):Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(`${this.getSellerByGSTURL}/${gst}`, { headers });
+  }
+
+  getSellerByLicenceNumber(token:string,licenceNumber:string):Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(`${this.getSellerByLicenceNumberURL}/${licenceNumber}`, { headers });
+  }
+
+  getSellerByCompanyName(token:string,companyName:string):Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(`${this.getSellerByCompanyNameURL}/${companyName}`, { headers });
+  }
+
+  getSellerBySellerId(token:string,sellerId:string):Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(`${this.getSellerBySellerIdURL}/${sellerId}`, { headers });
   }
 }

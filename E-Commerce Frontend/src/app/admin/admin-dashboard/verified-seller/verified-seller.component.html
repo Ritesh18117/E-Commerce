@@ -1,21 +1,19 @@
 <h2>Approved Sellers</h2>
-<!-- <ng-container *ngFor="let seller of sellerVerifiedList">
-    <div class="mt-4 border p-3 row">
-        <div class="detail col-md-9">
-            Seller Id : {{seller.id}} <br>
-            Company Name : {{seller.companyName}} <br>
-            Company Type : {{seller.companyType}} <br>
-            GST Number : {{seller.gstNumber}} <br>
-            Licence Number : {{seller.licenceNumber}} <br>
-            Contact Email : {{seller.contactEmail}} <br>
-            Website : {{seller.website}} <br>
-            Address : {{seller.address}} <br>
-            Status : <span style="color:green" *ngIf="seller.approvalStatus == 'true'">Approved</span> <br>
-            <span *ngIf="seller.approvalStatus == 'rejected'" style="color:red">Rejected</span> <br>
-            <button class="btn btn-danger btn-sm" (click)="revoke(seller.id)">Revoke</button>
+<div class="d-flex justify-content-center">
+    <div class="input-group mb-2" style="width: 80%;">
+        <select [(ngModel)]="searchType" id="searchType" name="searchType" class="rounded form-control" style="width: 20%;">
+            <option value="companyName">Company Name</option>
+            <option value="gstNumber">GST Number</option>
+            <option value="sellerId">Seller Id</option>
+            <option value="licenceNumber">Licence Number</option>
+        </select>
+        <input type="text" [(ngModel)]="searchValue" class="form-control" style="width: 70%;" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append" style="width: 10%;">
+          <button class="btn btn-outline-secondary" type="button" (click)="search()">Search</button>
         </div>
     </div>
-</ng-container> -->
+</div>
+
 <table>
     <tr>
         <th>Seller Id</th>

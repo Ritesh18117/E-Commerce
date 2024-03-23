@@ -4,4 +4,5 @@ ToDo:
 2) Create Super Admin : It handles the request related to Approval of Admins and Some high level works.
 3) Address Field is Missing from "Verified Seller" in Admin Module.
 4) Make table in "Verify Seller" same as "Verified Seller" in Admin Module
-5) 
+5) Protect Admin Dashboard Routes
+6) Admin Info component add "gstNumber" and "licenceNumber" field in Admin info.

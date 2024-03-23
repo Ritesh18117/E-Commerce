@@ -188,4 +188,88 @@ public class SellerService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    public ResponseEntity<Seller> getSellerByGST(@RequestHeader(value = "Authorization") String authorizationHeader,String gst){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+            if(admin != null){
+                Seller seller = sellerRepository.findByGstNumber(gst);
+                if(seller != null){
+                    seller.setVerifiedBy(null);
+                    seller.setUser(null);
+                    return ResponseEntity.of(Optional.of(seller));
+                } else{
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<Seller> getSellerByLicenceNumber(@RequestHeader(value = "Authorization") String authorizationHeader,String licenceNumber){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+            if(admin != null){
+                Seller seller = sellerRepository.findByLicenceNumber(licenceNumber);
+                if(seller != null){
+                    seller.setUser(null);
+                    seller.setVerifiedBy(null);
+                    return ResponseEntity.of(Optional.of(seller));
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                }
+            } else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<Seller> getSellerBySellerId(@RequestHeader(value = "Authorization") String authorizationHeader,Long id){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+            if(admin != null){
+                Optional<Seller> seller = sellerRepository.findById(id);
+                if(seller.isPresent()){
+                    seller.get().setUser(null);
+                    seller.get().setVerifiedBy(null);
+                    return ResponseEntity.of(Optional.of(seller.get()));
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<Seller> getSellerByCompanyName(@RequestHeader(value = "Authorization") String authorizationHeader,String name){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+            if(admin != null){
+                Seller seller = sellerRepository.findByCompanyName(name);
+                if(seller != null){
+                    seller.setUser(null);
+                    seller.setVerifiedBy(null);
+                    return ResponseEntity.of(Optional.of(seller));
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

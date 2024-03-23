@@ -10,12 +10,60 @@ export class VerifiedSellerComponent {
 
   token:any;
   sellerVerifiedList:any;
+  searchValue:any;
+  searchType:string = "companyName";
 
   constructor(private _sellerService:SellerService){}
 
   ngOnInit(){
     this.token = sessionStorage.getItem('token');
     this.getSellerVerifiedList();
+  }
+
+  search() {
+    console.log(this.searchType);
+    
+    if(this.searchType == "gstNumber"){
+        this._sellerService.getSellerByGST(this.token,this.searchValue).subscribe(
+          (data) =>{
+            console.log(data);
+            const sellers = [data];
+            this.sellerVerifiedList = sellers;
+          }, (error) =>{
+            console.error(error);
+          }
+        )
+    } else if(this.searchType == "companyName"){
+      this._sellerService.getSellerByCompanyName(this.token,this.searchValue).subscribe(
+        (data) =>{
+          console.log(data);
+          const sellers = [data];
+          this.sellerVerifiedList = sellers;
+        }, (error) =>{
+          console.error(error);
+        }
+      )
+    } else if(this.searchType == "sellerId"){
+      this._sellerService.getSellerBySellerId(this.token,this.searchValue).subscribe(
+        (data) =>{
+          console.log(data);
+          const sellers = [data];
+          this.sellerVerifiedList = sellers;
+        }, (error) =>{
+          console.error(error);
+        }
+      )
+    } else if(this.searchType == "licenceNumber"){
+      this._sellerService.getSellerByLicenceNumber(this.token,this.searchValue).subscribe(
+        (data) =>{
+          console.log(data);
+          const sellers = [data];
+          this.sellerVerifiedList = sellers;
+        }, (error) =>{
+          console.error(error);
+        }
+      )
+    }
   }
 
   getSellerVerifiedList(){

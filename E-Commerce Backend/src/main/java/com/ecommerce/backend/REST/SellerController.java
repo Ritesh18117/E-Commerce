@@ -43,28 +43,44 @@ public class SellerController {
     public ResponseEntity<List<Seller>> notApprovedSellers(@RequestHeader(value = "Authorization") String authorizationHeader){
         return sellerService.notApprovedSellers(authorizationHeader);
     }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/approveSeller/{sellerId}")
     public ResponseEntity<Map<String,String>> approveSeller(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long sellerId){
         return sellerService.approveSeller(authorizationHeader,sellerId);
     }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/rejectSeller/{sellerId}")
     public ResponseEntity<Map<String,String>> rejectSeller(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable Long sellerId){
         return sellerService.rejectSeller(authorizationHeader,sellerId);
     }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/getMySellerVerifyList")
     public ResponseEntity<List<Seller>> getMySellerVerifyList(@RequestHeader(value = "Authorization") String authorizationHeader){
         return sellerService.getMySellerVerifyList(authorizationHeader);
     }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/revokeSellerVerify/{sellerId}")
     public ResponseEntity<Map<String,String>> revokeSellerVerify(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long sellerId){
         return sellerService.revokeSellerVerify(authorizationHeader,sellerId);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getSellerByGST/{gstNumber}")
+    public ResponseEntity<Seller> getSellerByGST(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable String gstNumber){
+        return sellerService.getSellerByGST(authorizationHeader,gstNumber);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getSellerByLicenceNumber/{licenceNumber}")
+    public ResponseEntity<Seller> getSellerByLicenceNumber(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable String licenceNumber){
+        return sellerService.getSellerByLicenceNumber(authorizationHeader,licenceNumber);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getSellerByCompanyName/{companyName}")
+    public ResponseEntity<Seller> getSellerByCompanyName(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable String companyName){
+        return sellerService.getSellerByCompanyName(authorizationHeader,companyName);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getSellerBySellerId/{id}")
+    public ResponseEntity<Seller> getSellerBySellerId(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long id){
+        return sellerService.getSellerBySellerId(authorizationHeader,id);
     }
 }
