@@ -1,0 +1,5 @@
+ToDo:
+
+1) Add Comment if Product or Seller is Rejected. It have to be shown to Seller side after rejection.
+2) Create Super Admin : It handles the request related to Approval of Admins and Some high level works.
+3) 

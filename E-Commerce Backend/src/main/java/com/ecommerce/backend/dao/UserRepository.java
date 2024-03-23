@@ -1,6 +1,7 @@
 package com.ecommerce.backend.dao;
 
 import com.ecommerce.backend.entities.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

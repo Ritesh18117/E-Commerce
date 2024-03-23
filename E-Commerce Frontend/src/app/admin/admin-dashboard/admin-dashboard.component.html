@@ -1,6 +1,6 @@
 <div class="container mt-4" style="min-height: 80vh;">
     <div class="row border">
-        <div class="col-md-3 border p-2 pb-3">
+        <div class="col-md-2 border p-2 pb-3">
             <div class="border-bottom p-1">
                 <img src="../../../assets/person_icon.png" class="img-fluid" alt="">
             &nbsp; &nbsp; &nbsp; Hello Admin
@@ -8,7 +8,7 @@
             <a role="button" (click)="renderAdminInfo()" class="sideNav text-decoration-none text-dark">
                 <div class="p-2 mt-2 profile-nav">
                     <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
-                    &nbsp; &nbsp; &nbsp; Admin Infromation
+                    &nbsp; &nbsp; &nbsp; Admin Infro
                 </div>
             </a>
             <a role="button" (click)="renderVerifiedSeller()" class="sideNav text-decoration-none text-dark">
@@ -42,7 +42,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-9 border p-3">
+        <div class="col-md-10 border p-3">
             <app-admin-info *ngIf="adminInfo"></app-admin-info>
             <app-verified-seller *ngIf="verifiedSeller"></app-verified-seller>
             <app-verify-seller *ngIf="verifySeller"></app-verify-seller>

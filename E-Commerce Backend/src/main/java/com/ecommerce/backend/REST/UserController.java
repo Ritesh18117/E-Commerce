@@ -9,6 +9,7 @@ import com.ecommerce.backend.services.JwtService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -64,10 +65,14 @@ public class UserController {
         }
     }
     // It is here for testing
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/getAll")
     public ResponseEntity<List<User>> getAll(){
         return userService.getAllUser();
     }
 
+    @GetMapping("/getUsername")
+    public ResponseEntity<Map<String,String>> getUsername(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return userService.getUsername(authorizationHeader);
+    }
 }
