@@ -1,0 +1,17 @@
+<h1>Documents</h1>
+<hr>
+<div class="mb-3">
+    <label for="formFileSm" class="form-label">Upload GST Document</label>
+    <div style="width: 80%;">
+        <input (change)="onFileSelected($event,1)" class="form-control form-control-sm" id="formFileSm" type="file" >
+    </div>
+</div>
+ <hr width="80%">
+<div class="mb-3">
+    <label for="formFileSm" class="form-label">Upload Trade Licence</label>
+    <div style="width: 80%;">
+        <input (change)="onFileSelected($event,2)" class="form-control form-control-sm" id="formFileSm" type="file" >
+    </div>
+</div>
+<hr width="80%">
+<button class="btn-sm btn btn-primary" (click)="onSubmit()">Submit</button>

@@ -7,3 +7,4 @@ ToDo:
 5) Protect Admin Dashboard Routes
 6) Update Approval for Seller and Product
 7) Add Date of Approval/Rejection/SendForApproval to the Seller and Product, For Date wise search and Date Between Search.
+8) After cont^ from placeOrder Component Create a popup box saying Order placed Successfully and Redirect to Home page.

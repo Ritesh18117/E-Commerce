@@ -8,21 +8,23 @@ import { AddShoesComponent } from './seller-dashboard/add-shoes/add-shoes.compon
 import { AddedItemsComponent } from './seller-dashboard/added-items/added-items.component';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { DocumentsComponent } from "./seller-dashboard/documents/documents.component";
 
 @NgModule({
-  declarations: [
-    SellerDashboardComponent,
-    ProfileComponent,
-    AddShoesComponent,
-    AddedItemsComponent
-  ],
-  imports: [
-    CommonModule,
-    SellerRoutingModule,
-    SellerAuthModule,
-    FormsModule,
-    ToastrModule.forRoot()
-  ]
+    declarations: [
+        SellerDashboardComponent,
+        ProfileComponent,
+        AddShoesComponent,
+        AddedItemsComponent
+    ],
+    imports: [
+        CommonModule,
+        SellerRoutingModule,
+        SellerAuthModule,
+        FormsModule,
+        ToastrModule.forRoot(),
+        DocumentsComponent
+    ]
 })
 export class SellerModule { }
 

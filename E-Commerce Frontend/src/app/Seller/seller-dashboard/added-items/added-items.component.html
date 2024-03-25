@@ -9,7 +9,8 @@
                     Status : <span style="color:green" *ngIf="product.approvalStatus == 'true'">Approved</span>
                     <span *ngIf="product.approvalStatus == 'false'" style="color:red">Not Approved</span>
                     <span *ngIf="product.approvalStatus == 'rejected'" style="color:red">Rejected</span> <br>
-                    <a role="button" class="link-primary" (click)="editProduct()">Edit</a>
+                    <a *ngIf="showEditButton && editProductId !== product.id" role="button" class="link-primary" (click)="editProduct(product.id)">Edit</a>
+                    <a *ngIf="isEditingProduct(product.id)" role="button" class="link-primary" (click)="cancelEdit()">Cancel</a>
                     <a role="button" *ngIf="product.approvalStatus == 'true'" class="link-primary m-4"
                         (click)="addQuantityShowMethod(product.id)">Add Quantity</a>
                 </div>
@@ -19,98 +20,100 @@
             </div>
         </div>
 
-        <h2>Add Items</h2>
-        <form action="" class="mt-4" (ngSubmit)="onEditSubmit(product)">
-            <div class="row">
-                <div class="col-6">
-                    <label for="name">Name</label>
-                    <input type="text" name="companyType" [value]="product.name" [(ngModel)]="product.name"
-                        class="form-control" id="name" placeholder="Name" name="name">
-                </div>
-                <div class="col-6">
-                    <label for="category">Catagory</label>
-                    <select class="form-control" id="category" name="category" [(ngModel)]="product.category.id">
-                        <option value="">Select Category</option>
-                        <ng-container *ngFor="let category of categories; let i = index;">
-                            <option [value]="category.id">{{ category.categoryName }}</option>
-                        </ng-container>
-                    </select>
-                </div>
-            </div>
-
-
-            <div class="row mt-3">
-                <div class="col-6">
-                    <label for="gender">Gender</label>
-                    <select class="form-control" id="gender" name="gender" [(ngModel)]="product.gender"
-                        [ngModelOptions]="{standalone: true}">
-                        <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <label for="price">Price</label>
-                    <input type="number" name="price" class="form-control form-control-color"
-                        [(ngModel)]="product.price" id="price" value="1" title="Select Quantity" style="width: 150px;"
-                        [ngModelOptions]="{standalone: true}">
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-6">
-                    <label for="margin">Margin (in %)</label>
-                    <input type="number" name="margin" class="form-control form-control-color"
-                        [(ngModel)]="product.margin" id="margin" value="1" title="Select Quantity" style="width: 150px;"
-                        [ngModelOptions]="{standalone: true}">
-                </div>
-                <div class="col-6">
-                    <label for="discountPrice">Discount Price (in %)</label>
-                    <input type="number" name="discountPrice" class="form-control form-control-color"
-                        [(ngModel)]="product.discount" id="discountPrice" value="1" title="Select Quantity"
-                        style="width: 150px;" [ngModelOptions]="{standalone: true}">
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-6">
-                    <label for="imageURL">ImageURL</label>
-                    <input type="text" name="imageURL" [(ngModel)]="product.imageURL" class="form-control" id="imageURL"
-                        placeholder="ImageURL">
-                </div>
-                <div class="col-6">
-                    <label for="color">Select Color</label>
-                    <input type="color" name="color" class="form-control form-control-color" id="color"
-                        [(ngModel)]="product.color" style="width: 100px;" title="Choose a color"
-                        [ngModelOptions]="{standalone: true}">
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" [(ngModel)]="product.description" name="description" id="description"
-                        rows="3" placeholder="Description"></textarea>
-                </div>
-            </div>
-            <div class="row mt-3 border">
-                <div *ngIf="product.images.length > 0" class="m-3 col-10">
-                    <h5>Images</h5>
-                    <div class="horizontal-list">
-                        <ul *ngFor="let image of product.images;let i=index;">
-                            <li>{{i + 1 + ")"}} &nbsp; {{ image }} &nbsp; &nbsp; <a (click)="deleteImage(i,product)"
-                                    role="button" class="link-danger">Delete</a></li>
-                        </ul>
+        <div class="row" *ngIf="editProductId === product.id">
+            <h2>Edit Items</h2>
+            <form action="" class="mt-4" (ngSubmit)="onEditSubmit(product)">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="name">Name</label>
+                        <input type="text" name="companyType" [value]="product.name" [(ngModel)]="product.name"
+                            class="form-control" id="name" placeholder="Name" name="name">
+                    </div>
+                    <div class="col-6">
+                        <label for="category">Catagory</label>
+                        <select class="form-control" id="category" name="category" [(ngModel)]="product.category.id">
+                            <option value="">Select Category</option>
+                            <ng-container *ngFor="let category of categories; let i = index;">
+                                <option [value]="category.id">{{ category.categoryName }}</option>
+                            </ng-container>
+                        </select>
                     </div>
                 </div>
-                <div class="m-3 col-10">
-                    <label for="images">Add more ImageURL</label>
-                    <input [(ngModel)]="img" type="text" name="images" class="form-control" id="images"
-                        placeholder="ImageURL">
-                    <a class="btn btn-primary btn-sm m-3" (click)="addImage(product)">Add</a>
+
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" name="gender" [(ngModel)]="product.gender"
+                            [ngModelOptions]="{standalone: true}">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="price">Price</label>
+                        <input type="number" name="price" class="form-control form-control-color"
+                            [(ngModel)]="product.price" id="price" value="1" title="Select Quantity"
+                            style="width: 150px;" [ngModelOptions]="{standalone: true}">
+                    </div>
                 </div>
-            </div>
-            <button class="mt-3 btn btn-primary">Submit</button>
-        </form>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label for="margin">Margin (in %)</label>
+                        <input type="number" name="margin" class="form-control form-control-color"
+                            [(ngModel)]="product.margin" id="margin" value="1" title="Select Quantity"
+                            style="width: 150px;" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-6">
+                        <label for="discountPrice">Discount Price (in %)</label>
+                        <input type="number" name="discountPrice" class="form-control form-control-color"
+                            [(ngModel)]="product.discount" id="discountPrice" value="1" title="Select Quantity"
+                            style="width: 150px;" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label for="imageURL">ImageURL</label>
+                        <input type="text" name="imageURL" [(ngModel)]="product.imageURL" class="form-control"
+                            id="imageURL" placeholder="ImageURL">
+                    </div>
+                    <div class="col-6">
+                        <label for="color">Select Color</label>
+                        <input type="color" name="color" class="form-control form-control-color" id="color"
+                            [(ngModel)]="product.color" style="width: 100px;" title="Choose a color"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" [(ngModel)]="product.description" name="description"
+                            id="description" rows="3" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-3 border">
+                    <div *ngIf="product.images.length > 0" class="m-3 col-10">
+                        <h5>Images</h5>
+                        <div class="horizontal-list">
+                            <ul *ngFor="let image of product.images;let i=index;">
+                                <li>{{i + 1 + ")"}} &nbsp; {{ image }} &nbsp; &nbsp; <a (click)="deleteImage(i,product)"
+                                        role="button" class="link-danger">Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="m-3 col-10">
+                        <label for="images">Add more ImageURL</label>
+                        <input [(ngModel)]="img" type="text" name="images" class="form-control" id="images"
+                            placeholder="ImageURL">
+                        <a class="btn btn-primary btn-sm m-3" (click)="addImage(product)">Add</a>
+                    </div>
+                </div>
+                <button class="mt-3 btn btn-primary">Submit</button>
+            </form>
+        </div>
 
         <div class="row" *ngIf="activeProductId === product.id">
             <div class="mt-3 border p-3">

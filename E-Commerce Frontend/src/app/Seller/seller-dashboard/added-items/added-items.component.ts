@@ -45,9 +45,22 @@ export class AddedItemsComponent {
     }
   }
 
-  editProduct() {
-    this.editProductTag = !this.editProductTag;
+  editProductId: string | null = null; // ID of the product being edited
+  showEditButton: boolean = true; // Flag to control visibility of the "Edit" button
+
+  editProduct(productId: string) {
+    this.editProductId = productId;
+    this.showEditButton = false; // Hide the "Edit" button
   }
+
+  cancelEdit() {
+    this.editProductId = null;
+    this.showEditButton = true; // Show the "Edit" button again
+  }
+
+  isEditingProduct(productId: string): boolean {
+    return this.editProductId === productId;
+}
 
   parsedValues: { first: string; second: string }[] = [];
   addQuantityShowMethod(productId: any) {
