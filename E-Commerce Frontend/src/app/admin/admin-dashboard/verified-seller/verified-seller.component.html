@@ -1,11 +1,14 @@
 <h2>Approved Sellers</h2>
 <div class="d-flex justify-content-center">
     <div class="input-group mb-2" style="width: 80%;">
-        <select [(ngModel)]="searchType" id="searchType" name="searchType" class="rounded form-control" style="width: 20%;">
+        <select [(ngModel)]="searchType" id="searchType" (ngModelChange)="filter()" name="searchType" class="rounded form-control" style="width: 20%;">
+            <option value="all">All</option>
             <option value="companyName">Company Name</option>
             <option value="gstNumber">GST Number</option>
             <option value="sellerId">Seller Id</option>
             <option value="licenceNumber">Licence Number</option>
+            <option value="approvedSeller">Approved Seller</option>
+            <option value="rejectedSeller">Rejected Seller</option>
         </select>
         <input type="text" [(ngModel)]="searchValue" class="form-control" style="width: 70%;" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append" style="width: 10%;">

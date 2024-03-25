@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -83,6 +84,7 @@ public class UserService implements UserDetailsService {
                     Seller seller = new Seller();
                     seller.setUser(newUser);
                     seller.setApprovalStatus("false");
+                    seller.setStatusChangeDate(LocalDate.now());
                     sellerService.newSeller(seller);
                 }
                 if(Objects.equals(user.getRole(), "ROLE_CUSTOMER")){

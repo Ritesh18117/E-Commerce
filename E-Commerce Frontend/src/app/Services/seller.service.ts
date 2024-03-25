@@ -18,6 +18,8 @@ export class SellerService {
   private getSellerByLicenceNumberURL = "/api/seller/getSellerByLicenceNumber";
   private getSellerByCompanyNameURL = "/api/seller/getSellerByCompanyName";
   private getSellerBySellerIdURL = "/api/seller/getSellerBySellerId";
+  private getApprovedSellerURL = "/api/seller/approvedSellers";
+  private getRejectedSellerURL = "/api/seller/rejectedSellers";
 
   constructor(private http: HttpClient) { }
 
@@ -74,5 +76,15 @@ export class SellerService {
   getSellerBySellerId(token:string,sellerId:string):Observable<any> {
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.get<any>(`${this.getSellerBySellerIdURL}/${sellerId}`, { headers });
+  }
+
+  getApprovedSellers(token:string):Observable<any>{
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(this.getApprovedSellerURL, {headers});
+  }
+  
+  getRejectedSellers(token:string):Observable<any>{
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(this.getRejectedSellerURL, {headers});
   }
 }

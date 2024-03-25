@@ -44,6 +44,16 @@ public class SellerController {
         return sellerService.notApprovedSellers(authorizationHeader);
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/approvedSellers")
+    public ResponseEntity<List<Seller>> getApprovedSellers(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return sellerService.approvedSellers(authorizationHeader);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/rejectedSellers")
+    public ResponseEntity<List<Seller>> getRejectedSellers(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return sellerService.rejectedSeller(authorizationHeader);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/approveSeller/{sellerId}")
     public ResponseEntity<Map<String,String>> approveSeller(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long sellerId){
         return sellerService.approveSeller(authorizationHeader,sellerId);

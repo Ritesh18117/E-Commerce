@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Component
@@ -105,6 +106,47 @@ public class SellerService {
         }
     }
 
+    public ResponseEntity<List<Seller>> approvedSellers(@RequestHeader(value = "Authorization") String authorizationHeader){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+
+            if(admin != null){
+                List<Seller> sellers = sellerRepository.findAllByApprovalStatus("true");
+                for (Seller seller : sellers){
+                    seller.setUser(null);
+                }
+                return ResponseEntity.of(Optional.of(sellers));
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<List<Seller>> rejectedSeller(@RequestHeader(value = "Authorization") String authorizationHeader){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+
+            if(admin != null){
+                List<Seller> sellers = sellerRepository.findAllByApprovalStatus("rejected");
+                for(Seller seller : sellers){
+                    seller.setUser(null);
+                }
+                return ResponseEntity.of(Optional.of(sellers));
+            } else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     public ResponseEntity<Map<String,String>> approveSeller(@RequestHeader(value = "Authorization") String authorizationHeader,Long sellerId){
         try{
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
@@ -112,6 +154,7 @@ public class SellerService {
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Seller> seller = sellerRepository.findById(sellerId);
                 seller.get().setApprovalStatus("true");
+                seller.get().setStatusChangeDate(LocalDate.now());
                 seller.get().setVerifiedBy(admin);
                 admin.addSeller(seller.get().getId());
                 sellerRepository.save(seller.get());
@@ -134,6 +177,7 @@ public class SellerService {
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Seller> seller = sellerRepository.findById(sellerId);
                 seller.get().setApprovalStatus("rejected");
+                seller.get().setStatusChangeDate(LocalDate.now());
                 seller.get().setVerifiedBy(admin);
                 admin.addSeller(seller.get().getId());
                 sellerRepository.save(seller.get());
@@ -175,6 +219,7 @@ public class SellerService {
             if(seller.isPresent()){
                 seller.get().setVerifiedBy(null);
                 seller.get().setApprovalStatus("false");
+                seller.get().setStatusChangeDate(LocalDate.now());
                 admin.removeSeller(sellerId);
                 sellerRepository.save(seller.get());
                 Map<String,String> output = new HashMap<>();
@@ -272,4 +317,6 @@ public class SellerService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
 }

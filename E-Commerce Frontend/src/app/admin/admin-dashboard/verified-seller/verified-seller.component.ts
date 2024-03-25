@@ -20,9 +20,33 @@ export class VerifiedSellerComponent {
     this.getSellerVerifiedList();
   }
 
+  filter() {
+    if(this.searchType == "all"){
+      this.getSellerVerifiedList();
+    }
+    else if(this.searchType == "approvedSeller"){
+      this._sellerService.getApprovedSellers(this.token).subscribe(
+        (data) =>{
+          this.sellerVerifiedList = data;
+        }, (error) =>{
+          console.error(error);
+        }
+      )
+    } else if(this.searchType == "rejectedSeller"){
+      this._sellerService.getRejectedSellers(this.token).subscribe(
+        (data) =>{
+          console.log(data);
+          this.sellerVerifiedList = data;
+        }, (error) =>{
+          console.error(error);
+        }
+      )
+    }
+  }
+
   search() {
     console.log(this.searchType);
-    
+
     if(this.searchType == "gstNumber"){
         this._sellerService.getSellerByGST(this.token,this.searchValue).subscribe(
           (data) =>{
@@ -69,6 +93,8 @@ export class VerifiedSellerComponent {
   getSellerVerifiedList(){
     this._sellerService.mySellerVerifyList(this.token).subscribe(
       (data) =>{
+        console.log(data);
+        
         this.sellerVerifiedList = data;
       }, (error) =>{
         console.error("ERROR!!",error);
