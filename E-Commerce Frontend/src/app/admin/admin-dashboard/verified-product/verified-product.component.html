@@ -23,6 +23,7 @@
 
 <table>
     <tr>
+        <th>Product ID</th>
         <th>Product Name</th>
         <th>Sales Price(₹)</th>
         <th>Discount(%)</th>
@@ -33,6 +34,7 @@
     </tr>
     <ng-container *ngFor="let product of productVerifiedList">
         <tr>
+            <td>{{product.id}}</td>
             <td>{{product.name}}</td>
             <td>{{product.price}}</td>
             <td>{{product.discount}}</td>
