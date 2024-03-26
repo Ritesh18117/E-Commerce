@@ -43,7 +43,6 @@ import { AdminModule } from './admin/admin.module';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    SellerModule,
     AdminModule,
     ToastrModule.forRoot()
   ],

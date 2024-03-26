@@ -80,9 +80,9 @@ public class OrderService {
                 OrderTracking orderTracking = new OrderTracking();
                 orderTracking.setOrder(order);
                 orderTracking.setSeller(productVariationOptional.get().getProduct().getSeller());
-                orderTracking.setCreatedAt(LocalDateTime.now());
+                orderTracking.setCreatedAt(Date.valueOf(LocalDate.now()));
                 orderTracking.setStatus(OrderStatus.ORDER_PLACED);
-                orderTracking.setUpdatedAt(LocalDateTime.now());
+                orderTracking.setUpdatedAt(Date.valueOf(LocalDate.now()));
                 orderTrackingRepository.save(orderTracking);
             }
             Map<String,String> output = new HashMap<>();

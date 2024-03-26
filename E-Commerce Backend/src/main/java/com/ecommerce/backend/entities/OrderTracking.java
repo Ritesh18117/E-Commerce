@@ -3,7 +3,7 @@ package com.ecommerce.backend.entities;
 import com.ecommerce.backend.enums.OrderStatus;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "Order_Tracking")
@@ -12,25 +12,25 @@ public class OrderTracking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "orderTracking_id")
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id",nullable = false)
     private Order order;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seller_id",nullable = false)
     private Seller seller;
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private OrderStatus status;
     @Column(nullable = true)
-    private LocalDateTime statusChangedAt;
+    private Date statusChangedAt;
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private Date createdAt;
     @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    private Date updatedAt;
     public OrderTracking(){
     }
-    public OrderTracking(Long id, Order order, Seller seller, OrderStatus status, LocalDateTime statusChangedAt,
-            LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public OrderTracking(Long id, Order order, Seller seller, OrderStatus status, Date statusChangedAt,
+            Date createdAt, Date updatedAt) {
         this.id = id;
         this.order = order;
         this.seller = seller;
@@ -48,10 +48,10 @@ public class OrderTracking {
     public Order getOrder() {
         return order;
     }
-    public LocalDateTime getStatusChangedAt() {
+    public Date getStatusChangedAt() {
         return statusChangedAt;
     }
-    public void setStatusChangedAt(LocalDateTime statusChangedAt) {
+    public void setStatusChangedAt(Date statusChangedAt) {
         this.statusChangedAt = statusChangedAt;
     }
     public void setOrder(Order order) {
@@ -69,16 +69,16 @@ public class OrderTracking {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-    public LocalDateTime getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
     

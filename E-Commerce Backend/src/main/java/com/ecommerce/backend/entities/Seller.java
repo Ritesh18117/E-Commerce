@@ -2,7 +2,7 @@ package com.ecommerce.backend.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "sellers")
@@ -28,7 +28,7 @@ public class Seller {
     private String website;
     private String address;
     private String approvalStatus;
-    private LocalDate statusChangeDate;
+    private Date statusChangeDate;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "verified_by_admin_id")
     private Admin verifiedBy;
@@ -36,7 +36,9 @@ public class Seller {
     public Seller() {
     }
 
-    public Seller(Long id, User user, String contactInfo, String companyName, String companyType, String gstNumber, String licenceNumber, String contactEmail, String website, String address, String approvalStatus,LocalDate statusChangeDate, Admin verifiedBy) {
+    public Seller(Long id, User user, String contactInfo, String companyName, String companyType, String gstNumber,
+                  String licenceNumber, String contactEmail, String website, String address, String approvalStatus,
+                  Date statusChangeDate, Admin verifiedBy) {
         this.id = id;
         this.user = user;
         this.contactInfo = contactInfo;
@@ -140,11 +142,11 @@ public class Seller {
         this.approvalStatus = approvalStatus;
     }
 
-    public LocalDate getStatusChangeDate() {
+    public Date getStatusChangeDate() {
         return statusChangeDate;
     }
 
-    public void setStatusChangeDate(LocalDate statusChangeDate) {
+    public void setStatusChangeDate(Date statusChangeDate) {
         this.statusChangeDate = statusChangeDate;
     }
 

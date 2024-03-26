@@ -1,6 +1,6 @@
 <div class="container mt-4" style="min-height: 80vh;">
     <div class="row border">
-        <div class="col-md-3 border p-2 pb-3">
+        <div class="col-md-2 border p-2 pb-3">
             <div class="border-bottom p-1">
                 <img src="../../../assets/person_icon.png" class="img-fluid" alt="">
             &nbsp; &nbsp; &nbsp; Hello Seller
@@ -8,7 +8,7 @@
             <a (click)="renderProfile()" class="sideNav text-decoration-none text-dark">
                 <div class="p-2 mt-2 profile-nav">
                     <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
-                    &nbsp; &nbsp; &nbsp; Company Infromation
+                    &nbsp; &nbsp; &nbsp; Company Info
                 </div>
             </a>
             <a (click)="renderDocuments()" class="sideNav text-decoration-none text-dark">
@@ -29,12 +29,19 @@
                     &nbsp; &nbsp; &nbsp; Added Items
                 </div>
             </a>
+            <a (click)="renderOrderTrack()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/cart_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Track Order
+                </div>
+            </a>
         </div>
-        <div class="col-md-9 border p-3">
+        <div class="col-md-10 border p-3">
             <app-profile *ngIf="profile"></app-profile>
             <app-documents *ngIf="documents"></app-documents>
             <app-add-shoes *ngIf="addShoes"></app-add-shoes>
             <app-added-items *ngIf="addedItems"></app-added-items>
+            <app-order-track *ngIf="orderTrack"></app-order-track>
         </div>
     </div>
 </div>

@@ -11,12 +11,14 @@ export class SellerDashboardComponent {
   addShoes:boolean = false;
   addedItems:boolean = false;
   documents: boolean = false;
+  orderTrack: boolean = false;
 
   renderProfile(){
     this.profile = true;
     this.addShoes = false;
     this.addedItems = false;
     this.documents = false;
+    this.orderTrack = false;
   }
 
   renderAddShoes(){
@@ -24,6 +26,7 @@ export class SellerDashboardComponent {
     this.profile = false;
     this.addedItems = false;
     this.documents = false;
+    this.orderTrack = false;
   }
 
   renderAddedItems(){
@@ -31,10 +34,20 @@ export class SellerDashboardComponent {
     this.addShoes = false;
     this.profile = false;
     this.documents = false;
+    this.orderTrack = false;
   }
   
   renderDocuments(){
     this.documents = true;
+    this.addShoes = false;
+    this.profile = false;
+    this.addedItems = false;
+    this.orderTrack = false;
+  }
+
+  renderOrderTrack(){
+    this.orderTrack = true;
+    this.documents = false;
     this.addShoes = false;
     this.profile = false;
     this.addedItems = false;

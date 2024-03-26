@@ -20,7 +20,7 @@ export class SellerService {
   private getSellerBySellerIdURL = "/api/seller/getSellerBySellerId";
   private getApprovedSellerURL = "/api/seller/approvedSellers";
   private getRejectedSellerURL = "/api/seller/rejectedSellers";
-
+  private getMyOrderTrakingURL = "/api/seller/myOrderTracking";
   constructor(private http: HttpClient) { }
 
   getSellerProfile(token: string): Observable<any> {
@@ -86,5 +86,10 @@ export class SellerService {
   getRejectedSellers(token:string):Observable<any>{
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.get<any>(this.getRejectedSellerURL, {headers});
+  }
+
+  getMyOrderTraking(token:string):Observable<any>{
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(this.getMyOrderTrakingURL, {headers});
   }
 }

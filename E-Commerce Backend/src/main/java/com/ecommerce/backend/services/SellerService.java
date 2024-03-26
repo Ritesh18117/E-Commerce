@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
@@ -154,7 +156,7 @@ public class SellerService {
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Seller> seller = sellerRepository.findById(sellerId);
                 seller.get().setApprovalStatus("true");
-                seller.get().setStatusChangeDate(LocalDate.now());
+                seller.get().setStatusChangeDate(Date.valueOf(LocalDate.now()));
                 seller.get().setVerifiedBy(admin);
                 admin.addSeller(seller.get().getId());
                 sellerRepository.save(seller.get());
@@ -177,7 +179,7 @@ public class SellerService {
             if(admin != null && Objects.equals(admin.getStatus(), "Active")){
                 Optional<Seller> seller = sellerRepository.findById(sellerId);
                 seller.get().setApprovalStatus("rejected");
-                seller.get().setStatusChangeDate(LocalDate.now());
+                seller.get().setStatusChangeDate(Date.valueOf(LocalDate.now()));
                 seller.get().setVerifiedBy(admin);
                 admin.addSeller(seller.get().getId());
                 sellerRepository.save(seller.get());
@@ -219,7 +221,7 @@ public class SellerService {
             if(seller.isPresent()){
                 seller.get().setVerifiedBy(null);
                 seller.get().setApprovalStatus("false");
-                seller.get().setStatusChangeDate(LocalDate.now());
+                seller.get().setStatusChangeDate(Date.valueOf(LocalDate.now()));
                 admin.removeSeller(sellerId);
                 sellerRepository.save(seller.get());
                 Map<String,String> output = new HashMap<>();

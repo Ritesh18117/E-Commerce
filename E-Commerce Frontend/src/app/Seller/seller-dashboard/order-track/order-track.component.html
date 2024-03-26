@@ -1,0 +1,39 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">OT ID</th>
+            <th scope="col">Product ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Size</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Shipping Address</th>
+            <th scope="col">Order Status</th>
+            <th scope="col">Status Date</th>
+            <th scope="col">Status Change</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let myOrderTracing of myOrderTracking">
+            <tr>
+                <th>{{myOrderTracing.id}}</th>
+                <td>{{myOrderTracing.order.productVariation.product.id}}</td>
+                <td>{{myOrderTracing.order.productVariation.product.name}}</td>
+                <td>{{myOrderTracing.order.productVariation.size}}</td>
+                <td>{{myOrderTracing.order.quantity}}</td>
+                <td>{{myOrderTracing.order.address.name}} | 
+                    {{myOrderTracing.order.address.contact}} | 
+                    {{myOrderTracing.order.address.address1}}, {{myOrderTracing.order.address.address2}}
+                    {{myOrderTracing.order.address.city}}, {{myOrderTracing.order.address.status}}
+                    {{myOrderTracing.order.address.country}}, {{myOrderTracing.order.address.zipcode}}</td>
+                <td>{{myOrderTracing.status}}</td>
+                <td>{{myOrderTracing.updatedAt}}</td>
+                <td><button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed')">Packed</button> &nbsp;
+                    <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped')">Shipped</button> &nbsp;
+                    <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre')">At Delivery Centre</button> &nbsp;
+                    <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery')">Out for Delivery</button> &nbsp;
+                    <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered')">Delivered</button>
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>
