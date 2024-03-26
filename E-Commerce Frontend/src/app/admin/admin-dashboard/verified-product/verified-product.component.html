@@ -1,5 +1,5 @@
 <h2>Approved Products</h2>
-<ng-container *ngFor="let product of productVerifiedList">
+<!-- <ng-container *ngFor="let product of productVerifiedList">
     <div class="mt-4 border p-3 row">
         <div class="row">
             <div class="row">
@@ -19,6 +19,36 @@
             </div>
         </div>
     </div>
-</ng-container>
- 
+</ng-container> -->
+
+<table>
+    <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Sales Price(₹)</th>
+        <th>Discount(%)</th>
+        <th>Margin(%)</th>
+        <th>Status</th>
+        <th>Image</th>
+        <th>Revoke Product</th>
+    </tr>
+    <ng-container *ngFor="let product of productVerifiedList">
+        <tr>
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.discount}}</td>
+            <td>{{product.margin}}</td>
+            <td> <span style="color:green" *ngIf= "product.approvalStatus == 'true'">Approved</span>
+                <span *ngIf="product.approvalStatus == 'rejected'" style="color:red">Rejected</span>
+            </td>
+            <td>
+                <a href="{{product.imageURL}}" target="_blank">View Image</a>
+            </td>
+            <td>
+                <button class="btn btn-danger btn-sm" (click)="revoke(product.id)">Revoke</button>
+            </td>
+        </tr>
+    </ng-container>
+</table>
 
