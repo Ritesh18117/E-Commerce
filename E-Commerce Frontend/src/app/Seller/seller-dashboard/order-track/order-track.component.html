@@ -15,7 +15,7 @@
     <tbody>
         <ng-container *ngFor="let myOrderTracing of myOrderTracking">
             <tr>
-                <th>{{myOrderTracing.id}}</th>
+                <td>{{myOrderTracing.id}}</td>
                 <td>{{myOrderTracing.order.productVariation.product.id}}</td>
                 <td>{{myOrderTracing.order.productVariation.product.name}}</td>
                 <td>{{myOrderTracing.order.productVariation.size}}</td>
@@ -26,7 +26,7 @@
                     {{myOrderTracing.order.address.city}}, {{myOrderTracing.order.address.status}}
                     {{myOrderTracing.order.address.country}}, {{myOrderTracing.order.address.zipcode}}</td>
                 <td>{{myOrderTracing.status}}</td>
-                <td>{{myOrderTracing.updatedAt}}</td>
+                <td>{{myOrderTracing.statusChangedAt}}</td>
                 <td><button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed')">Packed</button> &nbsp;
                     <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped')">Shipped</button> &nbsp;
                     <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre')">At Delivery Centre</button> &nbsp;

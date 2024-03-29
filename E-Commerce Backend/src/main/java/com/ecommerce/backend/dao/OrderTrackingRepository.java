@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface OrderTrackingRepository extends CrudRepository<OrderTracking,Long> {
     List<OrderTracking> findAllBySellerId(Long sellerId);
+    OrderTracking findByOrderId(Long orderId);
 }

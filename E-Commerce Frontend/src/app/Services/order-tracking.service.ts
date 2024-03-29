@@ -9,6 +9,7 @@ export class OrderTrackingService {
 
   private myOrderTrackingURL = "/api/orderTracking/myOrderTracking";
   private changeStatusURL = "/api/orderTracking/changeStatus";
+  private getOrderTrackingByOrderIdURL = "/api/orderTracking/getByOrderId";
 
   constructor(private http:HttpClient) { }
 
@@ -20,6 +21,11 @@ export class OrderTrackingService {
   changeStatus(token:string,orderTrackingId:number,status:string):Observable<any>{
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.get<any>(`${this.changeStatusURL}/${orderTrackingId}/${status}`, {headers});
+  }
+
+  getOrderTrackingByOrderId(token:string,orderId:number){
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(`${this.getOrderTrackingByOrderIdURL}/${orderId}`, {headers});
   }
 
 }

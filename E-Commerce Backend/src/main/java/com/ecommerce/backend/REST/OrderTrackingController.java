@@ -35,4 +35,9 @@ public class OrderTrackingController {
     public ResponseEntity<Map<String,String>> changeStatus(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long orderTrackingId,@PathVariable String status){
         return orderTrackingService.statusChange(authorizationHeader,orderTrackingId,status);
     }
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @GetMapping("/getByOrderId/{orderId}")
+    public ResponseEntity<OrderTracking> getByOrderId(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable Long orderId){
+        return orderTrackingService.getOrderTrackingByOrderId(authorizationHeader,orderId);
+    }
 }
