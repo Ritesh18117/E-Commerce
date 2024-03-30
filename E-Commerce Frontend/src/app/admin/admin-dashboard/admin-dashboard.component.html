@@ -35,6 +35,12 @@
                     &nbsp; &nbsp; &nbsp; Verify Product
                 </div>
             </a>
+            <a role="button" (click)="renderDeliveryTrack()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Delivery Track
+                </div>
+            </a>
             <a role="button" (click)="renderAddCategory()" class="sideNav text-decoration-none text-dark">
                 <div class="p-2 mt-2 profile-nav">
                     <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
@@ -49,6 +55,7 @@
             <app-verified-product *ngIf="verifiedProduct"></app-verified-product>
             <app-verify-product *ngIf="verifyProduct"></app-verify-product>
             <app-add-category *ngIf="addCatergory"></app-add-category>
+            <app-delivery-track *ngIf="deliveryTrack"></app-delivery-track>
         </div>
     </div>
 </div>

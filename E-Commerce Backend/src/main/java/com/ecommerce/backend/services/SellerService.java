@@ -200,11 +200,16 @@ public class SellerService {
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             List<Seller> verifiedSellers = new ArrayList<>();
-            for(Long sellerId : admin.getVerifiedSeller()){
-                Optional<Seller> seller = sellerRepository.findById(sellerId);
-                seller.get().setUser(null);
-                seller.get().setVerifiedBy(null);
-                verifiedSellers.add(seller.get());
+            List<Long> sellersId = admin.getVerifiedSeller();
+            if(Objects.equals(sellersId,null)){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }else{
+                for(Long sellerId : sellersId){
+                    Optional<Seller> seller = sellerRepository.findById(sellerId);
+                    seller.get().setUser(null);
+                    seller.get().setVerifiedBy(null);
+                    verifiedSellers.add(seller.get());
+                }
             }
             return ResponseEntity.of(Optional.of(verifiedSellers));
         } catch (Exception e){

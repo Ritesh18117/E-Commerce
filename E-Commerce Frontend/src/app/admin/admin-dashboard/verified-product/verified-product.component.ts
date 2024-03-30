@@ -11,15 +11,17 @@ export class VerifiedProductComponent {
 
   token:any;
   productVerifiedList:any;
+  searchValue:any;
+  searchType:string = "companyName";
 
   constructor(private _productService:ProductServiceService){}
 
   ngOnInit(){
     this.token = sessionStorage.getItem('token');
-    this.getProductVerifiedList();
+    this.getMyProductVerifiedList();
   }
 
-  getProductVerifiedList(){
+  getMyProductVerifiedList(){
     this._productService.getMyProductVerifyList(this.token).subscribe(
       (data) =>{
         this.productVerifiedList = data;
@@ -33,7 +35,7 @@ export class VerifiedProductComponent {
     this._productService.revokeProductVerify(this.token,productId).subscribe(
       (data) =>{
         console.log(data);
-        this.getProductVerifiedList();
+        this.getMyProductVerifiedList();
       }, (error) =>{
         console.error("ERROR",error);
       }

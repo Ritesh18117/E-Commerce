@@ -11,6 +11,7 @@ import { VerifiedProductComponent } from './admin-dashboard/verified-product/ver
 import { VerifyProductComponent } from './admin-dashboard/verify-product/verify-product.component';
 import { AdminInfoComponent } from './admin-dashboard/admin-info/admin-info.component';
 import { AddCategoryComponent } from './admin-dashboard/add-category/add-category.component';
+import { DeliveryTrackComponent } from './admin-dashboard/delivery-track/delivery-track.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AddCategoryComponent } from './admin-dashboard/add-category/add-categor
     VerifiedProductComponent,
     VerifyProductComponent,
     AdminInfoComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    DeliveryTrackComponent
   ],
   imports: [
     CommonModule,

@@ -13,6 +13,7 @@ export class AdminDashboardComponent {
   verifiedProduct:boolean = false;
   verifiedSeller:boolean = false;
   addCatergory:boolean = false;
+  deliveryTrack:boolean = false;
 
   renderAdminInfo(){
     this.adminInfo = true;
@@ -21,6 +22,7 @@ export class AdminDashboardComponent {
     this.verifiedProduct = false;
     this.verifiedSeller = false;
     this.addCatergory = false;
+    this.deliveryTrack = false;
   }
 
   renderverifySeller(){
@@ -30,6 +32,7 @@ export class AdminDashboardComponent {
     this.verifyProduct = false;
     this.verifiedProduct = false;
     this.addCatergory = false;
+    this.deliveryTrack = false;
   }
 
   renderVerifiedSeller(){
@@ -39,6 +42,7 @@ export class AdminDashboardComponent {
     this.verifyProduct = false;
     this.verifiedProduct = false;
     this.addCatergory = false;
+    this.deliveryTrack = false;
   }
 
   renderVerifyProduct(){
@@ -48,6 +52,7 @@ export class AdminDashboardComponent {
     this.verifySeller = false;
     this.verifiedProduct = false;
     this.addCatergory = false;
+    this.deliveryTrack = false;
   }
 
   renderVerifiedProduct(){
@@ -57,10 +62,22 @@ export class AdminDashboardComponent {
     this.adminInfo = false;
     this.verifySeller = false;
     this.addCatergory = false;
+    this.deliveryTrack = false;
   }
 
   renderAddCategory(){
     this.addCatergory = true;
+    this.verifiedProduct = false;
+    this.verifiedSeller = false;
+    this.verifyProduct = false;
+    this.adminInfo = false;
+    this.verifySeller = false;
+    this.deliveryTrack = false;
+  }
+
+  renderDeliveryTrack(){
+    this.deliveryTrack = true;
+    this.addCatergory = false;
     this.verifiedProduct = false;
     this.verifiedSeller = false;
     this.verifyProduct = false;

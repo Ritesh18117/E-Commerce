@@ -34,7 +34,6 @@ public class ProductController {
     public ResponseEntity<List<Product>> myProducts(@RequestHeader(value = "Authorization") String authorizationHeader){
         return productService.myProducts(authorizationHeader);
     }
-
     @GetMapping("/approvedProducts")
     public ResponseEntity<List<Map<String, Object>>> getApprovedProducts(){
         return productService.approvedProducts();
@@ -50,7 +49,6 @@ public class ProductController {
     public ResponseEntity<List<Product>> notApprovedProducts(@RequestHeader(value = "Authorization") String authorizationHeader){
         return productService.notApprovedProduct(authorizationHeader);
     }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/approveProduct/{productId}")
     public ResponseEntity<Map<String, String>> approveProduct(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long productId){
@@ -90,6 +88,7 @@ public class ProductController {
     public ResponseEntity<Product> update(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestBody Product product){
         return productService.updateProduct(authorizationHeader,product);
     }
+
 }
 
 
