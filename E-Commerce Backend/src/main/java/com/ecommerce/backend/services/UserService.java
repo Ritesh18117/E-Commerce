@@ -97,6 +97,8 @@ public class UserService implements UserDetailsService {
                 if(Objects.equals(user.getRole(), "ROLE_ADMIN")){
                     Admin admin = new Admin();
                     admin.setUser(newUser);
+                    admin.setVerifiedSeller(new ArrayList<>());
+                    admin.setVerifiedProduct(new ArrayList<>());
                     adminService.addAdmin(admin);
                 }
                 return ResponseEntity.of(Optional.of(newUser));

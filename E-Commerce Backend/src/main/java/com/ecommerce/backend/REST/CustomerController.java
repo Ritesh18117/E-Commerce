@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class CustomerController {
     @Autowired
-
     private CustomerService customerService;
 
     @GetMapping("/test")

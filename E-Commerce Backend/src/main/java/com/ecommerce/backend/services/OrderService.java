@@ -82,6 +82,7 @@ public class OrderService {
                 orderTracking.setSeller(productVariationOptional.get().getProduct().getSeller());
                 orderTracking.setCreatedAt(Date.valueOf(LocalDate.now()));
                 orderTracking.setStatus(OrderStatus.ORDER_PLACED);
+                orderTracking.setStatusChangedAt(Date.valueOf(LocalDate.now()));
                 orderTracking.setUpdatedAt(Date.valueOf(LocalDate.now()));
                 orderTrackingRepository.save(orderTracking);
             }
@@ -97,7 +98,7 @@ public class OrderService {
         try{
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Customer customer = customerRepository.findByUserId(userId);
-            List<Order> orders = (List<Order>) orderRepository.findAll();
+            List<Order> orders = orderRepository.findAllByCustomerId(customer.getId());
             if(!orders.isEmpty()){
                 for(Order order : orders){
                     order.getCustomer().setUser(null);
