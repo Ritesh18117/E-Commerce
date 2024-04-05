@@ -8,3 +8,8 @@ ToDo:
 6) Update Approval for Seller and Product
 7) Add Date of Approval/Rejection/SendForApproval to the Seller and Product, For Date wise search and Date Between Search.
 8) After cont^ from placeOrder Component Create a popup box saying Order placed Successfully and Redirect to Home page.
+
+BUG:
+1) Bug in Displaying the size "10" and quentity in Seller's Added items Component.
+2) long description of product gives error
+3) PlaceOrder Renders without login also. (Solution : Redirecet if not LoggedIn or Role Not customer)
