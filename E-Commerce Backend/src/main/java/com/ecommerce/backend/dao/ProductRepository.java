@@ -8,4 +8,6 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product,Long> {
     List<Product> findBySeller_Id(long sellerId);
     List<Product> findAllByApprovalStatus(String approvalStatus);
+
+    List<Product> findAllByColor(String color);
 }
