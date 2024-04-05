@@ -10,10 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 @EntityScan(basePackages = "com.ecommerce.backend.entities")
 public class BackendApplication {
-
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(BackendApplication.class, args);
 		System.out.println("Started!!!!");
 	}
-
 }

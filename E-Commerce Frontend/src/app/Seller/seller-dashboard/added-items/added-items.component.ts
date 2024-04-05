@@ -39,7 +39,6 @@ export class AddedItemsComponent {
     try {
       const data = await this._productService.getSellersProduct(this.token).toPromise();
       this.myProducts = data;
-      console.log(this.myProducts);
     } catch (error) {
       console.error("Error", error);
     }
@@ -79,7 +78,8 @@ export class AddedItemsComponent {
                 s += tuple[i];
               }
             }
-          } else {
+          }
+          else {
             firstString = tuple[0] + tuple[1];
             for (let i = 0; i < tuple.length; i++) {
               if (i > 3) {
