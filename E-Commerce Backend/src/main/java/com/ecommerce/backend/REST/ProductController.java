@@ -89,6 +89,12 @@ public class ProductController {
         return productService.updateProduct(authorizationHeader,product);
     }
 
+    @GetMapping("/searchItem/{color}")
+    public ResponseEntity<List<Product>> searchByColor(@PathVariable String color){
+        return productService.searchByColor(color);
+    }
+
+
 }
 
 

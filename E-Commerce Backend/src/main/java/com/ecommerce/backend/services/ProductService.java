@@ -354,4 +354,24 @@ public class ProductService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    public ResponseEntity<List<Product>> searchByColor(String searchItem){
+        try{
+            //List<String> categories = categoryRepository.findAllCategoryNames();
+            searchItem = searchItem.substring(0, 1).toLowerCase() + searchItem.substring(1).toLowerCase();
+            List<Product> products = productRepository.findAllByColor(searchItem);
+            System.out.println(products);
+            System.out.println(searchItem);
+            if(!products.isEmpty()){
+                return ResponseEntity.of(Optional.of(products));
+            }else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
+
+
