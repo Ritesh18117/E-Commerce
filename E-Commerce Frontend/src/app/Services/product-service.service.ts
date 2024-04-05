@@ -65,7 +65,11 @@ export class ProductServiceService {
   }
 
   search(searchItem:string):Observable<any>{
-    return this.http.get<any>(`${this.searchURL}/${searchItem}`);
+    console.log('${searchURL}');
+    console.log(`${searchItem}`);
+    
+    return this.http.get<any>(`${this.searchURL}/${searchItem}`); // /api/product/search/shoes
+    
   }
 
   updateProduct(token:any,product:any){

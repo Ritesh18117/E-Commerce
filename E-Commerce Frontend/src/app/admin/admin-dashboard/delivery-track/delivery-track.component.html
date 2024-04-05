@@ -1,1 +1,20 @@
-<p>delivery-track works!</p>
+<div class="d-flex justify-content-centre flex-wrap">
+    <div class="card m-3" style="width: 18rem;" *ngFor="let ot of orderTracking">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">
+                <span>OrderTracking Id : {{ot.id}}</span> <br>
+                <span>Seller Id : {{ot.seller.id}}</span> <br>
+                <span>Seller Id : {{ot.seller.companyName}}</span> <br>
+                <span>Order Id : {{ot.order.id}}</span> <br>
+                <ng-container *ngIf="isDateOlderThan3Days(ot.statusChangedAt)">
+                    <span style="background-color: red;">Order Status : {{ot.status}}</span> <br>
+                </ng-container>
+                <span>{{isDateOlderThan3Days(ot.statusChangedAt)}}</span>
+                <span>Difference in Days : {{isDateOlderThan3Days(ot.statusChangedAt)}}</span> <br>
+                <span>Status Changed At : {{formatDate(ot.statusChangedAt)}}</span>
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</div>

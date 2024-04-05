@@ -55,7 +55,7 @@ export class MyOrdersComponent {
     } else {
         this.orderTracking = null; // Clear orderTracking when hiding status
     }
-}
+  }
 
   showDetailsMethod(order: any): void {
     order.showDetails = true;
