@@ -126,6 +126,8 @@ public class OrderTrackingService {
                     orderTracking.get().setStatus(OrderStatus.DELIVERED);
                     orderTracking.get().setStatusChangedAt(Date.valueOf(LocalDate.now()));
                     orderTracking.get().setAlert("");
+                    orderTracking.get().getOrder().setDeliveryDate(Date.valueOf(LocalDate.now()));
+                    orderTracking.get().getOrder().setOrderStatus("DELIVERED");
                     orderTrackingRepository.save(orderTracking.get());
                     Map<String,String> output = new HashMap<>();
                     output.put("Message","Changed Successfully");
@@ -143,6 +145,41 @@ public class OrderTrackingService {
         }
     }
 
+    public ResponseEntity<Map<String,String>> CancelOrder(@RequestHeader(value = "Authorization") String authorizationHeader,Long orderTrackingId){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Customer customer = customerRepository.findByUserId(userId);
+            if(Objects.equals(customer,null)){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            } else{
+                Optional<OrderTracking> orderTracking = orderTrackingRepository.findById(orderTrackingId);
+                if(Objects.equals(orderTracking.get().getOrder().getCustomer().getId(), customer.getId())){
+                    if(orderTracking.get().getStatus() == OrderStatus.ORDER_PLACED || orderTracking.get().getStatus() == OrderStatus.PACKED){
+                        orderTracking.get().setStatus(OrderStatus.CANCELLED);
+                        orderTracking.get().setStatusChangedAt(Date.valueOf(LocalDate.now()));
+                        orderTracking.get().getOrder().setOrderStatus("CANCELLED");
+                        orderTracking.get().setAlert("");
+                        orderTracking.get().setUpdatedAt(Date.valueOf(LocalDate.now()));
+                        orderTrackingRepository.save(orderTracking.get());
+                        Map<String,String> output = new HashMap<>();
+                        output.put("Message","Changed Successfully");
+                        return ResponseEntity.of(Optional.of(output));
+                    } else{
+                        Map<String, String > output = new HashMap<>();
+                        output.put("Error", "Cannot cancel, because shipped");
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(output);
+                    }
+                } else{
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+                }
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     public ResponseEntity<OrderTracking> getOrderTrackingByOrderId(@RequestHeader(value = "Authorization") String authorizationHeader,Long orderId){
         try{
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
@@ -151,7 +188,6 @@ public class OrderTrackingService {
             if(Objects.equals(customer.getId(),orderTracking.getOrder().getCustomer().getId())){
 //                orderTracking.setOrder(null);
                 orderTracking.setSeller(null);
-                orderTracking.setId(null);
                 return ResponseEntity.of(Optional.of(orderTracking));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

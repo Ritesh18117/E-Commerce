@@ -30,7 +30,7 @@
         </tr>
     </thead>
     <tbody>
-        <ng-container *ngFor="let myOrderTracing of myOrderTracking">
+        <ng-container *ngFor="let myOrderTracing of myOrderTracking;let i = index;">
             <ng-container *ngIf="isDateOlderThan3Days(myOrderTracing.statusChangedAt) && myOrderTracing.status != 'DELIVERED'">
                 <tr class="table-danger">
                     <td>{{myOrderTracing.id}}</td>
@@ -46,11 +46,11 @@
                     <td>{{myOrderTracing.status}}  <br> <span *ngIf="myOrderTracing.alert == 'true'" style="background-color: red; color: white;">Alert Send By Admin</span></td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed')">Packed</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped')">Shipped</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre')">At Delivery Centre</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery')">Out for Delivery</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered')">Delivered</button>
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed',i)">Packed</button> &nbsp;
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped',i)">Shipped</button> &nbsp;
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre',i)">At Delivery Centre</button> &nbsp;
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery',i)">Out for Delivery</button> &nbsp;
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered',i)">Delivered</button>
                     </td>
                 </tr>
             </ng-container>
@@ -70,11 +70,11 @@
                     <td>{{myOrderTracing.status}}</td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed')">Packed</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped')">Shipped</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre')">At Delivery Centre</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery')">Out for Delivery</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered')">Delivered</button>
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed',i)">Packed</button> &nbsp;
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped',i)">Shipped</button> &nbsp;
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre',i)">At Delivery Centre</button> &nbsp;
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery',i)">Out for Delivery</button> &nbsp;
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered',i)">Delivered</button>
                     </td>
                 </tr>
             </ng-container>
@@ -94,11 +94,11 @@
                     <td>{{myOrderTracing.status}}</td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed')">Packed</button> &nbsp;
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped')">Shipped</button> &nbsp;
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre')">At Delivery Centre</button> &nbsp;
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery')">Out for Delivery</button> &nbsp;
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered')">Delivered</button>
+                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed',i)">Packed</button> &nbsp;
+                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped',i)">Shipped</button> &nbsp;
+                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre',i)">At Delivery Centre</button> &nbsp;
+                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery',i)">Out for Delivery</button> &nbsp;
+                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered',i)">Delivered</button>
                     </td>
                 </tr>
             </ng-container>

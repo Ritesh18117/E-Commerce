@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { OrderTrackingService } from 'src/app/Services/order-tracking.service';
@@ -39,11 +39,12 @@ export class OrderTrackComponent {
     )
   }
 
-  changeStatus(orderTrackingId:number,status:string){
+  changeStatus(orderTrackingId:number,status:string,index:number){
     console.log(orderTrackingId,status);
     this._orderTracking.changeStatus(this.token,orderTrackingId,status).subscribe(
       (data) =>{
         console.log(data);
+        this.myOrderTracking[index].status = status.toUpperCase();
         this.toastr.success('Status Changed Successfully', 'Success', {
           timeOut: 500, // Toast will disappear after 0.5 seconds
         });
