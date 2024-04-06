@@ -26,6 +26,11 @@ const routes: Routes = [
       loadChildren: () => import('./Seller/seller.module').then(m => m.SellerModule),
       canActivate: [sellerAuthGuard]
     }, 
+    // {
+    //   path: 'superAdmin',
+    //   loadChildren: () => import('./Seller/seller.module').then(m => m.SellerModule),
+    //   canActivate: [sellerAuthGuard]
+    // }, 
     {
       path: 'auth',
       loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
