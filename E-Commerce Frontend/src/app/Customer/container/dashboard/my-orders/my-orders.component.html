@@ -6,13 +6,7 @@
         </div>
         <div class="detail col-md-9">
             {{order.productVariation.product.name}} <br>
-            &#9745; Delivery Date : {{order.dateOfDelivery}} <br>
-            <!-- &#9745; Delivered : <span style="color:green" *ngIf="order.orderStatus == 'true'">Delivered</span> 
-                        <span *ngIf="order.orderStatus == 'false'" style="color:red">Pending</span><br> -->
-
-
-            
-                        
+            &#9745; Delivery Date : {{order.dateOfDelivery}} <br>          
             <div *ngIf="order.showDetails">
                 <span>&#9745; Delivery Address : </span> 
                         {{order.address.name}}&nbsp;( {{order.address.contact}} ) <br>

@@ -35,6 +35,11 @@ export class DeliveryTrackComponent {
     )
   }
 
+  sendAlert(){
+    console.log("Send Alert!");
+    
+  }
+
   formatDate(dateString: string) {
     return this.datePipe.transform(dateString, 'yyyy-MM-dd');
   }
