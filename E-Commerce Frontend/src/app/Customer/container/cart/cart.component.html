@@ -1,6 +1,7 @@
 <div class="container" style="min-height: 80vh;">
     <div class="row m-4">
-        <div class="col-md-8 border" >
+        <div *ngIf="cardItems.length > 0" class="col-md-8 border" >
+            <br>
             <h2>Your Cart</h2>
             <!-- 80% width -->
             <div class="row border" *ngFor="let item of cardItems; let i=index;">
@@ -28,9 +29,15 @@
 
             </div>
         </div>
+        
+        <div *ngIf="cardItems.length == 0" class="go-to-home"id="go-to-home">
+            <img src="https://www.99fashionbrands.com/wp-content/uploads/2020/12/empty_cart.png">
+            <p>Looks like you haven't added anything to your cart yet!</p>
+            <button routerLink="/" class="go-back">Back to Home</button>
+        </div>
 
 
-        <div class="col-md-4 border" >
+        <div *ngIf="cardItems.length > 0" class="col-md-4 border" id="#price">
             <!-- 20% width -->
             <div class="border-bottom p-3">
                 PRICE DETAILS
