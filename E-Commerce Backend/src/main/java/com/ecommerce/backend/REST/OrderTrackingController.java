@@ -40,8 +40,8 @@ public class OrderTrackingController {
         return orderTrackingService.getOrderTrackingByOrderId(authorizationHeader,orderId);
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PatchMapping("/sendAlert/{orderTrackingId}")
-    public ResponseEntity<Map<String,String>> sendAlert(@RequestHeader(value = "Authorization") String authorizationHeader,Long orderTrackingId){
+    @GetMapping("/sendAlert/{orderTrackingId}")
+    public ResponseEntity<Map<String,String>> sendAlert(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable Long orderTrackingId){
         return orderTrackingService.alert(authorizationHeader,orderTrackingId);
     }
 }

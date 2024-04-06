@@ -170,7 +170,7 @@ public class OrderTrackingService {
             } else{
                 Optional<OrderTracking> orderTracking = orderTrackingRepository.findById(orderTrackingId);
                 if (orderTracking.isPresent()){
-                    orderTracking.get().setAlert("false");
+                    orderTracking.get().setAlert("true");
                     orderTrackingRepository.save(orderTracking.get());
                     Map<String,String> output = new HashMap<>();
                     output.put("Message","Alert Send Successfully!");

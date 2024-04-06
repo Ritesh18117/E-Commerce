@@ -35,9 +35,16 @@ export class DeliveryTrackComponent {
     )
   }
 
-  sendAlert(){
+  sendAlert(orderTrackingId:number){
     console.log("Send Alert!");
-    
+    console.log(orderTrackingId);
+    this._orderTracking.sendAlert(this.token,orderTrackingId).subscribe(
+      (data) =>{
+        console.log(data);
+      }, (error) =>{
+        console.error("Error",error);
+      }
+    )
   }
 
   formatDate(dateString: string) {

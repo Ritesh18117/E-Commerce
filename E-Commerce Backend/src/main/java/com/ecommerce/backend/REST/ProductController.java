@@ -83,7 +83,7 @@ public class ProductController {
         return productService.search(searchItem);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     @PatchMapping("/updateProduct")
     public ResponseEntity<Product> update(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestBody Product product){
         return productService.updateProduct(authorizationHeader,product);
