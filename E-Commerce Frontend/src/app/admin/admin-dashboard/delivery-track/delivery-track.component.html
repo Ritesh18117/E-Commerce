@@ -1,20 +1,58 @@
+<h3 class="card-title">Track Order Status</h3>
 <div class="d-flex justify-content-centre flex-wrap">
     <div class="card m-3" style="width: 18rem;" *ngFor="let ot of orderTracking">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-                <span>OrderTracking Id : {{ot.id}}</span> <br>
-                <span>Seller Id : {{ot.seller.id}}</span> <br>
-                <span>Seller Id : {{ot.seller.companyName}}</span> <br>
-                <span>Order Id : {{ot.order.id}}</span> <br>
-                <ng-container *ngIf="isDateOlderThan3Days(ot.statusChangedAt)">
-                    <span style="background-color: red;">Order Status : {{ot.status}}</span> <br>
-                </ng-container>
-                <span>{{isDateOlderThan3Days(ot.statusChangedAt)}}</span>
-                <span>Difference in Days : {{isDateOlderThan3Days(ot.statusChangedAt)}}</span> <br>
-                <span>Status Changed At : {{formatDate(ot.statusChangedAt)}}</span>
-            </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+        <ng-container *ngIf="isDateOlderThan3Days(ot.statusChangedAt) && ot.status != 'DELIVERED'">
+            <div class="card-body text-white bg-danger">
+                <p class="card-text">
+                    <span>OrderTracking Id : {{ot.id}}</span> <br>
+                    <span>Seller Id : {{ot.seller.id}}</span> <br>
+                    <span>Seller Id : {{ot.seller.companyName}}</span> <br>
+                    <span>Order Id : {{ot.order.id}}</span> <br>
+
+                    <span>Order Status : {{ot.status}}</span> <br>
+
+                    <span>{{isDateOlderThan3Days(ot.statusChangedAt)}}</span>
+                    <span>Difference in Days : {{isDateOlderThan3Days(ot.statusChangedAt)}}</span> <br>
+                    <span>Status Changed At : {{formatDate(ot.statusChangedAt)}}</span>
+                </p>
+                <a role="button" class="btn btn-sm btn-warning" (click)="sendAlert()">Send Alert</a>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!isDateOlderThan3Days(ot.statusChangedAt) && ot.status != 'DELIVERED'">
+            <div class="card-body">
+                <h5 class="card-title">Track Order Status</h5>
+                <p class="card-text">
+                    <span>OrderTracking Id : {{ot.id}}</span> <br>
+                    <span>Seller Id : {{ot.seller.id}}</span> <br>
+                    <span>Seller Id : {{ot.seller.companyName}}</span> <br>
+                    <span>Order Id : {{ot.order.id}}</span> <br>
+
+                    <span>Order Status : {{ot.status}}</span> <br>
+
+                    <span>{{isDateOlderThan3Days(ot.statusChangedAt)}}</span>
+                    <span>Difference in Days : {{isDateOlderThan3Days(ot.statusChangedAt)}}</span> <br>
+                    <span>Status Changed At : {{formatDate(ot.statusChangedAt)}}</span>
+                </p>
+                <!-- <a href="#" class="btn btn-sm btn-success">Go somewhere</a> -->
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!isDateOlderThan3Days(ot.statusChangedAt) && ot.status == 'DELIVERED'">
+            <div class="card-body text-white bg-success">
+                <h5 class="card-title">Track Order Status</h5>
+                <p class="card-text">
+                    <span>OrderTracking Id : {{ot.id}}</span> <br>
+                    <span>Seller Id : {{ot.seller.id}}</span> <br>
+                    <span>Seller Id : {{ot.seller.companyName}}</span> <br>
+                    <span>Order Id : {{ot.order.id}}</span> <br>
+
+                    <span>Order Status : {{ot.status}}</span> <br>
+
+                    <span>{{isDateOlderThan3Days(ot.statusChangedAt)}}</span>
+                    <span>Difference in Days : {{isDateOlderThan3Days(ot.statusChangedAt)}}</span> <br>
+                    <span>Status Changed At : {{formatDate(ot.statusChangedAt)}}</span>
+                </p>
+                <!-- <a href="#" class="btn btn-sm btn-success">Go somewhere</a> -->
+            </div>
+        </ng-container>
     </div>
 </div>

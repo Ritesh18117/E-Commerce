@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("/api/orderTracking")
 public class OrderTrackingController {
@@ -39,5 +38,10 @@ public class OrderTrackingController {
     @GetMapping("/getByOrderId/{orderId}")
     public ResponseEntity<OrderTracking> getByOrderId(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable Long orderId){
         return orderTrackingService.getOrderTrackingByOrderId(authorizationHeader,orderId);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/sendAlert/{orderTrackingId}")
+    public ResponseEntity<Map<String,String>> sendAlert(@RequestHeader(value = "Authorization") String authorizationHeader,Long orderTrackingId){
+        return orderTrackingService.alert(authorizationHeader,orderTrackingId);
     }
 }

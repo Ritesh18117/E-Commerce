@@ -27,10 +27,12 @@ public class OrderTracking {
     private Date createdAt;
     @Column(nullable = false)
     private Date updatedAt;
+    @Column(nullable = true)
+    private String alert;
     public OrderTracking(){
     }
     public OrderTracking(Long id, Order order, Seller seller, OrderStatus status, Date statusChangedAt,
-            Date createdAt, Date updatedAt) {
+            Date createdAt, Date updatedAt,String alert) {
         this.id = id;
         this.order = order;
         this.seller = seller;
@@ -38,6 +40,7 @@ public class OrderTracking {
         this.statusChangedAt = statusChangedAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.alert = alert;
     }
     public Long getId() {
         return id;
@@ -81,5 +84,10 @@ public class OrderTracking {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
+    public String getAlert() {
+        return alert;
+    }
+    public void setAlert(String alert) {
+        this.alert = alert;
+    }
 }

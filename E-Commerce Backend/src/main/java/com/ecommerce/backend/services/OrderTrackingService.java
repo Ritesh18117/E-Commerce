@@ -65,7 +65,6 @@ public class OrderTrackingService {
             Seller seller = sellerRepository.findByUserId(userId);
             List<OrderTracking> orderTracings = orderTrackingRepository.findAllBySellerId(seller.getId());
             for (OrderTracking ot : orderTracings) {
-                System.out.println(ot.getStatusChangedAt());
                 ot.getOrder().getCustomer().setUser(null);
                 ot.getOrder().getProductVariation().getProduct().setSeller(null);
                 ot.getOrder().getProductVariation().getProduct().setVerifiedBy(null);
@@ -88,15 +87,18 @@ public class OrderTrackingService {
                 if(Objects.equals(status, "packed")){
                     orderTracking.get().setStatus(OrderStatus.PACKED);
                     orderTracking.get().setStatusChangedAt(Date.valueOf(LocalDate.now()));
+                    orderTracking.get().setAlert("");
+                    orderTrackingRepository.save(orderTracking.get());
                     System.out.println(orderTracking.get().getStatusChangedAt());
                     Map<String,String> output = new HashMap<>();
-                    output.put("Message","Changed Successfully");
+                    output.put("Message","Changed Successfully to");
                     return ResponseEntity.of(Optional.of(output));
                 }
                 else if(Objects.equals(status, "shipped")){
                     orderTracking.get().setStatus(OrderStatus.SHIPPED);
                     System.out.println(Date.valueOf(LocalDate.now()));
                     orderTracking.get().setStatusChangedAt(Date.valueOf(LocalDate.now()));
+                    orderTracking.get().setAlert("");
                     orderTrackingRepository.save(orderTracking.get());
                     Map<String,String> output = new HashMap<>();
                     output.put("Message","Changed Successfully");
@@ -105,6 +107,7 @@ public class OrderTrackingService {
                 else if(Objects.equals(status, "at_delivery_centre")){
                     orderTracking.get().setStatus(OrderStatus.AT_DELIVERY_CENTRE);
                     orderTracking.get().setStatusChangedAt(Date.valueOf(LocalDate.now()));
+                    orderTracking.get().setAlert("");
                     orderTrackingRepository.save(orderTracking.get());
                     Map<String,String> output = new HashMap<>();
                     output.put("Message","Changed Successfully");
@@ -113,6 +116,7 @@ public class OrderTrackingService {
                 else if(Objects.equals(status, "out_for_delivery")){
                     orderTracking.get().setStatus(OrderStatus.OUT_FOR_DELIVERY);
                     orderTracking.get().setStatusChangedAt(Date.valueOf(LocalDate.now()));
+                    orderTracking.get().setAlert("");
                     orderTrackingRepository.save(orderTracking.get());
                     Map<String,String> output = new HashMap<>();
                     output.put("Message","Changed Successfully");
@@ -121,6 +125,7 @@ public class OrderTrackingService {
                 else if(Objects.equals(status, "delivered")){
                     orderTracking.get().setStatus(OrderStatus.DELIVERED);
                     orderTracking.get().setStatusChangedAt(Date.valueOf(LocalDate.now()));
+                    orderTracking.get().setAlert("");
                     orderTrackingRepository.save(orderTracking.get());
                     Map<String,String> output = new HashMap<>();
                     output.put("Message","Changed Successfully");
@@ -150,6 +155,29 @@ public class OrderTrackingService {
                 return ResponseEntity.of(Optional.of(orderTracking));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    public ResponseEntity<Map<String,String>> alert(@RequestHeader(value = "Authorization") String authorizationHeader,Long orderTrackingId){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+            if(Objects.equals(admin,"null") || Objects.equals(admin.getStatus(),"inActive")){
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            } else{
+                Optional<OrderTracking> orderTracking = orderTrackingRepository.findById(orderTrackingId);
+                if (orderTracking.isPresent()){
+                    orderTracking.get().setAlert("false");
+                    orderTrackingRepository.save(orderTracking.get());
+                    Map<String,String> output = new HashMap<>();
+                    output.put("Message","Alert Send Successfully!");
+                    return ResponseEntity.of(Optional.of(output));
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                }
             }
         } catch (Exception e){
             e.printStackTrace();
