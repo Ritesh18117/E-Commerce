@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { OrderTrackingService } from 'src/app/Services/order-tracking.service';
 
 @Component({
@@ -11,10 +12,12 @@ import { OrderTrackingService } from 'src/app/Services/order-tracking.service';
 export class DeliveryTrackComponent {
 
   token:any;
+  allOrderTracking:any;
   orderTracking:any;
 
   constructor(private _orderTracking:OrderTrackingService,
-            private datePipe: DatePipe){}
+            private datePipe: DatePipe,
+          private toastr:ToastrService){}
 
   ngOnInit(){
     this.token = sessionStorage.getItem('token');
@@ -25,7 +28,8 @@ export class DeliveryTrackComponent {
     this._orderTracking.getAllOrderTracking(this.token).subscribe(
       (data) =>{
         console.log(data);
-        this.orderTracking = data;
+        this.allOrderTracking = data
+        this.orderTracking = this.allOrderTracking;
         for(let ot of this.orderTracking){
           ot.statusChangedAt = new Date(ot.statusChangedAt);
         }
@@ -41,8 +45,10 @@ export class DeliveryTrackComponent {
     this._orderTracking.sendAlert(this.token,orderTrackingId).subscribe(
       (data) =>{
         console.log(data);
+        this.toastr.success("Alert Send Successfully","Success");
       }, (error) =>{
         console.error("Error",error);
+        this.toastr.error("Alert Send Error","Error");
       }
     )
   }
@@ -58,4 +64,38 @@ export class DeliveryTrackComponent {
     return differenceInDays > 3;
   }
 
+  all(){
+    this.orderTracking = this.allOrderTracking;
+  }
+
+  delivered(){
+    let deliveredOrderTracking:any = []; // Initialize the array
+    for(let ot of this.allOrderTracking){
+      if(ot.status == "DELIVERED"){
+        deliveredOrderTracking.push(ot); // Use parentheses for push method
+      }
+    }
+    this.orderTracking = deliveredOrderTracking;
+  }
+  
+  inProcess(){
+    let inProcessOrderTracking:any = []; // Initialize the array
+    for(let ot of this.allOrderTracking){
+      if(ot.status != "DELIVERED" && !this.isDateOlderThan3Days(ot.statusChangedAt)){
+        inProcessOrderTracking.push(ot); // Use parentheses for push method
+      }
+    }
+    this.orderTracking = inProcessOrderTracking;
+  }
+  
+  toSendAlert(){
+    let GotAlertOrderTracking:any = []; // Initialize the array
+    for(let ot of this.allOrderTracking){
+      if(ot.status != "DELIVERED" && this.isDateOlderThan3Days(ot.statusChangedAt)){
+        GotAlertOrderTracking.push(ot); // Use parentheses for push method
+      }
+    }
+    this.orderTracking = GotAlertOrderTracking;
+  }
+  
 }
