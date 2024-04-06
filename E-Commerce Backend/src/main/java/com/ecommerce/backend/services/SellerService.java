@@ -76,6 +76,9 @@ public class SellerService {
             updatedSeller.setApprovalStatus(existingApprovalStatus);
 
             updatedSeller.setUser(existingSeller.getUser());
+            updatedSeller.setComment(null);
+            updatedSeller.setApprovalStatus("false");
+            
 
             BeanUtils.copyProperties(updatedSeller, existingSeller, "id");
             Seller savedSeller = sellerRepository.save(existingSeller);
@@ -172,7 +175,7 @@ public class SellerService {
         }
     }
 
-    public ResponseEntity<Map<String,String>> rejectSeller(@RequestHeader(value = "Authorization") String authorizationHeader,Long sellerId){
+    public ResponseEntity<Map<String,String>> rejectSeller(@RequestHeader(value = "Authorization") String authorizationHeader,Long sellerId,String comment){
         try{
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
@@ -181,6 +184,7 @@ public class SellerService {
                 seller.get().setApprovalStatus("rejected");
                 seller.get().setStatusChangeDate(Date.valueOf(LocalDate.now()));
                 seller.get().setVerifiedBy(admin);
+                seller.get().setComment(comment);
                 admin.addSeller(seller.get().getId());
                 sellerRepository.save(seller.get());
                 Map<String, String> op = new HashMap<>();

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -43,9 +43,10 @@ export class SellerService {
     return this.http.get<any>(`${this.approveSellerURL}/${sellerId}`, { headers });
   }
   
-  rejectSeller(token:string,sellerId:number):Observable<any>{
-    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
-    return this.http.get<any>(`${this.rejectSellerURL}/${sellerId}`, { headers });
+  rejectSeller(token: string, sellerId: number, comment: string): Observable<any> {
+    const params = new HttpParams().set('comment', comment);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(`${this.rejectSellerURL}/${sellerId}`, { headers, params });
   }
 
   mySellerVerifyList(token:string):Observable<any>{
