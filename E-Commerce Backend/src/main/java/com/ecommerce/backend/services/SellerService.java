@@ -75,10 +75,14 @@ public class SellerService {
             String existingApprovalStatus = existingSeller.getApprovalStatus();
             updatedSeller.setApprovalStatus(existingApprovalStatus);
 
+            Optional<Admin> admin = adminRepository.findById(existingSeller.getVerifiedBy().getId());
+
             updatedSeller.setUser(existingSeller.getUser());
             updatedSeller.setComment(null);
             updatedSeller.setApprovalStatus("false");
-            
+
+            admin.get().getVerifiedSeller().remove(existingSeller.getId());
+            adminRepository.save(admin.get());
 
             BeanUtils.copyProperties(updatedSeller, existingSeller, "id");
             Seller savedSeller = sellerRepository.save(existingSeller);
