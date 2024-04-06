@@ -4,6 +4,7 @@
 
             <div class="container mt-4">
                 <h2>My Orders</h2>
+                <br><br>
 
                 <div class="border p-3">
                     <h4>Delivery Address</h4>
@@ -29,7 +30,7 @@
 
                         <button class="btn btn-primary" (click)="showAddressForm()">Add Address</button>
                         <form #myForm="ngForm" class="mt-5 border p-3" (ngSubmit)="onAddressSubmit()" [hidden]="!showForm">
-                            <h2>Add Address</h2>
+                            <h2>Add New Address</h2>
                             <div class="row m-3">
                                 <div class="col-md-6">
                                     <input type="text" name="Name" [(ngModel)]="addAddress.name"
@@ -71,6 +72,7 @@
                         </form>
                     </form>
                 </div>
+                <br><br>
 
                 <div class="border">
                     <h2 class="m-4">Product Summary</h2>
@@ -86,6 +88,7 @@
                         </div>
                     </div>
                 </div>
+                <br><br>
 
                 <div class="border">
                     <h2 class="m-4">Select Payment Method</h2>
@@ -95,7 +98,9 @@
                             <label class="form-check-label" for="googlePay">
                                 <div class="card">
                                     <div class="card-body">
-                                        Google Pay &nbsp; &nbsp; <i class="fa fa-2x fa-google"></i>
+                                        
+                                        Google Pay/UPI &nbsp; &nbsp; <i class="fa fa-2x fa-google"></i>
+                                        
                                     </div>
                                 </div>
                             </label>
@@ -106,7 +111,10 @@
                             <label class="form-check-label" for="onlinePayment">
                                 <div class="card">
                                     <div class="card-body">
-                                        Online Payment &nbsp; &nbsp; <i class="fab fa-2x fa-cc-visa"></i>
+                                        Credit/Debit Cards &nbsp; &nbsp;
+                                        <span class="material-symbols-outlined">
+                                            credit_card
+                                            </span>
                                     </div>
                                 </div>
                             </label>
@@ -149,7 +157,7 @@
                         Price({{totalQuantity}} item)
                     </div>
                     <div class="col-4">
-                        &nbsp; &nbsp;${{total}}
+                        &nbsp; &nbsp;₹{{total}}
                     </div>
                 </div>
                 <div class="discount row p-2 ">
@@ -157,7 +165,7 @@
                         Discount
                     </div>
                     <div class="col-4">
-                        - ${{discount}}
+                        - ₹{{discount}}
                     </div>
                 </div>
                 <div class="delivery row p-2">
@@ -165,7 +173,7 @@
                         Delivery Changes
                     </div>
                     <div class="col-4" style="color: green;">
-                        &nbsp; &nbsp;$49
+                        &nbsp; &nbsp;₹49
                     </div>
                 </div>
             </div>
@@ -175,12 +183,12 @@
                         Total Amount
                     </div>
                     <div class="col-4">
-                        &nbsp; &nbsp;${{total - discount + delivery}}
+                        &nbsp; &nbsp;₹{{total - discount + delivery}}
                     </div>
                 </div>
             </div>
             <div class="m-3" style="color: green;">
-                You will save ${{discount}} in this order
+                You will save ₹{{discount}} in this order
             </div>
             <div class="detail d-flex justify-content-end">
                 <button class="m-3 p-2 place-order" (click)="placeOrder()">Continue</button>
