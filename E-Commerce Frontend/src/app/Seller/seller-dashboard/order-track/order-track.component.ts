@@ -13,6 +13,7 @@ export class OrderTrackComponent {
 
   token:any;
   myOrderTracking:any;
+  allMyOrderTracking:any
 
   constructor(private _orderTracking:OrderTrackingService,
               private datePipe: DatePipe,
@@ -27,7 +28,8 @@ export class OrderTrackComponent {
     this._orderTracking.getMyOrderTracking(this.token).subscribe(
       (data) =>{
         console.log(data);
-        this.myOrderTracking = data;
+        this.allMyOrderTracking = data;
+        this.myOrderTracking = this.allMyOrderTracking;
         for(let ot of this.myOrderTracking){
           ot.statusChangedAt = new Date(ot.statusChangedAt);
         }
@@ -62,5 +64,44 @@ export class OrderTrackComponent {
     const differenceInTime = currentDate.getTime() - date.getTime();
     const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));    
     return differenceInDays > 3;
+  }
+
+  all(){
+    this.myOrderTracking = this.allMyOrderTracking;
+    console.log(this.myOrderTracking);
+  }
+
+  delivered(){
+    let deliveredOrderTracking:any = []; // Initialize the array
+    for(let ot of this.allMyOrderTracking){
+      if(ot.status == "DELIVERED"){
+        deliveredOrderTracking.push(ot); // Use parentheses for push method
+      }
+    }
+    this.myOrderTracking = deliveredOrderTracking;
+    console.log(this.myOrderTracking);
+  }
+  
+  inProcess(){
+    let inProcessOrderTracking:any = []; // Initialize the array
+    for(let ot of this.allMyOrderTracking){
+      if(ot.status != "DELIVERED" && !this.isDateOlderThan3Days(ot.statusChangedAt)){
+        inProcessOrderTracking.push(ot); // Use parentheses for push method
+      }
+    }
+    this.myOrderTracking = inProcessOrderTracking;
+    console.log(this.myOrderTracking);
+  }
+  
+  gotWarning(){
+    let toSendAlertOrderTracking:any = []; // Initialize the array
+    for(let ot of this.allMyOrderTracking){
+      if(ot.status != "DELIVERED" && this.isDateOlderThan3Days(ot.statusChangedAt)){
+        toSendAlertOrderTracking.push(ot); // Use parentheses for push method
+      }
+    }
+    this.myOrderTracking = toSendAlertOrderTracking;
+    console.log(this.myOrderTracking);
+    
   }
 }

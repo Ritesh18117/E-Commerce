@@ -143,7 +143,6 @@ export class AddedItemsComponent {
 
     this._productVariationService.addProductVariation(this.token, productVariation).subscribe(
       (data) => {
-        console.log(data);
         this.toastr.success('Product Added!!', 'Success', {
           timeOut: 500, // Toast will disappear after 0.5 seconds
         });
@@ -161,8 +160,6 @@ export class AddedItemsComponent {
   getCategory() {
     this._categoryService.getAllCategory().subscribe(
       (data) => {
-        console.log(data);
-        
         this.categories = data;
       },
       (error) => {
@@ -179,10 +176,10 @@ export class AddedItemsComponent {
     product.category.description = "";
     this._productService.updateProduct(this.token,product).subscribe(
       (data) =>{
-        console.log(data);
-
+        this.toastr.success("Product Updated Successfuly!!","success");
       }, (error) =>{
         console.error(error);
+        this.toastr.error("Product Updated Error!!","error");
       }
     )
   }

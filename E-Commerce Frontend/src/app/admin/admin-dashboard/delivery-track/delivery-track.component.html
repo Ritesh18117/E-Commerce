@@ -1,4 +1,20 @@
 <h3 class="card-title">Track Order Status</h3>
+
+<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked (change)="all()">
+    <label class="btn btn-outline-primary" for="btnradio1">All</label>
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (change)="delivered()">
+    <label class="btn btn-outline-primary" for="btnradio2">Delivered</label>
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" (change)="inProcess()">
+    <label class="btn btn-outline-primary" for="btnradio3">In Process</label>
+
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" (change)="toSendAlert()">
+    <label class="btn btn-outline-primary" for="btnradio4">To Send Alert</label>
+</div>
+
+
 <div class="d-flex justify-content-centre flex-wrap">
     <div class="card m-3" style="width: 18rem;" *ngFor="let ot of orderTracking">
         <ng-container *ngIf="isDateOlderThan3Days(ot.statusChangedAt) && ot.status != 'DELIVERED'">
@@ -15,7 +31,7 @@
                     <span>Difference in Days : {{isDateOlderThan3Days(ot.statusChangedAt)}}</span> <br>
                     <span>Status Changed At : {{formatDate(ot.statusChangedAt)}}</span>
                 </p>
-                <a role="button" class="btn btn-sm btn-warning" (click)="sendAlert()">Send Alert</a>
+                <a role="button" class="btn btn-sm btn-warning" (click)="sendAlert(ot.id)">Send Alert</a>
             </div>
         </ng-container>
         <ng-container *ngIf="!isDateOlderThan3Days(ot.statusChangedAt) && ot.status != 'DELIVERED'">
