@@ -35,7 +35,6 @@ export class VerifiedSellerComponent {
     } else if(this.searchType == "rejectedSeller"){
       this._sellerService.getRejectedSellers(this.token).subscribe(
         (data) =>{
-          console.log(data);
           this.sellerVerifiedList = data;
         }, (error) =>{
           console.error(error);

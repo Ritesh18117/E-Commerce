@@ -1,1 +1,16 @@
-<p>approve-admin works!</p>
+<h2>Sellers for Approval</h2>
+<ng-container *ngFor="let admin of admins">
+    <div class="mt-4 border p-3 row">
+        <div class="detail col-md-9">
+            Admin Id : {{admin.id}} <br>
+            Name : {{admin.companyName}} <br>
+            Personal Email : {{admin.personalMailId}} <br>
+            Contact : {{admin.contact}} <br>
+            Address : {{admin.address}}
+            Status : <span style="color:green" *ngIf="admin.status == 'true'">Approved</span> <br>
+            <span *ngIf="admin.status == 'false'" style="color:red">Not Approved</span> <br> <br>
+            <button class="btn btn-success btn-sm" (click)="makeAdminActive(admin.id)">Approve</button> &nbsp; &nbsp;
+
+        </div>
+    </div>
+</ng-container>

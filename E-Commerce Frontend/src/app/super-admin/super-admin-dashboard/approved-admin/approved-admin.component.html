@@ -1,1 +1,26 @@
-<p>approved-admin works!</p>
+<h2>Active Admin</h2>
+<table>
+    <tr>
+        <th>Admin Id</th>
+        <th>Name</th>
+        <th>Personal Email</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <th>Ststus</th>
+        <th>InActive Admin</th>
+    </tr>
+    <ng-container *ngFor="let admin of ActiveAdmins">
+        <tr>
+            <td>{{admin.id}}</td>
+            <td>{{admin.name}}</td>
+            <td>{{admin.personalMailId}}</td>
+            <td>{{admin.contact}}</td>
+            <td>{{admin.address}}</td>
+            <td> <span style="color:green" *ngIf="admin.status == 'Active'">Active</span>
+            </td>
+            <td>
+                <button class="btn btn-danger btn-sm" (click)="makeAdminInActive(admin.id)">Revoke</button>
+            </td>
+        </tr>
+    </ng-container>
+</table>
