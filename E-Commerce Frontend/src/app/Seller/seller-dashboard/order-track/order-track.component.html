@@ -47,17 +47,54 @@
                     <td>{{myOrderTracing.status}}  <br> <span *ngIf="myOrderTracing.alert == 'true'" style="background-color: red; color: white;">Alert Send By Admin</span></td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
-                        <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
-                            <option value="packed">Packed</option>
-                            <option value="shipped">Shipped</option>
-                            <option value="at_delivery_centre">In Transit</option>
-                            <option value="out_for_delivery">Out for Delivery</option>
-                            <option value="delivered">Delivered</option>
-                        </select>
-                        
+                        <ng-container *ngIf="myOrderTracing.status == 'ORDER_PLACED'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option value="packed">Packed</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="at_delivery_centre">In Transit</option>
+                                <option value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="myOrderTracing.status == 'PACKED'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option disabled value="packed">Packed</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="at_delivery_centre">In Transit</option>
+                                <option value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="myOrderTracing.status == 'SHIPPED'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option disabled value="packed">Packed</option>
+                                <option disabled value="shipped">Shipped</option>
+                                <option value="at_delivery_centre">In Transit</option>
+                                <option value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="myOrderTracing.status == 'AT_DELIVERY_CENTRE'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option disabled value="packed">Packed</option>
+                                <option disabled value="shipped">Shipped</option>
+                                <option disabled value="at_delivery_centre">In Transit</option>
+                                <option value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="myOrderTracing.status == 'OUT_FOR_DELIVERY'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option disabled value="packed">Packed</option>
+                                <option disabled value="shipped">Shipped</option>
+                                <option disabled value="at_delivery_centre">In Transit</option>
+                                <option disabled value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
                         
                         <button class="btn-sm btn btn-success m-1" id="save-state" (click)="changeStatus(myOrderTracing.id, myOrderTracing.selectedStatus, i, myOrderTracing)">Save State</button>
-
+                    
                     </td>
                 </tr>
             </ng-container>
@@ -80,13 +117,51 @@
                     <td width="300px">
                        
 
-                        <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
-                            <option value="packed">Packed</option>
-                            <option value="shipped">Shipped</option>
-                            <option value="at_delivery_centre">In Transit</option>
-                            <option value="out_for_delivery">Out for Delivery</option>
-                            <option value="delivered">Delivered</option>
-                        </select>
+                        <ng-container *ngIf="myOrderTracing.status == 'ORDER_PLACED'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option value="packed">Packed</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="at_delivery_centre">In Transit</option>
+                                <option value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="myOrderTracing.status == 'PACKED'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option disabled value="packed">Packed</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="at_delivery_centre">In Transit</option>
+                                <option value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="myOrderTracing.status == 'SHIPPED'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option disabled value="packed">Packed</option>
+                                <option disabled value="shipped">Shipped</option>
+                                <option value="at_delivery_centre">In Transit</option>
+                                <option value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="myOrderTracing.status == 'AT_DELIVERY_CENTRE'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option disabled value="packed">Packed</option>
+                                <option disabled value="shipped">Shipped</option>
+                                <option disabled value="at_delivery_centre">In Transit</option>
+                                <option value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="myOrderTracing.status == 'OUT_FOR_DELIVERY'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option disabled value="packed">Packed</option>
+                                <option disabled value="shipped">Shipped</option>
+                                <option disabled value="at_delivery_centre">In Transit</option>
+                                <option disabled value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container>
                         
                         
                         <button class="btn-sm btn btn-success m-1" id="save-state" (click)="changeStatus(myOrderTracing.id, myOrderTracing.selectedStatus, i, myOrderTracing)">Save State</button>
