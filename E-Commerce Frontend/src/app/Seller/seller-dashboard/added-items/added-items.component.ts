@@ -66,30 +66,11 @@ export class AddedItemsComponent {
     this.parsedValues = [];
     this._productService.getProductById(productId).subscribe(
       (data) => {
-        console.log(data);
-        
         let size_quanttity: Array<[string, string]> = data[0].size_quan;
-        // Logic for Seperating the size and quant from size_quant
         size_quanttity.forEach((tuple) => {
-          var firstString: string;
-          let s = "";
-          if (tuple[0] != "N") {
-            firstString = tuple[0];
-            for (let i = 0; i < tuple.length; i++) {
-              if (i > 1) {
-                s += tuple[i];
-              }
-            }
-          }
-          else {
-            firstString = tuple[0] + tuple[1];
-            for (let i = 0; i < tuple.length; i++) {
-              if (i > 3) {
-                s += tuple[i];
-              }
-            }
-          }
-          this.parsedValues.push({ first: firstString, second: s.trim() })
+          const str = tuple.toString();
+          const items: string[] = str.split(',');
+          this.parsedValues.push({ first: items[0], second: items[1].trim() })
         });
       }, (error) => {
         console.error("Error", error);
