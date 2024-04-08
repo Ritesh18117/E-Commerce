@@ -8,27 +8,27 @@ import { Component } from '@angular/core';
 export class SuperAdminDashboardComponent {
 
   profile:boolean = true;
-  approveSeller:boolean = false;
-  approvedSeller:boolean = false;
+  approveAdmin:boolean = false;
+  approvedAdmin:boolean = false;
 
   constructor(){}
 
   renderProfile(){
     this.profile = true;
-    this.approveSeller = false;
-    this.approvedSeller = false;
+    this.approveAdmin = false;
+    this.approvedAdmin = false;
   }
   
   renderApproveSeller(){
-    this.approveSeller = true;
+    this.approveAdmin = true;
     this.profile = false;
-    this.approvedSeller = false;
+    this.approvedAdmin = false;
   }
 
   renderApprovedSeller(){
-    this.approvedSeller = true;
+    this.approvedAdmin = true;
     this.profile = false;
-    this.approveSeller = false;
+    this.approveAdmin = false;
   }
 
 }

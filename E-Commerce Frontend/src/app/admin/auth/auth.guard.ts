@@ -7,7 +7,7 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
   const isLoggedIn = "true";
   const url = state.url;
 
-  if(url === '/admins/dashboard'){
+  if(url === '/admin/dashboard'){
     if(token === null){
       // console.log("I have token");
       _router.navigate(['/']);

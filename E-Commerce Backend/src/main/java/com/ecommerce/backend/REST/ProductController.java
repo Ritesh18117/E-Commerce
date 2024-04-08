@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.sampled.Port;
 import java.util.List;
 import java.util.Map;
 
@@ -94,7 +95,11 @@ public class ProductController {
         return productService.searchByColor(color);
     }
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getAllMyRejectedProducts")
+    public ResponseEntity<List<Product>> getAllRejectedProducts(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return productService.getAllMyRejectedProducts(authorizationHeader);
+    }
 }
 
 

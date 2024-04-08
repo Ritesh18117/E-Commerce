@@ -14,20 +14,20 @@
             <a (click)="renderApproveSeller()" class="sideNav text-decoration-none text-dark">
                 <div class="p-2 mt-2 profile-nav">
                     <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
-                    &nbsp; &nbsp; &nbsp; AproveSeller
+                    &nbsp; &nbsp; &nbsp; Aprove Admin
                 </div>
             </a>
             <a (click)="renderApprovedSeller()" class="sideNav text-decoration-none text-dark">
                 <div class="p-2 mt-2 profile-nav">
                     <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
-                    &nbsp; &nbsp; &nbsp; Approved Seller
+                    &nbsp; &nbsp; &nbsp; Approved Admin
                 </div>
             </a>
         </div>
         <div class="col-md-9 border p-3">
             <app-profile *ngIf="profile"></app-profile>
-            <app-approve-admin *ngIf="approveSeller"></app-approve-admin>
-            <app-approved-admin *ngIf="approvedSeller"></app-approved-admin>
+            <app-approve-admin *ngIf="approveAdmin"></app-approve-admin>
+            <app-approved-admin *ngIf="approvedAdmin"></app-approved-admin>
         </div>
     </div>
 </div>
