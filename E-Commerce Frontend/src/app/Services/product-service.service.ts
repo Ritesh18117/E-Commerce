@@ -18,6 +18,7 @@ export class ProductServiceService {
   private revokeProductVerifyURL = "/api/product/revokeProductVerify";
   private searchURL = "/api/product/search";
   private updateProductURL = "/api/product/updateProduct";
+  private getAllMyRejectedProductsURL = "/api/product/getAllMyRejectedProducts";
 
   constructor(private http: HttpClient) { }
 
@@ -75,6 +76,11 @@ export class ProductServiceService {
   updateProduct(token:any,product:any){
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.patch<any>(this.updateProductURL, product, { headers });
+  }
+
+  getAllMyRejectedProducts(token:any){
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(this.getAllMyRejectedProductsURL, { headers });
   }
   
 }

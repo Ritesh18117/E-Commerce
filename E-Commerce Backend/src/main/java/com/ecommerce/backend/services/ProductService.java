@@ -119,7 +119,7 @@ public class ProductService {
 
                 if(product.isPresent() && Objects.equals(product.get().getApprovalStatus(), "true")){
                     product.get().setSeller(null);
-                    product.get().setMargin(null);
+//                    product.get().setMargin(null);
                     productGroup.put("product", product);
                     productGroup.put("size_quan", entry.getValue());
 
@@ -158,7 +158,7 @@ public class ProductService {
 
                 if(product.isPresent() && Objects.equals(product.get().getApprovalStatus(), "true")){
                     product.get().setSeller(null);
-                    product.get().setMargin(null);
+//                    product.get().setMargin(null);
                     productGroup.put("product", product);
                     productGroup.put("size_quan", entry.getValue());
 
@@ -197,7 +197,7 @@ public class ProductService {
 
                 if(product.isPresent() && Objects.equals(product.get().getApprovalStatus(), "true")){
                     product.get().setSeller(null);
-                    product.get().setMargin(null);
+//                    product.get().setMargin(null);
                     productGroup.put("product", product);
                     productGroup.put("size_quan", entry.getValue());
 
@@ -331,6 +331,10 @@ public class ProductService {
             List<Product> products = (List<Product>) productRepository.findAll();
             if(products.size() <= 0)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            for(Product product : products){
+                product.setVerifiedBy(null);
+                product.setSeller(null);
+            }
             return ResponseEntity.of(Optional.of(products));
         } catch (Exception e){
             e.printStackTrace();
@@ -365,9 +369,37 @@ public class ProductService {
             if(!products.isEmpty()){
                 return ResponseEntity.of(Optional.of(products));
             }else {
+                for(Product product : products){
+                    product.setVerifiedBy(null);
+                    product.setSeller(null);
+                }
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
         } catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<List<Product>> getAllMyRejectedProducts(@RequestHeader(value = "Authorization") String authorizationHeader){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+            if(Objects.equals(admin,null)){
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            } else {
+                List<Product> products = productRepository.findAllByApprovalStatusAndVerifiedById("rejected",admin.getId());
+                if(products.isEmpty()){
+                   return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                } else{
+                    for(Product product : products){
+                        product.setVerifiedBy(null);
+                        product.setSeller(null);
+                    }
+                    return ResponseEntity.of(Optional.of(products));
+                }
+            }
+        } catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

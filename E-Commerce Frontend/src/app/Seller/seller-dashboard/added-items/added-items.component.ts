@@ -66,6 +66,8 @@ export class AddedItemsComponent {
     this.parsedValues = [];
     this._productService.getProductById(productId).subscribe(
       (data) => {
+        console.log(data);
+        
         let size_quanttity: Array<[string, string]> = data[0].size_quan;
         // Logic for Seperating the size and quant from size_quant
         size_quanttity.forEach((tuple) => {

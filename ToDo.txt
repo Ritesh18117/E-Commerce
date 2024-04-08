@@ -1,15 +1,21 @@
 ToDo:
 
-1) Add Comment if Product or Seller is Rejected. It have to be shown to Seller side after rejection.
-2) Create Super Admin : It handles the request related to Approval of Admins and Some high level works.
-3) Address Field is Missing from "Verified Seller" in Admin Module.
-4) Make table in "Verify Seller" same as "Verified Seller" in Admin Module
-5) Protect Admin Dashboard Routes
+1) Add Comment if Product or Seller is Rejected. It have to be shown to Seller side after rejection. --DONE
+2) Create Super Admin : It handles the request related to Approval of Admins and Some high level works. -- DONE
+3) Address Field is Missing from "Verified Seller" in Admin Module. -- NOT Required
+4) Make table in "Verify Seller" same as "Verified Seller" in Admin Module -- Optional
+5) Protect Admin Dashboard Routes -- DONE
 6) Update Approval for Seller and Product
 7) Add Date of Approval/Rejection/SendForApproval to the Seller and Product, For Date wise search and Date Between Search.
-8) After cont^ from placeOrder Component Create a popup box saying Order placed Successfully and Redirect to Home page.
+8) Add Prodcut review System
+
 
 BUG:
 1) Bug in Displaying the size "10" and quentity in Seller's Added items Component.
 2) long description of product gives error
 3) PlaceOrder Renders without login also. (Solution : Redirecet if not LoggedIn or Role Not customer)
+
+
+
+Priority
+1) After cont^ from placeOrder Component Create a popup box saying Order placed Successfully and Redirect to Home page.
