@@ -1,5 +1,5 @@
 <h3>Order Tracking </h3>
-
+<br>
 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked (change)="all()">
     <label class="btn btn-outline-primary" for="btnradio1">All</label>
@@ -13,6 +13,7 @@
     <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" (change)="gotWarning()">
     <label class="btn btn-outline-primary" for="btnradio4">Got Warning</label>
 </div>
+<br><br>
 
 
 <table class="table table-bordered">
@@ -69,12 +70,24 @@
                         {{myOrderTracing.order.address.country}}, {{myOrderTracing.order.address.zipcode}}</td>
                     <td>{{myOrderTracing.status}}</td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
-                    <td>
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed')">Packed</button> &nbsp;
+                    <td width="300px">
+                        <!-- <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed')">Packed</button> &nbsp;
                         <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped')">Shipped</button> &nbsp;
                         <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre')">At Delivery Centre</button> &nbsp;
                         <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery')">Out for Delivery</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered')">Delivered</button>
+                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered')">Delivered</button> -->
+
+                        <select name="status-change" id="status-change" [(ngModel)]="selectedStatus">
+                            <option value="packed">Packed</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="at_delivery_centre">In Transit</option>
+                            <option value="out_for_delivery">Out for Delivery</option>
+                            <option value="delivered">Delivered</option>
+                        </select>
+                        
+                        <button class="btn-sm btn btn-success m-1" id="save-state" (click)="changeStatus(myOrderTracing.id, selectedStatus)">Save State</button>
+                        
+                          
                     </td>
                 </tr>
             </ng-container>
@@ -94,11 +107,7 @@
                     <td>{{myOrderTracing.status}}</td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed')">Packed</button> &nbsp;
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped')">Shipped</button> &nbsp;
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre')">At Delivery Centre</button> &nbsp;
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery')">Out for Delivery</button> &nbsp;
-                        <button disabled class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered')">Delivered</button>
+                        Not Applicable
                     </td>
                 </tr>
             </ng-container>

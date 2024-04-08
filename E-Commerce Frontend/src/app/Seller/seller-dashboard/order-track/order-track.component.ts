@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { OrderTrackingService } from 'src/app/Services/order-tracking.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-order-track',
@@ -13,7 +14,8 @@ export class OrderTrackComponent {
 
   token:any;
   myOrderTracking:any;
-  allMyOrderTracking:any
+  allMyOrderTracking:any;
+  selectedStatus: string = 'packed';
 
   constructor(private _orderTracking:OrderTrackingService,
               private datePipe: DatePipe,

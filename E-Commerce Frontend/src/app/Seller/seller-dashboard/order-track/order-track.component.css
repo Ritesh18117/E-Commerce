@@ -1,0 +1,10 @@
+.save-status-change{
+    margin-left: 3px;
+    background-color: #368422;
+    color:white;
+    border: 0.5px solid #368422;
+    padding: 2px;
+}
+#save-state{
+    display: inline-block;
+}
