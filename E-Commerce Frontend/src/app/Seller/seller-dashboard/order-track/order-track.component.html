@@ -47,11 +47,17 @@
                     <td>{{myOrderTracing.status}}  <br> <span *ngIf="myOrderTracing.alert == 'true'" style="background-color: red; color: white;">Alert Send By Admin</span></td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed',i)">Packed</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped',i)">Shipped</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre',i)">At Delivery Centre</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery',i)">Out for Delivery</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered',i)">Delivered</button>
+                        <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                            <option value="packed">Packed</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="at_delivery_centre">In Transit</option>
+                            <option value="out_for_delivery">Out for Delivery</option>
+                            <option value="delivered">Delivered</option>
+                        </select>
+                        
+                        
+                        <button class="btn-sm btn btn-success m-1" id="save-state" (click)="changeStatus(myOrderTracing.id, myOrderTracing.selectedStatus, i, myOrderTracing)">Save State</button>
+
                     </td>
                 </tr>
             </ng-container>
@@ -72,13 +78,9 @@
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
 
                     <td width="300px">
-                        <!-- <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'packed')">Packed</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'shipped')">Shipped</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'at_delivery_centre')">At Delivery Centre</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'out_for_delivery')">Out for Delivery</button> &nbsp;
-                        <button class="btn-sm btn btn-primary m-1" (click)="changeStatus(myOrderTracing.id,'delivered')">Delivered</button> -->
+                       
 
-                        <select name="status-change" id="status-change" [(ngModel)]="selectedStatus">
+                        <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
                             <option value="packed">Packed</option>
                             <option value="shipped">Shipped</option>
                             <option value="at_delivery_centre">In Transit</option>
@@ -86,7 +88,9 @@
                             <option value="delivered">Delivered</option>
                         </select>
                         
-                        <button class="btn-sm btn btn-success m-1" id="save-state" (click)="changeStatus(myOrderTracing.id, selectedStatus, i)">Save State</button>
+                        
+                        <button class="btn-sm btn btn-success m-1" id="save-state" (click)="changeStatus(myOrderTracing.id, myOrderTracing.selectedStatus, i, myOrderTracing)">Save State</button>
+
                         
                     </td>
                 </tr>
@@ -108,7 +112,6 @@
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
                         Not Applicable
-
                     </td>
                 </tr>
             </ng-container>

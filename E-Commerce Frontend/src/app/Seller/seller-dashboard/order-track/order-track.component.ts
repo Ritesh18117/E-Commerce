@@ -41,22 +41,25 @@ export class OrderTrackComponent {
     )
   }
 
-  changeStatus(orderTrackingId:number,status:string,index:number){
-    console.log(orderTrackingId,status);
-    this._orderTracking.changeStatus(this.token,orderTrackingId,status).subscribe(
-      (data) =>{
-        console.log(data);
-        this.myOrderTracking[index].status = status.toUpperCase();
-        this.toastr.success('Status Changed Successfully', 'Success', {
-          timeOut: 500, // Toast will disappear after 0.5 seconds
-        });
-      }, (error) =>{
-        this.toastr.error('Status Change Error', 'Error', {
-          timeOut: 500, // Toast will disappear after 0.5 seconds
-        });
-      }
-    )
-  }
+  changeStatus(orderTrackingId: number, status: string, index: number, myOrderTracing: any): void {
+    console.log(orderTrackingId, status);
+    this._orderTracking.changeStatus(this.token, orderTrackingId, status).subscribe(
+        (data) => {
+            console.log(data);
+            this.toastr.success('Status Changed Successfully', 'Success', {
+                timeOut: 500,
+            });
+            // Update the status in the myOrderTracking array
+            this.myOrderTracking[index].status = status;
+        }, 
+        (error) => {
+            this.toastr.error('Status Change Error', 'Error', {
+                timeOut: 500,
+            });
+        }
+    );
+}
+
 
   formatDate(dateString: string) {
     return this.datePipe.transform(dateString, 'yyyy-MM-dd');
