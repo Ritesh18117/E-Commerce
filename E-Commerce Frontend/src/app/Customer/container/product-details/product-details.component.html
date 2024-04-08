@@ -38,12 +38,14 @@
 
       <div class="ekart-product-detail-size">
           <div style="padding: 5px 0px;">
-              <h4 class="mb-3">Available Size</h4>
+              <h4 class="mb-3">Available Sizes:</h4>
               <ng-container *ngFor="let x of parsedValues; let i=index">
                 <span style="border: 0.5px solid black; border-radius: 2px; padding: 7px 10px">{{ x.size}}</span> &nbsp;
               </ng-container>
           </div>
           <diV style="margin-top: 20px;" >
+            <ng-container *ngIf="parsedValues.length > 1">
+
               <form action="">
                   <select class="form-select" aria-label="Default select example" style="padding: 6px;height: 35px;width: 120px;" (change)="pickSize($event)">
                       <option selected [value]="-1">Select Size</option>
@@ -52,6 +54,10 @@
                       </ng-container>
                   </select>
               </form>
+            </ng-container>
+            <ng-container *ngIf="parsedValues.length == 1">
+              {{defaultSize()}}
+            </ng-container>
           </diV>
       </div>
 

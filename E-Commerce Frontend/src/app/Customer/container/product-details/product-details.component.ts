@@ -26,7 +26,7 @@ export class ProductDetailsComponent {
   cardItem!: cardItem;
   productId: string | null = null;
   // Variables for card Items
-  selectedSize: string = "";
+  selectedSize: any;
   inStock:number = -1;
   selectedImage:any;
 
@@ -91,6 +91,10 @@ export class ProductDetailsComponent {
       this.inStock = parseInt(selectedSizeObject.quantity);
       console.log(this.inStock);
     }
+  }
+  
+  defaultSize(){
+    this.selectedSize = this.parsedValues[0].size;
   }
   
 
