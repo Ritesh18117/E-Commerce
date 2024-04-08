@@ -57,6 +57,18 @@
               class="material-symbols-outlined">logout</span></a>
         </li>
       </ul>
+
+      <ul class="navbar-nav">
+        <span *ngIf="role == 'ROLE_SUPER_ADMIN'" class="greet-user">Hello {{username.name}}</span>
+        <li class="nav-item">
+          <a *ngIf="role == 'ROLE_SUPER_ADMIN'" class="nav-link" routerLink="/superAdmin/dashboard"><span
+              class="material-symbols-outlined">account_circle</span></a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="role == 'ROLE_SUPER_ADMIN'" class="nav-link" routerLink="" (click)="Adminlogout()"><span
+              class="material-symbols-outlined">logout</span></a>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

@@ -1,0 +1,34 @@
+<div class="container mt-4" style="min-height: 80vh;">
+    <div class="row border">
+        <div class="col-md-3 border p-2 pb-3">
+            <div class="border-bottom p-1">
+                <img src="../../../assets/person_icon.png" class="img-fluid" alt="">
+            &nbsp; &nbsp; &nbsp; Hello Super Admin
+            </div>
+            <a (click)="renderProfile()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; MyProfiile
+                </div>
+            </a>
+            <a (click)="renderApproveSeller()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; AproveSeller
+                </div>
+            </a>
+            <a (click)="renderApprovedSeller()" class="sideNav text-decoration-none text-dark">
+                <div class="p-2 mt-2 profile-nav">
+                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                    &nbsp; &nbsp; &nbsp; Approved Seller
+                </div>
+            </a>
+        </div>
+        <div class="col-md-9 border p-3">
+            <app-profile *ngIf="profile"></app-profile>
+            <app-approve-admin *ngIf="approveSeller"></app-approve-admin>
+            <app-approved-admin *ngIf="approvedSeller"></app-approved-admin>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

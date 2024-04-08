@@ -32,13 +32,14 @@ public class Seller {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "verified_by_admin_id")
     private Admin verifiedBy;
+    private String comment;
 
     public Seller() {
     }
 
     public Seller(Long id, User user, String contactInfo, String companyName, String companyType, String gstNumber,
                   String licenceNumber, String contactEmail, String website, String address, String approvalStatus,
-                  Date statusChangeDate, Admin verifiedBy) {
+                  Date statusChangeDate, Admin verifiedBy, String comment) {
         this.id = id;
         this.user = user;
         this.contactInfo = contactInfo;
@@ -52,6 +53,7 @@ public class Seller {
         this.approvalStatus = approvalStatus;
         this.statusChangeDate = statusChangeDate;
         this.verifiedBy = verifiedBy;
+        this.comment = comment;
     }
 
     public String getContactEmail() {
@@ -156,5 +158,13 @@ public class Seller {
 
     public void setVerifiedBy(Admin verifiedBy) {
         this.verifiedBy = verifiedBy;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

@@ -1,14 +1,8 @@
 package com.ecommerce.backend.services;
 
-import com.ecommerce.backend.dao.AdminRepository;
-import com.ecommerce.backend.dao.CustomerRepository;
-import com.ecommerce.backend.dao.SellerRepository;
-import com.ecommerce.backend.entities.Admin;
-import com.ecommerce.backend.entities.Customer;
-import com.ecommerce.backend.entities.User;
-import com.ecommerce.backend.dao.UserRepository;
+import com.ecommerce.backend.dao.*;
+import com.ecommerce.backend.entities.*;
 import com.ecommerce.backend.dto.NewUserRequest;
-import com.ecommerce.backend.entities.Seller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
@@ -38,11 +32,15 @@ public class UserService implements UserDetailsService {
     @Autowired
     private AdminRepository adminRepository;
     @Autowired
+    private SuperAdminRepository superAdminRepository;
+    @Autowired
     private SellerService sellerService;
     @Autowired
     private CustomerService customerService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private SuperAdminService superAdminService;
     @Autowired
     private JwtService jwtService;
     @Autowired
@@ -101,6 +99,11 @@ public class UserService implements UserDetailsService {
                     admin.setVerifiedProduct(new ArrayList<>());
                     adminService.addAdmin(admin);
                 }
+                if(Objects.equals(user.getRole(), "ROLE_SUPER_ADMIN")){
+                    SuperAdmin superAdmin = new SuperAdmin();
+                    superAdmin.setUser(newUser);
+                    superAdminService.addSuperAdmin(superAdmin);
+                }
                 return ResponseEntity.of(Optional.of(newUser));
             } else{
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -130,6 +133,11 @@ public class UserService implements UserDetailsService {
                 Admin admin = adminRepository.findByUserId(userId);
                 Map<String, String> output = new HashMap<>();
                 output.put("name", admin.getName());
+                return ResponseEntity.of(Optional.of(output));
+            } else if(Objects.equals(user.get().getRole(),"ROLE_SUPER_ADMIN")){
+                SuperAdmin superAdmin = superAdminRepository.findByUserId(userId);
+                Map<String,String> output = new HashMap<>();
+                output.put("name",superAdmin.getName());
                 return ResponseEntity.of(Optional.of(output));
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

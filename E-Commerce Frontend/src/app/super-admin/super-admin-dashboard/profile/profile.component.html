@@ -1,0 +1,43 @@
+<h2>Super Admin Profile
+</h2>
+<form action="" class="mt-4" (ngSubmit)="onSubmit()">
+<div class="row">
+    <div class="col-6">
+        <input [disabled]="!editProfile" type="text" name="id" [value]="profile.id"
+            [(ngModel)]="profile.id" class="form-control form-control-lg" id="colFormLabelLg"
+            placeholder="Id">
+    </div>
+    <div class="col-6">
+        <input [disabled]="!editProfile" type="text" name="name" [value]="profile.name"
+            [(ngModel)]="profile.name" class="form-control form-control-lg" id="colFormLabelLg"
+            placeholder="Name">
+    </div>
+</div>
+<div class="row">
+    <div class=" col-6 pt-4">
+        <h6>Personal Email Id</h6>
+        <input [disabled]="!editProfile" type="email" name="email" [(ngModel)]="profile.personalEmail"
+            class="form-control form-control-lg" id="colFormLabelLg" placeholder="xyz@gamil.com"
+            [value]="profile.personalEmail">
+    </div>
+    <div class=" col-6 pt-4">
+        <h6>Contact</h6>
+        <input [disabled]="!editProfile" type="text" name="contact" [(ngModel)]="profile.contact"
+            class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.contact">
+    </div>
+</div>
+<div class="row">
+    <div class=" col-6 pt-4">
+        <h6>Gender</h6>
+        <input [disabled]="!editProfile" type="text" name="gender" [(ngModel)]="profile.gender"
+            class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.gender">
+    </div>
+    <div class=" col-6 pt-4">
+        <h6>Address</h6>
+        <input [disabled]="!editProfile" type="text" name="place" [(ngModel)]="profile.address"
+            class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.address">
+    </div>
+</div>
+<button class="m-3 btn btn-secondary" (click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
+<button class="m-3 btn btn-primary" *ngIf="editProfile">Submit</button>
+</form>

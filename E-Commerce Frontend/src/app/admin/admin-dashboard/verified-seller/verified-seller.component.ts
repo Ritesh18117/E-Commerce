@@ -35,7 +35,6 @@ export class VerifiedSellerComponent {
     } else if(this.searchType == "rejectedSeller"){
       this._sellerService.getRejectedSellers(this.token).subscribe(
         (data) =>{
-          console.log(data);
           this.sellerVerifiedList = data;
         }, (error) =>{
           console.error(error);
@@ -45,8 +44,6 @@ export class VerifiedSellerComponent {
   }
 
   search() {
-    console.log(this.searchType);
-
     if(this.searchType == "gstNumber"){
         this._sellerService.getSellerByGST(this.token,this.searchValue).subscribe(
           (data) =>{
@@ -94,7 +91,6 @@ export class VerifiedSellerComponent {
     this._sellerService.mySellerVerifyList(this.token).subscribe(
       (data) =>{
         console.log(data);
-        
         this.sellerVerifiedList = data;
       }, (error) =>{
         console.error("ERROR!!",error);

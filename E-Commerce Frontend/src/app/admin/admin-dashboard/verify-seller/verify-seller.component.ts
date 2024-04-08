@@ -11,6 +11,7 @@ export class VerifySellerComponent {
 
   sellers:any;
   token:any;
+  comment:any;
 
   constructor(private toastr: ToastrService,private sellerService:SellerService){}
 
@@ -48,7 +49,8 @@ export class VerifySellerComponent {
   }
 
   rejectSeller(sellerId:number){
-    this.sellerService.rejectSeller(this.token,sellerId).subscribe(
+    console.log(this.comment);
+    this.sellerService.rejectSeller(this.token,sellerId,this.comment).subscribe(
       (data) =>{
         console.log(data);
         this.toastr.success("Seller Rejected Successfully!!", "Success", {
@@ -62,7 +64,7 @@ export class VerifySellerComponent {
         });
       }
     );
+    this.comment = "";
   }
 
-  onSubmit(){}
 }

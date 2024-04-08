@@ -6,7 +6,8 @@ public enum OrderStatus {
     SHIPPED("Shipped"),
     AT_DELIVERY_CENTRE("At Delivery Centre"),
     OUT_FOR_DELIVERY("Out for Delivery"),
-    DELIVERED("Delivered");
+    DELIVERED("Delivered"),
+    CANCELLED("Cancelled");
 
     private final String status;
 

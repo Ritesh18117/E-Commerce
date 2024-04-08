@@ -10,6 +10,7 @@ import { PlaceOrderComponent } from './Customer/container/place-order/place-orde
 import { sellerAuthGuard } from './Seller/auth/auth.guard';
 import { adminAuthGuard } from './admin/auth/auth.guard';
 import { ProductDetailsComponent } from './Customer/container/product-details/product-details.component';
+import { superAdminAuthGuard } from './super-admin/auth/auth.guard';
 
 const routes: Routes = [
     { path: '', component: ContainerComponent },
@@ -25,6 +26,11 @@ const routes: Routes = [
       path: 'seller',
       loadChildren: () => import('./Seller/seller.module').then(m => m.SellerModule),
       canActivate: [sellerAuthGuard]
+    }, 
+    {
+      path: 'superAdmin',
+      loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule),
+      canActivate: [superAdminAuthGuard]
     }, 
     {
       path: 'auth',

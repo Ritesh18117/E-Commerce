@@ -42,12 +42,13 @@ public class SecurityConfig {
     //Configure HttpSecurity
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        System.out.println("Hi from Security COnfig");
+        System.out.println("Hi from Security Config");
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/seller/**").permitAll()
                         .requestMatchers("/api/customer/**").hasRole("CUSTOMER")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("api/superAdmin/**").hasRole("SUPER_ADMIN")
                         .requestMatchers("/api/user/**").permitAll()
                         .requestMatchers("/api/productVariation/**").permitAll()
                         .requestMatchers("/api/product/**").permitAll()

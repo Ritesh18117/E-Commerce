@@ -12,8 +12,12 @@
             Address : {{seller.address}}
             Status : <span style="color:green" *ngIf="seller.approvalStatus == 'true'">Approved</span> <br>
             <span *ngIf="seller.approvalStatus == 'false'" style="color:red">Not Approved</span> <br> <br>
+            <div class="form-group">
+                <label for="comment">Add Comment</label>
+                <textarea class="form-control" id="comment" rows="3" [(ngModel)]="comment"></textarea>
+            </div> <br>
             <button class="btn btn-success btn-sm" (click)="approveSeller(seller.id)">Approve</button> &nbsp; &nbsp;
-            <button class="btn btn-danger btn-sm" (click)="rejectSeller(seller.id)">Reject</button>
+            <button class="btn btn-danger btn-sm" (click)="rejectSeller(seller.id)">Reject</button> 
         </div>
     </div>
 </ng-container>

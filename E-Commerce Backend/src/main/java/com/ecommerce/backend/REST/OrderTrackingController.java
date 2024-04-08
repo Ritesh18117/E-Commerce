@@ -44,4 +44,10 @@ public class OrderTrackingController {
     public ResponseEntity<Map<String,String>> sendAlert(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable Long orderTrackingId){
         return orderTrackingService.alert(authorizationHeader,orderTrackingId);
     }
+
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @GetMapping("/cancelOrder/{orderTrackingId}")
+    public ResponseEntity<Map<String,String>> cancelOrder(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable Long orderTrackingId){
+        return orderTrackingService.CancelOrder(authorizationHeader,orderTrackingId);
+    }
 }

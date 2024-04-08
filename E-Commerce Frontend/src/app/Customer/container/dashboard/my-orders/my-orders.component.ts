@@ -13,6 +13,7 @@ import { OrderService } from 'src/app/Services/order.service';
 export class MyOrdersComponent {
 
   token:any;
+  allMyOrder:any;
   myOrders:any;
   showDetails:boolean = false;
   showStatus:boolean = false;
@@ -32,7 +33,8 @@ export class MyOrdersComponent {
     this._orderService.myOrder(this.token).subscribe(
       (data) =>{
         console.log(data);
-        this.myOrders = data;
+        this.allMyOrder = data;
+        this.myOrders = this.allMyOrder;
       },(error) =>{
         console.error("ERROR",error);
       }
@@ -76,4 +78,78 @@ export class MyOrdersComponent {
     return this.datePipe.transform(dateString, 'yyyy-MM-dd');
   }
 
+  cancelButton(orderTrackingId:number){
+    console.log(orderTrackingId);
+    
+    this._orderTracking.cancelOrder(this.token,orderTrackingId).subscribe(
+      (data) =>{
+        console.log(data);
+        this.toastr.success("Cancelled Successfully","Success");
+      },
+      (error) =>{
+        console.error("error",error);
+        this.toastr.error("Cancelled Error","Error");
+      }
+    )
+  }
+
+  all(){
+    this.myOrders = this.allMyOrder;
+  }
+
+  delivered(){
+    let delivered:any = [];
+    for(let order of this.allMyOrder){
+      this._orderTracking.getOrderTrackingByOrderId(this.token, order.id).subscribe(
+        (data) => {
+            data.statusChangedAt = this.formatDate(data.statusChangedAt);
+            if(data.status == "DELIVERED"){
+              console.log(data);
+              delivered.push(data.order);
+            }
+        },
+        (error) => {
+            console.error(error);
+        }
+      );
+    }
+
+    this.myOrders = delivered;
+  }
+
+  inProcess(){
+    let inProcess:any = [];
+    for(let order of this.allMyOrder){
+      this._orderTracking.getOrderTrackingByOrderId(this.token, order.id).subscribe(
+        (data) => {
+            data.statusChangedAt = this.formatDate(data.statusChangedAt);
+            if(data.status != "DELIVERED" && data.status != "CANCELLED"){
+              inProcess.push(data.order);
+            }
+        },
+        (error) => {
+            console.error(error);
+        }
+      );
+    }
+    this.myOrders = inProcess;
+  }
+
+  cancelled(){
+    let cancelled:any = [];
+    for(let order of this.allMyOrder){
+      this._orderTracking.getOrderTrackingByOrderId(this.token, order.id).subscribe(
+        (data) => {
+            data.statusChangedAt = this.formatDate(data.statusChangedAt);
+            if(data.status == "CANCELLED"){
+              cancelled.push(data.order);
+            }
+        },
+        (error) => {
+            console.error(error);
+        }
+      );
+    }
+    this.myOrders = cancelled;
+  }
 }

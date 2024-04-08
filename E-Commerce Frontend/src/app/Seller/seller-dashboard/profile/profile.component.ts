@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SellerService } from 'src/app/Services/seller.service';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -49,6 +48,5 @@ export class ProfileComponent {
         console.error("Error", error);
       }
     )
-    
   }
 }

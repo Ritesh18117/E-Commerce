@@ -3,6 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { SellerAuthService } from '../Seller/auth/auth.service';
 import { AdminAuthService } from '../admin/auth/auth.service';
 import { UserService } from '../Services/user.service';
+import { SuperAdminAuthService } from '../super-admin/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,8 @@ export class NavbarComponent {
   constructor(private _authService:AuthService, 
               private _sellerAuthService:SellerAuthService, 
               private _adminAuthService:AdminAuthService,
-              private _userService:UserService){ }
+              private _userService:UserService,
+              private _superAdminService:SuperAdminAuthService){ }
 
 
   role:string = "" ;
@@ -62,5 +64,10 @@ export class NavbarComponent {
   Adminlogout(){
     this._adminAuthService.logout();
     this.role = "";
+  }
+
+  superAdmin(){
+    this._superAdminService.logout();
+    this.role = ""; 
   }
 }
