@@ -32,7 +32,7 @@ export class NavbarComponent {
     this._userService.getUsername(this.token).subscribe(
       (data) =>{
         console.log(data);
-        this.username = data;
+        this.username = data.name;
       }, (error) => {
         console.error(error);
       }
