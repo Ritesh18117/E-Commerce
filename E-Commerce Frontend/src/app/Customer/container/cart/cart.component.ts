@@ -62,7 +62,7 @@ export class CardComponent {
       let productVariation: any = await this._productVariationService.getProductVariationById(item.productVariation.id)
         .toPromise();
   
-      if (productVariation.quantity > 0 && productVariation.quantity >= item.quantity) {
+      if (productVariation.quantity > 0 && productVariation.quantity > item.quantity) {
         this._cartItemService.addQuantity(item.id, this.token).subscribe(
           (data) =>{
             console.log("Quantity increased!", data);

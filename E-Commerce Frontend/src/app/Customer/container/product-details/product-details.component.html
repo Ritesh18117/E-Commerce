@@ -77,9 +77,14 @@
         </ul>
       </div>
 
-      <div class = "purchase-info">
+      <div class = "purchase-info" *ngIf="product[0].size_quan.toString().split(' ')[1] > 0">
         <button type = "button" class = "btn" *ngIf="role == 'ROLE_CUSTOMER'" (click)="addToCard(product[0])">
           Add to Cart <i class='fas fa-cart-plus'></i>
+        </button>
+      </div>
+      <div class = "purchase-info" *ngIf="product[0].size_quan.toString().split(' ')[1] <= 0">
+        <button type = "button" class = "btn" *ngIf="role == 'ROLE_CUSTOMER'">
+          Will Be Available Soon <i class='fas fa-cart-plus'></i>
         </button>
       </div>
 

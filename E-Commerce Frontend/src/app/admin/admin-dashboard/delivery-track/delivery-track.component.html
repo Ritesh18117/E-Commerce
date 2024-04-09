@@ -12,12 +12,34 @@
 
     <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" (change)="toSendAlert()">
     <label class="btn btn-outline-primary" for="btnradio4">To Send Alert</label>
+
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" (change)="cancelled()">
+    <label class="btn btn-outline-primary" for="btnradio5">cancelled</label>
 </div>
 
 
 <div class="d-flex justify-content-centre flex-wrap">
     <div class="card m-3" style="width: 18rem;" *ngFor="let ot of orderTracking">
-        <ng-container *ngIf="isDateOlderThan3Days(ot.statusChangedAt) && ot.status != 'DELIVERED'">
+
+        <ng-container *ngIf="ot.status == 'CANCELLED'">
+            <div class="card-body text-white bg-secondary">
+                <p class="card-text">
+                    <span>OrderTracking Id : {{ot.id}}</span> <br>
+                    <span>Seller Id : {{ot.seller.id}}</span> <br>
+                    <span>Seller Id : {{ot.seller.companyName}}</span> <br>
+                    <span>Order Id : {{ot.order.id}}</span> <br>
+
+                    <span>Order Status : {{ot.status}}</span> <br>
+
+                    <span>{{isDateOlderThan3Days(ot.statusChangedAt)}}</span>
+                    <span>Difference in Days : {{isDateOlderThan3Days(ot.statusChangedAt)}}</span> <br>
+                    <span>Status Changed At : {{formatDate(ot.statusChangedAt)}}</span>
+                </p>
+                <!-- <a role="button" class="btn btn-sm btn-warning" (click)="sendAlert(ot.id)">Send Alert</a> -->
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="isDateOlderThan3Days(ot.statusChangedAt) && ot.status != 'DELIVERED' && ot.status != 'CANCELLED'">
             <div class="card-body text-white bg-danger">
                 <p class="card-text">
                     <span>OrderTracking Id : {{ot.id}}</span> <br>
@@ -34,7 +56,7 @@
                 <a role="button" class="btn btn-sm btn-warning" (click)="sendAlert(ot.id)">Send Alert</a>
             </div>
         </ng-container>
-        <ng-container *ngIf="!isDateOlderThan3Days(ot.statusChangedAt) && ot.status != 'DELIVERED'">
+        <ng-container *ngIf="!isDateOlderThan3Days(ot.statusChangedAt) && ot.status != 'DELIVERED' && ot.status != 'CANCELLED'">
             <div class="card-body">
                 <h5 class="card-title">Track Order Status</h5>
                 <p class="card-text">
@@ -52,7 +74,7 @@
                 <!-- <a href="#" class="btn btn-sm btn-success">Go somewhere</a> -->
             </div>
         </ng-container>
-        <ng-container *ngIf="!isDateOlderThan3Days(ot.statusChangedAt) && ot.status == 'DELIVERED'">
+        <ng-container *ngIf="!isDateOlderThan3Days(ot.statusChangedAt) && ot.status == 'DELIVERED' && ot.status != 'CANCELLED'">
             <div class="card-body text-white bg-success">
                 <h5 class="card-title">Track Order Status</h5>
                 <p class="card-text">
