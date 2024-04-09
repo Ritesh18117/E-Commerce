@@ -91,7 +91,7 @@ export class OrderTrackComponent {
   inProcess() {
     let inProcessOrderTracking: any = []; // Initialize the array
     for (let ot of this.allMyOrderTracking) {
-      if (ot.status != "DELIVERED" && !this.isDateOlderThan3Days(ot.statusChangedAt)) {
+      if (ot.status != "DELIVERED" && ot.status != "CANCELLED" && !this.isDateOlderThan3Days(ot.statusChangedAt)) {
         inProcessOrderTracking.push(ot); // Use parentheses for push method
       }
     }
@@ -102,12 +102,23 @@ export class OrderTrackComponent {
   gotWarning() {
     let toSendAlertOrderTracking: any = []; // Initialize the array
     for (let ot of this.allMyOrderTracking) {
-      if (ot.status != "DELIVERED" && this.isDateOlderThan3Days(ot.statusChangedAt)) {
+      if (ot.status != "DELIVERED" && ot.status != "CANCELLED" && this.isDateOlderThan3Days(ot.statusChangedAt)) {
         toSendAlertOrderTracking.push(ot); // Use parentheses for push method
       }
     }
     this.myOrderTracking = toSendAlertOrderTracking;
     console.log(this.myOrderTracking);
 
+  }
+
+  cancelled() {
+    let tofade: any = []; // Initialize the array
+    for (let ot of this.allMyOrderTracking) {
+      if (ot.status == "CANCELLED") {
+        tofade.push(ot); // Use parentheses for push method
+      }
+    }
+    this.myOrderTracking = tofade;
+    console.log(this.myOrderTracking);
   }
 }

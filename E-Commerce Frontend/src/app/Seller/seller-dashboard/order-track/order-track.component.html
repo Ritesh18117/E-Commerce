@@ -12,6 +12,9 @@
 
     <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" (change)="gotWarning()">
     <label class="btn btn-outline-primary" for="btnradio4">Got Warning</label>
+
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" (change)="cancelled()">
+    <label class="btn btn-outline-primary" for="btnradio5">cancelled</label>
 </div>
 <br><br>
 
@@ -32,7 +35,28 @@
     </thead>
     <tbody>
         <ng-container *ngFor="let myOrderTracing of myOrderTracking;let i = index;">
-            <ng-container *ngIf="isDateOlderThan3Days(myOrderTracing.statusChangedAt) && myOrderTracing.status != 'DELIVERED'">
+
+            <ng-container *ngIf="myOrderTracing.status == 'CANCELLED'">
+                <tr class="table-secondary">
+                    <td>{{myOrderTracing.id}}</td>
+                    <td>{{myOrderTracing.order.productVariation.product.id}}</td>
+                    <td>{{myOrderTracing.order.productVariation.product.name}}</td>
+                    <td>{{myOrderTracing.order.productVariation.size}}</td>
+                    <td>{{myOrderTracing.order.quantity}}</td>
+                    <td>{{myOrderTracing.order.address.name}} |
+                        {{myOrderTracing.order.address.contact}} |
+                        {{myOrderTracing.order.address.address1}}, {{myOrderTracing.order.address.address2}}
+                        {{myOrderTracing.order.address.city}}, {{myOrderTracing.order.address.status}}
+                        {{myOrderTracing.order.address.country}}, {{myOrderTracing.order.address.zipcode}}</td>
+                    <td>{{myOrderTracing.status}}</td>
+                    <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
+                    <td>
+                        Not Applicable
+                    </td>
+                </tr>
+            </ng-container>
+            
+            <ng-container *ngIf="isDateOlderThan3Days(myOrderTracing.statusChangedAt) && myOrderTracing.status != 'DELIVERED' && myOrderTracing.status != 'CANCELLED'">
                 <tr class="table-danger">
                     <td>{{myOrderTracing.id}}</td>
                     <td>{{myOrderTracing.order.productVariation.product.id}}</td>
@@ -99,7 +123,7 @@
                 </tr>
             </ng-container>
             
-            <ng-container *ngIf="!isDateOlderThan3Days(myOrderTracing.statusChangedAt)  && myOrderTracing.status != 'DELIVERED'">
+            <ng-container *ngIf="!isDateOlderThan3Days(myOrderTracing.statusChangedAt)  && myOrderTracing.status != 'DELIVERED' && myOrderTracing.status != 'CANCELLED'">
                 <tr>
                     <td>{{myOrderTracing.id}}</td>
                     <td>{{myOrderTracing.order.productVariation.product.id}}</td>
@@ -163,15 +187,18 @@
                             </select>
                         </ng-container>
                         
-                        
-                        <button class="btn-sm btn btn-success m-1" id="save-state" (click)="changeStatus(myOrderTracing.id, myOrderTracing.selectedStatus, i, myOrderTracing)">Save State</button>
-
+                        <ng-container *ngIf="myOrderTracing.status != 'CANCELLED'">
+                            <button class="btn-sm btn btn-success m-1" id="save-state" (click)="changeStatus(myOrderTracing.id, myOrderTracing.selectedStatus, i, myOrderTracing)">Save State</button>
+                        </ng-container>
+                        <ng-container *ngIf="myOrderTracing.status == 'CANCELLED'">
+                            Not Applicable
+                        </ng-container>
                         
                     </td>
                 </tr>
             </ng-container>
             
-            <ng-container *ngIf="!isDateOlderThan3Days(myOrderTracing.statusChangedAt)  && myOrderTracing.status == 'DELIVERED'">
+            <ng-container *ngIf="!isDateOlderThan3Days(myOrderTracing.statusChangedAt)  && myOrderTracing.status == 'DELIVERED' && myOrderTracing.status != 'CANCELLED'">
                 <tr class="table-success">
                     <td>{{myOrderTracing.id}}</td>
                     <td>{{myOrderTracing.order.productVariation.product.id}}</td>
