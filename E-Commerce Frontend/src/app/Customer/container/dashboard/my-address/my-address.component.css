@@ -1,0 +1,35 @@
+.add-address {
+    font-size: 30px;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    font-weight:500;
+}
+
+.add-address:hover{
+    cursor: pointer;
+}
+
+.add-address::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.add-address:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+#new-address{
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}

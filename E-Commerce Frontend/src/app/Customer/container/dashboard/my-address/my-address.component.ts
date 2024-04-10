@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./my-address.component.css']
 })
 export class MyAddressComponent {
-
+  addAddressVisible: boolean = false;
   myAddresses:any;
   addAddress = {
     name: "",
@@ -69,6 +69,11 @@ export class MyAddressComponent {
     this.addAddress.state = "";
     this.addAddress.zipcode = "";
     this.addAddress.name = "";
+    this.addAddressVisible = false; 
+  }
+
+  toggleAddAddress() {
+    this.addAddressVisible = !this.addAddressVisible; // Toggle the visibility of the form
   }
 
   deleteAddress(id:number){

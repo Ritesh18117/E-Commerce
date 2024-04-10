@@ -1,55 +1,76 @@
 <h2>My Addresses</h2>
+<br>
 <div class="m-3">
     <div class="row">
         <div class="col-sm-6 mb-2" *ngFor="let address of myAddresses; let i=index">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{address.name}}&nbsp; &nbsp; &nbsp; </h5>
-                    <h6>{{address.contact}}</h6>
-                    <p class="card-text">Address : {{address.address1}}&nbsp;
-                        {{address.address2}}&nbsp;
-                        {{address.city}}&nbsp;
-                        {{address.state}}&nbsp;
-                        {{address.zipcode}}&nbsp;
+            <div class="card h-100"> <!-- Added h-100 class to make the card body full height -->
+                <div class="card-body d-flex flex-column"> <!-- Added d-flex and flex-column to make content stack vertically -->
+                    <h5 class="card-title">{{ address.name }}</h5>
+                    <h6>{{ address.contact }}</h6>
+                    <p class="card-text flex-grow-1"> <!-- Added flex-grow-1 to make the text area take remaining height -->
+                        Address: {{ address.address1 }}, 
+                        {{ address.address2 }}, 
+                        {{ address.city }}, 
+                        {{ address.state }}, 
+                        {{ address.zipcode }}
                     </p>
-                     <button class="btn btn-danger" (click)="deleteAddress(address.id)">Delete</button>
+                    <button class="btn btn-outline-danger mt-auto" (click)="deleteAddress(address.id)">Delete</button> <!-- Added mt-auto to push the button to the bottom -->
                 </div>
             </div>
         </div>
     </div>
+
+    <br><br>
+
+    <a class="add-address" (click)="toggleAddAddress()">Add Address +</a>
+</div>
+
     
-    <form #myForm="ngForm" class="mt-5 border p-3" (ngSubmit)="onSubmit()">
-        <h2>Add Address</h2>
-        <div class="row m-3">
+    <form *ngIf="addAddressVisible" #myForm="ngForm" class="mt-5 border p-3 " id="new-address" (ngSubmit)="onSubmit()">
+        <h2>New Address</h2>
+        <div class="row m-3 mt-5">
             <div class="col-md-6">
-                <input type="text" name="Name" [(ngModel)]="addAddress.name" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Name">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="Name" [(ngModel)]="addAddress.name" class="form-control form-control-lg" placeholder="John Doe">
+                </div>
             </div>
+    
             <div class="col-md-6">
-                <input type="text" name="contact" [(ngModel)]="addAddress.contact" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Contact">
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <input type="text" name="contact" [(ngModel)]="addAddress.contact" class="form-control form-control-lg" placeholder="9876543210">
+                </div>
             </div>
         </div>
-        <div class="form-group m-3">
-            <label for="address">Address</label>
-            <input type="text" name="address" [(ngModel)]="addAddress.address1" class="form-control form-control-lg" placeholder="1234 Main St">
+    
+        <div class="form-group m-4">
+            <label for="address1">Address 1</label>
+            <input type="text" name="address1" [(ngModel)]="addAddress.address1" class="form-control form-control-lg" placeholder="1234 Main St">
         </div>
-        <div class="form-group m-3">
+    
+        <div class="form-group m-4">
             <label for="address2">Address 2</label>
-            <input name="address2" type="text" [(ngModel)]="addAddress.address2" class="form-control form-control-lg"
-                placeholder="Apartment, studio, or floor">
+            <input name="address2" type="text" [(ngModel)]="addAddress.address2" class="form-control form-control-lg" placeholder="Apartment, studio, or floor">
         </div>
+    
         <div class="row m-3">
             <div class="form-group col-md-6">
                 <label for="city">City</label>
-                <input name="city" type="text" [(ngModel)]="addAddress.city" placeholder="City" class="form-control form-control-lg" id="inputCity">
+                <input name="city" type="text" [(ngModel)]="addAddress.city" class="form-control form-control-lg" placeholder="City" id="inputCity">
             </div>
+    
             <div class="form-group col-md-4">
                 <label for="state">State</label>
-                <input name="state" type="text" [(ngModel)]="addAddress.state" placeholder="State" class="form-control form-control-lg" id="inputState">
+                <input name="state" type="text" [(ngModel)]="addAddress.state" class="form-control form-control-lg" placeholder="State" id="inputState">
             </div>
+    
             <div class="form-group col-md-2">
-                <label for="zip" >Zip</label>
-                <input name="zip" type="text" class="form-control form-control-lg"  [(ngModel)]="addAddress.zipcode" placeholder="Zips" id="inputZip">
+                <label for="zip">Zip</label>
+                <input name="zip" type="text" [(ngModel)]="addAddress.zipcode" class="form-control form-control-lg" placeholder="Zip" id="inputZip">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary m-3">Add Address</button>
+    
+        <button type="submit" class="btn btn-outline-dark m-4">Add Address</button>
     </form>
+    
