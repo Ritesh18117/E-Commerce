@@ -3,13 +3,21 @@ package com.ecommerce.backend.services;
 import com.ecommerce.backend.dao.*;
 import com.ecommerce.backend.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import org.apache.commons.io.IOUtils;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class ProductService {
@@ -28,54 +36,99 @@ public class ProductService {
     @Autowired
     private AdminRepository adminRepository;
 
-    public ResponseEntity<Product> addProduct(@RequestBody Product product,@RequestHeader(value = "Authorization") String authorizationHeader){
-        try{
+    public ResponseEntity<Product> addProduct(@RequestHeader(value = "Authorization") String authorizationHeader,
+                                              MultipartHttpServletRequest request) {
+        try {
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller seller = sellerRepository.findByUserId(userId);
-            product.setSeller(seller);
-            product.setApprovalStatus("false");
-            if(Objects.equals(seller.getApprovalStatus(), "true")){
-                productRepository.save(product);
-                product.setSeller(null);
-                return ResponseEntity.of(Optional.of(product));
+            if (seller == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
-            else{
+            if (!Objects.equals(seller.getApprovalStatus(), "true")) {
                 return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).build();
             }
-        } catch (Exception e){
+
+            Product product = new Product();
+            product.setSeller(seller);
+            product.setApprovalStatus("false");
+            product.setName(request.getParameter("name"));
+            product.setPrice(Double.parseDouble(request.getParameter("price")));
+            product.setDiscount(Double.parseDouble(request.getParameter("discount")));
+            product.setMargin(Double.parseDouble(request.getParameter("margin")));
+            product.setGender(request.getParameter("gender"));
+            product.setColor(request.getParameter("color"));
+            product.setDescription(request.getParameter("description"));
+
+            Optional<Category> category = categoryRepository.findById(Long.valueOf(request.getParameter("category")));
+            if(category.isPresent()){
+                product.setCategory(category.get());
+            }
+
+            MultipartFile image = request.getFile("image");
+            if(image != null) {
+                product.setImage(convertToBase64(image));
+            }
+
+            List<String> base64Images = new ArrayList<>();
+            System.out.println(request.getFiles("images"));
+            List<MultipartFile> imageFiles = request.getFiles("images");
+            System.out.println(imageFiles);
+            for (MultipartFile file : imageFiles) {
+                base64Images.add(convertToBase64(file));
+            }
+            product.setImages(base64Images);
+
+            productRepository.save(product);
+            return ResponseEntity.ok(product);
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    public ResponseEntity<Product> updateProduct(@RequestHeader(value = "Authorization") String authorizationHeader,Product product){
-        try {
-            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
-            Seller seller = sellerRepository.findByUserId(userId);
+    public ResponseEntity<Product> updateProduct(String authorizationHeader, MultipartHttpServletRequest request) throws IOException {
+        Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+        Seller seller = sellerRepository.findByUserId(userId);
 
-            Optional<Product> existingProduct = productRepository.findById(product.getId());
-            if (existingProduct.isPresent()) {
-                Product oldProduct = existingProduct.get();
-                oldProduct.setSeller(seller);
-                oldProduct.getCategory().setId(product.getCategory().getId());
-                oldProduct.setName(product.getName());
-                oldProduct.setPrice(product.getPrice());
-                oldProduct.setDiscount(product.getDiscount());
-                oldProduct.setMargin(product.getMargin());
-                oldProduct.setGender(product.getGender());
-                oldProduct.setColor(product.getColor());
-                oldProduct.setDescription(product.getDescription());
-                oldProduct.setImageURL(product.getImageURL());
-                oldProduct.setApprovalStatus("false");
-                oldProduct.setImages(product.getImages());
-                productRepository.save(oldProduct);
-                return ResponseEntity.of(Optional.of(oldProduct));
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        Long productId = Long.valueOf(request.getParameter("id"));
+
+        Optional<Product> existingProductOptional = productRepository.findById(productId);
+        if (existingProductOptional.isPresent()) {
+            Product existingProduct = existingProductOptional.get();
+
+            if (!Objects.equals(existingProduct.getSeller().getId(), seller.getId())) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
             }
-        } catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+            existingProduct.setSeller(seller);
+            existingProduct.getCategory().setId(Long.parseLong(request.getParameter("category")));
+            existingProduct.setName(request.getParameter("name"));
+            existingProduct.setPrice(Double.parseDouble(request.getParameter("price")));
+            existingProduct.setDiscount(Double.parseDouble(request.getParameter("discount")));
+            existingProduct.setMargin(Double.parseDouble(request.getParameter("margin")));
+            existingProduct.setGender(request.getParameter("gender"));
+            existingProduct.setColor(request.getParameter("color"));
+            existingProduct.setDescription(request.getParameter("description"));
+
+            MultipartFile image = request.getFile("image");
+            if(image != null) {
+                existingProduct.setImage(convertToBase64(image));
+            }
+
+            List<MultipartFile> imageFiles = request.getFiles("images");
+            if (imageFiles != null && !imageFiles.isEmpty()) {
+                List<String> base64Images = imageFiles.stream()
+                        .map(this::convertToBase64)
+                        .collect(Collectors.toList());
+                existingProduct.setImages(base64Images);
+            }
+
+            existingProduct.setApprovalStatus("false");
+
+            Product savedProduct = productRepository.save(existingProduct);
+            return ResponseEntity.ok(savedProduct);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -404,6 +457,67 @@ public class ProductService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
+    private String convertToBase64(MultipartFile file) {
+        try {
+            byte[] bytes = file.getBytes();
+            return Base64.getEncoder().encodeToString(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public void updateImages() {
+        List<Product> products = (List<Product>) productRepository.findAll(); // Fetch products from the database
+
+        System.out.println("Hello");
+        for (Product product : products) {
+            try {
+                String imageUrl = product.getImageURL();
+                String base64Image = downloadAndConvertToBase64(imageUrl);
+                product.setImage(base64Image);
+
+                List<String> imageUrls = product.getImgs();
+                List<String> base64Images = new ArrayList<>();
+                for (String url : imageUrls) {
+                    try {
+                        String base64 = downloadAndConvertToBase64(url);
+                        base64Images.add(base64);
+                    } catch (Exception e) {
+                        // Log or handle the error as needed
+                        System.err.println("Error downloading image from URL: " + url);
+                        e.printStackTrace();
+                    }
+                    System.out.println("Helloe Inside For");
+                }
+                product.setImages(base64Images);
+                System.out.println("Hello Inside");
+                productRepository.save(product); // Save updated product to the database
+            } catch (Exception e) {
+                // Log or handle the error as needed
+                System.err.println("Error processing product: " + product.getId());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String downloadAndConvertToBase64(String imageUrl) {
+        // Download image from URL
+        byte[] imageBytes = this.restTemplate().getForObject(imageUrl, byte[].class);
+
+        // Convert image to Base64
+        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+        return base64Image;
+    }
+
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
 }
 
 

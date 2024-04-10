@@ -44,7 +44,7 @@ export class ProductDetailsComponent {
       this._productService.getProductById(parseInt(this.productId)).subscribe(
         (data) => {
           this.product = data;
-          this.selectedImage = data[0].product.imageURL;
+          this.selectedImage = data[0].product.image;
           let size_quanttity: Array<[string, string]> = data[0].size_quan;
           // Logic for Seperating the size and quant from size_quant
           size_quanttity.forEach((tuple) => {
@@ -105,7 +105,7 @@ export class ProductDetailsComponent {
       if (!this.cardItem) {
         this.cardItem = product;
       }
-      if (this.selectedSize != "") {
+      if (this.selectedSize) {
         const addToCartItem = {
           product_id: `${product.product.id}`,
           size: `${this.selectedSize}`,
@@ -163,5 +163,21 @@ export class ProductDetailsComponent {
 
   shareOnSnapchat() {
     window.open(`https://www.snapchat.com/add/${encodeURIComponent(this.currentUrl)}`, '_blank');
+  }
+
+  convertToImage(image:any) {
+    const blob = this.base64toBlob(image, 'image/png'); // Change 'image/png' to the appropriate content type
+    const urlCreator = window.URL || window.webkitURL;
+    return urlCreator.createObjectURL(blob);
+  }
+
+  private base64toBlob(base64Data: string, contentType: string) {
+    const byteCharacters = atob(base64Data);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
   }
 }

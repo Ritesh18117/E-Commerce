@@ -6,7 +6,7 @@
             <!-- 80% width -->
             <div class="row border" *ngFor="let item of cardItems; let i=index;">
                 <div class="col-md-3 mt-4 m-3">
-                    <img src="{{item.product.imageURL}}" class="img-fluid">
+                    <img src="{{convertToImage(item.product.image)}}" class="img-fluid">
                 </div>
                 <div class=" row col-md-8 mt-4 m-3 p-1">
                     <div class="col-7">

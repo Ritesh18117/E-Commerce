@@ -12,30 +12,30 @@ import { FormsModule } from '@angular/forms';
 })
 export class OrderTrackComponent {
 
-  token:any;
-  myOrderTracking:any;
-  allMyOrderTracking:any;
+  token: any;
+  myOrderTracking: any;
+  allMyOrderTracking: any;
   selectedStatus: string = 'packed';
 
-  constructor(private _orderTracking:OrderTrackingService,
-              private datePipe: DatePipe,
-              private toastr: ToastrService){}
+  constructor(private _orderTracking: OrderTrackingService,
+    private datePipe: DatePipe,
+    private toastr: ToastrService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.token = sessionStorage.getItem('token');
     this.getMyOrderTracking();
   }
 
-  getMyOrderTracking(){
+  getMyOrderTracking() {
     this._orderTracking.getMyOrderTracking(this.token).subscribe(
-      (data) =>{
+      (data) => {
         console.log(data);
         this.allMyOrderTracking = data;
         this.myOrderTracking = this.allMyOrderTracking;
-        for(let ot of this.myOrderTracking){
+        for (let ot of this.myOrderTracking) {
           ot.statusChangedAt = new Date(ot.statusChangedAt);
         }
-      },(error)=>{
+      }, (error) => {
         console.error(error);
       }
     )
@@ -44,21 +44,21 @@ export class OrderTrackComponent {
   changeStatus(orderTrackingId: number, status: string, index: number, myOrderTracing: any): void {
     console.log(orderTrackingId, status);
     this._orderTracking.changeStatus(this.token, orderTrackingId, status).subscribe(
-        (data) => {
-            console.log(data);
-            this.toastr.success('Status Changed Successfully', 'Success', {
-                timeOut: 500,
-            });
-            // Update the status in the myOrderTracking array
-            this.myOrderTracking[index].status = status;
-        }, 
-        (error) => {
-            this.toastr.error('Status Change Error', 'Error', {
-                timeOut: 500,
-            });
-        }
+      (data) => {
+        console.log(data);
+        this.toastr.success('Status Changed Successfully', 'Success', {
+          timeOut: 500,
+        });
+        // Update the status in the myOrderTracking array
+        this.myOrderTracking[index].status = status;
+      },
+      (error) => {
+        this.toastr.error('Status Change Error', 'Error', {
+          timeOut: 500,
+        });
+      }
     );
-}
+  }
 
 
   formatDate(dateString: string) {
@@ -68,46 +68,57 @@ export class OrderTrackComponent {
   isDateOlderThan3Days(date: Date): boolean {
     const currentDate = new Date();
     const differenceInTime = currentDate.getTime() - date.getTime();
-    const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));    
+    const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
     return differenceInDays > 3;
   }
 
-  all(){
+  all() {
     this.myOrderTracking = this.allMyOrderTracking;
     console.log(this.myOrderTracking);
   }
 
-  delivered(){
-    let deliveredOrderTracking:any = []; // Initialize the array
-    for(let ot of this.allMyOrderTracking){
-      if(ot.status == "DELIVERED"){
+  delivered() {
+    let deliveredOrderTracking: any = []; // Initialize the array
+    for (let ot of this.allMyOrderTracking) {
+      if (ot.status == "DELIVERED") {
         deliveredOrderTracking.push(ot); // Use parentheses for push method
       }
     }
     this.myOrderTracking = deliveredOrderTracking;
     console.log(this.myOrderTracking);
   }
-  
-  inProcess(){
-    let inProcessOrderTracking:any = []; // Initialize the array
-    for(let ot of this.allMyOrderTracking){
-      if(ot.status != "DELIVERED" && !this.isDateOlderThan3Days(ot.statusChangedAt)){
+
+  inProcess() {
+    let inProcessOrderTracking: any = []; // Initialize the array
+    for (let ot of this.allMyOrderTracking) {
+      if (ot.status != "DELIVERED" && ot.status != "CANCELLED" && !this.isDateOlderThan3Days(ot.statusChangedAt)) {
         inProcessOrderTracking.push(ot); // Use parentheses for push method
       }
     }
     this.myOrderTracking = inProcessOrderTracking;
     console.log(this.myOrderTracking);
   }
-  
-  gotWarning(){
-    let toSendAlertOrderTracking:any = []; // Initialize the array
-    for(let ot of this.allMyOrderTracking){
-      if(ot.status != "DELIVERED" && this.isDateOlderThan3Days(ot.statusChangedAt)){
+
+  gotWarning() {
+    let toSendAlertOrderTracking: any = []; // Initialize the array
+    for (let ot of this.allMyOrderTracking) {
+      if (ot.status != "DELIVERED" && ot.status != "CANCELLED" && this.isDateOlderThan3Days(ot.statusChangedAt)) {
         toSendAlertOrderTracking.push(ot); // Use parentheses for push method
       }
     }
     this.myOrderTracking = toSendAlertOrderTracking;
     console.log(this.myOrderTracking);
-    
+
+  }
+
+  cancelled() {
+    let tofade: any = []; // Initialize the array
+    for (let ot of this.allMyOrderTracking) {
+      if (ot.status == "CANCELLED") {
+        tofade.push(ot); // Use parentheses for push method
+      }
+    }
+    this.myOrderTracking = tofade;
+    console.log(this.myOrderTracking);
   }
 }

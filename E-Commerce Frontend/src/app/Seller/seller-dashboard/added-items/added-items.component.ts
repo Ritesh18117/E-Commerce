@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import { SellerAuthService } from '../../auth/auth.service';
 import { ProductServiceService } from 'src/app/Services/product-service.service';
 import { ProductVariationService } from 'src/app/Services/product-variation.service';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/Services/category.service';
-import { first } from 'rxjs';
+
 
 @Component({
   selector: 'app-added-items',
   templateUrl: './added-items.component.html',
   styleUrls: ['./added-items.component.css']
 })
-export class AddedItemsComponent {
+export class AddedItemsComponent{
 
   token: any;
   myProducts: any;
@@ -21,6 +20,9 @@ export class AddedItemsComponent {
 
   activeProductId: any = null;
   editProductTag: boolean = false;
+
+  singleImage: File | null = null;
+  multipleImages: File[] = [];
 
   categories: any;
 
@@ -39,6 +41,7 @@ export class AddedItemsComponent {
     try {
       const data = await this._productService.getSellersProduct(this.token).toPromise();
       this.myProducts = data;
+      console.log(this.myProducts);
     } catch (error) {
       console.error("Error", error);
     }
@@ -59,7 +62,7 @@ export class AddedItemsComponent {
 
   isEditingProduct(productId: string): boolean {
     return this.editProductId === productId;
-}
+  }
 
   parsedValues: { first: string; second: string }[] = [];
   addQuantityShowMethod(productId: any) {
@@ -151,30 +154,79 @@ export class AddedItemsComponent {
     )
   }
 
-  img:string = "";
-
-  onEditSubmit(product:any){
-    console.log(product);
-    product.category.categoryName = "";
-    product.category.description = "";
-    this._productService.updateProduct(this.token,product).subscribe(
-      (data) =>{
-        this.toastr.success("Product Updated Successfuly!!","success");
-      }, (error) =>{
-        console.error(error);
-        this.toastr.error("Product Updated Error!!","error");
+  async onEditSubmit(product:any) {
+    try {
+      const formData = new FormData();
+      // Append normal fields
+      formData.append('id',product.id)
+      formData.append('name', product.name);
+      formData.append('gender', product.gender);
+      formData.append('price', product.price.toString());
+      formData.append('discount', product.discount.toString());
+      formData.append('margin', product.margin.toString());
+      formData.append('color', product.color);
+      formData.append('description', product.description);
+      if (product.category.id) {
+        formData.append('category', product.category.id);
       }
-    )
-  }
+      console.log(this.singleImage);
+      console.log(this.multipleImages);
+      
+      // Append image files
+      if (this.singleImage) {
+        formData.append('image', this.singleImage);
+      }
+      // Append multiple images
+      this.multipleImages.forEach((file, index) => {
+        formData.append(`images`, file, file.name);
+      });
 
-  deleteImage(index:number,product:any){
-    product.images.splice(index,1);
-  }
-
-  addImage(product:any){
-    if(this.img !== ""){
-      product.images.push(this.img);
-      this.img = ""
+      await console.log("Data before resetting:", product);
+      this.token = sessionStorage.getItem('token');
+      this._productService.updateProduct(this.token,formData).subscribe(
+        (data) => {
+          product = data;
+          this.toastr.success('Product Added!!', 'Success');
+        }, (error) =>{
+          console.error("ERROR", error);
+          this.toastr.error('Error Adding product', 'Error', {
+            timeOut: 500, // Toast will disappear after 0.5 seconds
+          });
+        }
+      )
+    } catch (error) {
+      console.error("Error submitting form", error);
+      this.toastr.error('Error submitting form', 'Error', {
+        timeOut: 500, // Toast will disappear after 0.5 seconds
+      });
     }
+  }
+
+  convertToImage(image:any) {
+    const blob = this.base64toBlob(image, 'image/png'); // Change 'image/png' to the appropriate content type
+    const urlCreator = window.URL || window.webkitURL;
+    return urlCreator.createObjectURL(blob);
+  }
+
+  private base64toBlob(base64Data: string, contentType: string) {
+    const byteCharacters = atob(base64Data);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
+  }
+
+  onSingleFileSelected(event: any) {
+    this.singleImage = event.target.files[0];
+    this.myProducts.image = event.target.files[0];
+    console.log('Selected single image:', this.singleImage);
+  }
+
+  onMultipleFilesSelected(event: any) {
+    this.multipleImages = Array.from(event.target.files);
+    this.myProducts.images = Array.from(event.target.files);
+    console.log('Selected multiple images:', this.multipleImages);
   }
 }

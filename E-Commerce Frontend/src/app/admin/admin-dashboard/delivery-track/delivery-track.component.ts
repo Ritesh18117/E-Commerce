@@ -66,22 +66,30 @@ export class DeliveryTrackComponent {
 
   all(){
     this.orderTracking = this.allOrderTracking;
+    console.log(this.orderTracking);
   }
 
   delivered(){
     let deliveredOrderTracking:any = []; // Initialize the array
-    for(let ot of this.allOrderTracking){
-      if(ot.status == "DELIVERED"){
+    // for(let ot of this.allOrderTracking){
+    //   if(ot.status == "DELIVERED"){
+    //     deliveredOrderTracking.push(ot); // Use parentheses for push method
+    //   }
+    // }
+    for (let ot of this.allOrderTracking) {
+      if (ot.status == "DELIVERED") {
         deliveredOrderTracking.push(ot); // Use parentheses for push method
       }
     }
     this.orderTracking = deliveredOrderTracking;
+    console.log(this._orderTracking);
+    console.log(deliveredOrderTracking);
   }
   
   inProcess(){
     let inProcessOrderTracking:any = []; // Initialize the array
     for(let ot of this.allOrderTracking){
-      if(ot.status != "DELIVERED" && !this.isDateOlderThan3Days(ot.statusChangedAt)){
+      if(ot.status != "DELIVERED" && ot.status != "CANCELLED" && !this.isDateOlderThan3Days(ot.statusChangedAt)){
         inProcessOrderTracking.push(ot); // Use parentheses for push method
       }
     }
@@ -91,11 +99,22 @@ export class DeliveryTrackComponent {
   toSendAlert(){
     let GotAlertOrderTracking:any = []; // Initialize the array
     for(let ot of this.allOrderTracking){
-      if(ot.status != "DELIVERED" && this.isDateOlderThan3Days(ot.statusChangedAt)){
+      if(ot.status != "DELIVERED" && ot.status != "CANCELLED" && this.isDateOlderThan3Days(ot.statusChangedAt)){
         GotAlertOrderTracking.push(ot); // Use parentheses for push method
       }
     }
     this.orderTracking = GotAlertOrderTracking;
+  }
+
+  cancelled() {
+    let tofade: any = []; // Initialize the array
+    for (let ot of this.allOrderTracking) {
+      if (ot.status == "CANCELLED") {
+        tofade.push(ot); // Use parentheses for push method
+      }
+    }
+    this.orderTracking = tofade;
+    console.log(this.orderTracking);
   }
   
 }

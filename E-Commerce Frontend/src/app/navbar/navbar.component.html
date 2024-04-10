@@ -16,6 +16,7 @@
           <li class="nav-item">
             <a *ngIf="role == ''" class="nav-link" routerLink="/auth/signup">Sign-up</a>
           </li>
+          <span *ngIf="role == 'ROLE_CUSTOMER'" class="greet-user">Hello {{username}}</span>
           <span *ngIf="role == 'ROLE_CUSTOMER'" class="greet-user">Hello {{username.name}}!</span>
           <li class="nav-item">
             <a *ngIf="role == 'ROLE_CUSTOMER'" class="nav-link" routerLink="/dashboard"><span
@@ -35,7 +36,7 @@
       </div>
 
       <ul class="navbar-nav">
-        <span *ngIf="role == 'ROLE_SELLER'" class="greet-user">Hello {{username.name}}</span>
+        <span *ngIf="role == 'ROLE_SELLER'" class="greet-user">Hello {{username}}</span>
         <li class="nav-item">
           <a *ngIf="role == 'ROLE_SELLER'" class="nav-link" routerLink="/seller/dashboard"><span
               class="material-symbols-outlined"> account_circle </span></a>
@@ -47,7 +48,7 @@
       </ul>
 
       <ul class="navbar-nav">
-        <span *ngIf="role == 'ROLE_ADMIN'" class="greet-user">Hello {{username.name}}</span>
+        <span *ngIf="role == 'ROLE_ADMIN'" class="greet-user">Hello {{username}}</span>
         <li class="nav-item">
           <a *ngIf="role == 'ROLE_ADMIN'" class="nav-link" routerLink="/admin/dashboard"><span
               class="material-symbols-outlined">account_circle</span></a>
@@ -59,7 +60,7 @@
       </ul>
 
       <ul class="navbar-nav">
-        <span *ngIf="role == 'ROLE_SUPER_ADMIN'" class="greet-user">Hello {{username.name}}</span>
+        <span *ngIf="role == 'ROLE_SUPER_ADMIN'" class="greet-user">Hello {{username}}</span>
         <li class="nav-item">
           <a *ngIf="role == 'ROLE_SUPER_ADMIN'" class="nav-link" routerLink="/superAdmin/dashboard"><span
               class="material-symbols-outlined">account_circle</span></a>

@@ -1,10 +1,7 @@
 package com.ecommerce.backend.services;
 
 import com.ecommerce.backend.dao.*;
-import com.ecommerce.backend.entities.Admin;
-import com.ecommerce.backend.entities.Customer;
-import com.ecommerce.backend.entities.OrderTracking;
-import com.ecommerce.backend.entities.Seller;
+import com.ecommerce.backend.entities.*;
 import com.ecommerce.backend.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Component
@@ -34,6 +28,8 @@ public class OrderTrackingService {
     private AdminRepository adminRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private ProductVariationRepository productVariationRepository;
 
     public ResponseEntity<List<OrderTracking>> getAllOrderTracking(@RequestHeader(value = "Authorization") String authorizationHeader){
         try{
@@ -155,12 +151,20 @@ public class OrderTrackingService {
                 Optional<OrderTracking> orderTracking = orderTrackingRepository.findById(orderTrackingId);
                 if(Objects.equals(orderTracking.get().getOrder().getCustomer().getId(), customer.getId())){
                     if(orderTracking.get().getStatus() == OrderStatus.ORDER_PLACED || orderTracking.get().getStatus() == OrderStatus.PACKED){
+                        long pvId = orderTracking.get().getOrder().getProductVariation().getId();
+                        int quantity = orderTracking.get().getOrder().getQuantity();
+                        Optional<ProductVariation> pv = productVariationRepository.findById(pvId);
+                        pv.get().setQuantity(pv.get().getQuantity() + quantity);
+
                         orderTracking.get().setStatus(OrderStatus.CANCELLED);
                         orderTracking.get().setStatusChangedAt(Date.valueOf(LocalDate.now()));
                         orderTracking.get().getOrder().setOrderStatus("CANCELLED");
                         orderTracking.get().setAlert("");
                         orderTracking.get().setUpdatedAt(Date.valueOf(LocalDate.now()));
+
+                        productVariationRepository.save(pv.get());
                         orderTrackingRepository.save(orderTracking.get());
+
                         Map<String,String> output = new HashMap<>();
                         output.put("Message","Changed Successfully");
                         return ResponseEntity.of(Optional.of(output));
