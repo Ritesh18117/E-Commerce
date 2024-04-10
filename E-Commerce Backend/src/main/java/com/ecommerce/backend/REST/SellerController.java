@@ -4,14 +4,20 @@ import com.ecommerce.backend.entities.Seller;
 import com.ecommerce.backend.services.SellerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.io.*;
+import java.net.*;
 
 @RestController
 @RequestMapping("/api/seller")
@@ -63,7 +69,6 @@ public class SellerController {
     public ResponseEntity<Map<String, String>> rejectSeller(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long sellerId, @RequestParam("comment") String comment) {
         return sellerService.rejectSeller(authorizationHeader, sellerId, comment);
     }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/getMySellerVerifyList")
     public ResponseEntity<List<Seller>> getMySellerVerifyList(@RequestHeader(value = "Authorization") String authorizationHeader){
@@ -93,5 +98,17 @@ public class SellerController {
     @GetMapping("/getSellerBySellerId/{id}")
     public ResponseEntity<Seller> getSellerBySellerId(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable Long id){
         return sellerService.getSellerBySellerId(authorizationHeader,id);
+    }
+    @PreAuthorize("hasRole('ROLE_SELLER')")
+    @PostMapping("/uploadDocument")
+    public ResponseEntity<Map<String,String>> uploadDocuments(@RequestHeader(value = "Authorization") String authorizationHeader,
+                                                  @RequestPart("gstDocument") MultipartFile gstDocumentFile,
+                                                  @RequestPart("licenceDocument") MultipartFile licenceDocumentFile) {
+        return sellerService.uploadDocuments(authorizationHeader,gstDocumentFile, licenceDocumentFile);
+    }
+    @PreAuthorize("hasRole('ROLE_SELLER')")
+    @GetMapping("/getMyDocuments")
+    public ResponseEntity<Seller> getMyDocument(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return sellerService.getMyDocument(authorizationHeader);
     }
 }

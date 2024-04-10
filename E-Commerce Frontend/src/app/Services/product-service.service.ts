@@ -36,6 +36,11 @@ export class ProductServiceService {
     return this.http.post<any>(this.addProductURL, product, { headers });
   }
 
+  addProductFromData(token:string, formData:any):Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.post<any>(this.addProductURL, formData, { headers });
+  }
+
   getNotApprovedProducts(token:string):Observable<any> {
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.get<any>(this.getNotApprovedProductsURL, { headers });
@@ -73,9 +78,9 @@ export class ProductServiceService {
     
   }
 
-  updateProduct(token:any,product:any){
+  updateProduct(token:any,formData:any){
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
-    return this.http.patch<any>(this.updateProductURL, product, { headers });
+    return this.http.patch<any>(this.updateProductURL, formData, { headers });
   }
 
   getAllMyRejectedProducts(token:any){

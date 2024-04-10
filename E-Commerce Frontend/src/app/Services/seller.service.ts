@@ -21,6 +21,9 @@ export class SellerService {
   private getApprovedSellerURL = "/api/seller/approvedSellers";
   private getRejectedSellerURL = "/api/seller/rejectedSellers";
   private getMyOrderTrakingURL = "/api/seller/myOrderTracking";
+  private uploadDocumentsURL = '/api/seller/uploadDocument';
+  private getMyDocumentsURL = "/api/seller/getMyDocuments";
+
   constructor(private http: HttpClient) { }
 
   getSellerProfile(token: string): Observable<any> {
@@ -92,5 +95,15 @@ export class SellerService {
   getMyOrderTraking(token:string):Observable<any>{
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
     return this.http.get<any>(this.getMyOrderTrakingURL, {headers});
+  }
+
+  uploadDocuments(token: string, formData:any) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<any>(this.uploadDocumentsURL, formData, { headers });
+  }
+
+  getMyDocuments(token:string):Observable<any>{
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(this.getMyDocumentsURL, { headers });
   }
 }

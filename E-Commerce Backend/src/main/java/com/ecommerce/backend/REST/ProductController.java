@@ -1,14 +1,25 @@
 package com.ecommerce.backend.REST;
 
+import com.ecommerce.backend.dao.ProductRepository;
 import com.ecommerce.backend.entities.Product;
 import com.ecommerce.backend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.sound.sampled.Port;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,20 +27,29 @@ import java.util.Map;
 @RequestMapping("/api/product")
 @Validated
 public class ProductController {
+
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping("/test")
     public String test(){
+        productService.updateImages();
         return "This is test request from Product controller";
     }
 
     @PreAuthorize("hasRole('ROLE_SELLER')")
     @PostMapping("/addProduct")
-    public ResponseEntity<Product> addProduct(@RequestBody Product product,@RequestHeader(value = "Authorization") String authorizationHeader){
-        return productService.addProduct(product,authorizationHeader);
+    public ResponseEntity<Product> addProduct(@RequestHeader(value = "Authorization") String authorizationHeader,
+                                              MultipartHttpServletRequest request) {
+        try {
+            return productService.addProduct(authorizationHeader, request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
-
     @PreAuthorize("hasRole('ROLE_SELLER')")
     @GetMapping("/myProducts")
     public ResponseEntity<List<Product>> myProducts(@RequestHeader(value = "Authorization") String authorizationHeader){
@@ -84,10 +104,21 @@ public class ProductController {
         return productService.search(searchItem);
     }
 
+//    @PreAuthorize("hasRole('ROLE_SELLER')")
+//    @PatchMapping("/updateProduct")
+//    public ResponseEntity<Product> update(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestBody Product product){
+//        return productService.updateProduct(authorizationHeader,product);
+//    }
     @PreAuthorize("hasRole('ROLE_SELLER')")
     @PatchMapping("/updateProduct")
-    public ResponseEntity<Product> update(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestBody Product product){
-        return productService.updateProduct(authorizationHeader,product);
+    public ResponseEntity<Product> updateProduct(@RequestHeader(value = "Authorization") String authorizationHeader,
+                                                 MultipartHttpServletRequest request) {
+        try {
+            return productService.updateProduct(authorizationHeader, request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/searchItem/{color}")

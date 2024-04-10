@@ -14,6 +14,9 @@ export class AddShoesComponent {
   quantity:string = "";
   img:string = "";
 
+  singleImage: File | null = null;
+  multipleImages: File[] = [];
+
   product = {
     name:"",
     category:{ id:""},
@@ -22,25 +25,10 @@ export class AddShoesComponent {
     price:0,
     discount:0,
     margin:0,
-    imageURL:"",
+    image:File,
     description:"",
-    images:[] as string[]
+    images:[] as File[]
   }
-
-      // Product data to send
-    //   {
-    //     "category":{
-    //         "id":3
-    //     },
-    //     "name":"Men Checkered Round Neck Polyester Grey T-Shirt",
-    //     "color":"Grey",
-    //     "price":999,
-    //     "discount":8,
-    //     "margin":6,
-    //     "gender":"men and Women",
-    //     "description":"Grey T-Shirt",
-    //     "imageURL":"https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/p/j/c/s-ts12-vebnor-original-imagp6jcsgekgda4.jpeg?q=70&crop=false"
-    // }
 
   categories:any;
   token:any;
@@ -66,9 +54,41 @@ export class AddShoesComponent {
 
   async onSubmit() {
     try {
+
+      // product = {
+      //   image:File,
+      //   images:[] as File[]
+      // }
+
+      const formData = new FormData();
+  
+      // Append normal fields
+      formData.append('name', this.product.name);
+      formData.append('gender', this.product.gender);
+      formData.append('price', this.product.price.toString());
+      formData.append('discount', this.product.discount.toString());
+      formData.append('margin', this.product.margin.toString());
+      formData.append('color', this.product.color);
+      formData.append('description', this.product.description);
+
+      if (this.product.category.id) {
+        formData.append('category', this.product.category.id);
+      }
+      
+      // Append image files
+      if (this.singleImage) {
+        formData.append('image', this.singleImage);
+      }
+
+      // Append multiple images
+      this.multipleImages.forEach((file, index) => {
+        
+        formData.append(`images`, file, file.name);
+      });
+
       await console.log("Data before resetting:", this.product);
       this.token = sessionStorage.getItem('token');
-      this._productService.addProduct(this.token,this.product).subscribe(
+      this._productService.addProductFromData(this.token,formData).subscribe(
         (data) => {
           this.toastr.success('Product Added!!', 'Success', {
             timeOut: 500, // Toast will disappear after 0.5 seconds
@@ -89,6 +109,18 @@ export class AddShoesComponent {
     }
   }
 
+  onSingleFileSelected(event: any) {
+    this.singleImage = event.target.files[0];
+    this.product.image = event.target.files[0];
+    console.log('Selected single image:', this.singleImage);
+  }
+
+  onMultipleFilesSelected(event: any) {
+    this.multipleImages = Array.from(event.target.files);
+    this.product.images = Array.from(event.target.files);
+    console.log('Selected multiple images:', this.multipleImages);
+  }
+
   resetProduct(): void {
     this.product = {
       name: "",
@@ -98,21 +130,14 @@ export class AddShoesComponent {
       price: 0,
       discount: 0,
       margin: 0,
-      imageURL: "",
+      image:File,
       description: "",
-      images:[]
+      images: []
     };
-  }
-
-  addImage(){
-    if(this.img !== ""){
-      this.product.images.push(this.img);
-      this.img = ""
-    }
   }
 
   deleteImage(index:number){
     this.product.images.splice(index,1);
   }
-  
+
 }

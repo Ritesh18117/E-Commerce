@@ -1,5 +1,5 @@
 <div class="card m-3 card-hover" style="width: 18rem;" [routerLink]="['/product', product.product.id]">
-    <img [src]="product.product.imageURL" class="card-img-top" alt="..." id="img">
+    <img [src]="convertToImage(product.product.image)" class="card-img-top" alt="..." id="img">
     <div class="card-body">
         <h5 class="card-title">{{product.product.name}}</h5>
         <h5 class="price">₹{{product.product.price}}</h5>

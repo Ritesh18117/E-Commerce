@@ -1,16 +1,32 @@
 <h1>Documents</h1>
 <hr>
-<div class="mb-3">
-    <label for="formFileSm" class="form-label">Upload GST Document</label>
-    <div style="width: 80%;">
-        <input (change)="onFileSelected($event,1)" class="form-control form-control-sm" id="formFileSm" type="file" >
+<div class="mb-3 row" >
+    <div class="col-7">
+        <label for="formFileSm" class="form-label">Upload GST Document</label>
+        <div style="width: 80%;">
+            <input (change)="onFileSelected($event,1)" class="form-control form-control-sm" id="formFileSm" type="file">
+        </div>
+    </div>
+
+    <div class="col-5">
+        <a [href]="convertToImage(seller.gstDocument)" target="_blank">
+            <img [src]="convertToImage(seller.gstDocument)" alt="Converted Image" class="document-image">
+        </a>    
     </div>
 </div>
- <hr width="80%">
-<div class="mb-3">
-    <label for="formFileSm" class="form-label">Upload Trade License</label>
-    <div style="width: 80%;">
-        <input (change)="onFileSelected($event,2)" class="form-control form-control-sm" id="formFileSm" type="file" >
+<hr width="80%">
+<div class="mb-3 row">
+    <div class="col-7">
+        <label for="formFileSm" class="form-label">Upload Trade License</label>
+        <div style="width: 80%;">
+            <input (change)="onFileSelected($event,2)" class="form-control form-control-sm" id="formFileSm" type="file">
+        </div>
+    </div>
+
+    <div class="col-5">
+        <a [href]="convertToImage(seller.licenceDocument)" target="_blank">
+            <img [src]="convertToImage(seller.licenceDocument)" alt="Converted Image" class="document-image">
+        </a>
     </div>
 </div>
 <hr width="80%">

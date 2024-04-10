@@ -13,19 +13,21 @@ export class DashboardComponent {
   myAddress:boolean =  false;
 
   renderProfile(){
+    this.profile = true;
     this.myAddress = false;
     this.myOrders = false;
-    this.profile = true;
+    console.log(this.profile);
+    
   }
   renderMyAddress(){
+    this.myAddress = true;
     this.myOrders = false;
     this.profile = false;
-    this.myAddress = true;
   }
   renderMyOrders(){
+    this.myOrders = true;
     this.myAddress = false;
     this.profile = false;
-    this.myOrders = true;
   }
 
 }

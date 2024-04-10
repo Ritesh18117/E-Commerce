@@ -5,14 +5,13 @@
     <div class = "product-imgs">
       <div class = "img-display">
         <div class = "img-showcase">
-          <img [src]="selectedImage"
-          alt = "shoe image">
+          <img [src]="convertToImage(selectedImage)" alt = "shoe image">
       </div>
       </div>
       <div class = "img-select">
           <div class = "img-item" *ngFor="let image of product[0].product.images;let i = index" (click)="selectedImage = image">
               <a role="button">
-                <img [src]="image" 
+                <img [src]="convertToImage(image)" 
                 alt = "shoe image">
               </a>
             </div>
@@ -76,15 +75,9 @@
           <li>Shipping Fee: <span>₹49/- Only</span></li>
         </ul>
       </div>
-
-      <div class = "purchase-info" *ngIf="product[0].size_quan.toString().split(' ')[1] > 0">
+      <div class = "purchase-info">
         <button type = "button" class = "btn" *ngIf="role == 'ROLE_CUSTOMER'" (click)="addToCard(product[0])">
           Add to Cart <i class='fas fa-cart-plus'></i>
-        </button>
-      </div>
-      <div class = "purchase-info" *ngIf="product[0].size_quan.toString().split(' ')[1] <= 0">
-        <button type = "button" class = "btn" *ngIf="role == 'ROLE_CUSTOMER'">
-          Will Be Available Soon <i class='fas fa-cart-plus'></i>
         </button>
       </div>
 

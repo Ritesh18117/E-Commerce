@@ -14,7 +14,7 @@
                     <button class="btn btn-danger btn-sm" (click)="rejectProduct(product.id)">Reject</button>
                 </div>
                 <div class="detail col-md-3">
-                    <img src="{{product.imageURL}}" class="img-fluid">
+                    <img src="{{convertToImage(product.image)}}" class="img-fluid">
                 </div>
             </div>
         </div>

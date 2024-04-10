@@ -72,7 +72,7 @@
                 <span *ngIf="product.approvalStatus == 'rejected'" style="color:red">Rejected</span>
             </td>
             <td>
-                <a href="{{product.imageURL}}" target="_blank">View Image</a>
+                <a href="{{convertToImage(product.image)}}" target="_blank">View Image</a>
             </td>
             <td>
                 <button class="btn btn-danger btn-sm" (click)="revoke(product.id)">Revoke</button>

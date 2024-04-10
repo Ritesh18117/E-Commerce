@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -75,14 +77,15 @@ public class SellerService {
             String existingApprovalStatus = existingSeller.getApprovalStatus();
             updatedSeller.setApprovalStatus(existingApprovalStatus);
 
-            Optional<Admin> admin = adminRepository.findById(existingSeller.getVerifiedBy().getId());
+            if(existingSeller.getVerifiedBy() != null) {
+                Optional<Admin> admin = adminRepository.findById(existingSeller.getVerifiedBy().getId());
+                admin.get().getVerifiedSeller().remove(existingSeller.getId());
+                adminRepository.save(admin.get());
+            }
 
             updatedSeller.setUser(existingSeller.getUser());
             updatedSeller.setComment(null);
             updatedSeller.setApprovalStatus("false");
-
-            admin.get().getVerifiedSeller().remove(existingSeller.getId());
-            adminRepository.save(admin.get());
 
             BeanUtils.copyProperties(updatedSeller, existingSeller, "id");
             Seller savedSeller = sellerRepository.save(existingSeller);
@@ -207,11 +210,13 @@ public class SellerService {
         try{
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
+
             List<Seller> verifiedSellers = new ArrayList<>();
             List<Long> sellersId = admin.getVerifiedSeller();
             if(Objects.equals(sellersId,null)){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }else{
+                System.out.println(sellersId);
                 for(Long sellerId : sellersId){
                     Optional<Seller> seller = sellerRepository.findById(sellerId);
                     seller.get().setUser(null);
@@ -331,6 +336,56 @@ public class SellerService {
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    public ResponseEntity<Map<String,String>> uploadDocuments(@RequestHeader(value = "Authorization") String authorizationHeader, MultipartFile gstDocumentFile, MultipartFile licenceDocumentFile) {
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Seller seller = sellerRepository.findByUserId(userId);
+
+            if(seller != null){
+                if (gstDocumentFile != null && !gstDocumentFile.isEmpty()) {
+                    String gstDocumentBase64 = convertToBase64(gstDocumentFile);
+                    seller.setGstDocument(gstDocumentBase64);
+                }
+
+                if (licenceDocumentFile != null && !licenceDocumentFile.isEmpty()) {
+                    String licenceDocumentBase64 = convertToBase64(licenceDocumentFile);
+                    seller.setLicenceDocument(licenceDocumentBase64);
+                }
+
+                seller.setVerifiedBy(null);
+                seller.setApprovalStatus("false");
+                sellerRepository.save(seller);
+
+                Map<String,String> output = new HashMap<>();
+                output.put("Message","Successfully Uploaded!");
+                return ResponseEntity.of(Optional.of(output));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<Seller> getMyDocument(@RequestHeader(value = "Authorization") String authorizationHeader){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Seller seller = sellerRepository.findByUserId(userId);
+            seller.setUser(null);
+            seller.setVerifiedBy(null);
+            return ResponseEntity.of(Optional.of(seller));
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    private String convertToBase64(MultipartFile file) throws IOException {
+        byte[] bytes = file.getBytes();
+        return Base64.getEncoder().encodeToString(bytes);
     }
 
 

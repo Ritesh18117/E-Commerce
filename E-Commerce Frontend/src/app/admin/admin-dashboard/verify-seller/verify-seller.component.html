@@ -16,6 +16,24 @@
                 <label for="comment">Add Comment</label>
                 <textarea class="form-control" id="comment" rows="3" [(ngModel)]="comment"></textarea>
             </div> <br>
+
+            <div class="row m-4">
+                
+                <div class="col-5 border">
+                    GST Document <br>
+                    <a [href]="convertToImage(seller.gstDocument)" target="_blank">
+                        <img [src]="convertToImage(seller.gstDocument)" alt="Converted Image" class="document-image">
+                    </a>
+                </div>
+            
+                <div class="col-5 border">
+                    Trade Licence <br>
+                    <a [href]="convertToImage(seller.licenceDocument)" target="_blank">
+                        <img [src]="convertToImage(seller.licenceDocument)" alt="Converted Image" class="document-image">
+                    </a>
+                </div>
+            </div>
+
             <button class="btn btn-success btn-sm" (click)="approveSeller(seller.id)">Approve</button> &nbsp; &nbsp;
             <button class="btn btn-danger btn-sm" (click)="rejectSeller(seller.id)">Reject</button> 
         </div>
