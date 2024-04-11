@@ -12,13 +12,14 @@ export class ProductsListComponent {
 
   products!: any;
   categories: any;
+  count:any = 1;
 
   @Input()
   searchValue!: string;
 
   constructor(private productService:ProductServiceService,private categoryService:CategoryService){}
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.getApprovedProducts();
   }
 
@@ -26,10 +27,10 @@ export class ProductsListComponent {
     this.onSearch();
   }
 
+
   getApprovedProducts() {
-    this.productService.getApprovedProducts().subscribe(
+    this.productService.getApprovedProducts(this.count).subscribe(
       (data) => {
-        console.log(data);
         this.products = data;
       },
       (error) => {
@@ -38,10 +39,25 @@ export class ProductsListComponent {
     );
   }
 
+  addApprovedProducts() {
+    this.count++;
+    this.productService.getApprovedProducts(this.count).subscribe(
+      (data) => {
+        this.products = this.products.concat(data);
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+  }
+  
+
   onCategoryFilter(categoryId:number){
     if(categoryId === 0){
       this.getApprovedProducts();
     }else{
+      console.log(categoryId);
+      
       this.categoryService.getByCategoryId(categoryId).subscribe(
         (data) =>{
           this.products = data;

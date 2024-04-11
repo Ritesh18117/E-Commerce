@@ -2,9 +2,17 @@ package com.ecommerce.backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "cartItems")
 public class CartItems {
@@ -23,64 +31,4 @@ public class CartItems {
     private int quantity;
     @JsonFormat(pattern = "yyyy/MM/dd")
     private Date addedDate;
-
-    public CartItems() {
-    }
-
-    public ProductVariation getProductVariation() {
-        return productVariation;
-    }
-
-    public void setProductVariation(ProductVariation productVariation) {
-        this.productVariation = productVariation;
-    }
-
-    public CartItems(Long id,Product product, Customer customer, ProductVariation productVariation, int quantity, Date addedDate) {
-        this.id = id;
-        this.customer = customer;
-        this.product = product;
-        this.productVariation = productVariation;
-        this.quantity = quantity;
-        this.addedDate = addedDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public Date getAddedDate() {
-        return addedDate;
-    }
-
-    public void setAddedDate(Date addedDate) {
-        this.addedDate = addedDate;
-    }
 }

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -37,9 +38,6 @@ public class Product {
     private Double margin;
     private String gender;
     private String color;
-    private String imageURL;
-    @Column(name = "images")
-    private List<String> imgs;
     private String description;
     @Column(name = "image_data", length = 1000000)
     private String image;
@@ -49,4 +47,5 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "verified_by_admin_id")
     private Admin verifiedBy;
+    private Date AddedDate;
 }

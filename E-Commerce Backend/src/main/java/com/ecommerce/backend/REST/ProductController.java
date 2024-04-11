@@ -30,12 +30,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-    @Autowired
-    private ProductRepository productRepository;
-
     @GetMapping("/test")
     public String test(){
-        productService.updateImages();
+//        productService.updateImages();
         return "This is test request from Product controller";
     }
 
@@ -55,9 +52,9 @@ public class ProductController {
     public ResponseEntity<List<Product>> myProducts(@RequestHeader(value = "Authorization") String authorizationHeader){
         return productService.myProducts(authorizationHeader);
     }
-    @GetMapping("/approvedProducts")
-    public ResponseEntity<List<Map<String, Object>>> getApprovedProducts(){
-        return productService.approvedProducts();
+    @GetMapping("/approvedProducts/{count}")
+    public ResponseEntity<List<Map<String, Object>>> getApprovedProducts(@PathVariable int count){
+        return productService.approvedProducts(count);
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/getAllProducts")
@@ -104,11 +101,6 @@ public class ProductController {
         return productService.search(searchItem);
     }
 
-//    @PreAuthorize("hasRole('ROLE_SELLER')")
-//    @PatchMapping("/updateProduct")
-//    public ResponseEntity<Product> update(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestBody Product product){
-//        return productService.updateProduct(authorizationHeader,product);
-//    }
     @PreAuthorize("hasRole('ROLE_SELLER')")
     @PatchMapping("/updateProduct")
     public ResponseEntity<Product> updateProduct(@RequestHeader(value = "Authorization") String authorizationHeader,

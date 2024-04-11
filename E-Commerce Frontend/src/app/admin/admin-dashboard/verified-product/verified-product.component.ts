@@ -51,7 +51,7 @@ export class VerifiedProductComponent {
       this.getMyProductVerifiedList();
     }
     else if(this.searchType == "approvedProduct"){
-      this._productService.getApprovedProducts().subscribe(
+      this._productService.getApprovedProducts(1).subscribe(
         (data) =>{
           let products: any[] = [];
           for(let product of data){
