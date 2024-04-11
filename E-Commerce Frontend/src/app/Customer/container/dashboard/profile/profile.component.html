@@ -1,8 +1,15 @@
+<div class="cust-info">
 <h2>Customer Information</h2>
 <form action="" class="mt-4" (ngSubmit)="onSubmit()">
     <div class="row">
-        <div class="col-6">
+        <div class="col-6 pt-4">
+            <h6>Name</h6>
             <input [disabled]="!editProfile" type="text" name="name" [value]="profile.name " [(ngModel)]="profile.name" class="form-control form-control-lg" id="colFormLabelLg" placeholder="name">
+        </div>
+        <div class=" col-6 pt-4">
+            <h6>Contact</h6>
+            <input [disabled]="!editProfile" type="text" name="contact" [(ngModel)]="profile.contact" class="form-control form-control-lg" id="colFormLabelLg"
+                    placeholder="" [value]="profile.Contact">
         </div>
     </div>
     <div class="row">
@@ -10,11 +17,6 @@
             <h6>Email</h6>
             <input [disabled]="!editProfile" type="email" name="email"  class="form-control form-control-lg" id="colFormLabelLg"
                     placeholder="" [value]="profile.user.username">
-        </div>
-        <div class=" col-6 pt-4">
-            <h6>Contact</h6>
-            <input [disabled]="!editProfile" type="text" name="contact" [(ngModel)]="profile.contact" class="form-control form-control-lg" id="colFormLabelLg"
-                    placeholder="" [value]="profile.Contact">
         </div>
     </div>
     <div class="m-2 pt-4">
@@ -28,9 +30,10 @@
             <label class="form-check-label" for="inlineRadio2">Female</label>
         </div>
     </div>
-    <button class="m-3 btn btn-secondary" (click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
-    <button class="m-3 btn btn-primary" *ngIf="editProfile">Submit</button>
+    <button class="mt-4 btn btn-secondary" (click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
+    <button class="mt-4 btn btn-primary" *ngIf="editProfile">Submit</button>
 </form>
+</div>
 <!-- <h2>Personal Information</h2>
 <form class="mt-4" (ngSubmit)="onSubmit()">
     <div class="row">

@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
-
+import { UserService } from 'src/app/Services/user.service';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
+
 export class AdminDashboardComponent {
 
+  username: any;
+  token:any;
+
+  constructor(private userService:UserService){}
+
+  ngOnInit(){
+    this.getUsername();
+  }
   adminInfo:boolean = true;
   verifySeller:boolean = false;
   verifyProduct:boolean = false;
@@ -83,5 +92,17 @@ export class AdminDashboardComponent {
     this.verifyProduct = false;
     this.adminInfo = false;
     this.verifySeller = false;
+  }
+  getUsername(){
+    this.token = sessionStorage.getItem("token");
+    this.userService.getUsername(this.token).subscribe(
+      (data) => {
+        console.log(data);
+        this.username = data.name;
+      },
+      (error) => {
+        console.log("error",error);
+      }
+    )
   }
 }

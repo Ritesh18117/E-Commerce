@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-seller-dashboard',
@@ -12,7 +13,14 @@ export class SellerDashboardComponent {
   addedItems:boolean = false;
   documents: boolean = false;
   orderTrack: boolean = false;
+  username: any;
+  token:any;
 
+  constructor(private userService:UserService){}
+
+  ngOnInit(){
+    this.getUsername();
+  }
   renderProfile(){
     this.profile = true;
     this.addShoes = false;
@@ -51,5 +59,18 @@ export class SellerDashboardComponent {
     this.addShoes = false;
     this.profile = false;
     this.addedItems = false;
+  }
+
+  getUsername(){
+    this.token = sessionStorage.getItem("token");
+    this.userService.getUsername(this.token).subscribe(
+      (data) => {
+        console.log(data);
+        this.username = data.name;
+      },
+      (error) => {
+        console.log("error",error);
+      }
+    )
   }
 }
