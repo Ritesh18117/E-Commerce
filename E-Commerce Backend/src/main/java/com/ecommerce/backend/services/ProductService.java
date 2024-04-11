@@ -4,6 +4,7 @@ import com.ecommerce.backend.dao.*;
 import com.ecommerce.backend.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -16,8 +17,17 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 @Component
 public class ProductService {
@@ -58,6 +68,7 @@ public class ProductService {
             product.setGender(request.getParameter("gender"));
             product.setColor(request.getParameter("color"));
             product.setDescription(request.getParameter("description"));
+            product.setAddedDate(Date.valueOf(LocalDate.now()));
 
             Optional<Category> category = categoryRepository.findById(Long.valueOf(request.getParameter("category")));
             if(category.isPresent()){
@@ -108,6 +119,7 @@ public class ProductService {
             existingProduct.setMargin(Double.parseDouble(request.getParameter("margin")));
             existingProduct.setGender(request.getParameter("gender"));
             existingProduct.setColor(request.getParameter("color"));
+            existingProduct.setAddedDate(Date.valueOf(LocalDate.now()));
             existingProduct.setDescription(request.getParameter("description"));
 
             MultipartFile image = request.getFile("image");
@@ -149,9 +161,15 @@ public class ProductService {
         }
     }
 
-    public ResponseEntity<List<Map<String, Object>>> approvedProducts(){
+    public ResponseEntity<List<Map<String, Object>>> approvedProducts(int count){
         try {
-            List<ProductVariation> productVariations = (List<ProductVariation>) productVariationRepository.findAll();
+            List<Long> productsId = productRepository.findPageBreakProduct(count,count-1);
+
+            List<ProductVariation> productVariations = new ArrayList<ProductVariation>();
+
+            for(Long productId : productsId){
+                productVariations.addAll(productVariationRepository.findAllByProductId(productId));
+            }
 
             Map<String,List<String>> groupedData = new HashMap<>();
             for (ProductVariation pv : productVariations) {
@@ -342,7 +360,7 @@ public class ProductService {
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             List<Product> verifiedProducts = new ArrayList<>();
-            for(Long productId : admin.getVerifiedProduct()){
+            for(Long productId : admin.getVerifiedProducts()){
                 Optional<Product> product = productRepository.findById(productId);
                 product.get().setSeller(null);
                 product.get().setCategory(null);
@@ -470,53 +488,53 @@ public class ProductService {
     }
 
 
-    public void updateImages() {
-        List<Product> products = (List<Product>) productRepository.findAll(); // Fetch products from the database
-
-        System.out.println("Hello");
-        for (Product product : products) {
-            try {
-                String imageUrl = product.getImageURL();
-                String base64Image = downloadAndConvertToBase64(imageUrl);
-                product.setImage(base64Image);
-
-                List<String> imageUrls = product.getImgs();
-                List<String> base64Images = new ArrayList<>();
-                for (String url : imageUrls) {
-                    try {
-                        String base64 = downloadAndConvertToBase64(url);
-                        base64Images.add(base64);
-                    } catch (Exception e) {
-                        // Log or handle the error as needed
-                        System.err.println("Error downloading image from URL: " + url);
-                        e.printStackTrace();
-                    }
-                    System.out.println("Helloe Inside For");
-                }
-                product.setImages(base64Images);
-                System.out.println("Hello Inside");
-                productRepository.save(product); // Save updated product to the database
-            } catch (Exception e) {
-                // Log or handle the error as needed
-                System.err.println("Error processing product: " + product.getId());
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private String downloadAndConvertToBase64(String imageUrl) {
-        // Download image from URL
-        byte[] imageBytes = this.restTemplate().getForObject(imageUrl, byte[].class);
-
-        // Convert image to Base64
-        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-
-        return base64Image;
-    }
-
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+//    public void updateImages() {
+//        List<Product> products = (List<Product>) productRepository.findAll(); // Fetch products from the database
+//
+//        System.out.println("Hello");
+//        for (Product product : products) {
+//            try {
+//                String imageUrl = product.getImageURL();
+//                String base64Image = downloadAndConvertToBase64(imageUrl);
+//                product.setImage(base64Image);
+//
+//                List<String> imageUrls = product.getImgs();
+//                List<String> base64Images = new ArrayList<>();
+//                for (String url : imageUrls) {
+//                    try {
+//                        String base64 = downloadAndConvertToBase64(url);
+//                        base64Images.add(base64);
+//                    } catch (Exception e) {
+//                        // Log or handle the error as needed
+//                        System.err.println("Error downloading image from URL: " + url);
+//                        e.printStackTrace();
+//                    }
+//                    System.out.println("Helloe Inside For");
+//                }
+//                product.setImages(base64Images);
+//                System.out.println("Hello Inside");
+//                productRepository.save(product); // Save updated product to the database
+//            } catch (Exception e) {
+//                // Log or handle the error as needed
+//                System.err.println("Error processing product: " + product.getId());
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
+//    private String downloadAndConvertToBase64(String imageUrl) {
+//        // Download image from URL
+//        byte[] imageBytes = this.restTemplate().getForObject(imageUrl, byte[].class);
+//
+//        // Convert image to Base64
+//        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+//
+//        return base64Image;
+//    }
+//
+//    public RestTemplate restTemplate() {
+//        return new RestTemplate();
+//    }
 
 }
 

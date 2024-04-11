@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductServiceService {
 
-  private getProductApi = '/api/product/approvedProducts';
+  private getApprovedProductURL = '/api/product/approvedProducts';
   private getSellersProductURL = '/api/product/myProducts';
   private addProductURL = '/api/product/addProduct';
   private getNotApprovedProductsURL = '/api/product/notApprovedProducts';
@@ -22,8 +22,8 @@ export class ProductServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getApprovedProducts(): Observable<any> {
-    return this.http.get(`${this.getProductApi}`);
+  getApprovedProducts(count:any):Observable<any> {
+    return this.http.get<any>(`${this.getApprovedProductURL}/${count}`);
   }
 
   getSellersProduct(token:string):Observable<any> {

@@ -79,7 +79,7 @@ public class SellerService {
 
             if(existingSeller.getVerifiedBy() != null) {
                 Optional<Admin> admin = adminRepository.findById(existingSeller.getVerifiedBy().getId());
-                admin.get().getVerifiedSeller().remove(existingSeller.getId());
+                admin.get().getVerifiedSellers().remove(existingSeller.getId());
                 adminRepository.save(admin.get());
             }
 
@@ -212,7 +212,7 @@ public class SellerService {
             Admin admin = adminRepository.findByUserId(userId);
 
             List<Seller> verifiedSellers = new ArrayList<>();
-            List<Long> sellersId = admin.getVerifiedSeller();
+            List<Long> sellersId = admin.getVerifiedSellers();
             if(Objects.equals(sellersId,null)){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }else{

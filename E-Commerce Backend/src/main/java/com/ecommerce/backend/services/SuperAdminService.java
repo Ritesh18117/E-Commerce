@@ -55,8 +55,8 @@ public class SuperAdminService {
                 List<Admin> admins = (List<Admin>) adminRepository.findAll();
                 for(Admin admin : admins){
                     admin.getUser().setPassword(null);
-                    admin.setVerifiedProduct(null);
-                    admin.setVerifiedSeller(null);
+                    admin.setVerifiedProducts(null);
+                    admin.setVerifiedSellers(null);
                 }
                 return ResponseEntity.of(Optional.of(admins));
             }
@@ -111,8 +111,8 @@ public class SuperAdminService {
                 admin.get().setStatus("Active");
                 adminRepository.save(admin.get());
                 admin.get().getUser().setPassword(null);
-                admin.get().setVerifiedSeller(null);
-                admin.get().setVerifiedProduct(null);
+                admin.get().setVerifiedSellers(null);
+                admin.get().setVerifiedProducts(null);
                 return ResponseEntity.of(Optional.of(admin.get()));
             }
         } catch (Exception e){
@@ -132,8 +132,8 @@ public class SuperAdminService {
                 admin.get().setStatus("inActive");
                 adminRepository.save(admin.get());
                 admin.get().getUser().setPassword(null);
-                admin.get().setVerifiedSeller(null);
-                admin.get().setVerifiedProduct(null);
+                admin.get().setVerifiedSellers(null);
+                admin.get().setVerifiedProducts(null);
                 return ResponseEntity.of(Optional.of(admin.get()));
             }
         } catch (Exception e){
@@ -156,8 +156,8 @@ public class SuperAdminService {
                 else{
                     for(Admin admin : admins){
                         admin.getUser().setPassword(null);
-                        admin.setVerifiedSeller(null);
-                        admin.setVerifiedProduct(null);
+                        admin.setVerifiedSellers(null);
+                        admin.setVerifiedProducts(null);
                     }
                     return ResponseEntity.of(Optional.of(admins));
                 }
@@ -182,8 +182,8 @@ public class SuperAdminService {
                 else{
                     for(Admin admin : admins){
                         admin.getUser().setPassword(null);
-                        admin.setVerifiedSeller(null);
-                        admin.setVerifiedProduct(null);
+                        admin.setVerifiedSellers(null);
+                        admin.setVerifiedProducts(null);
                     }
                     return ResponseEntity.of(Optional.of(admins));
                 }
