@@ -1,9 +1,20 @@
-<div class="filter">
+<div class="filter ">
+
+<div class="radio-inputs">
      <!-- <div id="cat">Browse by<br> Category</div> -->
-          <button class="btn " id ="all" (click)="filter(0)">All</button> &nbsp; 
+     <label class="radio" (click)="filter(0)">
+          <input type="radio" name="radio" checked="">
+          <span class="name">All</span>
+        </label> 
+     <!-- <button class="btn " id ="all" (click)="filter(0)">All</button> &nbsp;  -->
 
      <ng-container *ngFor="let category of categories">
-       <button type="button" class="btn " (click)="filter(category.id)">{{category.categoryName}}</button> &nbsp; 
+          <label class="radio" (click)="filter(category.id)">
+               <input type="radio" name="radio" checked="">
+               <span class="name">{{category.categoryName}}</span>
+             </label>
+       <!-- <button type="button" class="btn " (click)="filter(category.id)">{{category.categoryName}}</button> &nbsp;  -->
      </ng-container>
+</div>
 </div>
 
