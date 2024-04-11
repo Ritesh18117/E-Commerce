@@ -1,31 +1,36 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="container mt-4" style="min-height: 80vh;">
     <div class="row border">
         <div class="col-md-3 border p-2 pb-3">
             <div class="border-bottom p-1">
-                <img src="../../../assets/person_icon.png" class="img-fluid" alt="">
-            &nbsp; &nbsp; &nbsp; Hello Username
+                <div class="avatar">
+                <img src="../../../assets/person_logo.png" class="avatar-photo" height="108" width="108">
+                </div>
+                <div class="user-name">
+                    {{username}}
+                </div>
             </div>
             <a (click)="renderProfile()"  class="text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined "> person_edit </span>
                     &nbsp; &nbsp; &nbsp; Personal Infromation
                 </div>
             </a>
             <a (click)="renderMyOrders()" class="text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">inventory </span>
                     &nbsp; &nbsp; &nbsp; My Orders
                 </div>
             </a>
-            <a (click)="renderMyAddress()"  class="text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/address_icon.png" alt="" srcset="" class="img-fluid">
+            <a (click)="renderMyAddress()"  class="text-decoration-none text-dark" >
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">home_pin</span>
                     &nbsp; &nbsp; &nbsp; Manage Address
                 </div>
             </a>
             <a routerLink="/cart" class="text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/cart_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">shopping_cart</span>
                     &nbsp; &nbsp; &nbsp; Go To Cart
                 </div>
             </a>

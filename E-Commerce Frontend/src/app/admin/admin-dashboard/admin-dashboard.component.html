@@ -1,49 +1,54 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="container mt-4" style="min-height: 80vh;">
     <div class="row border">
         <div class="col-md-2 border p-2 pb-3">
             <div class="border-bottom p-1">
-                <img src="../../../assets/person_icon.png" class="img-fluid" alt="">
-            &nbsp; &nbsp; &nbsp; Hello Admin
+                <div class="avatar">
+                    <img src="../../../assets/person_logo.png" class="avatar-photo" height="108" width="108">
+                    </div>
+                    <div class="user-name">
+                        {{username}}
+                    </div>
             </div>
             <a role="button" (click)="renderAdminInfo()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">shield_person</span>
                     &nbsp; &nbsp; &nbsp; Admin Info
                 </div>
             </a>
             <a role="button" (click)="renderVerifiedSeller()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">person_check</span>
                     &nbsp; &nbsp; &nbsp; Verified Seller
                 </div>
             </a>
             <a role="button" (click)="renderverifySeller()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/cart_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">person_add</span>
                     &nbsp; &nbsp; &nbsp; Verify Seller
                 </div>
             </a>
             <a role="button" (click)="renderVerifiedProduct()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">assignment_turned_in</span>
                     &nbsp; &nbsp; &nbsp; Verified Product
                 </div>
             </a>
             <a role="button" (click)="renderVerifyProduct()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/cart_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">assignment_add</span>
                     &nbsp; &nbsp; &nbsp; Verify Product
                 </div>
             </a>
             <a role="button" (click)="renderDeliveryTrack()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">local_shipping</span>
                     &nbsp; &nbsp; &nbsp; Delivery Track
                 </div>
             </a>
             <a role="button" (click)="renderAddCategory()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">category</span>
                     &nbsp; &nbsp; &nbsp; Add Category
                 </div>
             </a>

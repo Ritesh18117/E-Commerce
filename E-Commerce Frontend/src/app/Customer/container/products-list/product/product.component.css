@@ -130,8 +130,8 @@
 
 .card {
   position: relative;
-  width: 11.875em;
-  height: 16.5em;
+  width: 14em;
+  height: 20em;
   box-shadow: 0px 1px 13px rgba(0,0,0,0.1);
   cursor: pointer;
   transition: all 120ms;
@@ -147,8 +147,8 @@
 
 .card:hover
 {
-  width: 12em;
-  height: 17em;
+  width: 15em;
+  height: 21em;
 }
 .card .title {
   font-family: "Roboto", sans-serif;
@@ -188,14 +188,9 @@
   max-width: 55px;
 }
 
-.image {
-  background: rgb(241, 241, 241);
-
-  /* height: 100%; */
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  place-items: center;
+img {
+  object-fit: cover;
+  padding:.5em;
 }
 
 .card:hover> .title

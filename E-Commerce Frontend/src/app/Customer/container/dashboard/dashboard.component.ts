@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,14 @@ export class DashboardComponent {
   profile:boolean = true;
   myOrders:boolean = false;
   myAddress:boolean =  false;
+  username: any;
+  token:any;
 
+  constructor(private userService:UserService){}
+
+  ngOnInit(){
+    this.getUsername();
+  }
   renderProfile(){
     this.profile = true;
     this.myAddress = false;
@@ -30,4 +38,16 @@ export class DashboardComponent {
     this.profile = false;
   }
 
+  getUsername(){
+    this.token = sessionStorage.getItem("token");
+    this.userService.getUsername(this.token).subscribe(
+      (data) => {
+        console.log(data);
+        this.username = data.name;
+      },
+      (error) => {
+        console.log("error",error);
+      }
+    )
+  }
 }

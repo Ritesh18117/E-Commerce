@@ -1,0 +1,37 @@
+.profile-nav:hover{
+    background-color: rgb(230, 230, 230);
+    cursor: pointer;
+}
+.avatar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.avatar-photo {
+    border-radius: 54px;
+}
+.user-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 500;
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  font-size: 30px;
+  text-align: right;
+}
+#align-items{
+    display: flex;
+    align-items: center;
+}
+*{
+    font-family: "Poppins", sans-serif;;
+}

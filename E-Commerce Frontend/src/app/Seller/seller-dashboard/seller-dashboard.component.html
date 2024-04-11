@@ -1,37 +1,42 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="container mt-4" style="min-height: 80vh;">
     <div class="row border">
         <div class="col-md-2 border p-2 pb-3">
             <div class="border-bottom p-1">
-                <img src="../../../assets/person_icon.png" class="img-fluid" alt="">
-            &nbsp; &nbsp; &nbsp; Hello Seller
+                <div class="avatar">
+                    <img src="../../../assets/person_logo.png" class="avatar-photo" height="108" width="108">
+                    </div>
+                    <div class="user-name">
+                        {{username}}
+                    </div>
             </div>
             <a (click)="renderProfile()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">store</span>
                     &nbsp; &nbsp; &nbsp; Company Info
                 </div>
             </a>
             <a (click)="renderDocuments()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/profile_icon.png" alt="" srcset="" class="img-fluid">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">description</span>
                     &nbsp; &nbsp; &nbsp; Documents
                 </div>
             </a>
-            <a (click)="renderAddShoes()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/order_icon.png" alt="" srcset="" class="img-fluid">
+            <a (click)="renderAddShoes()" class="sideNav text-decoration-none text-dark" >
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">box_add</span>
                     &nbsp; &nbsp; &nbsp; Add Items
                 </div>
             </a>
-            <a (click)="renderAddedItems()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/cart_icon.png" alt="" srcset="" class="img-fluid">
+            <a (click)="renderAddedItems()" class="sideNav text-decoration-none text-dark" >
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">box</span>
                     &nbsp; &nbsp; &nbsp; Added Items
                 </div>
             </a>
-            <a (click)="renderOrderTrack()" class="sideNav text-decoration-none text-dark">
-                <div class="p-2 mt-2 profile-nav">
-                    <img style="height: 30px; width: 30px;" src="../../../assets/cart_icon.png" alt="" srcset="" class="img-fluid">
+            <a (click)="renderOrderTrack()" class="sideNav text-decoration-none text-dark" >
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">local_shipping</span>
                     &nbsp; &nbsp; &nbsp; Track Order
                 </div>
             </a>

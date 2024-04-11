@@ -14,11 +14,13 @@
 <form action="" class="mt-4" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-6">
+            <h6>Company Name</h6>
             <input [disabled]="!editProfile" type="text" name="companyName" [value]="profile.companyName"
                 [(ngModel)]="profile.companyName" class="form-control form-control-lg" id="colFormLabelLg"
                 placeholder="Company Name">
         </div>
         <div class="col-6">
+            <h6>Contact Type</h6>
             <input [disabled]="!editProfile" type="text" name="c  ompanyType" [value]="profile.companyType"
                 [(ngModel)]="profile.companyType" class="form-control form-control-lg" id="colFormLabelLg"
                 placeholder="Type">
@@ -61,6 +63,6 @@
                 class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.website">
         </div>
     </div>
-    <button class="m-3 btn btn-secondary" (click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
-    <button class="m-3 btn btn-primary" *ngIf="editProfile">Submit</button>
+    <button class="mt-4 btn btn-secondary" (click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
+    <button class="mt-4 btn btn-primary" *ngIf="editProfile">Submit</button>
 </form>
