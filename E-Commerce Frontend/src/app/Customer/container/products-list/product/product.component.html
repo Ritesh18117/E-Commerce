@@ -1,11 +1,34 @@
-<div class="card m-3 card-hover" style="width: 18rem;" [routerLink]="['/product', product.product.id]">
-    <img [src]="convertToImage(product.product.image)" class="card-img-top" alt="..." id="img">
+<!-- <div class="card card-hover" [routerLink]="['/product', product.product.id]">
+    <img [src]="product.product.imageURL" class="card-img-top" alt="..." id="img">
     <div class="card-body">
         <h5 class="card-title">{{product.product.name}}</h5>
         <h5 class="price">₹{{product.product.price}}</h5>
         <hr>
-        <!-- <p class="card-text">{{product.product.description}}
-        </p> -->
-    </div>
-</div>
+
+    </div> -->
+    <!-- <div class="plan">
+		<div class="inner">
+			<span class="pricing">
+				<span>
+					₹{{product.product.price}} 
+				</span>
+			</span>
+            <img [src]="product.product.imageURL" class="card-img-top" alt="..." id="img">
+			<p class="info">{{product.product.name}}</p>
+
+			<div class="action">
+			<a class="button" >
+				{{product.product.description}}
+			</a>
+			</div>
+		</div>
+	</div> -->
+
+    <div class="card" [routerLink]="['/product', product.product.id]">
+        <div class="image"><img [src]="product.product.imageURL" class="card-img-top" alt="..." id="img"></div>
+          <span class="title">{{product.product.name}}</span>
+          <span class="price">₹{{product.product.price}} </span>
+        </div>
+
+        
 <router-outlet></router-outlet>

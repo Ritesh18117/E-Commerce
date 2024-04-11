@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #46e0d6">
+<!-- <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
     <div class="logo">
       <a class="navbar-brand" routerLink="/"><img class="logo" src="assets\logo.png" /></a>
@@ -16,7 +16,7 @@
           <li class="nav-item">
             <a *ngIf="role == ''" class="nav-link" routerLink="/auth/signup">Sign-up</a>
           </li>
-          <span *ngIf="role == 'ROLE_CUSTOMER'" class="greet-user">Hello {{username}} !</span>
+          <span *ngIf="role == 'ROLE_CUSTOMER'" class="greet-user">Hello {{username.name}}</span>
           <li class="nav-item">
             <a *ngIf="role == 'ROLE_CUSTOMER'" class="nav-link" routerLink="/dashboard"><span
                 class="material-symbols-outlined">
@@ -35,7 +35,7 @@
       </div>
 
       <ul class="navbar-nav">
-        <span *ngIf="role == 'ROLE_SELLER'" class="greet-user">Hello {{username}}</span>
+        <span *ngIf="role == 'ROLE_SELLER'" class="greet-user">Hello {{username.name}}</span>
         <li class="nav-item">
           <a *ngIf="role == 'ROLE_SELLER'" class="nav-link" routerLink="/seller/dashboard"><span
               class="material-symbols-outlined"> account_circle </span></a>
@@ -47,19 +47,19 @@
       </ul>
 
       <ul class="navbar-nav">
-        <span *ngIf="role == 'ROLE_ADMIN'" class="greet-user">Hello {{username}}</span>
+        <span *ngIf="role == 'ROLE_ADMIN'" class="greet-user">Hello {{username.name}}</span>
         <li class="nav-item">
           <a *ngIf="role == 'ROLE_ADMIN'" class="nav-link" routerLink="/admin/dashboard"><span
               class="material-symbols-outlined">account_circle</span></a>
         </li>
         <li class="nav-item">
           <a *ngIf="role == 'ROLE_ADMIN'" class="nav-link" routerLink="" (click)="Adminlogout()"><span
-              class="material-symbols-outlined">logout</span></a>
+              class="material-symbols-outlined">Logout</span></a>
         </li>
       </ul>
 
       <ul class="navbar-nav">
-        <span *ngIf="role == 'ROLE_SUPER_ADMIN'" class="greet-user">Hello {{username}}</span>
+        <span *ngIf="role == 'ROLE_SUPER_ADMIN'" class="greet-user">Hello {{username.name}}</span>
         <li class="nav-item">
           <a *ngIf="role == 'ROLE_SUPER_ADMIN'" class="nav-link" routerLink="/superAdmin/dashboard"><span
               class="material-symbols-outlined">account_circle</span></a>
@@ -71,5 +71,96 @@
       </ul>
     </div>
   </div>
-</nav>
+</nav> -->
+
+
+<!-- NEW -->
+
+
+
+
+<div class="container">
+  <header
+    class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <div class="col-md-3 mb-2 mb-md-0">
+      <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+        <!-- <img class="logo" src="assets\logo.png" /> -->
+        <span class="logo-text">Sikkim E-Commerce Portal</span>
+      </a>
+    </div>
+    <!-- customer -->
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" *ngIf="role == 'ROLE_CUSTOMER'">
+      <li><span *ngIf="role == 'ROLE_CUSTOMER'" id="greet-user">Hello {{username}}!</span></li>
+      <li><a href="/dashboard" class="nav-link px-2"><span class="material-symbols-outlined"> account_circle </span></a>
+      </li>
+      <li><a href="/cart" class="nav-link px-2"><span class="material-symbols-outlined"> shopping_cart </span></a></li>
+      <li><a href="#" class="nav-link px-2" (click)="logout()"><span class="material-symbols-outlined"> logout
+          </span></a></li>
+    </ul>
+    <!-- SELLER -->
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" *ngIf="role == 'ROLE_SELLER'">
+      <li><span *ngIf="role == 'ROLE_SELLER'" id="greet-user">Hello {{username}}!</span></li>
+      <li><a href="/seller/dashboard" class="nav-link px-2"><span class="material-symbols-outlined"> account_circle </span></a>
+      </li>
+      <li><a href="" class="nav-link px-2" (click)="Sellerlogout()"><span class="material-symbols-outlined">logout
+          </span></a></li>
+    </ul>
+
+
+    <!-- ADMIN -->
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" *ngIf="role == 'ROLE_ADMIN'">
+      <li><span *ngIf="role == 'ROLE_ADMIN'" id="greet-user">Hello {{username}}!</span></li>
+      <li><a href="/admin/dashboard" class="nav-link px-2"><span
+            class="material-symbols-outlined">account_circle</span></a></li>
+      <li><a href="" (click)="Adminlogout()" class="nav-link px-2"><span
+            class="material-symbols-outlined">Logout</span></a></li>
+    </ul>
+
+    <!-- SUPER ADMIN -->
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" *ngIf="role == 'ROLE_SUPER_ADMIN'">
+      <li><span *ngIf="role == 'ROLE_SUPER_ADMIN'" id="greet-user">Hello {{username}}!</span></li>
+      <li><a href="superAdmin/dashboard" class="nav-link px-2"><span
+            class="material-symbols-outlined">account_circle</span></a></li>
+      <li><a href="" (click)="Adminlogout()" class="nav-link px-2"><span
+            class="material-symbols-outlined">Logout</span></a></li>
+    </ul>
+
+
+
+
+
+    <!-- LOGIN SIGNUP -->
+
+
+
+
+    <div class="col-md-3 text-end" *ngIf="role == ''">
+      <!-- <button type="button" class="btn btn-primary me-2" routerLink="/auth/login">Login</button>
+      <button type="button" class="btn btn-primary" routerLink="/auth/signup">Sign-up</button>
+     -->
+      <button routerLink="/auth/login">
+        <span>LOGIN</span>
+      </button>
+
+      <button routerLink="/auth/signup">
+        <span>SIGN-UP</span>
+      </button>
+    </div>
+
+
+  </header>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <router-outlet></router-outlet>
