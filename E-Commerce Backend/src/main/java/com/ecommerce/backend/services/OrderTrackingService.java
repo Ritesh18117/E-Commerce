@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.sql.Date;
@@ -55,11 +56,11 @@ public class OrderTrackingService {
         }
     }
 
-    public ResponseEntity<List<OrderTracking>> getMyOrderTracking(@RequestHeader(value = "Authorization") String authorizationHeader){
+    public ResponseEntity<List<OrderTracking>> getMyOrderTracking(@RequestHeader(value = "Authorization") String authorizationHeader,int count){
         try{
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Seller seller = sellerRepository.findByUserId(userId);
-            List<OrderTracking> orderTracings = orderTrackingRepository.findAllBySellerId(seller.getId());
+            List<OrderTracking> orderTracings = orderTrackingRepository.getAllBySellerId(seller.getId(),count,count-1);
             for (OrderTracking ot : orderTracings) {
                 ot.getOrder().getCustomer().setUser(null);
                 ot.getOrder().getProductVariation().getProduct().setSeller(null);
@@ -220,6 +221,27 @@ public class OrderTrackingService {
                 }
             }
         } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public ResponseEntity<List<OrderTracking>> getMyOrderTrackingByStatus(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable String status, @PathVariable int count){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Seller seller = sellerRepository.findByUserId(userId);
+
+            List<OrderTracking> orderTracings = orderTrackingRepository.getBySellerIdAndStatus(seller.getId(),status,count,count-1);
+            System.out.println(orderTracings.size());
+            for (OrderTracking ot : orderTracings) {
+                ot.getOrder().getCustomer().setUser(null);
+                ot.getOrder().getProductVariation().getProduct().setSeller(null);
+                ot.getOrder().getProductVariation().getProduct().setVerifiedBy(null);
+                ot.getSeller().setUser(null);
+                ot.getSeller().setVerifiedBy(null);
+            }
+            return ResponseEntity.of(Optional.of(orderTracings));
+        }catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

@@ -13,12 +13,23 @@ export class OrderTrackingService {
   private getAllOrderTrackingURL = "/api/orderTracking/getAll";
   private sendAlertURL = "/api/orderTracking/sendAlert";
   private cancelOrderURL = "/api/orderTracking/cancelOrder";
+  private getMyOrderTrackingByStatusURL = "/api/orderTracking/getMyOrderTrackingByStatus";
 
   constructor(private http:HttpClient) { }
 
-  getMyOrderTracking(token:string):Observable<any>{
+  // getMyOrderTracking(token:string):Observable<any>{
+  //   const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+  //   return this.http.get<any>(this.myOrderTrackingURL, {headers});
+  // }
+
+  getMyOrderTracking(token:string,count:number):Observable<any>{
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
-    return this.http.get<any>(this.myOrderTrackingURL, {headers});
+    return this.http.get<any>(`${this.myOrderTrackingURL}/${count}`, {headers});
+  }
+
+  getMyOrderTrackingByStatus(token:string,status:string,count:number):Observable<any>{
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(`${this.getMyOrderTrackingByStatusURL}/${status}/${count}`, {headers});
   }
 
   changeStatus(token:string,orderTrackingId:number,status:string):Observable<any>{

@@ -354,6 +354,12 @@ public class SellerService {
                     seller.setLicenceDocument(licenceDocumentBase64);
                 }
 
+                if(seller.getVerifiedBy() != null) {
+                    Optional<Admin> admin = adminRepository.findById(seller.getVerifiedBy().getId());
+                    admin.get().getVerifiedSellers().remove(seller.getId());
+                    adminRepository.save(admin.get());
+                }
+
                 seller.setVerifiedBy(null);
                 seller.setApprovalStatus("false");
                 sellerRepository.save(seller);
