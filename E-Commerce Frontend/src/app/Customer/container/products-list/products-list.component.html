@@ -5,5 +5,12 @@
     <ng-container *ngFor="let product of products" >
         <app-product [product]="product"></app-product>
     </ng-container>
-    <button type="button" class="btn btn-primary" (click)="addApprovedProducts()">Next</button>
+
 </div>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<div class="align"><button type="button" class="button" (click)="addApprovedProducts()">  <span class="material-symbols-outlined svgIcon">
+    expand_more
+    </span></button></div>
+
+
