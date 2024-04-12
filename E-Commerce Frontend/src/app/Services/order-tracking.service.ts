@@ -14,13 +14,14 @@ export class OrderTrackingService {
   private sendAlertURL = "/api/orderTracking/sendAlert";
   private cancelOrderURL = "/api/orderTracking/cancelOrder";
   private getMyOrderTrackingByStatusURL = "/api/orderTracking/getMyOrderTrackingByStatus";
+  private getOrderTrackingByOrderStatusURL = "/api/orderTracking/getAllOrderTrackingByOrderStatus"
 
   constructor(private http:HttpClient) { }
 
-  // getMyOrderTracking(token:string):Observable<any>{
-  //   const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
-  //   return this.http.get<any>(this.myOrderTrackingURL, {headers});
-  // }
+  getOrderTrackingByOrderStatus(token:string,status:string,count:number):Observable<any>{
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<any>(`${this.getOrderTrackingByOrderStatusURL}/${status}/${count}`, {headers});
+  }
 
   getMyOrderTracking(token:string,count:number):Observable<any>{
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);

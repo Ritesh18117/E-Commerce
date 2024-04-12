@@ -36,6 +36,7 @@
             <th scope="col">Quantity</th>
             <th scope="col">Shipping Address</th>
             <th scope="col">Order Status</th>
+            <th scope="col">Ordered Date</th>
             <th scope="col">Status Date</th>
             <th scope="col">Status Change</th>
         </tr>
@@ -56,6 +57,7 @@
                         {{myOrderTracing.order.address.city}}, {{myOrderTracing.order.address.status}}
                         {{myOrderTracing.order.address.country}}, {{myOrderTracing.order.address.zipcode}}</td>
                     <td>{{myOrderTracing.status}}</td>
+                    <td>{{formatDate(myOrderTracing.createdAt)}}</td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
                         Not Applicable
@@ -76,6 +78,7 @@
                         {{myOrderTracing.order.address.city}}, {{myOrderTracing.order.address.status}}
                         {{myOrderTracing.order.address.country}}, {{myOrderTracing.order.address.zipcode}}</td>
                     <td>{{myOrderTracing.status}}  <br> <span *ngIf="myOrderTracing.alert == 'true'" style="background-color: red; color: white;">Alert Send By Admin</span></td>
+                    <td>{{formatDate(myOrderTracing.createdAt)}}</td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
                         <ng-container *ngIf="myOrderTracing.status == 'ORDER_PLACED'">
@@ -143,6 +146,7 @@
                         {{myOrderTracing.order.address.city}}, {{myOrderTracing.order.address.status}}
                         {{myOrderTracing.order.address.country}}, {{myOrderTracing.order.address.zipcode}}</td>
                     <td>{{myOrderTracing.status}}</td>
+                    <td>{{formatDate(myOrderTracing.createdAt)}}</td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
 
                     <td width="300px">
@@ -218,6 +222,7 @@
                         {{myOrderTracing.order.address.city}}, {{myOrderTracing.order.address.status}}
                         {{myOrderTracing.order.address.country}}, {{myOrderTracing.order.address.zipcode}}</td>
                     <td>{{myOrderTracing.status}}</td>
+                    <td>{{formatDate(myOrderTracing.createdAt)}}</td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
                     <td>
                         Not Applicable
