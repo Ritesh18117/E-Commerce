@@ -119,9 +119,9 @@ public class ProductController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/getAllMyRejectedProducts")
-    public ResponseEntity<List<Product>> getAllRejectedProducts(@RequestHeader(value = "Authorization") String authorizationHeader){
-        return productService.getAllMyRejectedProducts(authorizationHeader);
+    @GetMapping("/getAllMyRejectedProducts/{count}")
+    public ResponseEntity<List<Product>> getAllRejectedProducts(@RequestHeader(value = "Authorization") String authorizationHeader,@PathVariable int count){
+        return productService.getAllMyRejectedProducts(authorizationHeader,count);
     }
 }
 

@@ -13,8 +13,7 @@ export class VerifiedProductComponent {
   token:any;
   productVerifiedList:any[] = [];
   searchValue:any;
-  searchType:string = "all";
-
+  searchType:string = "approvedProduct";
 
   approvedProducts:any[] = [];
   rejectedProducts:any[] = [];
@@ -22,28 +21,26 @@ export class VerifiedProductComponent {
   approvedProductCount = 1;
   rejectedProductCount = 1;
 
-
   constructor(private _productService:ProductServiceService,
               private _categoryService:CategoryService){}
 
   ngOnInit(){
     this.token = sessionStorage.getItem('token');
-    this.getMyProductVerifiedList();
+    this.getMyApprovedProducts();
   }
 
-  getMyProductVerifiedList(){
-    this._productService.getMyProductVerifyList(this.token).subscribe(
-      (data) =>{
-        console.log(data);
-        this.productVerifiedList = data;
-      }, (error) =>{
-        console.error("ERROR!!",error);
-      }
-    )
-  }
+  // getMyProductVerifiedList(){
+  //   this._productService.getMyProductVerifyList(this.token).subscribe(
+  //     (data) =>{
+  //       console.log(data);
+  //       this.productVerifiedList = data;
+  //     }, (error) =>{
+  //       console.error("ERROR!!",error);
+  //     }
+  //   )
+  // }
 
-  addMyApprovedProducts(){
-    this.approvedProductCount++;
+  getMyApprovedProducts(){
     this._productService.getApprovedProducts(this.approvedProductCount).subscribe(
       (data) =>{
         console.log(data);
@@ -56,49 +53,51 @@ export class VerifiedProductComponent {
       }
     )
   }
+  addMyApprovedProducts(){
+    this.approvedProductCount++;
+    this.getMyApprovedProducts();
+  }
 
   getMyRejectedProducts(){
-    this._productService.getAllMyRejectedProducts(this.token).subscribe(
+    this._productService.getAllMyRejectedProducts(this.token,this.rejectedProductCount).subscribe(
       (data) =>{
-        this.productVerifiedList = data;
+        this.rejectedProducts = this.rejectedProducts.concat(data);
+        this.productVerifiedList = this.rejectedProducts;
       }, (error) =>{
         console.error(error);
       }
     )
   }
+  addMyRejectedProducts(){
+    this.rejectedProductCount++;
+    this.getMyRejectedProducts();
+  }
+
+  next(){
+    if(this.searchType == "approvedProduct"){
+      this.addMyApprovedProducts();
+    } else if(this.searchType == "rejectedProduct"){
+      this.addMyRejectedProducts();
+    }
+  }
 
   filter(){
-    if(this.searchType == "all"){
-      this.getMyProductVerifiedList();
-    }
-    else if(this.searchType == "approvedProduct"){
-      this._productService.getApprovedProducts(this.approvedProductCount).subscribe(
-        (data) =>{
-          console.log(data);
-          // let products: any[] = [];
-          for(let product of data){
-            this.approvedProducts.push(product.product);
-          }
-          this.productVerifiedList = this.approvedProducts;
-        }, (error) =>{
-          console.error(error);
-        }
-      )
+    if(this.searchType == "approvedProduct"){
+      this.productVerifiedList = this.approvedProducts;
     } else if(this.searchType == "rejectedProduct"){
-      this._productService.getAllMyRejectedProducts(this.token).subscribe(
-        (data) =>{
-          this.productVerifiedList = data;
-        }, (error) =>{
-          console.error(error);
-        }
-      )
+      if(this.rejectedProducts.length > 0){
+        this.productVerifiedList = this.rejectedProducts;
+      } else{
+        this.getMyRejectedProducts();
+      }
     }
   }
 
   search(){
     if(this.searchType == "productId"){
       this._productService.getProductById(this.searchValue).subscribe(
-        (data) =>{      
+        (data) =>{   
+          console.log(data);
           let product:any[] = [];
           product.push(data[0].product)
           this.productVerifiedList = product;
@@ -106,16 +105,18 @@ export class VerifiedProductComponent {
           console.error(error);
         }
       )
-    } else if(this.searchType == "category"){
+    } 
+    // else if(this.searchType == "category"){
       
-    }
+    // }
   }
 
   revoke(productId:number){
     this._productService.revokeProductVerify(this.token,productId).subscribe(
       (data) =>{
         console.log(data);
-        this.getMyProductVerifiedList();
+        // this.getMyProductVerifiedList();
+        // if(this.searchType)
       }, (error) =>{
         console.error("ERROR",error);
       }
