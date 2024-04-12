@@ -1,11 +1,11 @@
 .add-remove{
     border: 1px solid rgb(77, 75, 78);
     border-radius: 50%;
-    width: 45px;
+    width: 30px;
     background-color: rgb(77, 75, 78);
     color:white;
-    font-size:20px;
-
+    font-size:12.5px;
+    font-weight: bold;
     /* background-image:linear-gradient(to right,,#602A5C); */
 
 }
@@ -37,4 +37,7 @@
     color:white;
     border: 0.5px solid #045386;
     padding: 10px;
+}
+#priceDetails{
+    font-family: 'Poppins';
 }
