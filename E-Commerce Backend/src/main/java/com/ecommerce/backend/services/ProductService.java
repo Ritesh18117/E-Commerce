@@ -3,17 +3,12 @@ package com.ecommerce.backend.services;
 import com.ecommerce.backend.dao.*;
 import com.ecommerce.backend.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
@@ -21,13 +16,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 @Component
 public class ProductService {
@@ -136,6 +124,13 @@ public class ProductService {
             }
 
             existingProduct.setApprovalStatus("false");
+            existingProduct.setVerifiedBy(null);
+
+            Optional<Admin> admin = adminRepository.findById(seller.getVerifiedBy().getId());
+            if(admin.isPresent()){
+                admin.get().removeProduct(existingProduct.getId());
+                adminRepository.save(admin.get());
+            }
 
             Product savedProduct = productRepository.save(existingProduct);
             return ResponseEntity.ok(savedProduct);
@@ -383,6 +378,7 @@ public class ProductService {
                 product.get().setVerifiedBy(null);
                 product.get().setApprovalStatus("false");
                 admin.removeProduct(productId);
+                adminRepository.save(admin);
                 productRepository.save(product.get());
                 Map<String,String> output = new HashMap<>();
                 output.put("Message","Successfully Revoked");

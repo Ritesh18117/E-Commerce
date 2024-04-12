@@ -46,7 +46,7 @@ export class OrderTrackComponent {
     this.activeState = "orderPlaced";
     this._orderTracking.getMyOrderTrackingByStatus(this.token,"ORDER_PLACED",this.orderPlacedCount).subscribe(
       (data) => {
-        // console.log(data);
+        console.log(data);
         this.orderPlacedOrderTracking = this.orderPlacedOrderTracking.concat(data);
         this.myOrderTracking = this.orderPlacedOrderTracking;
         for (let ot of this.myOrderTracking) {

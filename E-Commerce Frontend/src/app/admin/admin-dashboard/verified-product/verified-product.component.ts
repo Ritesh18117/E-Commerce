@@ -11,9 +11,16 @@ import { ProductServiceService } from 'src/app/Services/product-service.service'
 export class VerifiedProductComponent {
 
   token:any;
-  productVerifiedList:any;
+  productVerifiedList:any[] = [];
   searchValue:any;
   searchType:string = "all";
+
+
+  approvedProducts:any[] = [];
+  rejectedProducts:any[] = [];
+
+  approvedProductCount = 1;
+  rejectedProductCount = 1;
 
 
   constructor(private _productService:ProductServiceService,
@@ -35,13 +42,27 @@ export class VerifiedProductComponent {
     )
   }
 
-  revoke(productId:number){
-    this._productService.revokeProductVerify(this.token,productId).subscribe(
+  addMyApprovedProducts(){
+    this.approvedProductCount++;
+    this._productService.getApprovedProducts(this.approvedProductCount).subscribe(
       (data) =>{
         console.log(data);
-        this.getMyProductVerifiedList();
+        for(let product of data){
+          this.approvedProducts.push(product.product);
+        }
+        this.productVerifiedList = this.approvedProducts;
       }, (error) =>{
-        console.error("ERROR",error);
+        console.error(error);
+      }
+    )
+  }
+
+  getMyRejectedProducts(){
+    this._productService.getAllMyRejectedProducts(this.token).subscribe(
+      (data) =>{
+        this.productVerifiedList = data;
+      }, (error) =>{
+        console.error(error);
       }
     )
   }
@@ -51,13 +72,14 @@ export class VerifiedProductComponent {
       this.getMyProductVerifiedList();
     }
     else if(this.searchType == "approvedProduct"){
-      this._productService.getApprovedProducts(1).subscribe(
+      this._productService.getApprovedProducts(this.approvedProductCount).subscribe(
         (data) =>{
-          let products: any[] = [];
+          console.log(data);
+          // let products: any[] = [];
           for(let product of data){
-            products.push(product.product);
+            this.approvedProducts.push(product.product);
           }
-          this.productVerifiedList = products;
+          this.productVerifiedList = this.approvedProducts;
         }, (error) =>{
           console.error(error);
         }
@@ -76,7 +98,7 @@ export class VerifiedProductComponent {
   search(){
     if(this.searchType == "productId"){
       this._productService.getProductById(this.searchValue).subscribe(
-        (data) =>{
+        (data) =>{      
           let product:any[] = [];
           product.push(data[0].product)
           this.productVerifiedList = product;
@@ -87,6 +109,17 @@ export class VerifiedProductComponent {
     } else if(this.searchType == "category"){
       
     }
+  }
+
+  revoke(productId:number){
+    this._productService.revokeProductVerify(this.token,productId).subscribe(
+      (data) =>{
+        console.log(data);
+        this.getMyProductVerifiedList();
+      }, (error) =>{
+        console.error("ERROR",error);
+      }
+    )
   }
 
   convertToImage(image:any) {
