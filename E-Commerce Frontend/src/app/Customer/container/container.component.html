@@ -27,4 +27,28 @@
     <app-Search (searchItem)="searchReceive($event)"></app-Search>
     <app-products-list #productListComponent [searchValue]="searchValue"></app-products-list>
 </div>
+
+
+<!-- sell with us -->
+<div class="p-5 text-center bg-body-tertiary rounded-3 mt-5" *ngIf="role == 'ROLE_CUSTOMER'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="60"  fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0m-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+  </svg>  <h1 class="text-body-emphasis mt-3">Sell With Us</h1>
+  <p class="col-lg-8 mx-auto fs-5 text-muted">
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi aspernatur assumenda, et harum dignissimos alias incidunt maxime, fugit fugiat aliquid facere, asperiores illo voluptatem in pariatur quae? In, sed reprehenderit.
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas ad tempore ea doloribus dicta et, reiciendis numquam quod dolores beatae asperiores nulla ullam excepturi earum delectus ut maxime laboriosam. Ullam!
+  </p>
+  <div class="d-inline-flex gap-2 mb-5" >
+    <a href="/seller/signup">
+    <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button" >
+      Sell With Us  <svg xmlns="http://www.w3.org/2000/svg" width="24"  fill="currentColor" class="bi bi-bag-check-fill ms-2 pb-1 " viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0m-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+      </svg>
+    </button>
+    </a>
+    <!-- <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
+      Secondary link
+    </button> -->
+  </div>
+</div>
 <router-outlet></router-outlet>

@@ -13,8 +13,26 @@ export class ContainerComponent {
   cardItems: cardItem[] = [];
   searchValue:string = "";
 
+  
+
+
   searchReceive(searchValue:string){
     this.searchValue = searchValue; 
+  }
+
+
+
+  role:string = "" ;
+  ngAfterContentChecked(){
+    if(sessionStorage.getItem('role') !== null){
+      const storedRole = sessionStorage.getItem('role');
+      if(storedRole !== null){
+        this.role = storedRole;
+      }else{
+        console.log("Error from nav-comp!!!");
+        this.role = "";
+      }
+    }
   }
 
 }
