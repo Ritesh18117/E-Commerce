@@ -1,8 +1,8 @@
 <div class="container" style="min-height: 80vh;">
+    <h2>Your Cart</h2>
+    <br>
     <div class="row m-4">
-        <div *ngIf="cardItems.length > 0" class="col-md-8 border" >
-            <br>
-            <h2>Your Cart</h2>
+        <div *ngIf="cardItems.length> 0" class="col-md-8 ">
             <!-- 80% width -->
             <div class="row border" *ngFor="let item of cardItems; let i=index;">
                 <div class="col-md-3 mt-4 m-3">
@@ -11,78 +11,83 @@
                 <div class=" row col-md-8 mt-4 m-3 p-1">
                     <div class="col-7">
                         {{item.product.name}}
-                        <p>Color : {{item.product.color}} &nbsp; &nbsp; | &nbsp; &nbsp;Size : {{item.productVariation.size}}</p>
-                        <p style="color: green;">Price - ₹{{item.product.price}} &nbsp; | &nbsp; Discount : ₹{{(item.product.discount * item.product.price)/100 }}</p>
+                        <p>Color : {{item.product.color}} &nbsp; &nbsp; | &nbsp; &nbsp;Size :
+                            {{item.productVariation.size}}</p>
+                        <p style="color: green;">Price - ₹{{item.product.price}} &nbsp; | &nbsp; Discount :
+                            ₹{{(item.product.discount * item.product.price)/100 }}</p>
                     </div>
                     <div class="col-5">
                         Delivery Expected 10-10-2023
                     </div>
                     <div class="row">
                         <div class="col-md-10">
-                            <button class="add-remove p-2" (click)="minus(item)"> - </button> <div class="border p-2 m-1" style="display: inline-block;">&nbsp; {{item.quantity}} &nbsp;</div> <button (click)="plus(item)" class=" add-remove p-2"> + </button>
+                            <button class="add-remove p-2" (click)="minus(item)"> - </button>
+                            <div class="border p-2 m-1" style="display: inline-block;">&nbsp; {{item.quantity}} &nbsp;
+                            </div> <button (click)="plus(item)" class=" add-remove p-2"> + </button>
                         </div>
                         <div class="col-md-2">
-                            <button (click)="removeItem(item.id)" class="mt-3 btn btn-danger">Remove</button>
+                            <button (click)="removeItem(item.id)" class="mt-3 btn btn-outline-danger">Remove</button>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-        
-        <div *ngIf="cardItems.length == 0" class="go-to-home"id="go-to-home">
+
+        <div *ngIf="cardItems.length == 0" class="go-to-home" id="go-to-home">
             <img src="https://www.99fashionbrands.com/wp-content/uploads/2020/12/empty_cart.png">
             <p>Looks like you haven't added anything to your cart yet!</p>
             <button routerLink="/" class="btn btn-outline-dark">Back to Home</button>
         </div>
 
 
-        <div *ngIf="cardItems.length > 0" class="col-md-4 border" id="#price">
+        <div *ngIf="cardItems.length > 0" class="col-md-4 border" id="priceDetails">
             <!-- 20% width -->
-            <div class="border-bottom p-3">
+            <div class="border-bottom p-3" style="font-family: 'Poppins';">
                 PRICE DETAILS
             </div>
             <div class="m-2 border-bottom">
                 <div class="price row p-2">
-                    <div class="col-8 ">
+                    <div class="col-8 " style="font-family: 'Poppins';">
                         Price({{totalQuantity}} item)
                     </div>
-                    <div class="col-4">
+                    <div class="col-4" style="font-family: 'Poppins';">
                         &nbsp; &nbsp;₹{{total}}
                     </div>
                 </div>
                 <div class="discount row p-2 ">
-                    <div class="col-8">
+                    <div class="col-8" style="font-family: 'Poppins';">
                         Discount
                     </div>
-                    <div class="col-4">
+                    <div class="col-4" style="font-family: 'Poppins';">
                         - ₹{{discount}}
                     </div>
                 </div>
-                <div class="delivery row p-2">
+                <div class="delivery row p-2" style="font-family: 'Poppins';">
                     <div class="col-8">
                         Delivery Changes
                     </div>
-                    <div class="col-4" style="color: green;">
+                    <div class="col-4" style="color: green;" style="font-family: 'Poppins';">
                         &nbsp; &nbsp;₹49
                     </div>
                 </div>
             </div>
             <div class="p-3">
-                <div class="border-bottom row pb-3">
+                <div class="border-bottom row pb-3" style="font-family: 'Poppins';">
                     <div class="col-8">
                         Total Amount
                     </div>
-                    <div class="col-4">
+                    <div class="col-4" style="font-family: 'Poppins';">
                         &nbsp; &nbsp;₹{{total - discount + delivery}}
                     </div>
                 </div>
             </div>
-            <div class="m-3" style="color: green;">
+            <div class="m-3" style="color: green;" style="font-family: 'Poppins';">
                 You will save ₹{{discount}} in this order
             </div>
             <div>
-                <button [disabled]="cardItems.length === 0" routerLink="/placeOrder" class="m-3 p-3 place-order">PLACE ORDER</button>
+                <button [disabled]="cardItems.length === 0" routerLink="/placeOrder" class="btn btn-outline-success m-3 p-3">PLACE
+                    ORDER</button>
             </div>
         </div>
     </div>
