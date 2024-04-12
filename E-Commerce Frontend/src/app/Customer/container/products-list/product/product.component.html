@@ -26,10 +26,16 @@
 
     <div class="card" [routerLink]="['/product', product.product.id]">
         <div class="image">
+					<span class="pricing">
+						<span>
+							{{product.product.discount}}% Off
+						</span>
+					</span>
 					<img [src]="convertToImage(product.product.image)" class="card-img-top" alt="..." id="img">
 				</div>
           <span class="title">{{product.product.name}}</span>
           <span class="price">₹{{product.product.price}} </span>
+					<span class="dis-price">₹{{product.product.price-((product.product.discount/100)*product.product.price)}} </span>
     </div>
 
 <router-outlet></router-outlet>

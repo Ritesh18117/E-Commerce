@@ -10,20 +10,22 @@
                 </div>
                 <div class=" row col-md-8 mt-4 m-3 p-1">
                     <div class="col-7">
+                        <div class="prod-name">
                         {{item.product.name}}
+                        </div>
                         <p>Color : {{item.product.color}} &nbsp; &nbsp; | &nbsp; &nbsp;Size :
                             {{item.productVariation.size}}</p>
                         <p style="color: green;">Price - ₹{{item.product.price}} &nbsp; | &nbsp; Discount :
                             ₹{{(item.product.discount * item.product.price)/100 }}</p>
                     </div>
-                    <div class="col-5">
-                        Delivery Expected 10-10-2023
+                    <div class="col-5" id="delivery-expected">
+                        Expected Delivery by: 10-10-2023
                     </div>
                     <div class="row">
                         <div class="col-md-10">
-                            <button class="add-remove p-2" (click)="minus(item)"> - </button>
-                            <div class="border p-2 m-1" style="display: inline-block;">&nbsp; {{item.quantity}} &nbsp;
-                            </div> <button (click)="plus(item)" class=" add-remove p-2"> + </button>
+                            <button class="add-remove" (click)="minus(item)"><span class="add-remove-text">-</span></button>
+                            <div class="quant-display">{{item.quantity}}
+                            </div> <button (click)="plus(item)" class=" add-remove"><span class="add-remove-text">+</span></button>
                         </div>
                         <div class="col-md-2">
                             <button (click)="removeItem(item.id)" class="mt-3 btn btn-outline-danger">Remove</button>
@@ -82,12 +84,11 @@
                     </div>
                 </div>
             </div>
-            <div class="m-3" style="color: green;" style="font-family: 'Poppins';">
-                You will save ₹{{discount}} in this order
+            <div class="m-3" style="color: green;font-family: 'Poppins';text-decoration: underline;">
+                You will save ₹{{discount}} on this order !
             </div>
             <div>
-                <button [disabled]="cardItems.length === 0" routerLink="/placeOrder" class="btn btn-outline-success m-3 p-3">PLACE
-                    ORDER</button>
+                <button [disabled]="cardItems.length === 0" routerLink="/placeOrder" class="btn btn-outline-success m-3 p-3">CHECKOUT</button>
             </div>
         </div>
     </div>

@@ -63,6 +63,6 @@
                 class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.website">
         </div>
     </div>
-    <button class="mt-4 btn btn-secondary" (click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
-    <button class="mt-4 btn btn-primary" *ngIf="editProfile">Submit</button>
+    <button class="mt-4 btn btn btn-outline-dark"(click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
+    <button class="mt-4 btn btn-outline-success" *ngIf="editProfile">Submit</button>
 </form>

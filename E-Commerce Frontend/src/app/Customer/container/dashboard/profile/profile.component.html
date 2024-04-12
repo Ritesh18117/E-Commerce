@@ -22,16 +22,16 @@
     <div class="m-2 pt-4">
         <h6 class="mb-3">Your Gender</h6>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="male">
+            <input  [disabled]="!editProfile" class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="male">
             <label class="form-check-label" for="inlineRadio1">Male</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female">
+            <input  [disabled]="!editProfile" class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female">
             <label class="form-check-label" for="inlineRadio2">Female</label>
         </div>
     </div>
-    <button class="mt-4 btn btn-secondary" (click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
-    <button class="mt-4 btn btn-primary" *ngIf="editProfile">Submit</button>
+    <button class="mt-4 btn btn btn-outline-dark"(click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
+    <button class="mt-4 btn btn-outline-success" *ngIf="editProfile">Submit</button>
 </form>
 </div>
 <!-- <h2>Personal Information</h2>

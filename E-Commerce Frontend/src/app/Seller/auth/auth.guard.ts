@@ -6,6 +6,7 @@ export const sellerAuthGuard: CanActivateFn = (route, state) => {
   const token = sessionStorage.getItem('token');
   const isLoggedIn = "true";
   const url = state.url;
+  const role = sessionStorage.getItem("role");
 
   // For Redirecting Page to Dashboard if User if Loggedin
   if(url === '/seller/login'){
@@ -19,7 +20,7 @@ export const sellerAuthGuard: CanActivateFn = (route, state) => {
 
     // For Redirecting Page to Dashboard if User if Loggedin
   if(url === '/seller/signup'){
-    if(token === null){
+    if(token === null || role == "ROLE_CUSTOMER" ){
       return true;
     }else{
       _router.navigate(['/seller/dashboard']);

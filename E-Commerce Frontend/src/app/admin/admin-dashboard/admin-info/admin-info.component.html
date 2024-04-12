@@ -33,6 +33,6 @@
                     placeholder="" >
         </div>
     </div>
-    <button *ngIf="!editProfile" class="mt-4 btn btn-secondary" (click)="editProfileMethod()">Edit Profile</button>
-    <button *ngIf="editProfile" class="mt-4 btn btn-primary">Submit</button>
+    <button class="mt-4 btn btn btn-outline-dark"(click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
+    <button class="mt-4 btn btn-outline-success" *ngIf="editProfile">Submit</button>
 </form>

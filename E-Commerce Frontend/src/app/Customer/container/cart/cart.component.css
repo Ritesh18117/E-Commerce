@@ -1,19 +1,18 @@
 .add-remove{
-    border: 1px solid rgb(77, 75, 78);
-    border-radius: 50%;
+    border: none;
     width: 30px;
-    background-color: rgb(77, 75, 78);
-    color:white;
-    font-size:12.5px;
-    font-weight: bold;
+    background-color:rgb(241, 241, 241); 
+    padding: 8px;
+    border-radius: 3px;
     /* background-image:linear-gradient(to right,,#602A5C); */
-
 }
-.add-remove:hover{
-    /* background-color: #602A5C; */
-    opacity: 0.9;
+.add-remove-text{
+    opacity: 1; /* Fully opaque */
+    transition: opacity 0.3s ease-in-out;
 }
-
+.add-remove-text:hover{
+    opacity: 0.6;
+}
 .place-order{
     background-color: #368422;
     color:white;
@@ -38,6 +37,17 @@
     border: 0.5px solid #045386;
     padding: 10px;
 }
-#priceDetails{
-    font-family: 'Poppins';
+.prod-name{
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+#delivery-expected{
+    font-size: 14px;
+}
+.quant-display{
+    text-align: center;
+    display: inline-block; 
+    background-color:rgb(241, 241, 241); 
+    width: 60px;
+    padding:8px;
 }
