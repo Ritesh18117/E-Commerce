@@ -83,9 +83,9 @@ export class ProductServiceService {
     return this.http.patch<any>(this.updateProductURL, formData, { headers });
   }
 
-  getAllMyRejectedProducts(token:any){
+  getAllMyRejectedProducts(token:any,count:number){
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
-    return this.http.get<any>(this.getAllMyRejectedProductsURL, { headers });
+    return this.http.get<any>(`${this.getAllMyRejectedProductsURL}/${count}`, { headers });
   }
   
 }

@@ -261,9 +261,10 @@ public class ProductService {
                 Map<String, Object> productGroup = new HashMap<>();
                 Optional<Product> product = productRepository.findById(Long.valueOf(entry.getKey()));
 
-                if(product.isPresent() && Objects.equals(product.get().getApprovalStatus(), "true")){
+                if(product.isPresent()){
                     product.get().setSeller(null);
 //                    product.get().setMargin(null);
+                    product.get().setVerifiedBy(null);
                     productGroup.put("product", product);
                     productGroup.put("size_quan", entry.getValue());
 
@@ -448,14 +449,14 @@ public class ProductService {
         }
     }
 
-    public ResponseEntity<List<Product>> getAllMyRejectedProducts(@RequestHeader(value = "Authorization") String authorizationHeader){
+    public ResponseEntity<List<Product>> getAllMyRejectedProducts(@RequestHeader(value = "Authorization") String authorizationHeader,int count){
         try{
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
             Admin admin = adminRepository.findByUserId(userId);
             if(Objects.equals(admin,null)){
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             } else {
-                List<Product> products = productRepository.findAllByApprovalStatusAndVerifiedById("rejected",admin.getId());
+                List<Product> products = productRepository.findAllRejectedProductsAndVerifiedById(admin.getId(),count,count-1);
                 if(products.isEmpty()){
                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
                 } else{
