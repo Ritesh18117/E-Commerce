@@ -56,6 +56,33 @@ public class OrderTrackingService {
         }
     }
 
+    public ResponseEntity<List<OrderTracking>> getAllByOrderTrackingStatus(@RequestHeader(value = "Authorization") String authorizationHeader,String status,int count){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+            if(!Objects.equals(admin,null)){
+                if(Objects.equals(admin.getStatus(),"Active")){
+                    List<OrderTracking> orderTracings = orderTrackingRepository.getByStatusPageBreak(status,count,count-1);
+                    for (OrderTracking ot : orderTracings) {
+                        ot.getOrder().getCustomer().setUser(null);
+                        ot.getOrder().getProductVariation().getProduct().setSeller(null);
+                        ot.getOrder().getProductVariation().getProduct().setVerifiedBy(null);
+                        ot.getSeller().setUser(null);
+                        ot.getSeller().setVerifiedBy(null);
+                    }
+                    return ResponseEntity.of(Optional.of(orderTracings));
+                } else{
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+                }
+            } else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     public ResponseEntity<List<OrderTracking>> getMyOrderTracking(@RequestHeader(value = "Authorization") String authorizationHeader,int count){
         try{
             Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);

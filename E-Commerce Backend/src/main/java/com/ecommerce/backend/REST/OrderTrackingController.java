@@ -6,6 +6,7 @@ import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,11 @@ public class OrderTrackingController {
     @GetMapping("/getAll")
     public ResponseEntity<List<OrderTracking>> getAll(@RequestHeader(value = "Authorization") String authorizationHeader){
         return orderTrackingService.getAllOrderTracking(authorizationHeader);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getAllOrderTrackingByOrderStatus/{status}/{count}")
+    public ResponseEntity<List<OrderTracking>> getOrderTrackingByOrderStatus(@RequestHeader(value = "Authorization") String authorizationHeader, @PathVariable String status, @PathVariable int count){
+        return orderTrackingService.getAllByOrderTrackingStatus(authorizationHeader,status,count);
     }
     @PreAuthorize("hasRole('ROLE_SELLER')")
     @GetMapping("/myOrderTracking/{count}")
