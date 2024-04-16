@@ -4,20 +4,15 @@ import com.ecommerce.backend.entities.Seller;
 import com.ecommerce.backend.services.SellerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.io.*;
-import java.net.*;
 
 @RestController
 @RequestMapping("/api/seller")
@@ -110,5 +105,12 @@ public class SellerController {
     @GetMapping("/getMyDocuments")
     public ResponseEntity<Seller> getMyDocument(@RequestHeader(value = "Authorization") String authorizationHeader){
         return sellerService.getMyDocument(authorizationHeader);
+    }
+
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getAllSellers")
+    public ResponseEntity<List<Seller>> getAllSellers(@RequestHeader(value = "Authorization") String authorizationHeader){
+        return sellerService.getAllSellers(authorizationHeader);
     }
 }

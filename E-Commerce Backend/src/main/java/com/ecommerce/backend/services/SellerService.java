@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
@@ -393,6 +392,25 @@ public class SellerService {
         byte[] bytes = file.getBytes();
         return Base64.getEncoder().encodeToString(bytes);
     }
-
-
+    public ResponseEntity<List<Seller>> getAllSellers(@RequestHeader(value = "Authorization") String authorizationHeader){
+        try{
+            Long userId = jwtService.extractUserIdFromHeader(authorizationHeader);
+            Admin admin = adminRepository.findByUserId(userId);
+            if(Objects.equals(admin.getStatus(), "Active")){
+                List<Seller> sellerList = sellerRepository.findAllByApprovalStatus("true");
+                for(Seller seller: sellerList){
+                    seller.setUser(null);
+                    seller.setVerifiedBy(null);
+                }
+                return ResponseEntity.of(Optional.of(sellerList));
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
