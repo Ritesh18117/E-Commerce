@@ -1,5 +1,5 @@
 <div class="container" style="min-height: 80vh;">
-    <h2>Your Cart</h2>
+    <h2 *ngIf="cardItems.length> 0" >Your Cart</h2>
     <br>
     <div class="row m-4">
         <div *ngIf="cardItems.length> 0" class="col-md-8 ">

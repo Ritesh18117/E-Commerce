@@ -145,8 +145,8 @@
 
 .card {
   position: relative;
-  width: 14em;
-  height: 20em;
+  width: 15em;
+  height: 22em;
   box-shadow: 0px 1px 13px rgba(0,0,0,0.1);
   cursor: pointer;
   transition: all 120ms;
@@ -162,8 +162,8 @@
 
 .card:hover
 {
-  width: 15em;
-  height: 21em;
+  width: 16em;
+  height: 23em;
 }
 .card .title {
   font-family: "Roboto", sans-serif;
@@ -184,8 +184,9 @@
   position: absolute;
   left: 0.625em;
   bottom: 0.625em;
-  color: #000000b8;
+  color: #df0808b8;
   text-decoration: line-through;
+  
 }
 .card .dis-price {
   font-family: "Roboto", sans-serif;
@@ -195,7 +196,8 @@
   left: 1.2em;
   bottom: 0.625em;
   color: #000000b8;
-  padding-left: 30px;
+  padding-left: 40px;
+  
 }
 
 .card:hover::after {
