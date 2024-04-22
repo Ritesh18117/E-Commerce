@@ -1,52 +1,63 @@
 <h2>My Orders</h2>
-<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+<div class="btn-group mt-4 mb-5" role="group" aria-label="Basic radio toggle button group">
     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked (change)="all()">
-    <label class="btn btn-outline-primary" for="btnradio1">All</label>
-  
+    <label class="btn btn-outline-dark" for="btnradio1">All</label>
+
     <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (change)="delivered()">
-    <label class="btn btn-outline-primary" for="btnradio2">Delivered</label>
-  
+    <label class="btn btn-outline-dark" for="btnradio2">Delivered</label>
+
     <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" (change)="inProcess()">
-    <label class="btn btn-outline-primary" for="btnradio3">In Process</label>
+    <label class="btn btn-outline-dark" for="btnradio3">In Process</label>
 
     <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" (change)="cancelled()">
-    <label class="btn btn-outline-primary" for="btnradio4">Cancelled</label>
+    <label class="btn btn-outline-dark" for="btnradio4">Cancelled</label>
 </div>
-<ng-container *ngFor="let order of myOrders">
-    <div class="mt-4 border p-3 row">
-        <div class="detail col-md-3" >
-            <img [src]="convertToImage(order.productVariation.product.image)" class="img-fluid" [routerLink]="['/product', order.productVariation.product.id]">
-        </div>
-        <div class="detail col-md-9">
-            {{order.productVariation.product.name}} <br>
-            &#9745; Delivery Date : {{order.dateOfDelivery}} <br>          
-            <div *ngIf="order.showDetails">
-                <span>&#9745; Delivery Address : </span> 
-                        {{order.address.name}}&nbsp;( {{order.address.contact}} ) <br>
-                        {{order.address.address1}}&nbsp;
-                        {{order.address.address2}}&nbsp;
-                        {{order.address.city}}&nbsp;
-                        {{order.address.state}}&nbsp;
-                        {{order.address.zipcode}}&nbsp; <br>
-                
-                <span>&#9745; Ordered Date : {{order.orderDate}}</span> <br>
-                <span>&#9745; Quantity : {{order.quantity}}</span> <br>
-                <span *ngIf="order.productVariation.size != ''">&#9745; Size : {{order.productVariation.size}}</span> <br>
-                <span>&#9745; Total Price : ₹ <span style="color: green;">{{order.totalPrice}}</span></span> <br>
-                <a role="button" class="link-primary mg" *ngIf="order.showDetails" (click)="hideDetailsMethod(order)">Hide Details</a>
+<div class="order-details">
+    <ng-container *ngFor="let order of myOrders">
+        <div class="row" id="order-list">
+            <div class="detail col-md-3 p-0">
+                <img [src]="convertToImage(order.productVariation.product.image)" class="img-fluid"
+                    [routerLink]="['/product', order.productVariation.product.id]">
             </div>
-            <a role="button" class="link-primary mg" *ngIf="!order.showDetails" (click)="showDetailsMethod(order)">View Details</a> &nbsp;
-            <ng-container *ngIf="order.showStatus">
-                <div *ngIf="orderTracking.order.id == order.id">
-                    <span>&#9745; Order Status : {{orderTracking.status}} ({{orderTracking.statusChangedAt}})</span> <br>
-                    <ng-container *ngIf="orderTracking.status == 'PACKED' || orderTracking.status == 'ORDER_PLACED'">
-                        <button class="mt-3 btn btn-sm btn-warning" (click)="cancelButton(orderTracking.id)">Cancel Order</button>
-                    </ng-container>
+
+            <div class="detail col-md-9">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="mt-2">{{order.productVariation.product.name}} </h4>
+                        <a role="button" class="link-dark mg" *ngIf="!order.showDetails"
+                            (click)="showDetailsMethod(order)">View Details</a>
+                        <div class="view-details" *ngIf="order.showDetails">
+                            <ul>
+                            <li><span style="font-weight: bold;">Delivery Address: </span><br>
+                            {{order.address.name}},
+                            {{order.address.address2}},
+                            {{order.address.address1}}, <br>
+                            {{order.address.city}}, 
+                            {{order.address.state}}, 
+                            {{order.address.zipcode}}</li>
+
+                            <li><span style="font-weight: bold;">Quantity:</span>  {{order.quantity}}</li>
+                            <li><span *ngIf="order.productVariation.size != ''" style="font-weight: bold;">Size :</span> 
+                                {{order.productVariation.size}}</li>
+                            <li><span style="font-weight: bold;">Total Price:</span> ₹ {{order.totalPrice}}</li>
+                            </ul>
+                            <a role="button" class="link-dark mg" *ngIf="order.showDetails"
+                                (click)="hideDetailsMethod(order)">Hide Details</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mt-2">
+                        <span class="ddate">Order Placed: {{order.orderDate.slice(0,10)}}<br>
+                            <span class="status-order"  *ngIf="selectedRadio === 'all'">Status: <span class="status_order_color">{{order.status}}</span></span><br>
+                            <ng-container *ngIf="order.status == 'Packed' || order.status == 'Order Confirmed'">
+                                <button class="mt-3 btn btn-sm btn-outline-dark" (click)="cancelButton(orderTracking.id)">Cancel
+                                Order</button>
+                            </ng-container>
+                        </span>
+                    </div>
                 </div>
-                <a role="button" class="link-primary" (click)="hideShowStatus(order)">Hide Status</a> &nbsp; <br>
-            </ng-container>
-            <a role="button" class="link-primary" *ngIf="!order.showStatus" (click)="getOrderTrackingByOrderId(order)">View Status</a> <br>
+            </div>
         </div>
-    </div>
-</ng-container>
+    </ng-container>
+</div>
 <router-outlet></router-outlet>

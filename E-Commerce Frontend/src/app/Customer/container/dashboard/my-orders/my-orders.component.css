@@ -1,3 +1,25 @@
 img:hover{
     cursor: pointer;
 }
+#order-list{
+    border-color: rgba(0, 0, 0, 0.121);
+    margin-bottom: 10px;
+    border-style: solid;
+    background-color: rgb(233, 236, 239);
+}
+.order-details{
+    width: 90%;
+    margin-left: 45px;
+}
+.ddate{
+    display: inline-block;
+    font-size: 14px;
+}
+.status_order_color{
+    color: green;
+    text-decoration: underline;
+}
+.view-details{
+    font-size: 14px;
+    margin-left: 5px;
+}

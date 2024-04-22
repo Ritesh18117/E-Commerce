@@ -18,6 +18,7 @@ export class MyOrdersComponent {
   showDetails:boolean = false;
   showStatus:boolean = false;
   orderTracking:any;
+  selectedRadio: string = 'all';
 
   constructor(private _orderService:OrderService,
               private toastr:ToastrService,
@@ -29,35 +30,68 @@ export class MyOrdersComponent {
     this.getMyOrder();
   }
 
+  formatDate(dateString: string) {
+    return this.datePipe.transform(dateString, 'yyyy-MM-dd');
+  }
+
   getMyOrder(){
     this._orderService.myOrder(this.token).subscribe(
       (data) =>{
         console.log(data);
         this.allMyOrder = data;
-        this.myOrders = this.allMyOrder;
+        this.fetchOrderStatus();
       },(error) =>{
         console.error("ERROR",error);
       }
     )
   }
+  
+  fetchOrderStatus() {
+    for (let order of this.allMyOrder) {
+      this._orderTracking.getOrderTrackingByOrderId(this.token, order.id).subscribe(
+        (data) => {
+          data.statusChangedAt = this.formatDate(data.statusChangedAt);
+          if(data.status == "ORDER_PLACED"){
+            order.status = "Order Confirmed";
+        }
+          if(data.status == "PACKED"){
+              order.status = "Packed";
+          }
+          if(data.status == "SHIPPED"){
+            order.status = "Shipped";
+          }
+          if(data.status == "AT_DELIVERY_CENTRE"){
+            order.status = "In Transit";
+         }
+         if(data.status == "OUT_FOR_DELIVERY"){
+          order.status = "Out for Delivery";
+        }
+        if(data.status == "DELIVERED"){
+          order.status = "Delivered";
+      }
+
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
+    this.myOrders = this.allMyOrder;
+  }
   getOrderTrackingByOrderId(order: any){
-    // Toggle status visibility only for the selected order
-    order.showStatus = !order.showStatus;
-    if (order.showStatus) {
         this._orderTracking.getOrderTrackingByOrderId(this.token, order.id).subscribe(
             (data) => {
                 console.log(data);
-                data.statusChangedAt = this.formatDate(data.statusChangedAt);
                 this.orderTracking = data;
             },
             (error) => {
                 console.error(error);
             }
         );
-    } else {
-        this.orderTracking = null; // Clear orderTracking when hiding status
-    }
   }
+
+  
+
 
   showDetailsMethod(order: any): void {
     order.showDetails = true;
@@ -74,11 +108,9 @@ export class MyOrdersComponent {
     }
   }
   
-  formatDate(dateString: string) {
-    return this.datePipe.transform(dateString, 'yyyy-MM-dd');
-  }
 
   cancelButton(orderTrackingId:number){
+    
     console.log(orderTrackingId);
     
     this._orderTracking.cancelOrder(this.token,orderTrackingId).subscribe(
@@ -94,10 +126,12 @@ export class MyOrdersComponent {
   }
 
   all(){
+    this.selectedRadio = 'all';
     this.myOrders = this.allMyOrder;
   }
 
   delivered(){
+    this.selectedRadio = 'delivered';
     let delivered:any = [];
     for(let order of this.allMyOrder){
       this._orderTracking.getOrderTrackingByOrderId(this.token, order.id).subscribe(
@@ -118,6 +152,7 @@ export class MyOrdersComponent {
   }
 
   inProcess(){
+    this.selectedRadio = 'inProcess';
     let inProcess:any = [];
     for(let order of this.allMyOrder){
       this._orderTracking.getOrderTrackingByOrderId(this.token, order.id).subscribe(
@@ -136,6 +171,7 @@ export class MyOrdersComponent {
   }
 
   cancelled(){
+    this.selectedRadio = 'cancelled';
     let cancelled:any = [];
     for(let order of this.allMyOrder){
       this._orderTracking.getOrderTrackingByOrderId(this.token, order.id).subscribe(
