@@ -1,0 +1,11 @@
+.carousel .carousel-item {
+  height: 300px;
+}
+
+button{
+transform: scale(2);
+opacity:.8;
+ }
+button:hover{
+ opacity:1;
+}
