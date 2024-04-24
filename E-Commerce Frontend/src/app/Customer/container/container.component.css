@@ -1,11 +1,7 @@
-.carousel .carousel-item {
-  height: 300px;
-}
-
-button{
+.carousel-control-next-icon,.carousel-control-prev-icon{
 transform: scale(2);
 opacity:.8;
  }
-button:hover{
+.carousel-control-next-icon,.carousel-control-prev-icon:hover{
  opacity:1;
 }
