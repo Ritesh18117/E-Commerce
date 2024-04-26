@@ -4,7 +4,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 body{
     line-height: 1.5;
@@ -22,15 +22,19 @@ img{
     overflow: hidden;
 }
 .img-showcase{
-    display: flex;
-    width: 100%;
-    transition: all 0.5s ease;
+grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 4;
 }
 .img-showcase img{
     min-width: 100%;
 }
 .img-select{
-    display: flex;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 5;
+    grid-row-end: 7;
 }
 .img-item{
     margin: 0.3rem;
@@ -42,11 +46,6 @@ img{
 }
 .img-item:hover{
     opacity: 0.8;
-}
-.product-imgs{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
 }
 .product-content{
     padding: 2rem 1rem;
@@ -60,7 +59,6 @@ img{
     margin: 1rem 0;
 }
 .product-title::after{
-    content: "";
     position: absolute;
     left: 0;
     bottom: 0;
@@ -189,18 +187,20 @@ img{
     .card{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 1.5rem;
     }
     .card-wrapper{
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top: 100px;
     }
     .product-imgs{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-auto-rows: 100px;
+        gap:10px;
+
     }
     .product-content{
         padding-top: 0;

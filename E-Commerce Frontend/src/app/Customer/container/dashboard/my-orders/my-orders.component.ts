@@ -17,6 +17,7 @@ export class MyOrdersComponent {
   myOrders:any;
   showDetails:boolean = false;
   showStatus:boolean = false;
+  confirmation:boolean = false;
   orderTracking:any;
   selectedRadio: string = 'all';
 
@@ -99,6 +100,14 @@ export class MyOrdersComponent {
   
   hideDetailsMethod(order: any): void {
     order.showDetails = false;
+  }
+
+  showConfirmation(order:any):void{
+    order.confirmation = true;
+  }
+
+  hideConfirmation(order:any):void{
+    order.confirmation = false;
   }
 
   hideShowStatus(order: any){
