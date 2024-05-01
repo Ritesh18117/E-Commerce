@@ -6,6 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CartItemService } from 'src/app/Services/cart-item.service';
 import { ProductServiceService } from 'src/app/Services/product-service.service';
 
+//
+import { ProductVariationService } from 'src/app/Services/product-variation.service';
+
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
@@ -17,7 +20,8 @@ export class ProductDetailsComponent {
     private _authService: AuthService,
     private _cartItemService: CartItemService,
     private route: ActivatedRoute,
-    private _productService:ProductServiceService
+    private _productService:ProductServiceService,
+    private _productVariationService:ProductVariationService,
   ) {}
 
   // For Loading product when component is loaded
@@ -29,6 +33,7 @@ export class ProductDetailsComponent {
   selectedSize: any;
   inStock:number = -1;
   selectedImage:any;
+  quantity:number = 1;
 
   // Load product at first to show to details page
   ngOnInit() {
@@ -95,6 +100,7 @@ export class ProductDetailsComponent {
   
   defaultSize(){
     this.selectedSize = this.parsedValues[0].size;
+    this.inStock = parseInt(this.parsedValues[0].quantity);
   }
   
 
@@ -109,7 +115,7 @@ export class ProductDetailsComponent {
         const addToCartItem = {
           product_id: `${product.product.id}`,
           size: `${this.selectedSize}`,
-          quantity: 1,
+          quantity: this.quantity,
         };
         console.log(addToCartItem);
         
@@ -179,5 +185,14 @@ export class ProductDetailsComponent {
     }
     const byteArray = new Uint8Array(byteNumbers);
     return new Blob([byteArray], { type: contentType });
+  }
+
+  plus() {
+      if (this.inStock > 0 && this.inStock > this.quantity) {
+           this.quantity++;
+       }
+  }
+  minus(){
+    this.quantity--;
   }
 }

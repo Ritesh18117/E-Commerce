@@ -3,8 +3,9 @@
   <div class="card">
     <!-- card left -->
     <div class="product-imgs">
-        <div class="img-showcase">
-          <img [src]="convertToImage(selectedImage)" alt="shoe image" style="object-fit: contain;">
+      <div class="img-showcase">
+        <img [src]="convertToImage(selectedImage)" alt="shoe image" style="object-fit: contain;">
+        <hr style="margin-left:30px; margin-top: 5px; color: #878787;">
       </div>
       <div class="img-select">
         <div class="img-item" *ngFor="let image of product[0].product.images;let i = index"
@@ -17,7 +18,7 @@
     </div>
     <!-- card right -->
     <div class="product-content">
-      <h1 class="product-title">{{product[0].product.name}}</h1>
+      <h1 class="product-title border-bottom pb-3">{{product[0].product.name}}</h1>
       <!-- <div class = "product-rating">
         <i class = "fas fa-star"></i>
         <i class = "fas fa-star"></i>
@@ -32,11 +33,30 @@
         <p class = "new-price">New Price: <span>₹{{product[0].product.price - (product[0].product.discount * product[0].product.price) /100}} (Discount: {{product[0].product.discount}}%)</span></p> -->
         <span *ngIf="product[0].product.discount == 0">₹{{product[0].product.price}}</span>
         <span *ngIf="product[0].product.discount != 0"
-          style="color: rgb(205, 204, 204); text-decoration: line-through;font-size: 23px; margin-right: 10px;">₹{{product[0].product.price}}</span>
+          style="color: rgb(205, 204, 204); text-decoration: line-through;font-size: 23px; margin-right: 8px;">₹{{product[0].product.price}}</span>
         <span *ngIf="product[0].product.discount != 0">₹{{product[0].product.price - (product[0].product.discount *
           product[0].product.price) /100}} </span>
       </div>
 
+      <div class="product-detail mt-3">
+        <h4>About this item: </h4>
+        <p>{{product[0].product.description}}</p>
+        <ul>
+          <li>Color: &nbsp;<span [style.background-color]="product[0].product.color"
+              style="border:0.5px solid black;">&nbsp; &nbsp;</span>
+          </li>
+          <li>Availability:
+            <span style="color: green;" *ngIf="inStock > 0 || inStock == -1; else outOfStock">In stock</span>
+          </li>
+          <ng-template #outOfStock>
+            <span style="color: red;">out of stock</span>
+          </ng-template>
+          <li>Category: <span>{{product[0].product.category.categoryName}}</span></li>
+          <li>Shipping Area: <span>All over Sikkim</span></li>
+          <li>Shipping Fee: <span>₹49/- Only</span></li>
+        </ul>
+      </div>
+      <div class="purchase-info">
       <div class="ekart-product-detail-size">
         <!-- <div style="padding: 5px 0px;">
               <h4 class="mb-3">Available Sizes:</h4>
@@ -44,12 +64,12 @@
                 <span style="border: 0.5px solid black; border-radius: 2px; padding: 7px 10px">{{ x.size}}</span> &nbsp;
               </ng-container>
           </div> -->
-        <diV style="margin-top: 20px;">
+        <diV>
           <ng-container *ngIf="parsedValues.length > 1">
 
             <form action="">
               <select class="form-select" aria-label="Default select example"
-                style="padding: 6px;height: 35px;width: 120px;" (change)="pickSize($event)">
+                style="padding: 8px;height: 40px;width: 150px; margin-right: 10px;" (change)="pickSize($event)">
                 <option selected [value]="-1">Select Size</option>
                 <ng-container *ngFor="let x of parsedValues; let i=index">
                   <option [value]="x.size">{{ x.size}}</option>
@@ -62,39 +82,18 @@
           </ng-container>
         </diV>
       </div>
-
-      <div class="product-detail mt-3">
-        <h2>about this item: </h2>
-        <p>{{product[0].product.description}}</p>
-        <ul>
-          <li>Color: &nbsp;<span [style.background-color]="product[0].product.color"
-              style="border:0.5px solid black;">&nbsp; &nbsp;</span>
-          </li>
-          <li>Available:
-            <span style="color: green;" *ngIf="inStock > 0 || inStock == -1; else outOfStock">In stock</span>
-          </li>
-          <ng-template #outOfStock>
-            <span style="color: red;">out of stock</span>
-          </ng-template>
-          <li>Category: <span>{{product[0].product.category.categoryName}}</span></li>
-          <li>Shipping Area: <span>All over Sikkim</span></li>
-          <li>Shipping Fee: <span>₹49/- Only</span></li>
-        </ul>
-      </div>
-      <div class="purchase-info">
-        <button type="button" class="btn" *ngIf="role == 'ROLE_CUSTOMER'" (click)="addToCard(product[0])">
-          Add to Cart <i class='fas fa-cart-plus'></i>
+      <div class="quantity-change"  *ngIf="role == 'ROLE_CUSTOMER'">
+        <button class="add-remove" (click)="minus()" [disabled]="quantity === 1 || !selectedSize">
+          <span class="add-remove-text">-</span>
+        </button>
+        <div class="quant-display">{{quantity}}</div>
+        <button (click)="plus()" class="add-remove" [disabled]="!selectedSize">
+          <span class="add-remove-text">+</span>
         </button>
       </div>
-
-      <div class="social-links">
-        <p>Share At: </p>
-        <a (click)="shareOnFacebook()" class="fa fa-facebook"></a>
-        <a (click)="shareOnTwitter()" class="fa fa-twitter"></a>
-        <a (click)="shareOnInstagram()" class="fa fa-instagram"></a>
-        <a (click)="shareOnWhatsApp()" class="fa fa-whatsapp"></a>
-        <a (click)="shareOnSnapchat()" class="fa fa-snapchat"></a>
-      </div>
+    </div>
+        <button class="btn btn-outline-dark" style="padding: 0.375rem 0.75rem; width:280px; margin-top: 20px;" *ngIf="role == 'ROLE_CUSTOMER'" (click)="addToCard(product[0])">Add to Cart</button>
+        <img class="payment-images" src="assets\payment-icons.png">
     </div>
   </div>
 </div>

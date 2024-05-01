@@ -57,6 +57,7 @@ export class CardComponent {
     );
   }
 
+
   async plus(item: any) {
     try {
       let productVariation: any = await this._productVariationService.getProductVariationById(item.productVariation.id)
