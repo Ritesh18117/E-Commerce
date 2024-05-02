@@ -30,20 +30,30 @@ img{
 .img-showcase img{
     min-width: 100%;
 }
-.img-select{
+.img-select {
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 7;
     grid-row-start: 5;
     grid-row-end: 7;
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
 }
-.img-item{
-    margin: 0.3rem;
+
+.img-item {
+    flex: 0 0 calc(33.33% - 10px); /* Each image occupies roughly one-third of the container width with 10px margin */
+    margin-right: 10px; /* Add margin between images */
 }
-.img-item:nth-child(1),
-.img-item:nth-child(2),
-.img-item:nth-child(3){
-    margin-right: 0;
+
+.img-item:last-child {
+    margin-right: 0; /* Remove margin from the last image */
 }
+
+.img-item img {
+    width: 100%; /* Ensure images fill their containers */
+    height: auto; /* Maintain aspect ratio */
+    min-width: 100px; /* Set a maximum width for the images */
+}
+
 .img-item:hover{
     opacity: 0.8;
 }

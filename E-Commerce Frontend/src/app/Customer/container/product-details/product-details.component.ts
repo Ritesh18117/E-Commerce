@@ -34,6 +34,7 @@ export class ProductDetailsComponent {
   inStock:number = -1;
   selectedImage:any;
   quantity:number = 1;
+  selectedImageIndex: number = 0;
 
   // Load product at first to show to details page
   ngOnInit() {
