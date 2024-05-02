@@ -39,7 +39,7 @@ export class MyOrdersComponent {
     this._orderService.myOrder(this.token).subscribe(
       (data) =>{
         console.log(data);
-        this.allMyOrder = data;
+        this.allMyOrder = data.reverse();
         this.fetchOrderStatus();
       },(error) =>{
         console.error("ERROR",error);
@@ -70,6 +70,9 @@ export class MyOrdersComponent {
         if(data.status == "DELIVERED"){
           order.status = "Delivered";
       }
+      if(data.status == "CANCELLED"){
+        order.status = "Cancelled";
+    }
 
         },
         (error) => {

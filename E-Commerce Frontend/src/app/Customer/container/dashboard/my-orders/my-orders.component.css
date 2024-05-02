@@ -15,10 +15,6 @@ img:hover{
     display: inline-block;
     font-size: 14px;
 }
-.status_order_color{
-    color: green;
-    text-decoration: underline;
-}
 .view-details{
     font-size: 14px;
     margin-left: 5px;

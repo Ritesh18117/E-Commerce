@@ -48,7 +48,7 @@
 
                     <div class="col-md-4 mt-2">
                         <span class="ddate">Order Placed: {{order.orderDate.slice(0,10)}}<br>
-                            <span class="status-order"  *ngIf="selectedRadio === 'all'">Status: <span class="status_order_color">{{order.status}}</span></span><br>
+                            <span class="status-order"  *ngIf="selectedRadio === 'all'">Status: <span status_order_color style="text-decoration: underline;" [ngStyle]="{'color': order.status === 'Cancelled' ? 'red' : 'green'}">{{order.status}}</span></span><br>
                             <!-- <ng-container *ngIf="order.status == 'Packed' || order.status == 'Order Confirmed'">
                                 <button class="mt-3 btn btn-sm btn-outline-dark" (click)="cancelButton(order.id)">Cancel
                                 Order</button>

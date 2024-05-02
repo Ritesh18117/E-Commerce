@@ -3,7 +3,19 @@
         <div class="col-md-8 border">
 
             <div class="container mt-4">
-                <h2>My Orders</h2>
+                
+                    <h1 class="os-title">Order Summary</h1>
+                    <div class=" p-3 d-flex border" *ngFor="let item of cardItems">
+                        <div class="detail col-md-9">
+                            {{item.product.name}} <br>
+                            Delivery Date : 20-10-2023 <br>
+                            Color : {{item.product.color}} &nbsp; | &nbsp; Size : {{item.productVariation.size}} <br>
+                            Quantity : {{item.quantity}}
+                        </div>
+                        <div class="detail col-md-2">
+                            <img src="{{convertToImage(item.product.image)}}" class="img-fluid">
+                        </div>
+                    </div>
                 <br><br>
 
                 <div class="border p-3">
@@ -75,22 +87,6 @@
                 <br><br>
 
                 <div class="border">
-                    <h2 class="m-4">Product Summary</h2>
-                    <div class=" p-3 d-flex " *ngFor="let item of cardItems">
-                        <div class="detail col-md-9">
-                            {{item.product.name}} <br>
-                            Delivery Date : 20-10-2023 <br>
-                            Color : {{item.product.color}} &nbsp; | &nbsp; Size : {{item.productVariation.size}} <br>
-                            Quantity : {{item.quantity}}
-                        </div>
-                        <div class="detail col-md-2">
-                            <img src="{{convertToImage(item.product.image)}}" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-                <br><br>
-
-                <div class="border">
                     <h2 class="m-4">Select Payment Method</h2>
                     <form class="p-3">
                         <div class="form-check">
@@ -148,50 +144,50 @@
 
         <div class="col-md-4 border">
             <!-- 20% width -->
-            <div class="border-bottom p-3">
+            <div class="border-bottom p-3" style="font-family: 'Poppins';">
                 PRICE DETAILS
             </div>
             <div class="m-2 border-bottom">
                 <div class="price row p-2">
-                    <div class="col-8 ">
+                    <div class="col-8 " style="font-family: 'Poppins';">
                         Price({{totalQuantity}} item)
                     </div>
-                    <div class="col-4">
+                    <div class="col-4" style="font-family: 'Poppins';">
                         &nbsp; &nbsp;₹{{total}}
                     </div>
                 </div>
                 <div class="discount row p-2 ">
-                    <div class="col-8">
+                    <div class="col-8" style="font-family: 'Poppins';">
                         Discount
                     </div>
-                    <div class="col-4">
+                    <div class="col-4" style="font-family: 'Poppins';">
                         - ₹{{discount}}
                     </div>
                 </div>
-                <div class="delivery row p-2">
+                <div class="delivery row p-2" style="font-family: 'Poppins';">
                     <div class="col-8">
                         Delivery Changes
                     </div>
-                    <div class="col-4" style="color: green;">
+                    <div class="col-4" style="color: green;" style="font-family: 'Poppins';">
                         &nbsp; &nbsp;₹49
                     </div>
                 </div>
             </div>
             <div class="p-3">
-                <div class="border-bottom row pb-3">
+                <div class="border-bottom row pb-3" style="font-family: 'Poppins';">
                     <div class="col-8">
                         Total Amount
                     </div>
-                    <div class="col-4">
+                    <div class="col-4" style="font-family: 'Poppins';">
                         &nbsp; &nbsp;₹{{total - discount + delivery}}
                     </div>
                 </div>
             </div>
-            <div class="m-3" style="color: green;">
-                You will save ₹{{discount}} in this order
+            <div class="m-3" style="color: green;font-family: 'Poppins';text-decoration: underline;">
+                You will save ₹{{discount}} on this order !
             </div>
-            <div class="detail d-flex justify-content-end">
-                <button class="m-3 p-2 place-order" (click)="placeOrder()">Continue</button>
+            <div>
+                <button class="btn btn-outline-success m-3 p-3" (click)="placeOrder()">PLACE ORDER</button>
             </div>
         </div>
     </div>
