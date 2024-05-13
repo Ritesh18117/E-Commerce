@@ -31,4 +31,19 @@ export class FilterComponent {
   filter(categoryId:number){
     this.filterNotify.emit(categoryId);
   }
+
+
+
+
+
+  printCategory(event: MouseEvent): void {
+    // Get the value of the clicked span
+    const selectedValue = (event.target as HTMLElement).textContent;
+
+    // Get the output element with id "printValue" and cast it to HTMLOutputElement
+    const printCategory = document.getElementById("printCategory") as HTMLOutputElement;
+
+    // Set the text content of the output element to the selected value
+    printCategory.textContent ="Showing results for "+selectedValue;
+  }
 }
