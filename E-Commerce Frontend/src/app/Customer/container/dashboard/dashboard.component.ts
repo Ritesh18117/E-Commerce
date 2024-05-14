@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   // Variable For Rendering Components
   profile:boolean = true;
@@ -15,9 +16,14 @@ export class DashboardComponent {
   username: any;
   token:any;
 
-  constructor(private userService:UserService){}
+  constructor(private userService:UserService, private route: ActivatedRoute){}
 
   ngOnInit(){
+    this.route.data.subscribe(data => {
+      if (data && ['myAddress']) {
+        this.renderMyAddress();
+      }
+    });
     this.getUsername();
   }
   renderProfile(){

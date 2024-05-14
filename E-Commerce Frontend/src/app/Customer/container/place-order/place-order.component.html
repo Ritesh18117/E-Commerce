@@ -1,47 +1,112 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 <div class="container">
     <div class="row">
+        <div class="col-md-8 border-top border-start">
+
+            <div class="container mt-4">
+
+                <h1 class="os-title">Order Summary</h1>
+                <div class=" p-3 d-flex border" id="item-card" *ngFor="let item of cardItems">
+                    <div class="detail col-md-10">
+                        <span style="font-weight: bold; text-decoration: underline;">{{item.product.name}}
+                        </span><br><br>
+                        Expected Delivery Date : 10-10-2023 <br>
+                        Color : {{item.product.color}} &nbsp; | &nbsp; Size : {{item.productVariation.size}} <br>
+                        Quantity : {{item.quantity}}
+                    </div>
+                    <div class="detail col-md-2" id="card-img">
+                        <img src="{{convertToImage(item.product.image)}}" class="img-fluid">
+                    </div>
+                </div>
+                <br><br>
+            </div>
+        </div>
+
+        <div class="col-md-4 border">
+            <!-- 20% width -->
+            <div class="border-bottom p-3" style="font-family: 'Poppins';">
+                PRICE DETAILS
+            </div>
+            <div class="m-2 border-bottom">
+                <div class="price row p-2">
+                    <div class="col-8 " style="font-family: 'Poppins';">
+                        Price({{totalQuantity}} item)
+                    </div>
+                    <div class="col-4" style="font-family: 'Poppins';">
+                        &nbsp; &nbsp;₹{{total}}
+                    </div>
+                </div>
+                <div class="discount row p-2 ">
+                    <div class="col-8" style="font-family: 'Poppins';">
+                        Discount
+                    </div>
+                    <div class="col-4" style="font-family: 'Poppins';">
+                        - ₹{{discount}}
+                    </div>
+                </div>
+                <div class="delivery row p-2" style="font-family: 'Poppins';">
+                    <div class="col-8" style="font-family: 'Poppins';">
+                        Delivery Charges
+                    </div>
+                    <div class="col-4" style="color: green;" style="font-family: 'Poppins';">
+                        &nbsp; &nbsp;₹49
+                    </div>
+                </div>
+            </div>
+            <div class="p-3">
+                <div class="border-bottom row pb-3" style="font-family: 'Poppins';">
+                    <div class="col-8" style="font-family: 'Poppins';">
+                        Total Amount
+                    </div>
+                    <div class="col-4" style="font-family: 'Poppins';">
+                        &nbsp; &nbsp;₹{{total - discount + delivery}}
+                    </div>
+                </div>
+            </div>
+            <div class="m-3" style="color: green;font-family: 'Poppins';text-decoration: underline;">
+                You will save ₹{{discount}} on this order !
+            </div>
+            <div>
+                <button class="btn btn-outline-success m-3 p-3" (click)="placeOrder()">PLACE ORDER</button>
+            </div>
+        </div>
+
         <div class="col-md-8 border">
 
             <div class="container mt-4">
-                
-                    <h1 class="os-title">Order Summary</h1>
-                    <div class=" p-3 d-flex border" *ngFor="let item of cardItems">
-                        <div class="detail col-md-9">
-                            {{item.product.name}} <br>
-                            Delivery Date : 20-10-2023 <br>
-                            Color : {{item.product.color}} &nbsp; | &nbsp; Size : {{item.productVariation.size}} <br>
-                            Quantity : {{item.quantity}}
-                        </div>
-                        <div class="detail col-md-2">
-                            <img src="{{convertToImage(item.product.image)}}" class="img-fluid">
-                        </div>
-                    </div>
-                <br><br>
+                <h1 class="ot-title">Select Address</h1>
 
-                <div class="border p-3">
-                    <h4>Delivery Address</h4>
+                <div class="border p-3" id="delivery-address">
                     <form class="p-3">
-                        <div class="form-check mb-3" *ngFor="let address of myAddresses; let i=index">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                [id]="'flexRadioDefault' + i" value="address" [checked]="i === 0" (change)="selectAddress(address)">
-                        
-                            <label class="form-check-label" [for]="'flexRadioDefault' + i">
-                                <div class="card card-body">
-                                    <h5 class="card-title">{{address.name}}&nbsp; &nbsp; &nbsp; </h5>
-                                    <h6>{{address.contact}}</h6>
-                                    <p class="card-text">Address : {{address.address1}}&nbsp;
-                                        {{address.address2}}&nbsp;
-                                        {{address.city}}&nbsp;
-                                        {{address.state}}&nbsp;
-                                        {{address.zipcode}}&nbsp;
-                                    </p>
+                        <div class="row">
+                            <div class="form-check mb-3 col-md-6" *ngFor="let address of myAddresses; let i=index">
+                                <div class="card card-body" [class.selected-radio]="i === selectedAddressIndex">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            [id]="'flexRadioDefault' + i" value="address" [checked]="i === 0"
+                                            (change)="selectAddress(address, i)">
+                                        <label class="form-check-label" [for]="'flexRadioDefault' + i">
+                                            <h5 class="card-title">{{address.name}}</h5>
+                                            <h6>{{address.contact}}</h6>
+                                            <p class="card-text">Address : {{address.address1}} {{address.address2}}
+                                                {{address.city}}
+                                                {{address.state}} {{address.zipcode}}</p>
+                                        </label>
+                                    </div>
                                 </div>
-                            </label>
+                            </div>
                         </div>
-                        
+                        <a class="address-link" routerLink="/customer-address" [queryParams]="{ myAddress: true }">Add New Address +</a>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-                        <button class="btn btn-primary" (click)="showAddressForm()">Add Address</button>
-                        <form #myForm="ngForm" class="mt-5 border p-3" (ngSubmit)="onAddressSubmit()" [hidden]="!showForm">
+
+        <!-- <button class="btn btn-primary" (click)="showAddressForm()">Add Address</button>
+                        <form #myForm="ngForm" class="mt-5 border p-3" (ngSubmit)="onAddressSubmit()"
+                            [hidden]="!showForm">
                             <h2>Add New Address</h2>
                             <div class="row m-3">
                                 <div class="col-md-6">
@@ -81,114 +146,64 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary m-3">Add</button>
-                        </form>
-                    </form>
-                </div>
-                <br><br>
+                        </form> -->
 
-                <div class="border">
-                    <h2 class="m-4">Select Payment Method</h2>
+
+
+
+        <div class="col-md-8 border-start border-end border-bottom">
+            <div class="container mt-4">
+                <h1 class="ot-title">Select Payment Method</h1>
+                <div class="border p-3" id="delivery-address">
                     <form class="p-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="googlePay" value="googlePay" (change)="selectedPayment('google')">
-                            <label class="form-check-label" for="googlePay">
-                                <div class="card">
-                                    <div class="card-body">
-                                        
-                                        Google Pay/UPI &nbsp; &nbsp; <i class="fa fa-2x fa-google"></i>
-                                        
+                        <div class="row">
+                            <div class="form-check mb-3 col-md-6">
+                                <div class="card card-body" style="width:700px; margin-top: 20px;" (click)="selectRadio(radio1)">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" #radio1
+                                            [id]="'flexRadioDefault1'" value="cod" checked (change)="selectedPayment('rp')">
+                                        <label class="form-check-label">
+                                            &nbsp;<img style="height:25px;width:80px" src="assets\razorpay_logo.svg">
+                                        </label>
                                     </div>
                                 </div>
-                            </label>
-                        </div>
-                
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="onlinePayment" value="onlinePayment" (change)="selectedPayment('online')">
-                            <label class="form-check-label" for="onlinePayment">
-                                <div class="card">
-                                    <div class="card-body">
-                                        Credit/Debit Cards &nbsp; &nbsp;
-                                        <span class="material-symbols-outlined">
-                                            credit_card
-                                            </span>
+                                <div class="card card-body" style="width:700px" (click)="selectRadio(radio3)">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" #radio3
+                                            [id]="'flexRadioDefault2'" value="credit" (change)="selectedPayment('credit')">
+                                        <label class="form-check-label">
+                                            <h5 class="card-title" style="margin-top: 1px;">&nbsp;Credit Card/Debit Card/Net Banking</h5>
+                                        </label>
                                     </div>
                                 </div>
-                            </label>
-                        </div>
-                
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod" checked (change)="selectedPayment('cod')">
-                            <label class="form-check-label" for="cod">
-                                <div class="card">
-                                    <div class="card-body">
-                                        Cash On Delivery (COD) &nbsp; &nbsp; <i class="fa fa-2x fa-money"></i>
+                                <div class="card card-body" style="width:700px" (click)="selectRadio(radio2)">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" #radio2
+                                            [id]="'flexRadioDefault3'" value="cod" (change)="selectedPayment('cod')">
+                                        <label class="form-check-label">
+                                            <h5 class="card-title" style="margin-top: 1px;">&nbsp;Cash on Delivery</h5>
+                                        </label>
                                     </div>
                                 </div>
-                            </label>
+                            </div>
                         </div>
                     </form>
+                    
                 </div>
-                
-                <div class="p-3 d-flex border">
-                    <div class="detail col-md-9">
-                        <!-- Order Confirmation will be sent to {{selectedAddress.contact}} -->
-                    </div>
-                    <div class="detail col-md-3">
-                        <button class="m-3 p-2 place-order">Continue</button>
-                    </div>
+                <div class="text-end" style="margin-left: 6px; margin-bottom: 35px;">
+                    <!-- Aligns content to the right -->
+                    <button class="btn btn-outline-success p-3" (click)="placeOrder()">PLACE ORDER</button>
                 </div>
-            </div>                
+            </div>
         </div>
 
-
-
-        <div class="col-md-4 border">
-            <!-- 20% width -->
-            <div class="border-bottom p-3" style="font-family: 'Poppins';">
-                PRICE DETAILS
+        <!-- <div class="p-3 d-flex border">
+            <div class="detail col-md-9">
+                Order Confirmation will be sent to {{selectedAddress.contact}}
             </div>
-            <div class="m-2 border-bottom">
-                <div class="price row p-2">
-                    <div class="col-8 " style="font-family: 'Poppins';">
-                        Price({{totalQuantity}} item)
-                    </div>
-                    <div class="col-4" style="font-family: 'Poppins';">
-                        &nbsp; &nbsp;₹{{total}}
-                    </div>
-                </div>
-                <div class="discount row p-2 ">
-                    <div class="col-8" style="font-family: 'Poppins';">
-                        Discount
-                    </div>
-                    <div class="col-4" style="font-family: 'Poppins';">
-                        - ₹{{discount}}
-                    </div>
-                </div>
-                <div class="delivery row p-2" style="font-family: 'Poppins';">
-                    <div class="col-8">
-                        Delivery Changes
-                    </div>
-                    <div class="col-4" style="color: green;" style="font-family: 'Poppins';">
-                        &nbsp; &nbsp;₹49
-                    </div>
-                </div>
+            <div class="detail col-md-3">
+                <button class="m-3 p-2 place-order">Continue</button>
             </div>
-            <div class="p-3">
-                <div class="border-bottom row pb-3" style="font-family: 'Poppins';">
-                    <div class="col-8">
-                        Total Amount
-                    </div>
-                    <div class="col-4" style="font-family: 'Poppins';">
-                        &nbsp; &nbsp;₹{{total - discount + delivery}}
-                    </div>
-                </div>
-            </div>
-            <div class="m-3" style="color: green;font-family: 'Poppins';text-decoration: underline;">
-                You will save ₹{{discount}} on this order !
-            </div>
-            <div>
-                <button class="btn btn-outline-success m-3 p-3" (click)="placeOrder()">PLACE ORDER</button>
-            </div>
-        </div>
+        </div> -->
     </div>
 </div>

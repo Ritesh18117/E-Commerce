@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/Models/address';
 import { CartItemService } from 'src/app/Services/cart-item.service';
 import { CustomerAddressService } from 'src/app/Services/customer-address.service';
 import { OrderService } from 'src/app/Services/order.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-place-order',
@@ -12,7 +13,9 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./place-order.component.css']
 })
 export class PlaceOrderComponent {
-
+  @ViewChild('radio1') radio1: any;
+  @ViewChild('radio2') radio2: any;
+  @ViewChild('radio3') radio3: any;
   cardItems:any;
   token:any;
   myAddresses:any;
@@ -21,6 +24,7 @@ export class PlaceOrderComponent {
   discount:number = 0;
   delivery:number = 49;
   totalQuantity:number = 0;
+  selectedAddressIndex: number = 0;
 
   addAddress = {
     name: "",
@@ -31,6 +35,20 @@ export class PlaceOrderComponent {
     state:"",
     country:"India",
     zipcode:""
+  }
+  selectedElement: HTMLElement | null = null;
+
+  
+  selectRadio(radio: any) {
+    radio.checked = true;
+    this.clearSelectedRadios();
+    radio.parentElement.parentElement.classList.add('selected-radio');
+  }
+  clearSelectedRadios() {
+    const radios = document.querySelectorAll('.selected-radio');
+    radios.forEach((radio: any) => {
+      radio.classList.remove('selected-radio');
+    });
   }
 
   // showForm Varible
@@ -46,7 +64,8 @@ export class PlaceOrderComponent {
     private _authService:AuthService,
     private _customerAddressService:CustomerAddressService,
     private _orderService:OrderService,
-    private _toastr:ToastrService){
+    private _toastr:ToastrService,
+    private router: Router){
     this.token = this._authService.getToken();
   }
 
@@ -54,7 +73,7 @@ export class PlaceOrderComponent {
     this.getCartItem();
     this.getCustomerAddress();
   }
-
+  
   getCartItem():any{
     this._cartItemService.getMyCart(this.token).subscribe(
       (data) => {
@@ -92,7 +111,8 @@ export class PlaceOrderComponent {
     }
   }
 
-  selectAddress(address:Address){
+  selectAddress(address:Address, index:number){
+    this.selectedAddressIndex = index;
     this.selectedAddress = address;
   }
 
@@ -103,7 +123,7 @@ export class PlaceOrderComponent {
   showAddressForm(){
     this.showForm = !this.showForm
   }
-
+  
   onAddressSubmit(){
     const token = this._authService.getToken();
     if(token){
@@ -130,7 +150,12 @@ export class PlaceOrderComponent {
 
   placeOrder(){
     if(this.selectedAddress == undefined){
-      this._toastr.warning("warning","Please Select Size!!",{
+      this._toastr.warning("Warning","Please Select Address!",{
+        timeOut:500
+      });
+    }
+    if(this.selectedPaymentMethod == undefined){
+      this._toastr.warning("Warning","Please Select Payment Method!",{
         timeOut:500
       });
     }
@@ -153,6 +178,7 @@ export class PlaceOrderComponent {
           timeOut:1000
         });
         this.getCartItem();
+        this.router.navigate(['/order-placed']);
       },
       (error) =>{
         console.error(error);
@@ -163,6 +189,7 @@ export class PlaceOrderComponent {
     )
     
     console.log(placeOrder);
+    
   }    
 
 

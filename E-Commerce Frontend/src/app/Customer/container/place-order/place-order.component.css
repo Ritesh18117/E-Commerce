@@ -3,6 +3,12 @@
     margin-left: 5px;
     margin-bottom: 30px;
 }
+.ot-title{
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
 .place-order{
     background-color: #368422;
     color:white;
@@ -16,3 +22,67 @@
 .card{
     margin-bottom: 10px;
 }
+#item-card{
+    background-color: rgb(240, 240, 240);
+}
+#card-img{
+    border: solid rgb(220, 220, 220);
+}
+#delivery-address{
+    background-color: rgb(240, 240, 240);
+    margin-bottom: 50px;
+}
+/* Style for the radio button */
+.form-check-input[type='radio'] {
+    /* Hide the default radio button */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000; /* Set border color to black */
+    border-radius: 50%; /* Make it a circle */
+    outline: none; /* Remove outline */
+    margin-right: 10px; /* Adjust spacing */
+}
+
+/* Style for the radio button when checked */
+.form-check-input[type='radio']:checked {
+    background-color: #000; /* Set background color to black when checked */
+    outline: none;
+}
+
+/* Style for the inner circle when radio is checked */
+.form-check-input[type='radio']:checked::before {
+    content: ''; /* Create a pseudo-element for inner circle */
+    display: block;
+    width: 5px; /* Adjust size of inner circle */
+    height: 5px;
+    background-color: #fff; /* Set inner circle color to white */
+    border-radius: 50%; /* Make it a circle */
+    margin: 5px; /* Adjust position */
+}
+.form-check-input[type='radio']:checked::after {
+    outline: none;
+}
+
+/* Remove outline when radio button is focused */
+.form-check-input[type='radio']:focus {
+    outline: none;
+}
+#address-cards{
+    margin-bottom: 100px;
+}
+.selected-radio {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Adjust the shadow properties as needed */
+}
+.address-link{
+    color: black;
+    margin-left: 13px;
+}
+
+
+
+
+
+

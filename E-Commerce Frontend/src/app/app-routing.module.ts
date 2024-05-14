@@ -11,11 +11,16 @@ import { sellerAuthGuard } from './Seller/auth/auth.guard';
 import { adminAuthGuard } from './admin/auth/auth.guard';
 import { ProductDetailsComponent } from './Customer/container/product-details/product-details.component';
 import { superAdminAuthGuard } from './super-admin/auth/auth.guard';
+import { OrderPlacedComponent } from './Customer/container/place-order/order-placed/order-placed.component';
+import { MyAddressComponent } from './Customer/container/dashboard/my-address/my-address.component';
 
 const routes: Routes = [
     { path: '', component: ContainerComponent },
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent }, 
+    { path: 'order-confirm', component: PlaceOrderComponent }, 
+    { path: 'order-placed', component: OrderPlacedComponent },
+    { path: 'customer-address', component: DashboardComponent, data: { myAddress: true }},
     { path: 'product/:id', component: ProductDetailsComponent }, // Add this line
     {
       path: 'admin',
