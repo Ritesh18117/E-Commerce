@@ -11,7 +11,7 @@ export class VerifiedSellerComponent {
   token:any;
   sellerVerifiedList:any;
   searchValue:any;
-  searchType:string = "companyName";
+  searchType:string = "all";
 
   constructor(private _sellerService:SellerService){}
 
