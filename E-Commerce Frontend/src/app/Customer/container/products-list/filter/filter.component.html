@@ -1,17 +1,93 @@
-<div class="filter ">
 
-<div class="radio-inputs" >
-     <label class="radio" (click)="filter(0)" style="border-right:200px;">
-          <input type="radio" name="radio" checked="" >
-          <span class="name">All</span>
-        </label> 
+<div class="filter">
+  
+  <div class="radio-inputs">
+    <label class="radio" style="border-right: 200px">
+      <input type="radio" name="radio"[checked]="true" >
+      <span
+        class="name"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasWithBothOptions"
+        aria-controls="offcanvasWithBothOptions"
+        (click)="printCategory($event)"
+      >
+        All Categories
+      </span>
+    </label>
 
-     <ng-container *ngFor="let category of categories">
-          <label class="radio" (click)="filter(category.id)" style="border-right:200px; " >
-               <input type="radio" name="radio" >
-               <span class="name">{{category.categoryName}}</span>
-             </label>
-     </ng-container>
+    <label
+      class="radio"
+      (click)="filter(52)"
+      (click)="filter(53)"
+      style="border-right: 200px"
+    >
+      <input type="radio" name="radio" />
+      <span class="name" (click)="printCategory($event)">Groceries</span>
+    </label>
+    <label class="radio" (click)="filter(2)" style="border-right: 200px">
+      <input type="radio" name="radio" />
+      <span class="name" (click)="printCategory($event)">Drinks</span>
+    </label>
+    <label class="radio" (click)="filter(3)" style="border-right: 200px">
+      <input type="radio" name="radio" />
+      <span class="name" (click)="printCategory($event)">Clothing</span>
+    </label>
+    <label class="radio" (click)="filter(4)" style="border-right: 200px">
+      <input type="radio" name="radio" />
+      <span class="name" (click)="printCategory($event)">Shoes</span>
+    </label>
+
+    <div
+      class="offcanvas offcanvas-start"
+      data-bs-scroll="true"
+      tabindex="-1"
+      id="offcanvasWithBothOptions"
+      aria-labelledby="offcanvasWithBothOptionsLabel"
+    >
+      <div class="offcanvas-header">
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-title">All Categories</div>
+      <hr />
+
+      <div class="offcanvas-body">
+        <ul
+          class="highlight-list d-block position-static mx-0 border-0"
+          data-bs-theme="dark"
+        >
+          <li
+            class="list-group-item"
+            data-bs-dismiss="offcanvas"
+            (click)="filter(0)"
+          >
+            <span class="dropdown-item d-flex gap-2 align-items-center"
+              >All items</span>
+          </li>
+
+
+
+
+
+          <ng-container *ngFor="let category of categories">
+            <li class="list-group-item"  data-bs-dismiss="offcanvas" (click)="filter(category.id)">
+               <span (click)="printCategory($event)"  class="dropdown-item d-flex gap-2 align-items-center" >{{category.categoryName}}
+              </span>
+            </li>
+          </ng-container>
+          <hr />
+        </ul>
+      </div>
+    </div>
+  </div>
+  
 </div>
-</div>
+
+<div id="printCategory"></div>
+
+
 
