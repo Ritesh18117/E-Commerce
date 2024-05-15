@@ -1,41 +1,39 @@
-<h2>Sellers for Approval</h2>
-<ng-container *ngFor="let seller of sellers">
-    <div class="mt-4 border p-3 row">
-        <div class="detail col-md-9">
-            Seller Id : {{seller.id}} <br>
-            Company Name : {{seller.companyName}} <br>
-            Company Type : {{seller.companyType}} <br>
-            GST Number : {{seller.gstNumber}} <br>
-            Licence Number : {{seller.licenceNumber}} <br>
-            Contact Email : {{seller.contactEmail}} <br>
-            Website : {{seller.website}} <br>
-            Address : {{seller.address}}
-            Status : <span style="color:green" *ngIf="seller.approvalStatus == 'true'">Approved</span> <br>
-            <span *ngIf="seller.approvalStatus == 'false'" style="color:red">Not Approved</span> <br> <br>
-            <div class="form-group">
-                <label for="comment">Add Comment</label>
-                <textarea class="form-control" id="comment" rows="3" [(ngModel)]="comment"></textarea>
-            </div> <br>
 
-            <div class="row m-4">
-                
-                <div class="col-5 border">
-                    GST Document <br>
-                    <a [href]="convertToImage(seller.gstDocument)" target="_blank">
-                        <img [src]="convertToImage(seller.gstDocument)" alt="Converted Image" class="document-image">
-                    </a>
-                </div>
-            
-                <div class="col-5 border">
-                    Trade Licence <br>
-                    <a [href]="convertToImage(seller.licenceDocument)" target="_blank">
-                        <img [src]="convertToImage(seller.licenceDocument)" alt="Converted Image" class="document-image">
-                    </a>
-                </div>
-            </div>
 
-            <button class="btn btn-success btn-sm" (click)="approveSeller(seller.id)">Approve</button> &nbsp; &nbsp;
-            <button class="btn btn-danger btn-sm" (click)="rejectSeller(seller.id)">Reject</button> 
-        </div>
-    </div>
-</ng-container>
+<div style="display:flexbox;text-align:left;;font-family:Arial, Helvetica, sans-serif;font-weight: 600;font-size:2.2rem;padding-bottom: 30px;color:#4a4a4a">Verify Seller</div>
+
+  <table class="table table-striped table-sm">
+    <thead >
+      <tr>
+          <th>Seller Id</th>
+          <th>Company Name</th>
+          <th>Company Type</th>
+          <th>GST Document</th>
+          <th>Trade License</th>
+          <th>Contact Email</th>
+          <th>Approve/ Reject</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <ng-container *ngFor="let seller of sellers">
+          <tr>
+              <td>{{seller.id}}</td>
+              <td>{{seller.companyName}}</td>
+              <td>{{seller.companyType}}</td>
+              <td>
+                <a [href]="convertToImage(seller.licenceDocument)" target="_blank">View GST</a>
+            </td>
+            <td>
+                <a [href]="convertToImage(seller.gstDocument)" target="_blank">View Trade License </a>
+            </td>
+              <td>{{seller.contactEmail}}</td>
+              <td ><button class="btn btn-success btn-sm" (click)="approveSeller(seller.id)">Approve</button> &nbsp; &nbsp;
+                <button class="btn btn-danger btn-sm" (click)="rejectSeller(seller.id)">Reject</button> 
+              </td>
+             
+          </tr>
+      </ng-container>
+
+    </tbody>
+  </table>

@@ -1,4 +1,4 @@
-<h3 class="card-title">Track Order Status</h3>
+<!-- <h3 class="card-title">Track Order Status</h3>
 
 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
   
@@ -22,7 +22,114 @@
 
     <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off" (change)="cancelled()">
     <label class="btn btn-outline-primary" for="btnradio7">Cancelled</label>
-</div>
+</div> -->
+<div style="display:flexbox;text-align:left;font-family:Arial, Helvetica, sans-serif;font-weight: 600;font-size:2.2rem;padding-bottom: 30px;">Track Order</div>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'> 
+
+
+
+
+<div class="container">
+    <div class="radio-tile-group">
+      <div class="input-container">
+        
+        <input class="radio-button" type="radio" name="btnradio" id="btnradio1" autocomplete="off" (change)="orderPlaced()" checked>
+        <div class="radio-tile">
+          <div class="icon material-symbols-outlined">
+            shopping_cart_checkout
+  
+          </div>
+          <label for="walk" class="radio-tile-label pt-2">Order Placed</label>
+        </div>
+      </div>
+      <span class="material-symbols-outlined">
+        east
+        </span>
+  
+      <div class="input-container">
+        <input class="radio-button" type="radio" name="btnradio" id="btnradio2" autocomplete="off" (change)="packed()" >
+        <div class="radio-tile">
+          <div class="icon  material-symbols-outlined">
+            package_2
+          </div>
+          <label for="btnradio2" class="radio-tile-label pt-2">Packed</label>
+        </div>
+      </div>
+      <span class="material-symbols-outlined">
+        east
+        </span>
+      
+  
+      <div class="input-container">
+        <input class="radio-button" type="radio" name="btnradio" id="btnradio3" autocomplete="off" (change)="shipped()" >
+        <div class="radio-tile">
+          <div class="icon  material-symbols-outlined">
+            local_shipping
+          </div>
+          <label for="btnradio3" class="radio-tile-label pt-2">Shipped</label>
+        </div>
+      </div>
+      <span class="material-symbols-outlined">
+        east
+        </span>
+  
+      <div class="input-container">
+        <input class="radio-button" type="radio" name="btnradio" id="btnradio4" autocomplete="off" (change)="atDeliveryCentre()" >
+        <div class="radio-tile">
+          <div class="icon  material-symbols-outlined">
+            warehouse
+          </div>
+          <label for="btnradio4" class="radio-tile-label pt-2">Delivery Centre</label>
+        </div>
+      </div>
+      <span class="material-symbols-outlined">
+        east
+        </span>
+  
+  
+      <div class="input-container">
+        <input class="radio-button" type="radio" name="btnradio" id="btnradio5" autocomplete="off" (change)="outForDelivery()" >
+        <div class="radio-tile">
+          <div class="icon  material-symbols-outlined">
+            local_post_office
+          </div>
+          <label for="btnradio5" class="radio-tile-label pt-2">Out for Delivery</label>
+        </div>
+      </div>
+      <span class="material-symbols-outlined">
+        east
+        </span>
+  
+      <div class="input-container">
+        <input class="radio-button" type="radio" name="btnradio" id="btnradio6" autocomplete="off" (change)="delivered()" >
+        <div class="radio-tile">
+          <div class="icon  material-symbols-outlined">
+            how_to_reg
+          </div>
+          <label for="btnradio6" class="radio-tile-label pt-2">Delivered</label>
+        </div>
+      </div>
+      <span class="material-symbols-outlined">
+        east
+        </span>
+  
+      <div class="input-container">
+        <input class="radio-button" type="radio" name="btnradio" id="btnradio7" autocomplete="off" (change)="cancelled()" >
+        <div class="radio-tile">
+          <div class="icon  material-symbols-outlined">
+            delete_forever
+          </div>
+          <label for="btnradio7" class="radio-tile-label pt-2">Cancelled</label>
+        </div>
+      </div>
+  
+     </div>
+  </div>
+
+
+
 
 
 <div class="d-flex justify-content-centre flex-wrap">
@@ -101,6 +208,9 @@
         </ng-container>
     </div>
 </div>
+
 <div class="">
-    <button type="button" class="m-1 btn btn-secondary btn-sm" (click)="next()">More</button>
+    <button type="button" class="m-1 btn btn-sm material-symbols-outlined " (click)="next()">
+        keyboard_arrow_down
+        </button>
 </div>

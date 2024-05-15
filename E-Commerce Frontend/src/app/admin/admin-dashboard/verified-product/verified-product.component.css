@@ -1,9 +1,65 @@
-table{
-    margin-top: 20px;
+
+.form{
+  position: relative;
 }
-table,th,td{
-    border: 1px solid black;
+
+
+.right-pan{  
+  position: absolute;
+  top:7px;
+  left:1px;
+  border-right: 1px solid #d1d5db;
+  
 }
-td,th{
-    padding: 10px;
+
+
+
+
+.left-pan{
+  padding-left: 7px;
+  position: absolute;
+  right: 17px;
+  top: 13px;
+  padding: 2px;
+  border-left: 1px solid #d1d5db;
+
 }
+
+.left-pan i{
+  padding-left:10px;
+}
+
+.form-input{
+
+  height: 55px;
+  text-indent: 33px;
+  border-radius: 10px;
+  
+}
+
+.form-input:focus{
+
+  box-shadow:none;
+  border-width: 1.5px;
+  border-color: rgb(65, 162, 48);
+}
+#search-input{
+  padding-left:175px;
+}
+#filter-select{
+  border:none;
+  padding-left:10px;
+  padding-right: 35px;
+
+
+}
+#filter-select:focus{
+  border:none;
+  box-shadow: none;
+}
+.container
+{
+  padding-bottom:60px;
+}
+
+
