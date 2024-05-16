@@ -5,6 +5,10 @@
 
 }
 
+  @media screen and (max-width: 768px) {
+  .container-fluid { height: 130px; }
+  }
+
 .nav-link {
   text-decoration: none;
   color: inherit;
