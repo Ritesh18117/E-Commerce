@@ -5,3 +5,7 @@ opacity:.8;
 .carousel-control-next-icon,.carousel-control-prev-icon:hover{
  opacity:1;
 }
+.carousel-body { padding-top: 100px; }
+@media screen and (max-width: 768px) {
+.carousel-body { padding-top: 150px; }
+}

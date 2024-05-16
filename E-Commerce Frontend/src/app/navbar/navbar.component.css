@@ -1,5 +1,8 @@
-.navbar-brand {
-  font-family: "Roboto", sans-serif;
+.container-fluid{
+  background-color: rgb(255, 255, 255);
+  height:70px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.214);  
+
 }
 
 .nav-link {
@@ -7,40 +10,23 @@
   color: inherit;
 }
 
-.navbar-nav {
-  color: white;
-}
-
-a:hover {
-  opacity: 0.6;
-}
-
-#store-name {
-  font-weight: bold;
-  font-size: 2rem;
-}
-
-.navbar {
-  background-image: linear-gradient(to right, #045386, #602a5c);
-  box-shadow: 0 1px 10px rgb(7, 7, 7);
-}
-
 .logo {
   width: 40px;
   margin-left: 10px;
   border: 5px;
   margin-right: 10px;
+  padding-bottom: 18px;
 }
+
+
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 40;
   font-size: 30px;
 }
 
-#navbarNav {
-  margin: 0;
-  padding: 0;
-}
+
+
 
 #greet-user {
   display: flex;
@@ -52,11 +38,8 @@ a:hover {
 }
 
 #greet-user:hover{
-  cursor: default;
+  cursor:pointer;
 }
-
-
-
 
 
 button {
