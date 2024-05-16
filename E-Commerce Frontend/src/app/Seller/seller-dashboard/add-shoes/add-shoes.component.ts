@@ -33,6 +33,20 @@ export class AddShoesComponent {
   categories:any;
   token:any;
 
+  basicColors = [
+    { name: "Red", value: "#FF0000" },
+    { name: "Green", value: "#00FF00" },
+    { name: "Blue", value: "#0000FF" },
+    { name: "Black", value: "#000000" },
+    { name: "White", value: "#FFFFFF" },
+    { name: "Brown", value: "#A52A2A" },
+    { name: "Yellow", value: "#FFFF00" },
+    { name: "Orange", value: "#FFA500" },
+    { name: "Purple", value: "#800080" },
+    { name: "Gray", value: "#808080" },
+    // Add more basic colors as needed
+  ];
+
   constructor(private toastr: ToastrService, private _categoryService:CategoryService, 
     private _productService:ProductServiceService) { }
 
@@ -51,6 +65,7 @@ export class AddShoesComponent {
       }
     )
   }
+
 
   async onSubmit() {
     try {
@@ -110,13 +125,13 @@ export class AddShoesComponent {
   }
 
   onSingleFileSelected(event: any) {
-    this.singleImage = event.target.files[0];
+    this.singleImage = event.target.files ? event.target.files[0] : null;
     this.product.image = event.target.files[0];
     console.log('Selected single image:', this.singleImage);
   }
 
   onMultipleFilesSelected(event: any) {
-    this.multipleImages = Array.from(event.target.files);
+    this.multipleImages = event.target.files ? Array.from(event.target.files) : [];
     this.product.images = Array.from(event.target.files);
     console.log('Selected multiple images:', this.multipleImages);
   }
@@ -138,6 +153,11 @@ export class AddShoesComponent {
 
   deleteImage(index:number){
     this.product.images.splice(index,1);
+  }
+
+  selectBasicColor(event: any) {
+    const colorValue = event.target.value;
+    this.product.color = colorValue;
   }
 
 }

@@ -2,3 +2,14 @@
     width: 200px; /* Set the width of the image */
     height: auto; /* Let the height adjust according to the aspect ratio */
 }
+.view-anchor{
+    color: black;
+    cursor: pointer;
+}
+.cancel-confirm{
+    margin-top: 18px;
+    border:solid;
+    padding: 8px;
+    border-color: rgba(0, 0, 0, 0.532);
+    width: 240px;
+}

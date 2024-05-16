@@ -1,33 +1,42 @@
+<div style="margin-left: 5px;">
 <h1>Documents</h1>
 <hr>
 <div class="mb-3 row" >
     <div class="col-7">
-        <label for="formFileSm" class="form-label">Upload GST Document</label>
-        <div style="width: 80%;">
+        <h5 style="margin-bottom: 20px;">GST Details</h5>
+        <div style="width: 80%;" *ngIf="!seller.gstDocument || (seller.gstDocument && uploadDocs)">
             <input (change)="onFileSelected($event,1)" class="form-control form-control-sm" id="formFileSm" type="file">
         </div>
-    </div>
-
-    <div class="col-5">
-        <a [href]="convertToImage(seller.gstDocument)" target="_blank">
-            <img [src]="convertToImage(seller.gstDocument)" alt="Converted Image" class="document-image">
-        </a>    
-    </div>
-</div>
-<hr width="80%">
-<div class="mb-3 row">
-    <div class="col-7">
-        <label for="formFileSm" class="form-label">Upload Trade License</label>
-        <div style="width: 80%;">
-            <input (change)="onFileSelected($event,2)" class="form-control form-control-sm" id="formFileSm" type="file">
+        <div *ngIf="seller.gstDocument && !uploadDocs">
+            GST Document already uploaded ✔ <br>
+            <a class="view-anchor" href="{{ convertToImage(seller.gstDocument) }}" target="_blank">View Document</a> 
         </div>
     </div>
 
-    <div class="col-5">
-        <a [href]="convertToImage(seller.licenceDocument)" target="_blank">
-            <img [src]="convertToImage(seller.licenceDocument)" alt="Converted Image" class="document-image">
-        </a>
+</div>
+<hr width="80%">
+<div class="mb-3 row" >
+    <div class="col-7">
+        <h5 style="margin-bottom: 20px;">Trade License Details</h5>
+        <div style="width: 80%;" *ngIf="!seller.licenceDocument || (seller.licenceDocument && uploadDocs)">
+            <input (change)="onFileSelected($event,2)" class="form-control form-control-sm" id="formFileSm" type="file">
+        </div>
+        <div *ngIf="seller.licenceDocument  && !uploadDocs">
+            Trade License already uploaded ✔ <br>
+            <a class="view-anchor" href="{{ convertToImage(seller.licenceDocument) }}" target="_blank">View Document</a>
+        </div>
     </div>
 </div>
 <hr width="80%">
-<button class="btn-sm btn btn-primary" (click)="onSubmit()">Submit</button>
+<button class="btn btn-outline-dark" style="padding: 7px; margin-bottom: 10px; width:80px;" (click)="onSubmit()" *ngIf="(!seller.gstDocument && !seller.licenceDocument) || (seller.licenceDocument && uploadDocs)">Submit</button>
+<a class="view-anchor" *ngIf="seller.gstDocument && seller.licenceDocument && showUpload" (click)="toggleConfirmation(); toggleShowUpload()">Upload New Documents</a>
+
+<div *ngIf="confirmation" class="cancel-confirm">
+    <span style="font-weight: bold; padding: 5px;">Are you sure you want to upload new documents? Old documents will be replaced.</span><br>
+    <button class="mt-3 ml-3 btn btn-sm btn-outline-dark" id="yes-cancel" (click)="toggleUpload(); toggleConfirmation()">
+        Yes </button>&nbsp;
+    <button  class="mt-3 btn btn-sm btn-outline-dark" id="no-cancel" (click)="toggleShowUpload(); toggleConfirmation()">
+        No </button>
+</div>
+</div>
+

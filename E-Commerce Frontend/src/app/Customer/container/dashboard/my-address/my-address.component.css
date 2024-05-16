@@ -4,8 +4,7 @@
     text-decoration: none;
     display: inline-block;
     position: relative;
-    font-weight:400;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Jost', sans-serif;
 }
 
 .add-address:hover{
@@ -36,6 +35,6 @@
 }
 
 .myAddress{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Jost', sans-serif;
     font-size: 1.7rem;
 }

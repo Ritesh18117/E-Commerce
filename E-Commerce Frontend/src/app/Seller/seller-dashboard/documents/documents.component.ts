@@ -8,7 +8,9 @@ import { SellerService } from 'src/app/Services/seller.service';
   styleUrls: ['./documents.component.css']
 })
 export class DocumentsComponent {
-
+  confirmation: boolean = false;
+  uploadDocs: boolean = false;
+  showUpload : boolean = true;
   GSTfile:any;
   tradeLicenceFile:any;
   gstImage:any;
@@ -92,5 +94,15 @@ export class DocumentsComponent {
     }
     const byteArray = new Uint8Array(byteNumbers);
     return new Blob([byteArray], { type: contentType });
+  }
+
+  toggleUpload() {
+    this.uploadDocs = !this.uploadDocs // Toggle the visibility of the form
+  }
+  toggleShowUpload(){
+    this.showUpload = !this.showUpload
+  }
+  toggleConfirmation(){
+    this.confirmation = !this.confirmation;
   }
 }

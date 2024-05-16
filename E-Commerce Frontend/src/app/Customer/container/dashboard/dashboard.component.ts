@@ -19,11 +19,6 @@ export class DashboardComponent implements OnInit {
   constructor(private userService:UserService, private route: ActivatedRoute){}
 
   ngOnInit(){
-    this.route.data.subscribe(data => {
-      if (data && ['myAddress']) {
-        this.renderMyAddress();
-      }
-    });
     this.getUsername();
   }
   renderProfile(){
