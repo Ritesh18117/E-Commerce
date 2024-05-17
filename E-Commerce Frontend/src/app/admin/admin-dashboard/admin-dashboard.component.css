@@ -35,7 +35,244 @@
 *{
     font-family: "Poppins", sans-serif;;
 }
-.body { padding-top: 100px; }
+.body { padding-top: 45px; }
 @media screen and (max-width: 768px) {
-.body { padding-top: 150px; }
+.body { padding-top: 110px; }
 }
+.position-sticky { padding-top: 50px; }
+@media screen and (max-width: 768px) {
+.position-sticky { padding-top: 100px; }
+}
+.menu-btn {display:none;
+  pointer-events: none;  }
+
+@media screen and (max-width: 768px) {
+.menu-btn { display:block;
+  pointer-events:all;
+ }
+}
+
+
+
+/*  */
+
+
+/*
+* Sidebar
+*/
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    /* rtl:raw:
+    right: 0;
+    */
+    bottom: 0;
+    /* rtl:remove */
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 48px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  }
+  
+  .sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  }
+  
+  @supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 48px; /* Height of navbar */
+    }
+  }
+  
+  .sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+  }
+  
+  .sidebar .nav-link.active {
+    color: #007bff;
+  }
+  
+  .sidebar .nav-link:hover .feather,
+  .sidebar .nav-link.active .feather {
+    color: inherit;
+  }
+  
+  .sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+  }
+  
+  /*
+  * Navbar
+  */
+  
+  .navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+  }
+  
+  .navbar .navbar-toggler {
+    top: .25rem;
+    right: 1rem;
+  }
+  
+  .navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+  }
+  
+  .form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+  }
+  
+  .form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+  }
+  
+  /*
+  * Utilities
+  */
+  
+  .border-top { border-top: 1px solid #e5e5e5; }
+  .border-bottom { border-bottom: 1px solid #e5e5e5; }
+  
+  .feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+  }
+  
+  /*
+  * Dashboard
+  */
+  
+  .bg-dark {
+    background-color: #333;
+  }
+  
+  .main-sidebar .nav-link {
+    border-radius: 0;
+    color: #b8c7ce;
+  }
+  
+  .main-sidebar .nav-link.active {
+    background-color: #4b545c;
+    color: #ffffff;
+  }
+  
+  .main-sidebar .nav-link:hover {
+    background-color: #4b545c;
+    color: #ffffff;
+  }
+  
+  .main-sidebar .nav-link.active .nav-icon, .main-sidebar .nav-link:hover .nav-icon {
+    color: #ffffff;
+  }
+  
+  .main-sidebar .nav-link.active .nav-icon {
+    opacity: 1;
+  }
+  
+  .main-sidebar .nav-link .nav-icon {
+    color: #b8c7ce;
+    opacity: .7;
+  }
+  
+  .main-sidebar .nav-treeview {
+    padding-left: 0;
+  }
+  
+  .main-sidebar .nav-treeview>.nav-item>.nav-link {
+    padding-left: 18px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    font-size: 14px;
+  }
+  
+  .nav-treeview>.nav-item>.nav-link {
+    padding-left: 18px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+  
+  .nav-treeview>.nav-item>.nav-link {
+    color: #b8c7ce;
+  }
+  
+  .main-sidebar .nav-treeview>.nav-item>.nav-link:hover {
+    background-color: #4b545c;
+  }
+  
+  .nav-treeview>.nav-item>.nav-link.active {
+    color: #ffffff;
+  }
+  
+  .nav-treeview>.nav-item>.nav-link.active>.nav-icon {
+    color: #ffffff;
+  }
+  
+  .nav-treeview>.nav-item>.nav-link>.nav-icon {
+    color: #b8c7ce;
+    opacity: .7;
+  }
+  
+  .nav-treeview>.nav-item>.nav-link>.nav-icon {
+    margin-right: 5px;
+  }
+  
+  /* Chart.js */
+  @-webkit-keyframes chartjs-render-animation {
+    from {
+      opacity: 0.99;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes chartjs-render-animation {
+    from {
+      opacity: 0.99;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .chartjs-render-monitor {
+    -webkit-animation: chartjs-render-animation 0.001s;
+    animation: chartjs-render-animation 0.001s;
+  }
+  
+  /* Feathers */
+  .feather {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    vertical-align: text-bottom;
+  }
+  

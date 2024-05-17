@@ -1,70 +1,108 @@
 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 <div class="body">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<div class="container mt-4" style="min-height: 80vh;">
-    <div class="row border">
-        <div class="col-md-2 border p-2 pb-3">
-            <div class="border-bottom p-1">
-                <div class="avatar">
-                    <img src="../../../assets/person_logo.png" class="avatar-photo" height="108" width="108">
-                    </div>
-                    <div class="user-name">
-                        {{username}}
-                    </div>
-            </div>
-            <a role="button" (click)="renderAdminInfo()" class="sideNav text-decoration-none text-dark">
+ 
+
+</div>
+
+<div class="container-fluid  pt-5 ">
+  <div class="row ">
+    <nav id="sidebarMenu" class=" col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky ">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a role="button" (click)="renderAdminInfo()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
                 <div class="p-2 mt-2 profile-nav" id="align-items">
                     <span class="material-symbols-outlined">shield_person</span>
                     &nbsp; &nbsp; &nbsp; Admin Info
                 </div>
             </a>
-            <a role="button" (click)="renderVerifiedSeller()" class="sideNav text-decoration-none text-dark">
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderVerifiedSeller()" class="sideNav text-decoration-none text-dark"data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
                 <div class="p-2 mt-2 profile-nav" id="align-items">
                     <span class="material-symbols-outlined">person_check</span>
                     &nbsp; &nbsp; &nbsp; Verified Seller
                 </div>
             </a>
-            <a role="button" (click)="renderverifySeller()" class="sideNav text-decoration-none text-dark">
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderverifySeller()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
                 <div class="p-2 mt-2 profile-nav" id="align-items">
                     <span class="material-symbols-outlined">person_add</span>
                     &nbsp; &nbsp; &nbsp; Verify Seller
                 </div>
             </a>
-            <a role="button" (click)="renderVerifiedProduct()" class="sideNav text-decoration-none text-dark">
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderVerifiedProduct()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
                 <div class="p-2 mt-2 profile-nav" id="align-items">
                     <span class="material-symbols-outlined">assignment_turned_in</span>
                     &nbsp; &nbsp; &nbsp; Verified Product
                 </div>
             </a>
-            <a role="button" (click)="renderVerifyProduct()" class="sideNav text-decoration-none text-dark">
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderVerifyProduct()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
                 <div class="p-2 mt-2 profile-nav" id="align-items">
                     <span class="material-symbols-outlined">assignment_add</span>
                     &nbsp; &nbsp; &nbsp; Verify Product
                 </div>
             </a>
-            <a role="button" (click)="renderDeliveryTrack()" class="sideNav text-decoration-none text-dark">
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderDeliveryTrack()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
                 <div class="p-2 mt-2 profile-nav" id="align-items">
                     <span class="material-symbols-outlined">local_shipping</span>
                     &nbsp; &nbsp; &nbsp; Delivery Track
                 </div>
             </a>
-            <a role="button" (click)="renderAddCategory()" class="sideNav text-decoration-none text-dark">
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderAddCategory()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
                 <div class="p-2 mt-2 profile-nav" id="align-items">
                     <span class="material-symbols-outlined">category</span>
                     &nbsp; &nbsp; &nbsp; Categories
                 </div>
             </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="layers"></span>
+              Integrations
+            </a>
+          </li> -->
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Admin Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Export</button> -->
+            <a class="menu-btn material-symbols-outlined btn btn-sm btn-outline-secondary" role="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                menu
+            </a>
+          </div>
+
         </div>
-        <div class="col-md-10 border p-3">
-            <app-admin-info *ngIf="adminInfo"></app-admin-info>
-            <app-verified-seller *ngIf="verifiedSeller"></app-verified-seller>
-            <app-verify-seller *ngIf="verifySeller"></app-verify-seller>
-            <app-verified-product *ngIf="verifiedProduct"></app-verified-product>
-            <app-verify-product *ngIf="verifyProduct"></app-verify-product>
-            <app-add-category *ngIf="addCatergory"></app-add-category>
-            <app-delivery-track *ngIf="deliveryTrack"></app-delivery-track>
-        </div>
+      </div>
+<div>
+      <app-admin-info *ngIf="adminInfo"></app-admin-info>
+      <app-verified-seller *ngIf="verifiedSeller"></app-verified-seller>
+      <app-verify-seller *ngIf="verifySeller"></app-verify-seller>
+      <app-verified-product *ngIf="verifiedProduct"></app-verified-product>
+      <app-verify-product *ngIf="verifyProduct"></app-verify-product>
+      <app-add-category *ngIf="addCatergory"></app-add-category>
+      <app-delivery-track *ngIf="deliveryTrack"></app-delivery-track>
     </div>
+
+
+    </main>
+  </div>
 </div>
-</div>
-<router-outlet></router-outlet>
+
