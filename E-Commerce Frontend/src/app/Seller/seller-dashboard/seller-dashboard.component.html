@@ -1,4 +1,4 @@
-<div class="body">
+<!-- <div class="body">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="container mt-4" style="min-height: 80vh;">
     <div class="row border">
@@ -51,5 +51,100 @@
         </div>
     </div>
 </div>
+</div> -->
+<!--  -->
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<div class="body">
+ 
+
 </div>
+
+<div class="container-fluid  pt-5 ">
+  <div class="row ">
+    <nav id="sidebarMenu" class=" col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky ">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a role="button" (click)="renderProfile()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">store</span>
+                    &nbsp; &nbsp; &nbsp; Seller Info
+                </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderDocuments()" class="sideNav text-decoration-none text-dark"data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">description</span>
+                    &nbsp; &nbsp; &nbsp; Documents
+                </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderAddShoes()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">box_add</span>
+                    &nbsp; &nbsp; &nbsp; Add Item
+                </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderAddedItems()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">box</span>
+                    &nbsp; &nbsp; &nbsp; Added Items
+                </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderOrderTrack()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">local_shipping</span>
+                    &nbsp; &nbsp; &nbsp; Track Order
+                </div>
+            </a>
+          </li>
+
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="layers"></span>
+              Integrations
+            </a>
+          </li> -->
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Seller Dashboard: {{username}}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Export</button> -->
+            <a class="menu-btn material-symbols-outlined btn btn-sm btn-outline-secondary" role="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                menu
+            </a>
+          </div>
+
+        </div>
+      </div>
+<div>
+    <app-profile *ngIf="profile"></app-profile>
+    <app-documents *ngIf="documents"></app-documents>
+    <app-add-shoes *ngIf="addShoes"></app-add-shoes>
+    <app-added-items *ngIf="addedItems"></app-added-items>
+    <app-order-track *ngIf="orderTrack"></app-order-track>
+    </div>
+
+
+    </main>
+  </div>
+</div>
+
+
 <router-outlet></router-outlet>
