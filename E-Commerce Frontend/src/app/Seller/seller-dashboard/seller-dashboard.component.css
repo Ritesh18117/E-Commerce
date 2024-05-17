@@ -38,3 +38,7 @@
 *{
     font-family: "Poppins", sans-serif;;
 }
+.body { padding-top: 100px; }
+  @media screen and (max-width: 768px) {
+  .body { padding-top: 150px; }
+  }

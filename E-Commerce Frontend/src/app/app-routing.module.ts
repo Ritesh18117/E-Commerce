@@ -13,7 +13,11 @@ import { ProductDetailsComponent } from './Customer/container/product-details/pr
 import { superAdminAuthGuard } from './super-admin/auth/auth.guard';
 import { OrderPlacedComponent } from './Customer/container/place-order/order-placed/order-placed.component';
 import { MyAddressComponent } from './Customer/container/dashboard/my-address/my-address.component';
+import { PricingComponent } from './Seller/pricing/pricing.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+ 
 
+//Define Routes
 const routes: Routes = [
     { path: '', component: ContainerComponent },
     { path: 'about', component: AboutComponent },
@@ -46,6 +50,8 @@ const routes: Routes = [
     { path:'cart', component:CardComponent, canActivate:[authGuard] },
     { path:'dashboard', component:DashboardComponent, canActivate:[authGuard] },
     { path:'placeOrder', component:PlaceOrderComponent, canActivate:[authGuard] },
+    { path: 'pricing', component: PricingComponent },
+    { path: 'legal', component: TermsConditionsComponent },
     { path: '**', redirectTo: ''} // Wild Card Route
 ];
 
