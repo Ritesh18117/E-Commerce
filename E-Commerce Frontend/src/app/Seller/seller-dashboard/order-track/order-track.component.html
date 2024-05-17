@@ -26,10 +26,10 @@
 <br><br>
 
 
-<table class="table table-bordered">
-    <thead>
+<table class="table table-striped table-sm table-bordered">
+    <thead >
         <tr>
-            <th scope="col">OT ID</th>
+            <th scope="col">Tracking ID</th>
             <th scope="col">Product ID</th>
             <th scope="col">Product Name</th>
             <th scope="col">Size</th>
@@ -90,6 +90,7 @@
                                 <option value="delivered">Delivered</option>
                             </select>
                         </ng-container>
+                        <!--  -->
                         <ng-container *ngIf="myOrderTracing.status == 'PACKED'">
                             <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
                                 <option disabled value="packed">Packed</option>
@@ -99,6 +100,17 @@
                                 <option value="delivered">Delivered</option>
                             </select>
                         </ng-container>
+                        <!--  -->
+<!-- 
+                        <ng-container *ngIf="myOrderTracing.status == 'PACKED'">
+                            <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
+                                <option disabled value="packed">Packed</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="at_delivery_centre">In Transit</option>
+                                <option value="out_for_delivery">Out for Delivery</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </ng-container> -->
                         <ng-container *ngIf="myOrderTracing.status == 'SHIPPED'">
                             <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
                                 <option disabled value="packed">Packed</option>
@@ -134,14 +146,15 @@
             </ng-container>
             
             <ng-container *ngIf="!isDateOlderThan3Days(myOrderTracing.statusChangedAt)  && myOrderTracing.status != 'DELIVERED' && myOrderTracing.status != 'CANCELLED'">
+
+                
                 <tr>
                     <td>{{myOrderTracing.id}}</td>
                     <td>{{myOrderTracing.order.productVariation.product.id}}</td>
                     <td>{{myOrderTracing.order.productVariation.product.name}}</td>
                     <td>{{myOrderTracing.order.productVariation.size}}</td>
                     <td>{{myOrderTracing.order.quantity}}</td>
-                    <td>{{myOrderTracing.order.address.name}} |
-                        {{myOrderTracing.order.address.contact}} |
+                    <td >{{myOrderTracing.order.address.name}} | {{myOrderTracing.order.address.contact}} |
                         {{myOrderTracing.order.address.address1}}, {{myOrderTracing.order.address.address2}}
                         {{myOrderTracing.order.address.city}}, {{myOrderTracing.order.address.status}}
                         {{myOrderTracing.order.address.country}}, {{myOrderTracing.order.address.zipcode}}</td>
@@ -149,9 +162,7 @@
                     <td>{{formatDate(myOrderTracing.createdAt)}}</td>
                     <td>{{formatDate(myOrderTracing.statusChangedAt)}}</td>
 
-                    <td width="300px">
-                       
-
+                    <td>
                         <ng-container *ngIf="myOrderTracing.status == 'ORDER_PLACED'">
                             <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
                                 <option value="packed">Packed</option>
@@ -161,7 +172,8 @@
                                 <option value="delivered">Delivered</option>
                             </select>
                         </ng-container>
-                        <ng-container *ngIf="myOrderTracing.status == 'PACKED'">
+
+                        <ng-container *ngIf="myOrderTracing.status == 'packed'">
                             <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
                                 <option disabled value="packed">Packed</option>
                                 <option value="shipped">Shipped</option>
@@ -170,6 +182,7 @@
                                 <option value="delivered">Delivered</option>
                             </select>
                         </ng-container>
+
                         <ng-container *ngIf="myOrderTracing.status == 'SHIPPED'">
                             <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
                                 <option disabled value="packed">Packed</option>
@@ -179,6 +192,7 @@
                                 <option value="delivered">Delivered</option>
                             </select>
                         </ng-container>
+
                         <ng-container *ngIf="myOrderTracing.status == 'AT_DELIVERY_CENTRE'">
                             <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
                                 <option disabled value="packed">Packed</option>
@@ -188,6 +202,7 @@
                                 <option value="delivered">Delivered</option>
                             </select>
                         </ng-container>
+                        
                         <ng-container *ngIf="myOrderTracing.status == 'OUT_FOR_DELIVERY'">
                             <select name="status-change" id="status-change" [(ngModel)]="myOrderTracing.selectedStatus">
                                 <option disabled value="packed">Packed</option>
