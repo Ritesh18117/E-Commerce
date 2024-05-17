@@ -4,13 +4,12 @@ import { ProductVariationService } from 'src/app/Services/product-variation.serv
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/Services/category.service';
 
-
 @Component({
   selector: 'app-added-items',
   templateUrl: './added-items.component.html',
   styleUrls: ['./added-items.component.css']
 })
-export class AddedItemsComponent{
+export class AddedItemsComponent {
 
   token: any;
   myProducts: any;
@@ -25,11 +24,42 @@ export class AddedItemsComponent{
   multipleImages: File[] = [];
 
   categories: any;
+  basicColors = [
+    { name: "Red", value: "#FF0000" },
+    { name: "Green", value: "#00FF00" },
+    { name: "Blue", value: "#0000FF" },
+    { name: "Black", value: "#000000" },
+    { name: "White", value: "#FFFFFF" },
+    { name: "Brown", value: "#A52A2A" },
+    { name: "Yellow", value: "#FFFF00" },
+    { name: "Orange", value: "#FFA500" },
+    { name: "Purple", value: "#800080" },
+    { name: "Gray", value: "#808080" },
+    // Add more basic colors as needed
+  ];
 
-  constructor(private _categoryService: CategoryService, 
-    private toastr: ToastrService, 
-    private _productService: ProductServiceService, 
-    private _productVariationService: ProductVariationService) { }
+  // Define the product property
+  product: any = {
+    id: null,
+    name: '',
+    gender: '',
+    price: 0,
+    discount: 0,
+    margin: 0,
+    color: '',
+    description: '',
+    category: {
+      id: null,
+      categoryName: ''
+    },
+    image: '',
+    images: []
+  };
+
+  constructor(private _categoryService: CategoryService,
+              private toastr: ToastrService,
+              private _productService: ProductServiceService,
+              private _productVariationService: ProductVariationService) { }
 
   async ngOnInit() {
     this.token = sessionStorage.getItem('token');
@@ -154,11 +184,11 @@ export class AddedItemsComponent{
     )
   }
 
-  async onEditSubmit(product:any) {
+  async onEditSubmit(product: any) {
     try {
       const formData = new FormData();
       // Append normal fields
-      formData.append('id',product.id)
+      formData.append('id', product.id);
       formData.append('name', product.name);
       formData.append('gender', product.gender);
       formData.append('price', product.price.toString());
@@ -183,11 +213,11 @@ export class AddedItemsComponent{
 
       await console.log("Data before resetting:", product);
       this.token = sessionStorage.getItem('token');
-      this._productService.updateProduct(this.token,formData).subscribe(
+      this._productService.updateProduct(this.token, formData).subscribe(
         (data) => {
           product = data;
           this.toastr.success('Product Added!!', 'Success');
-        }, (error) =>{
+        }, (error) => {
           console.error("ERROR", error);
           this.toastr.error('Error Adding product', 'Error', {
             timeOut: 500, // Toast will disappear after 0.5 seconds
@@ -202,7 +232,7 @@ export class AddedItemsComponent{
     }
   }
 
-  convertToImage(image:any) {
+  convertToImage(image: any) {
     const blob = this.base64toBlob(image, 'image/png'); // Change 'image/png' to the appropriate content type
     const urlCreator = window.URL || window.webkitURL;
     return urlCreator.createObjectURL(blob);
@@ -220,13 +250,19 @@ export class AddedItemsComponent{
 
   onSingleFileSelected(event: any) {
     this.singleImage = event.target.files[0];
-    this.myProducts.image = event.target.files[0];
+    this.product.image = event.target.files[0];
     console.log('Selected single image:', this.singleImage);
   }
 
   onMultipleFilesSelected(event: any) {
     this.multipleImages = Array.from(event.target.files);
-    this.myProducts.images = Array.from(event.target.files);
+    this.product.images = event.target.files;
     console.log('Selected multiple images:', this.multipleImages);
+  }
+
+  selectBasicColor(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.product.color = selectElement.value; // Set the selected color
+    console.log('Selected color:', this.product.color);
   }
 }

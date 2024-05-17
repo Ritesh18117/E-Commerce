@@ -1,0 +1,32 @@
+.added-products{
+    width: 90%;
+    margin-left: 45px;
+}
+#products-list{
+    border-color: rgba(0, 0, 0, 0.121);
+    margin-bottom: 10px;
+    border-style: solid;
+    background-color: rgb(240, 240, 240);
+}
+#product-details{
+    font-size: 14px;
+    margin-left: 10px;
+}
+#button-group{
+    margin-top: 70px;
+}
+#edit-profile{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    border:solid rgba(0, 0, 0, 0.121) 2px;
+    border-radius: 5px;
+}
+.add-quantity{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    border:solid rgba(0, 0, 0, 0.121) 2px;
+    border-radius: 5px;
+}
+
