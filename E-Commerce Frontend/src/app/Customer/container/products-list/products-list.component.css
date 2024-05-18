@@ -11,7 +11,30 @@
   margin-top: 20px;
 }
 
+/*  */
+button {
+  border: none;
+  transition: 0.5s;
+}
 
+button:hover {
+  transform: scale(1.2);
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 25;
+  font-size:30px;
+  background-color: rgb(255, 255, 255);
+}
+
+
+
+/* 
 .button {
   width: 50px;
   height: 50px;
@@ -27,7 +50,8 @@
   transition-duration: 0.3s;
   overflow: hidden;
   position: relative;
-}
+} */
+/* 
 
 .svgIcon {
   width: 12px;
@@ -36,43 +60,43 @@
 
 .svgIcon path {
   fill: white;
-}
+} */
 
-.button:hover {
+/* .button:hover {
   width: 140px;
   border-radius: 50px;
   transition-duration: 0.3s;
   background-color: rgb(57, 56, 61);
   align-items: center;
-}
+} */
 
-.button:hover .svgIcon {
+/* .button:hover .svgIcon { */
   /* width: 20px; */
-  transition-duration: 0.3s;
+  /* transition-duration: 0.3s;
   transform: translateY(-200%);
-}
-
+} */
+/* 
 .button::before {
   position: absolute;
   bottom: -20px;
   content: "More items";
-  color: white;
+  color: white; */
   /* transition-duration: .3s; */
-  font-size: 0px;
-}
+  /* font-size: 0px;
+} */
 
-.button:hover::before {
+/* .button:hover::before {
   font-size: 13px;
   opacity: 1;
-  bottom: unset;
+  bottom: unset; */
   /* transform: translateY(-30px); */
-  transition-duration: 0.3s;
-}
+  /* transition-duration: 0.3s;
+} */
 
 span{
   display: flex;
   text-align: center;
   justify-content: center;
-  color: azure;
+  color: rgb(55, 57, 57);
 
 }

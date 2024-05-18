@@ -10,7 +10,7 @@ import { ProductServiceService } from 'src/app/Services/product-service.service'
 })
 export class ProductsListComponent {
 
-  products!: any;
+  products: any;
   categories: any;
   count:any = 1;
 

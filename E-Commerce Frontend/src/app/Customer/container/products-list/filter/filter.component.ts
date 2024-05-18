@@ -8,14 +8,20 @@ import { CategoryService } from 'src/app/Services/category.service';
 })
 export class FilterComponent {
 
-  categories:any;
+  // categories:any;
+
 
   @Output() filterNotify: EventEmitter<number> = new EventEmitter();
 
   constructor(private categoryService:CategoryService){}
 
+  categories:any;
+
+  loopTimes = new Array(4);
+
   ngOnInit(){
     this.getCategories();
+
   }
 
   getCategories(){

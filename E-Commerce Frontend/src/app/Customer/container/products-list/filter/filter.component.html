@@ -15,16 +15,21 @@
       </span>
     </label>
 
-    <label
-      class="radio"
-      (click)="filter(52)"
-      (click)="filter(53)"
-      style="border-right: 200px"
-    >
-      <input type="radio" name="radio" />
-      <span class="name" (click)="printCategory($event)">Groceries</span>
-    </label>
-    <label class="radio" (click)="filter(2)" style="border-right: 200px">
+
+
+    <!-- <ng-container *ngFor="let category of categories ">
+
+      <label class="radio" (click)="filter(category.id)" style="border-right: 200px"><input type="radio" name="radio" /><span class="name" (click)="printCategory($event)">{{category.categoryName}}</span></label>
+
+    </ng-container> -->
+    <ng-container *ngFor="let _ of loopTimes; let i = index">
+      <label class="radio" (click)="filter(categories[i].id)" style="border-right: 200px">
+        <input type="radio" name="radio" />
+        <span class="name" (click)="printCategory($event)">{{ categories[i].categoryName }}</span>
+      </label>
+    </ng-container>
+
+    <!-- <label class="radio" (click)="filter(2)" style="border-right: 200px">
       <input type="radio" name="radio" />
       <span class="name" (click)="printCategory($event)">Drinks</span>
     </label>
@@ -35,7 +40,9 @@
     <label class="radio" (click)="filter(4)" style="border-right: 200px">
       <input type="radio" name="radio" />
       <span class="name" (click)="printCategory($event)">Shoes</span>
-    </label>
+    </label> -->
+
+    
 
     <div
       class="offcanvas offcanvas-start"
