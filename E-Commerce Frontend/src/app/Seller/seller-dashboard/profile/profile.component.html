@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'> 
 
-<div style="display:flexbox;text-align:left;font-family:Arial, Helvetica, sans-serif;font-weight: 600;font-size:2.2rem;padding-bottom: 30px;">
+<div style="display:flexbox;text-align:left;font-family:Jost, sans-serif;font-weight: 600;font-size:1.8rem;margin-bottom: 30px;">
   Seller Information <span *ngIf="profile.approvalStatus == 'rejected'"
         style="color: red;">({{profile.approvalStatus}})</span>
     <span *ngIf="profile.approvalStatus == 'true'" style="color: green;">(Approved)</span>
@@ -18,13 +18,13 @@
 <form action="" class="mt-4" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-6">
-            <h6>Company Name</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 3px;">Company Name</h6>
             <input [disabled]="!editProfile" type="text" name="companyName" [value]="profile.companyName"
                 [(ngModel)]="profile.companyName" class="form-control form-control-lg" id="colFormLabelLg"
                 placeholder="Company Name">
         </div>
         <div class="col-6">
-            <h6>Contact Type</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 2px;">Company Type</h6>
             <input [disabled]="!editProfile" type="text" name="c  ompanyType" [value]="profile.companyType"
                 [(ngModel)]="profile.companyType" class="form-control form-control-lg" id="colFormLabelLg"
                 placeholder="Type">
@@ -32,41 +32,41 @@
     </div>
     <div class="row">
         <div class=" col-6 pt-4">
-            <h6>Contact Email</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 3px;">Contact Email</h6>
             <input [disabled]="!editProfile" type="email" name="email" [(ngModel)]="profile.contactEmail"
                 class="form-control form-control-lg" id="colFormLabelLg" placeholder="showshop@showshop.com"
                 [value]="profile.email">
         </div>
         <div class=" col-6 pt-4">
-            <h6>Company Contact</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 2px;">Company Contact</h6>
             <input [disabled]="!editProfile" type="text" name="contact" [(ngModel)]="profile.contactInfo"
                 class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.contactInfo">
         </div>
     </div>
     <div class="row">
         <div class=" col-6 pt-4">
-            <h6>GST Number</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 3px;">GST Number</h6>
             <input [disabled]="!editProfile" type="text" name="gst" [(ngModel)]="profile.gstNumber"
                 class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.gstNumber">
         </div>
         <div class=" col-6 pt-4">
-            <h6>Address</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 2px;">Address</h6>
             <input [disabled]="!editProfile" type="text" name="place" [(ngModel)]="profile.address"
                 class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.address">
         </div>
     </div>
     <div class="row">
         <div class=" col-6 pt-4">
-            <h6>Licence Number</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 3px;">Licence Number</h6>
             <input [disabled]="!editProfile" type="text" name="Licence" [(ngModel)]="profile.licenceNumber"
                 class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.licenceNumber">
         </div>
         <div class=" col-6 pt-4">
-            <h6>Website</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 2px;">Website</h6>
             <input [disabled]="!editProfile" type="text" name="Website" [(ngModel)]="profile.website"
                 class="form-control form-control-lg" id="colFormLabelLg" placeholder="" [value]="profile.website">
         </div>
     </div>
-    <button class="mt-4 btn btn btn-outline-dark"(click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
-    <button class="mt-4 btn btn-outline-success" *ngIf="editProfile">Submit</button>
+    <button class="mt-5 btn btn btn-outline-dark"(click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
+    <button class="mt-5 btn btn-outline-success" *ngIf="editProfile">Submit</button>
 </form>

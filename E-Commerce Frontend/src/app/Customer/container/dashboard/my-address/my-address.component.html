@@ -1,8 +1,7 @@
 <!-- <h2 class="myAddress" *ngIf="myAddresses.length > 0" style="margin-bottom: 40px;">My Addresses</h2> -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'> 
 
-<div *ngIf="myAddresses.length > 0" style="margin-bottom: 40px;" style="display:flexbox;text-align:left;font-family:Arial, Helvetica, sans-serif;font-weight: 600;font-size:2.2rem;padding-bottom: 30px;">Address</div>
+<div *ngIf="myAddresses.length > 0" style="margin-bottom: 40px;" style="display:flexbox;text-align:left;font-family:Jost, sans-serif;font-weight: 600;font-size:1.8rem;padding-bottom: 30px;">Saved Addresses</div>
 <div class="">
     <div class="row">
         <div class="col-sm-6 mb-5" *ngFor="let address of myAddresses; let i=index">
@@ -27,47 +26,50 @@
 </div>
 
     
-    <form *ngIf="addAddressVisible" #myForm="ngForm" class="mt-5 border p-3 " id="new-address" (ngSubmit)="onSubmit()">
-        <h2>New Address</h2>
+    <form *ngIf="addAddressVisible" #myForm="ngForm" class="mt-5 p-3 " id="new-address" (ngSubmit)="onSubmit()">
+        <h2 style="margin-bottom: 40px;" style="font-family:Jost, sans-serif;font-weight: 600;font-size:1.8rem; margin-left: 8px;">New Address</h2>
         <div class="row m-3 mt-5">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <h6 style="margin-bottom: 5px; margin-left: 3px;">Name</h6>
                     <input type="text" name="Name" [(ngModel)]="addAddress.name" class="form-control form-control-lg" placeholder="John Doe">
                 </div>
             </div>
     
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="contact">Contact</label>
+                    <h6 style="margin-bottom: 5px; margin-left: 3px;">Contact</h6>
                     <input type="text" name="contact" [(ngModel)]="addAddress.contact" class="form-control form-control-lg" placeholder="9876543210">
                 </div>
             </div>
         </div>
-    
-        <div class="form-group m-4">
-            <label for="address1">Address 1</label>
-            <input type="text" name="address1" [(ngModel)]="addAddress.address1" class="form-control form-control-lg" placeholder="1234 Main St">
+        <div class="row m-3">
+            <div class="form-group col-md-12">
+                <h6 style="margin-bottom: 5px; margin-left: 3px;">Address Line 1</h6>
+                <input name="address2" type="text" [(ngModel)]="addAddress.address2" class="form-control form-control-lg" placeholder="Apartment, studio, or floor">
+            </div>
         </div>
-    
-        <div class="form-group m-4">
-            <label for="address2">Address 2</label>
-            <input name="address2" type="text" [(ngModel)]="addAddress.address2" class="form-control form-control-lg" placeholder="Apartment, studio, or floor">
+        <div class="row m-3">
+            <div class="form-group col-md-12">
+                <h6 style="margin-bottom: 5px; margin-left: 3px;">Address Line 2</h6>
+                <input type="text" name="address1" [(ngModel)]="addAddress.address1" class="form-control form-control-lg" placeholder="1234 Main St">
+            </div>
         </div>
+        
     
         <div class="row m-3">
             <div class="form-group col-md-6">
-                <label for="city">City</label>
+                <h6 style="margin-bottom: 5px; margin-left: 3px;">City</h6>
                 <input name="city" type="text" [(ngModel)]="addAddress.city" class="form-control form-control-lg" placeholder="City" id="inputCity">
             </div>
     
             <div class="form-group col-md-4">
-                <label for="state">State</label>
+                <h6 style="margin-bottom: 5px; margin-left: 3px;">State</h6>
                 <input name="state" type="text" [(ngModel)]="addAddress.state" class="form-control form-control-lg" placeholder="State" id="inputState">
             </div>
     
             <div class="form-group col-md-2">
-                <label for="zip">Zip</label>
+                <h6 style="margin-bottom: 5px; margin-left: 3px;">Zipcode</h6>
                 <input name="zip" type="text" [(ngModel)]="addAddress.zipcode" class="form-control form-control-lg" placeholder="Zip" id="inputZip">
             </div>
         </div>

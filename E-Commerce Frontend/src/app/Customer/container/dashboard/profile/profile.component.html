@@ -1,28 +1,26 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'> 
-
-<div style="display:flexbox;text-align:left;font-family:Arial, Helvetica, sans-serif;font-weight: 600;font-size:2.2rem;padding-bottom: 30px;">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> 
+<div style="display:flexbox;text-align:left;font-family:Jost, sans-serif;font-weight: 600;font-size:1.8rem;margin-bottom: 10px;">
     User Information</div>
 
 
 <div class="cust-info">
 
 
-<form action="" class="mt-4" (ngSubmit)="onSubmit()">
+<form action="" class="" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-6 pt-4">
-            <h6>Name</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 3px;">Name</h6>
             <input [disabled]="!editProfile" type="text" name="name" [value]="profile.name " [(ngModel)]="profile.name" class="form-control form-control-lg" id="colFormLabelLg" placeholder="name">
         </div>
         <div class=" col-6 pt-4">
-            <h6>Contact</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 3px;">Contact</h6>
             <input [disabled]="!editProfile" type="text" name="contact" [(ngModel)]="profile.contact" class="form-control form-control-lg" id="colFormLabelLg"
                     placeholder="" [value]="profile.Contact">
         </div>
     </div>
     <div class="row">
         <div class=" col-6 pt-4">
-            <h6>Email</h6>
+            <h6 style="margin-bottom: 5px; margin-left: 3px;">Email</h6>
             <input [disabled]="!editProfile" type="email" name="email"  class="form-control form-control-lg" id="colFormLabelLg"
                     placeholder="" [value]="profile.user.username">
         </div>
@@ -38,8 +36,8 @@
             <label class="form-check-label" for="inlineRadio2">Female</label>
         </div>
     </div>
-    <button class="mt-4 btn btn btn-outline-dark"(click)="editProfileMethod()" *ngIf="!editProfile">Edit Profile </button>
-    <button class="mt-4 btn btn-outline-success" *ngIf="editProfile">Submit</button>
+    <button class="mt-4 btn btn btn-outline-dark"(click)="editProfileMethod()" style="margin-left: 3px;" *ngIf="!editProfile">Edit Profile </button>
+    <button class="mt-4 btn btn-outline-dark" style="margin-left: 3px;" *ngIf="editProfile">Submit</button>
 </form>
 </div>
 <!-- <h2>Personal Information</h2>
