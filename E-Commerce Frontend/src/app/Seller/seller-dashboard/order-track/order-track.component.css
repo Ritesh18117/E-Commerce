@@ -1,5 +1,5 @@
 .save-status-change{
-    margin-left: 3px;
+    margin-left: 8px;
     background-color: #368422;
     color:white;
     border: 0.5px solid #368422;
@@ -7,4 +7,22 @@
 }
 #save-state{
     display: inline-block;
+}
+.ellipsis-click{
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+}
+.ellipsis-click:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.show-less{
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+}
+.show-less:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }

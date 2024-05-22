@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'> 
 
-<div style="display:flexbox;text-align:left;font-family:Arial, Helvetica, sans-serif;font-weight: 600;font-size:2.2rem;padding-bottom: 30px;">
+<div style="display:flexbox;text-align:left;font-family:Jost, sans-serif;font-weight: 600;font-size:1.8rem;margin-bottom: 50px;">
   Added Products</div><div class="added-products">
     <ng-container *ngFor="let product of myProducts">
         <div class="row" id="products-list">
@@ -36,9 +35,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row" *ngIf="editProductId === product.id" style="margin-left: 2px;">
+            <div class="row" *ngIf="editProductId === product.id">
                 <hr style="margin-top: 40px; width:90%; margin-left: 40px ">
-                <h2>Edit Product Details</h2>
+                <h2 style="margin-top: 15px; margin-left: 3px;">Edit Product Details</h2>
                 <div id="edit-profile">
                     <form action="" class="mt-4" (ngSubmit)="onEditSubmit(product)">
 
@@ -155,9 +154,9 @@
                 </div>
             </div>
 
-            <div class="row" *ngIf="activeProductId === product.id" style="margin-left: 2px;">
+            <div class="row" *ngIf="activeProductId === product.id">
                 <hr style="margin-top: 40px; width:90%; margin-left: 40px ">
-                <h2>Edit Quantity</h2>
+                <h2 style="margin-top: 15px; margin-left: 3px;">Edit Quantity</h2>
                 <div class="add-quantity">
                     <div class="row" style="margin-top:20px; margin-bottom: 10px;">
                         <div class="col-md-12">

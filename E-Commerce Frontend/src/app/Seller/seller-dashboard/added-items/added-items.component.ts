@@ -85,6 +85,7 @@ export class AddedItemsComponent {
     this.showEditButton = false; // Hide the "Edit" button
   }
 
+
   cancelEdit() {
     this.editProductId = null;
     this.showEditButton = true; // Show the "Edit" button again
@@ -265,4 +266,5 @@ export class AddedItemsComponent {
     this.product.color = selectElement.value; // Set the selected color
     console.log('Selected color:', this.product.color);
   }
+
 }
