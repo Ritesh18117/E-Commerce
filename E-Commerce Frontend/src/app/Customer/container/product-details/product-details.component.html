@@ -167,111 +167,6 @@
 
 
 
-  <!-- review -->
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <form *ngIf="role == 'ROLE_CUSTOMER'" #myForm="ngForm" class="mt-5 p-3 " id="new-address" (ngSubmit)="onSubmitAddReview()">
-<h2 style="margin-bottom: 40px;" style="font-family:Jost, sans-serif;font-weight: 600;font-size:1.8rem; margin-left: 8px;">New Review</h2>
-<div class="row m-3 mt-5">
-<div class="col-md-6">
-    <div class="form-group">
-        <h6 style="margin-bottom: 5px; margin-left: 3px;">Rating</h6>
-        <input type="number" name="Name" [(ngModel)]="reviewDetails.stars" class="form-control form-control-lg" placeholder="Rating">
-    </div>
-</div>
-
-<div class="col-md-6">
-    <div class="form-group">
-        <h6 style="margin-bottom: 5px; margin-left: 3px;">Review</h6>
-        <input type="text" name="contact" [(ngModel)]="reviewDetails.comment" class="form-control form-control-lg" placeholder="Review">
-    </div>
-</div>
-</div>
-<button type="submit" class="btn btn-outline-dark m-4">Add Address</button>
-</form> -->
-
-
-<!-- <form *ngIf="role == 'ROLE_CUSTOMER'"#myForm="ngForm"class="mt-5 p-3"id="new-address"(ngSubmit)="onSubmitAddReview()">
-  <h2
-    style="margin-bottom: 40px;font-family: Jost, sans-serif;font-weight: 600;font-size: 1.8rem;margin-left: 8px;">
-    New Review
-  </h2>
-  <div class="row m-3 mt-5">
-    <div class="col-md-6">
-      <div class="form-group">
-        <h6 style="margin-bottom: 5px; margin-left: 3px">Rating</h6>
-        <div class="rating">
-          <input
-            value="5"
-            name="rating"
-            id="star5"
-            type="radio"
-            [(ngModel)]="reviewDetails.stars"
-          />
-          <label for="star5"></label>
-          <input
-            value="4"
-            name="rating"
-            id="star4"
-            type="radio"
-            [(ngModel)]="reviewDetails.stars"
-          />
-          <label for="star4"></label>
-          <input
-            value="3"
-            name="rating"
-            id="star3"
-            type="radio"
-            [(ngModel)]="reviewDetails.stars"
-          />
-          <label for="star3"></label>
-          <input
-            value="2"
-            name="rating"
-            id="star2"
-            type="radio"
-            [(ngModel)]="reviewDetails.stars"
-          />
-          <label for="star2"></label>
-          <input
-            value="1"
-            name="rating"
-            id="star1"
-            type="radio"
-            [(ngModel)]="reviewDetails.stars"
-          />
-          <label for="star1"></label>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <div class="form-group">
-        <h6 style="margin-bottom: 5px; margin-left: 3px">Review</h6>
-        <input
-          type="text"
-          name="comment"
-          [(ngModel)]="reviewDetails.comment"
-          class="form-control form-control-lg"
-          placeholder="Review"
-        />
-      </div>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-outline-dark m-4">Add Review</button>
-</form> -->
-
-
 </div>
 
 
@@ -331,7 +226,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!reviews || reviews.length === 0">
+  <div class="cookie-card-container"*ngIf="!reviews || reviews.length === 0">
     <p>No reviews available for this product.</p>
   </div>
 </div>
