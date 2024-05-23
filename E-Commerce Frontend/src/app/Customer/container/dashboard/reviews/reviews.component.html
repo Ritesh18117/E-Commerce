@@ -1,0 +1,26 @@
+<p>reviews works!</p>
+
+<table class="table m-1">
+  <thead>
+      <tr>
+          <th scope="col">Review ID</th>
+          <th scope="col">Stars</th>
+          <th scope="col">Comment</th>
+          <th scope="col">Product Name</th>
+
+
+
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let review of reviews">
+          <th scope="row">{{review.id}}</th>
+          <td>{{review.stars}}</td>
+          <td>{{review.comment}}</td>
+
+          <td>{{review.product?.name}}</td>
+          
+
+      </tr>
+  </tbody>
+</table>

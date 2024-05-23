@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartItemService } from 'src/app/Services/cart-item.service';
 import { ProductServiceService } from 'src/app/Services/product-service.service';
+import { ReviewService } from 'src/app/Services/review.service';
+
 
 //
 import { ProductVariationService } from 'src/app/Services/product-variation.service';
@@ -22,13 +24,22 @@ export class ProductDetailsComponent {
     private route: ActivatedRoute,
     private _productService:ProductServiceService,
     private _productVariationService:ProductVariationService,
+    private reviewService:ReviewService,
   ) {}
 
+
+
+
+
+
   // For Loading product when component is loaded
-  product!: any;
+  product: any;
   role:any = "null";
   cardItem!: cardItem;
   productId: string | null = null;
+  reviews: any ;
+  sum:number=0;
+
   // Variables for card Items
   selectedSize: any;
   inStock:number = -1;
@@ -42,7 +53,11 @@ export class ProductDetailsComponent {
     this.role = sessionStorage.getItem('role');
     this.productId = this.route.snapshot.paramMap.get('id');
     this.getProductById();
+    this.getProductReviews(); 
+   
+    
   }
+ 
 
   parsedValues: { size: string; quantity: string }[] = [];
   getProductById(){
@@ -196,4 +211,127 @@ export class ProductDetailsComponent {
   minus(){
     this.quantity--;
   }
+
+    
+  getProductReviews() {
+    if (this.productId !== null) {
+      this.reviewService.getReviewByProductId(parseInt(this.productId)).subscribe(
+        (data) => {
+          this.reviews = data;
+        },
+        (error) => {
+          console.error('Error', error);
+        }
+      );
+    }
+  }
+
+
+  reviewDetails = {
+    stars: 0, // Initialize stars to 0 for user selection
+    comment: ''
+  };
+  onSubmitAddReview() {
+    const token = this._authService.getToken();
+  
+    // Validation (optional)
+    if (!this.reviewDetails.stars || this.reviewDetails.stars < 1 || this.reviewDetails.stars > 5) {
+      console.error('Invalid star rating: Please select a rating between 1 and 5.');
+      return;
+    }
+  
+    if (!this.reviewDetails.comment || this.reviewDetails.comment.trim() === '') {
+      console.error('Empty comment: Please enter a review.');
+      return;
+    }
+  
+    if (token) {
+      const review = {
+        product: { // Extract only the necessary properties from product
+          id: this.productId,
+          // Optionally include other relevant product information if needed
+        }, // Assuming product is the product object
+        stars: this.reviewDetails.stars,
+        comment: this.reviewDetails.comment
+      };
+  
+      this.reviewService.addReview(review, token).subscribe(
+        (data) => {
+          console.log('Review Added Successfully:', data);
+          this.reviewDetails = { stars: 0, comment: '' }; // Clear the form
+          // Optionally reload reviews or display a success message
+        },
+        (error) => {
+          console.error("Error Adding Review:", error);
+          // Handle errors (e.g., display an error message to the user)
+        }
+      );
+    } else {
+      console.error("Token Not Found");
+      // Handle the case where the user is not authenticated
+    }
+  }
+
+  
+  
+  
+  // onSubmitAddReview() {
+  //   const token = this._authService.getToken();
+
+  //   // Validation (optional)
+  //   if (!this.reviewDetails.stars || this.reviewDetails.stars < 1 || this.reviewDetails.stars > 5) {
+  //     console.error('Invalid star rating: Please select a rating between 1 and 5.');
+  //     return;
+  //   }
+
+  //   if (!this.reviewDetails.comment || this.reviewDetails.comment.trim() === '') {
+  //     console.error('Empty comment: Please enter a review.');
+  //     return;
+  //   }
+
+  //   if (token) {
+  //     const review = {
+  //       product: this.product,  // Assuming product.id is the product ID
+  //       stars: this.reviewDetails.stars,
+  //       comment: this.reviewDetails.comment
+  //     };
+
+  //     this.reviewService.addReview(review, token).subscribe(
+  //       (data) => {
+  //         console.log('Review Added Successfully:', data);
+  //         this.reviewDetails = { stars: 0, comment: '' }; // Clear the form
+  //         // Optionally reload reviews or display a success message
+  //       },
+  //       (error) => {
+  //         console.error("Error Adding Review:", error);
+  //         // Handle errors (e.g., display an error message to the user)
+  //       }
+  //     );
+  //   } else {
+  //     console.error("Token Not Found");
+  //     // Handle the case where the user is not authenticated
+  //   }
+  // }
+
+  // onSubmitAddReview(){
+  //   const token = this._authService.getToken();
+  //   if(token){
+  //     this.reviewService.addReview(this.reviewDetails,token).subscribe(
+  //       async (date) => {
+  //         await console.log(date);
+  //         this.ngOnInit();
+  //       },
+  //       (error) => {
+  //         console.error("Posting Data Error", error);
+  //       }
+  //     )
+  //   } else{
+  //     console.error("Token Not Found");
+  //   } 
+  //   this.reviewDetails.product ="";
+  //   this.reviewDetails.customer ="";
+  //   this.reviewDetails.stars ="";
+  //   this.reviewDetails.comment ="";
+  // }
+
 }

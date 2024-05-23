@@ -86,6 +86,14 @@
                 </div>
             </a>
           </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderMyReviews()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">home_pin</span>
+                    &nbsp; &nbsp; &nbsp; Reviews
+                </div>
+            </a>
+          </li>
 
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">
@@ -114,6 +122,9 @@
     <app-profile *ngIf="profile"></app-profile>
     <app-my-orders *ngIf="myOrders"></app-my-orders>
     <app-my-address *ngIf="myAddress"></app-my-address>
+    <app-reviews *ngIf="myReviews"></app-reviews>
+
+
     </div>
 
 

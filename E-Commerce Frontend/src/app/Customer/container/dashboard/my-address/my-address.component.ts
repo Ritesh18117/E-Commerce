@@ -27,6 +27,7 @@ export class MyAddressComponent {
   ngOnInit(): void {
     this.getCustomerAddress();
   }
+  
   getCustomerAddress() {
     const token = this._authService.getToken();
 

@@ -8,7 +8,7 @@ import { CategoryService } from 'src/app/Services/category.service';
 })
 export class FilterComponent {
 
-  // categories:any;
+
 
 
   @Output() filterNotify: EventEmitter<number> = new EventEmitter();
@@ -52,4 +52,8 @@ export class FilterComponent {
     // Set the text content of the output element to the selected value
     printCategory.textContent ="Showing results for "+selectedValue;
   }
+
+
+
+
 }

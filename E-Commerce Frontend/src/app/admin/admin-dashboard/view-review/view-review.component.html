@@ -1,0 +1,30 @@
+<p>view-review works!</p>
+
+
+  <table class="table m-1">
+      <thead>
+          <tr>
+              <th scope="col">Review ID</th>
+              <th scope="col">Stars</th>
+              <th scope="col">Comment</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Customer Id</th>
+              <th scope="col">Product Id</th>
+
+
+
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let review of reviews">
+              <th scope="row">{{review.id}}</th>
+              <td>{{review.stars}}</td>
+              <td>{{review.comment}}</td>
+              <td>{{review.customer?.name}}</td>
+              <td>{{review.customer?.id}}</td>
+              <td>{{review.product?.id}}</td>
+              
+
+          </tr>
+      </tbody>
+  </table>

@@ -26,6 +26,7 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
     private int stars;
     private String comment;
 

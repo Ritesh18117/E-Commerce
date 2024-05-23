@@ -21,11 +21,16 @@ public class AddressController {
         return "This is test from Address Controller!";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/getAll")
     public ResponseEntity<List<Address>> getAllAddress(){
         return addressService.getAllAddress();
     }
+//    @GetMapping("/myAddresses")
+//    public ResponseEntity<List<Address>> getMyAddresses(){
+//        return addressService.myAddresses();
+//    }
+
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @GetMapping("/myAddresses")
     public ResponseEntity<List<Address>> getMyAddresses(@RequestHeader(value = "Authorization") String authorizationHeader){

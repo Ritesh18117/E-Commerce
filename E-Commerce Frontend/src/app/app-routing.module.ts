@@ -15,6 +15,7 @@ import { OrderPlacedComponent } from './Customer/container/place-order/order-pla
 import { MyAddressComponent } from './Customer/container/dashboard/my-address/my-address.component';
 import { PricingComponent } from './Seller/pricing/pricing.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+
  
 
 //Define Routes

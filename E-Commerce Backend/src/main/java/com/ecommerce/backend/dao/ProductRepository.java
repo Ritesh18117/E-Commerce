@@ -1,5 +1,6 @@
 package com.ecommerce.backend.dao;
 
+import com.ecommerce.backend.entities.Customer;
 import com.ecommerce.backend.entities.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,4 +21,6 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
     List<Long> findPageBreakProduct(int count,int minus);
     @Query(value = "SELECT * FROM products p WHERE p.approval_status = 'rejected' AND p.verified_by_admin_id =:verifiedById ORDER BY p.added_date DESC OFFSET 10 * :minus LIMIT 10 * :count - 10 * :minus", nativeQuery = true)
     List<Product> findAllRejectedProductsAndVerifiedById(Long verifiedById,int count,int minus);
+
+//    Customer findByUserId(Long userId);
 }

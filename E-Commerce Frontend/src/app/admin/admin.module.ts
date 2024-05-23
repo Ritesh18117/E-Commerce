@@ -12,6 +12,9 @@ import { VerifyProductComponent } from './admin-dashboard/verify-product/verify-
 import { AdminInfoComponent } from './admin-dashboard/admin-info/admin-info.component';
 import { AddCategoryComponent } from './admin-dashboard/add-category/add-category.component';
 import { DeliveryTrackComponent } from './admin-dashboard/delivery-track/delivery-track.component';
+import { ViewReviewComponent } from './admin-dashboard/view-review/view-review.component';
+
+
 
 
 @NgModule({
@@ -23,7 +26,8 @@ import { DeliveryTrackComponent } from './admin-dashboard/delivery-track/deliver
     VerifyProductComponent,
     AdminInfoComponent,
     AddCategoryComponent,
-    DeliveryTrackComponent
+    DeliveryTrackComponent,
+    ViewReviewComponent
   ],
   imports: [
     CommonModule,
