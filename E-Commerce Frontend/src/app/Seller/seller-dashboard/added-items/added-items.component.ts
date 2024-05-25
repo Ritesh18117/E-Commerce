@@ -77,12 +77,20 @@ export class AddedItemsComponent {
     }
   }
 
-  editProductId: string | null = null; // ID of the product being edited
+  editProductId: string | null = null;
+  editQuantityId: string | null = null;// ID of the product being edited
   showEditButton: boolean = true; // Flag to control visibility of the "Edit" button
+  showQuantityButton: boolean = true;
+
 
   editProduct(productId: string) {
     this.editProductId = productId;
     this.showEditButton = false; // Hide the "Edit" button
+  }
+
+  editQuantity(productId: string) {
+    this.editQuantityId = productId;
+    this.showQuantityButton = false; // Hide the "Edit" button
   }
 
 
@@ -91,8 +99,16 @@ export class AddedItemsComponent {
     this.showEditButton = true; // Show the "Edit" button again
   }
 
+  cancelQuantity() {
+    this.editQuantityId= null;
+    this.showQuantityButton = true; // Show the "Edit" button again
+  }
+  
   isEditingProduct(productId: string): boolean {
     return this.editProductId === productId;
+  }
+  isEditingQuantity(productId: string): boolean {
+    return this.editQuantityId === productId;
   }
 
   parsedValues: { first: string; second: string }[] = [];
@@ -110,7 +126,8 @@ export class AddedItemsComponent {
         console.error("Error", error);
       }
     )
-    this.activeProductId = this.activeProductId === productId ? null : productId; // Toggle the active product ID
+    this.editQuantityId = productId;
+    this.showQuantityButton = false; // Toggle the active product ID
   }
 
   addQuantity() {

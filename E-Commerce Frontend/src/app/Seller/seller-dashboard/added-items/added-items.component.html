@@ -25,13 +25,15 @@
                         <span style="font-weight: bold;">Discount: </span> {{product.discount}}%<br>
                     </div>
                     <div class="detail col-md-5 text-end" id="button-group">
-                        <button *ngIf="showEditButton && editProductId !== product.id"
+                        <button *ngIf="showEditButton && editProductId !== product.id && showQuantityButton"
                             class="btn btn-sm btn-outline-dark" (click)="editProduct(product.id)">Edit Details</button>
                         <button *ngIf="isEditingProduct(product.id)" class="btn btn-sm btn-outline-dark"
-                            (click)="cancelEdit()">Cancel</button>
-                        <button role="button" *ngIf="product.approvalStatus == 'true'" style="margin-left: 5px;"
+                            (click)="cancelEdit()" style="width: 190px">Cancel</button>
+                        <button role="button" *ngIf="product.approvalStatus == 'true' && showQuantityButton && editQuantityId !== product.id && showEditButton" style="margin-left: 5px;"
                             class="btn btn-sm btn-outline-dark" (click)="addQuantityShowMethod(product.id)">Edit
                             Quantity</button>
+                        <button *ngIf="isEditingQuantity(product.id)" style="width: 190px" class="btn btn-sm btn-outline-dark"
+                            (click)="cancelQuantity()">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -154,7 +156,7 @@
                 </div>
             </div>
 
-            <div class="row" *ngIf="activeProductId === product.id">
+            <div class="row" *ngIf="editQuantityId === product.id">
                 <hr style="margin-top: 40px; width:90%; margin-left: 40px ">
                 <h2 style="margin-top: 15px; margin-left: 3px;">Edit Quantity</h2>
                 <div class="add-quantity">
