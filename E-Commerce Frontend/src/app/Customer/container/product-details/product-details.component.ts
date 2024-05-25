@@ -54,11 +54,14 @@ export class ProductDetailsComponent {
     this.productId = this.route.snapshot.paramMap.get('id');
     this.getProductById();
     this.getProductReviews(); 
-   
+    this.getProductLength();
     
   }
  
+getProductLength(){
+   this.sum=this.reviews.length();
 
+}
   parsedValues: { size: string; quantity: string }[] = [];
   getProductById(){
     if (this.productId !== null) {
@@ -271,6 +274,26 @@ export class ProductDetailsComponent {
       // Handle the case where the user is not authenticated
     }
   }
+
+  deleteReviewByProductId(productId: number) {
+    const token = this._authService.getToken();
+
+    if (token) {
+      this.reviewService.deleteReviewByProductId(productId, token).subscribe(
+        (response) => {
+          console.log('Review deleted:', response);
+          // Optionally, refresh the reviews list after deletion
+        },
+        (error) => {
+          console.error('Error deleting review:', error);
+        }
+      );
+    } else {
+      console.error('Token not available.');
+    }
+  }
+
+
 
   
   

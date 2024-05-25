@@ -431,3 +431,6 @@ img{
   button:active {
     transform: scale(0.95);
   }
+.del{
+  padding:5px 15px;
+}

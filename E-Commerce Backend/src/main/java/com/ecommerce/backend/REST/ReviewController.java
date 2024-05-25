@@ -50,12 +50,14 @@ public class ReviewController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+//    @PreAuthorize("hasAnyRole('ROLE_CUSTOMER', 'ROLE_ADMIN')")
+
     @Transactional
     @DeleteMapping("/deleteReview/{id}")
     public ResponseEntity<String> deleteReview(@PathVariable("id") long id, @RequestHeader(value = "Authorization") String authorizationHeader){
         return reviewService.deleteReview(id, authorizationHeader);
     }
+
 
 
 }
