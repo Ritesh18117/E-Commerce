@@ -68,6 +68,14 @@
                 </div>
             </a>
           </li>
+          <li class="nav-item">
+            <a role="button" (click)="renderViewReview()" class="sideNav text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                <div class="p-2 mt-2 profile-nav" id="align-items">
+                    <span class="material-symbols-outlined">reviews</span>
+                    &nbsp; &nbsp; &nbsp; Reviews
+                </div>
+            </a>
+          </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="layers"></span>
@@ -99,6 +107,8 @@
       <app-verify-product *ngIf="verifyProduct"></app-verify-product>
       <app-add-category *ngIf="addCatergory"></app-add-category>
       <app-delivery-track *ngIf="deliveryTrack"></app-delivery-track>
+      <app-view-review *ngIf="viewReview"></app-view-review>
+
     </div>
 
 

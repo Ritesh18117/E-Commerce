@@ -1,26 +1,43 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="body">
-<div class="card-wrapper">
-  <div class="card">
-    <!-- card left -->
-    <div class="product-imgs">
-      <div class="img-showcase">
-        <img [src]="convertToImage(selectedImage)" alt="shoe image" style="object-fit: contain;">
-        <hr style="margin-left:30px; margin-top: 5px; color: #878787;">
-      </div>
-      <div class="img-select">
-        <div class="img-item" *ngFor="let image of product[0].product.images;let i = index"
-          (click)="selectedImage = image">
-          <a role="button">
-            <img [src]="convertToImage(image)" alt="shoe image" style="object-fit: contain;">
-          </a>
+  <div class="card-wrapper">
+    <div class="card">
+      <!-- card left -->
+      <div class="product-imgs">
+        <div class="img-showcase">
+          <img
+            [src]="convertToImage(selectedImage)"
+            alt="shoe image"
+            style="object-fit: contain"
+          />
+          <hr style="margin-left: 30px; margin-top: 5px; color: #878787" />
+        </div>
+        <div class="img-select">
+          <div
+            class="img-item"
+            *ngFor="let image of product[0].product.images; let i = index"
+            (click)="selectedImage = image"
+          >
+            <a role="button">
+              <img
+                [src]="convertToImage(image)"
+                alt="shoe image"
+                style="object-fit: contain"
+              />
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- card right -->
-    <div class="product-content">
-      <h1 class="product-title border-bottom pb-3">{{product[0].product.name}}</h1>
-      <!-- <div class = "product-rating">
+      <!-- card right -->
+      <div class="product-content">
+        <h1 class="product-title border-bottom pb-3">
+          {{ product[0].product.name }}
+        </h1>
+        <!-- <div class = "product-rating">
         <i class = "fas fa-star"></i>
         <i class = "fas fa-star"></i>
         <i class = "fas fa-star"></i>
@@ -29,74 +46,194 @@
         <span>4.7(21)</span>
       </div> -->
 
-      <div class="product-price">
-        <!-- <p class = "last-price">Old Price: <span>₹{{product[0].product.price}}</span></p>
+        <div class="product-price">
+          <!-- <p class = "last-price">Old Price: <span>₹{{product[0].product.price}}</span></p>
         <p class = "new-price">New Price: <span>₹{{product[0].product.price - (product[0].product.discount * product[0].product.price) /100}} (Discount: {{product[0].product.discount}}%)</span></p> -->
-        <span *ngIf="product[0].product.discount == 0">₹{{product[0].product.price}}</span>
-        <span *ngIf="product[0].product.discount != 0"
-          style="color: rgb(205, 204, 204); text-decoration: line-through;font-size: 23px; margin-right: 8px;">₹{{product[0].product.price}}</span>
-        <span *ngIf="product[0].product.discount != 0">₹{{product[0].product.price - (product[0].product.discount *
-          product[0].product.price) /100}} </span>
-      </div>
+          <span *ngIf="product[0].product.discount == 0"
+            >₹{{ product[0].product.price }}</span
+          >
+          <span
+            *ngIf="product[0].product.discount != 0"
+            style="
+              color: rgb(205, 204, 204);
+              text-decoration: line-through;
+              font-size: 23px;
+              margin-right: 8px;
+            "
+            >₹{{ product[0].product.price }}</span
+          >
+          <span *ngIf="product[0].product.discount != 0"
+            >₹{{
+              product[0].product.price -
+                (product[0].product.discount * product[0].product.price) / 100
+            }}
+          </span>
+        </div>
 
-      <div class="product-detail mt-3">
-        <h4>About this item: </h4>
-        <p>{{product[0].product.description}}</p>
-        <ul>
-          <li>Color: &nbsp;<span [style.background-color]="product[0].product.color"
-              style="border:0.5px solid black;">&nbsp; &nbsp;</span>
-          </li>
-          <li>Availability:
-            <span style="color: green;" *ngIf="inStock > 0 || inStock == -1; else outOfStock">In stock</span>
-          </li>
-          <ng-template #outOfStock>
-            <span style="color: red;">out of stock</span>
-          </ng-template>
-          <li>Category: <span>{{product[0].product.category.categoryName}}</span></li>
-          <li>Shipping Area: <span>All over Sikkim</span></li>
-          <li>Shipping Fee: <span>₹49/- Only</span></li>
-        </ul>
-      </div>
-      <div class="purchase-info">
-      <div class="ekart-product-detail-size">
-        <!-- <div style="padding: 5px 0px;">
+        <div class="product-detail mt-3">
+          <h4>About this item:</h4>
+          <p>{{ product[0].product.description }}</p>
+          <ul>
+            <li>
+              Color: &nbsp;<span
+                [style.background-color]="product[0].product.color"
+                style="border: 0.5px solid black"
+                >&nbsp; &nbsp;</span
+              >
+            </li>
+            <li>
+              Availability:
+              <span
+                style="color: green"
+                *ngIf="inStock > 0 || inStock == -1; else outOfStock"
+                >In stock</span
+              >
+            </li>
+            <ng-template #outOfStock>
+              <span style="color: red">out of stock</span>
+            </ng-template>
+            <li>
+              Category:
+              <span>{{ product[0].product.category.categoryName }}</span>
+            </li>
+            <li>Shipping Area: <span>All over Sikkim</span></li>
+            <li>Shipping Fee: <span>₹49/- Only</span></li>
+          </ul>
+        </div>
+        <div class="purchase-info">
+          <div class="ekart-product-detail-size">
+            <!-- <div style="padding: 5px 0px;">
               <h4 class="mb-3">Available Sizes:</h4>
               <ng-container *ngFor="let x of parsedValues; let i=index">
                 <span style="border: 0.5px solid black; border-radius: 2px; padding: 7px 10px">{{ x.size}}</span> &nbsp;
               </ng-container>
           </div> -->
-        <diV>
-          <ng-container *ngIf="parsedValues.length > 1">
-
-            <form action="">
-              <select class="form-select" aria-label="Default select example"
-                style="padding: 8px;height: 40px;width: 150px; margin-right: 10px;" (change)="pickSize($event)">
-                <option selected [value]="-1">Select Size</option>
-                <ng-container *ngFor="let x of parsedValues; let i=index">
-                  <option [value]="x.size">{{ x.size}}</option>
-                </ng-container>
-              </select>
-            </form>
-          </ng-container>
-          <ng-container *ngIf="parsedValues.length == 1">
-            {{defaultSize()}}
-          </ng-container>
-        </diV>
-      </div>
-      <div class="quantity-change"  *ngIf="role == 'ROLE_CUSTOMER'">
-        <button class="add-remove" (click)="minus()" [disabled]="quantity === 1 || !selectedSize">
-          <span class="add-remove-text">-</span>
+            <diV>
+              <ng-container *ngIf="parsedValues.length > 1">
+                <form action="">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    style="
+                      padding: 8px;
+                      height: 40px;
+                      width: 150px;
+                      margin-right: 10px;
+                    "
+                    (change)="pickSize($event)"
+                  >
+                    <option selected [value]="-1">Select Size</option>
+                    <ng-container *ngFor="let x of parsedValues; let i = index">
+                      <option [value]="x.size">{{ x.size }}</option>
+                    </ng-container>
+                  </select>
+                </form>
+              </ng-container>
+              <ng-container *ngIf="parsedValues.length == 1">
+                {{ defaultSize() }}
+              </ng-container>
+            </diV>
+          </div>
+          <div class="quantity-change" *ngIf="role == 'ROLE_CUSTOMER'">
+            <button
+              class="add-remove"
+              (click)="minus()"
+              [disabled]="quantity === 1 || !selectedSize"
+            >
+              <span class="add-remove-text">-</span>
+            </button>
+            <div class="quant-display">{{ quantity }}</div>
+            <button
+              (click)="plus()"
+              class="add-remove"
+              [disabled]="!selectedSize"
+            >
+              <span class="add-remove-text">+</span>
+            </button>
+          </div>
+        </div>
+        <button
+          class="btn btn-outline-dark"
+          style="padding: 0.375rem 0.75rem; width: 280px; margin-top: 20px"
+          *ngIf="role == 'ROLE_CUSTOMER'"
+          (click)="addToCard(product[0])"
+        >
+          Add to Cart
         </button>
-        <div class="quant-display">{{quantity}}</div>
-        <button (click)="plus()" class="add-remove" [disabled]="!selectedSize">
-          <span class="add-remove-text">+</span>
-        </button>
+        <img class="payment-images" src="assets\payment-icons.png" />
       </div>
-    </div>
-        <button class="btn btn-outline-dark" style="padding: 0.375rem 0.75rem; width:280px; margin-top: 20px;" *ngIf="role == 'ROLE_CUSTOMER'" (click)="addToCard(product[0])">Add to Cart</button>
-        <img class="payment-images" src="assets\payment-icons.png">
     </div>
   </div>
+
+
+
 </div>
+
+{{sum}}
+
+<!--  -->
+
+
+<form *ngIf="role == 'ROLE_CUSTOMER'" #myForm="ngForm" class="mt-5 p-3" id="new-address" (ngSubmit)="onSubmitAddReview()">
+  <h2>Write a review</h2>
+
+  <div class="form-group d-flex align-items-center mt-4">
+    <h6 class="me-3 mb-0">Rating:</h6>
+    <div class="rating">
+      <input type="radio" id="star5" name="rating" value="5" [(ngModel)]="reviewDetails.stars">
+      <label for="star5" class="fas fa-star"></label>
+      <input type="radio" id="star4" name="rating" value="4" [(ngModel)]="reviewDetails.stars">
+      <label for="star4" class="fas fa-star"></label>
+      <input type="radio" id="star3" name="rating" value="3" [(ngModel)]="reviewDetails.stars">
+      <label for="star3" class="fas fa-star"></label>
+      <input type="radio" id="star2" name="rating" value="2" [(ngModel)]="reviewDetails.stars">
+      <label for="star2" class="fas fa-star"></label>
+      <input type="radio" id="star1" name="rating" value="1" [(ngModel)]="reviewDetails.stars">
+      <label for="star1" class="fas fa-star"></label>
+    </div>
+  </div>
+
+  <div class="form-group mt-4">
+    <h6 class="mb-2">Review:</h6>
+    <textarea name="comment" [(ngModel)]="reviewDetails.comment" class="form-control" placeholder="Write your review here..." rows="4"></textarea>
+  </div>
+  <button type="submit" class="mt-3">Add Review</button>
+</form>
+
+
+<!--  -->
+
+<div class="review">
+  <div class="cookie-card-container" *ngIf="reviews && reviews.length">
+    <h3>Product Reviews</h3>
+    <div class="cookie-cards">
+      <div class="cookie-card" *ngFor="let review of reviews">
+        <span class="title">
+          <span class="material-symbols-outlined">account_circle</span>
+          {{ review.customer?.name }}
+        </span>
+        <div class="actions">
+          <span class="stars">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <i
+                class="fa"
+                [ngClass]="star <= review.stars ? 'fa-star' : 'fa-star-o'"
+              ></i>
+            </ng-container>
+          </span>
+        </div>
+        <p class="description">{{ review.comment }}</p>
+        <a (click)="deleteReviewByProductId(review.id)" class="btn btn-danger del mt-3">Delete</a> <!-- Added delete button -->
+
+      </div>
+    </div>
+  </div>
+  <div class="cookie-card-container"*ngIf="!reviews || reviews.length === 0">
+    <p>No reviews available for this product.</p>
+  </div>
 </div>
+
+
+
+
 <router-outlet></router-outlet>

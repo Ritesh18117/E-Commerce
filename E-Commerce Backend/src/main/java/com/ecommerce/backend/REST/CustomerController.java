@@ -17,7 +17,7 @@ public class CustomerController {
 
     @GetMapping("/test")
     public String test(){
-        return "This is testing from Customer Controller";
+        return "This is test for Customer request";
     }
 
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")

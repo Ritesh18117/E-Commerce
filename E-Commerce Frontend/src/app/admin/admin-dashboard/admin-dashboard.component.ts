@@ -23,6 +23,7 @@ export class AdminDashboardComponent {
   verifiedSeller:boolean = false;
   addCatergory:boolean = false;
   deliveryTrack:boolean = false;
+  viewReview:boolean=false;
 
   renderAdminInfo(){
     this.adminInfo = true;
@@ -32,6 +33,8 @@ export class AdminDashboardComponent {
     this.verifiedSeller = false;
     this.addCatergory = false;
     this.deliveryTrack = false;
+    this.viewReview=false;
+
   }
 
   renderverifySeller(){
@@ -42,6 +45,8 @@ export class AdminDashboardComponent {
     this.verifiedProduct = false;
     this.addCatergory = false;
     this.deliveryTrack = false;
+    this.viewReview=false;
+
   }
 
   renderVerifiedSeller(){
@@ -52,6 +57,8 @@ export class AdminDashboardComponent {
     this.verifiedProduct = false;
     this.addCatergory = false;
     this.deliveryTrack = false;
+    this.viewReview=false;
+
   }
 
   renderVerifyProduct(){
@@ -62,6 +69,8 @@ export class AdminDashboardComponent {
     this.verifiedProduct = false;
     this.addCatergory = false;
     this.deliveryTrack = false;
+    this.viewReview=false;
+
   }
 
   renderVerifiedProduct(){
@@ -72,6 +81,8 @@ export class AdminDashboardComponent {
     this.verifySeller = false;
     this.addCatergory = false;
     this.deliveryTrack = false;
+    this.viewReview=false;
+
   }
 
   renderAddCategory(){
@@ -82,6 +93,8 @@ export class AdminDashboardComponent {
     this.adminInfo = false;
     this.verifySeller = false;
     this.deliveryTrack = false;
+    this.viewReview=false;
+
   }
 
   renderDeliveryTrack(){
@@ -92,6 +105,17 @@ export class AdminDashboardComponent {
     this.verifyProduct = false;
     this.adminInfo = false;
     this.verifySeller = false;
+    this.viewReview=false;
+  }
+  renderViewReview(){
+    this.deliveryTrack = false;
+    this.addCatergory = false;
+    this.verifiedProduct = false;
+    this.verifiedSeller = false;
+    this.verifyProduct = false;
+    this.adminInfo = false;
+    this.verifySeller = false;
+    this.viewReview=true;
   }
   getUsername(){
     this.token = sessionStorage.getItem("token");

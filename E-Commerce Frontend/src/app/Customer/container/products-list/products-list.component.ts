@@ -1,6 +1,7 @@
 import { Component, Input, Output } from '@angular/core';
 import { ProductVariation } from 'src/app/Models/ProductVariation';
 import { CategoryService } from 'src/app/Services/category.service';
+
 import { ProductServiceService } from 'src/app/Services/product-service.service';
 
 @Component({
@@ -94,4 +95,7 @@ export class ProductsListComponent {
     const byteArray = new Uint8Array(byteNumbers);
     return new Blob([byteArray], { type: contentType });
   }
+
+  
 }
+
