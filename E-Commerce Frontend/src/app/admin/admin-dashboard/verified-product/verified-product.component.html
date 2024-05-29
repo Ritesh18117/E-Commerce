@@ -132,6 +132,6 @@
 
 
 <div class="">
-    <button type="button" class="m-2 btn btn-secondary btn-sm" (click)="next()">More</button>
+    <button *ngIf="productVerifiedList.length >= 10" type="button" class="m-2 btn btn-secondary btn-sm" (click)="next()">More</button>
 </div>
 

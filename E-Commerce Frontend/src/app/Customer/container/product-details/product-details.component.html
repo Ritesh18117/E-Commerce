@@ -223,7 +223,7 @@
           </span>
         </div>
         <p class="description">{{ review.comment }}</p>
-        <a (click)="deleteReviewByProductId(review.id)" class="btn btn-danger del mt-3">Delete</a> <!-- Added delete button -->
+        <a *ngIf="role !== 'ROLE_SELLER' || role === 'ROLE_ADMIN' " (click)="deleteReviewByProductId(review.id)" class="btn btn-danger del mt-3">Delete</a> Added delete button
 
       </div>
     </div>

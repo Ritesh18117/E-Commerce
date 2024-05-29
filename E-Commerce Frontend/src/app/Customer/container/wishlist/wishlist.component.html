@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'>
+
+<div class="body"></div>
+
+<body class="bg-body">
+    <div class="container">
+        <main>
+            <div class="row g-5">
+                <div class="col-md-5 col-lg-4 order-md-last">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-tertiary" style="display:flexbox;text-align:left;font-family:Arial, Helvetica, sans-serif;font-weight: 600;">
+                            Wishlist</span>
+                        <span class="badge bg-primary rounded-pill">{{wishlistItems.length}} Items</span>
+                    </h4>
+                </div>
+                <div class="col-md-7 col-lg-8" style="border-right: 2px solid rgba(215, 209, 209, 0.611);">
+                    <h4 class="mb-3">Wishlist Items</h4>
+                    <div *ngIf="wishlistItems.length > 0">
+                        <div *ngFor="let item of wishlistItems; let i=index;">
+                            <div class="col-md-3 mt-4 m-3">
+                                <img [src]="convertToImage(item.product.image)" class="img-fluid">
+                            </div>
+                            <div class="row col-md-8 mt-4 m-3 p-1">
+                                <div class="col-7">
+                                    <div class="prod-name">
+                                        {{item.product.name}}
+                                    </div>
+                                    <p>Color: {{item.product.color}} &nbsp; &nbsp; | &nbsp; &nbsp;Size: {{item.productVariation.size}}</p>
+                                    <p style="color: green;">Price - ₹{{item.product.price}} &nbsp; | &nbsp; Discount: ₹{{(item.product.discount * item.product.price) / 100 }}</p>
+                                </div>
+                                <div class="col-5" id="delivery-expected">
+                                    Expected Delivery by: 10-10-2023
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10"></div>
+                                    <div class="col-md-2">
+                                        <button (click)="removeItem(item.id)" class="mt-3 btn btn-outline-danger">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="wishlistItems.length == 0" class="go-to-home" id="go-to-home">
+                        <img src="https://www.99fashionbrands.com/wp-content/uploads/2020/12/empty_cart.png">
+                        <p>Looks like you haven't added anything to your wishlist yet!</p>
+                        <button routerLink="/" class="btn btn-outline-dark">Back to Home</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+<router-outlet></router-outlet>

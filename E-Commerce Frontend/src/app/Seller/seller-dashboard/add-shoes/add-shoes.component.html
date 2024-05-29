@@ -1,23 +1,24 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> 
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> 
 
 <div style="display:flexbox;text-align:left;font-family:Jost, sans-serif;font-weight: 600;font-size:1.8rem;margin-bottom: 10px;">
   Add New Product</div><hr style="margin-bottom: 35px;">
 <form action="" class="mt-4" (ngSubmit)="onSubmit()" style="margin-left: 5px;">
     <div class="row">
         <div class="col-6">
-            <label for="name" style="font-weight: 600; margin-left: 2px; margin-bottom: 5px;">Name</label>
-            <input type="text" name="companyType" [value]="product.name" [(ngModel)]="product.name" class="form-control"
-                id="name" placeholder="Enter Item Name" style="width:475px" name="name">
-        </div>
-        <div class="col-6">
             <label for="category" style="font-weight: 600; margin-left: 2px; margin-bottom: 5px;">Catagory</label>
-            <select class="form-select " id="category" name="category" [(ngModel)]="product.category.id" style="width:475px">
+            <select class="form-select " id="category" name="category" [(ngModel)]="product.category.id" >
                 <option value="" disabled selected>Select Category</option>
                 <ng-container *ngFor="let category of categories; let i = index;">
                     <option [value]="category.id">{{ category.categoryName }}</option>
                 </ng-container>
             </select>
         </div>
+        <div class="col-6">
+            <label for="name" style="font-weight: 600; margin-left: 2px; margin-bottom: 5px;">Name</label>
+            <input type="text" name="companyType" [value]="product.name" [(ngModel)]="product.name" class="form-control"
+                id="name" placeholder="Enter Item Name" style="width:475px" name="name">
+        </div>
+
     </div>
 
     <div class="row mt-3">
@@ -90,4 +91,103 @@
         </div>        
     </div>
     <button class="mt-4 btn btn-outline-dark" style="padding: 7px; width: 80px; margin-bottom: 20px;">Submit</button>
-</form>
+</form> -->
+
+
+<div style="display:flexbox;text-align:left;font-family:Jost, sans-serif;font-weight: 600;font-size:1.8rem;margin-bottom: 10px;">
+    Add New Product</div><hr style="margin-bottom: 35px;">
+  <form action="" class="mt-4" (ngSubmit)="onSubmit()" style="margin-left: 5px;">
+      <div class="row">
+          <div class="col-6">
+              <label for="category" style="font-weight: 600; margin-left: 2px; margin-bottom: 5px;">Category :</label><small> * Mandatory field</small>
+              <select class="form-select " id="category" name="category" [(ngModel)]="product.category.id" >
+                  <option value="" disabled selected>Select Category</option>
+                  <ng-container *ngFor="let category of categories; let i = index;">
+                      <option [value]="category.id">{{ category.categoryName }}</option>
+                  </ng-container>
+              </select>
+          </div>
+          <div class="col-6">
+              <label for="name" style="font-weight: 600; margin-left: 2px; margin-bottom: 5px;">Product Name :</label><small> * Mandatory field</small>
+              <input type="text" name="companyType" [value]="product.name" [(ngModel)]="product.name" class="form-control"
+                  id="name" placeholder="Maximum 50 characters" name="name" maxlength="50">
+          </div>
+      </div>
+  
+      <div class="row mt-3">
+          <div class="col-6">
+              <label for="gender" style="font-weight: 600; margin-left: 3px; margin-bottom: 5px;">Gender :</label><small> * Ignore if not applicable</small>
+              <select class="form-select" id="gender" name="gender" [(ngModel)]="product.gender"
+                  [ngModelOptions]="{standalone: true} "  style="width: 300px;">
+                  <option value="" disabled selected>Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+              </select>
+          </div>
+          <div class="col-6">
+            <label for="color" style="font-weight: 600; margin-left: 3px; margin-bottom: 5px;">Color</label><small> * Ignore if not applicable</small>
+            <div style="display: flex;">
+            <select class="form-select" style="width: 300px" (change)="selectBasicColor($event)">
+                <option value="" disabled selected>Select Color :</option>
+                <option *ngFor="let basicColor of basicColors" [value]="basicColor.value">{{basicColor.name}}</option>
+            </select>
+            <input type="color" name="color" class="form-control form-control-color" id="color"
+                [(ngModel)]="product.color" style="margin-left: 10px;" title="Choose a color"
+                [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+
+      </div>
+  
+      <div class="row mt-3">
+          <!-- <div class="col-6">
+              <label for="margin" style="font-weight: 600; margin-left: 3px; margin-bottom: 5px;">Margin (in %)</label>
+              <input type="number" name="margin" class="form-control form-control-color" [(ngModel)]="product.margin"
+                  id="margin" value="1" title="Select Quantity" style="width: 300px;"
+                  [ngModelOptions]="{standalone: true}">
+          </div> -->
+          <div class="col-6">
+              <label for="discountPrice" style="font-weight: 600; margin-left: 3px; margin-bottom: 5px;">Discount % :</label><small> * Ignore if not applicable</small>
+              <input type="number" name="discountPrice" class="form-control form-control-color"
+                  [(ngModel)]="product.discount" id="discountPrice" value="1" title="Select Quantity"
+                  style="width: 300px;" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col-6">
+            <label for="price" style="font-weight: 600; margin-left: 3px; margin-bottom: 5px;">Price (in Rupees ) :</label><small> * Mandatory field</small>
+            <input type="number" name="price" class="form-control form-control-color" [(ngModel)]="product.price"
+                id="price" value="1" title="Select Quantity" style="width: 300px;"
+                [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+  
+      <div class="row mt-3">
+
+      </div>
+      <div class="row mt-3">
+          <div class="">
+              <label for="description" style="font-weight: 600; margin-left: 3px; margin-bottom: 5px;">Product Description :</label><small> * Mandatory field</small>
+              <textarea class="form-control" [(ngModel)]="product.description" name="description" id="description"
+                  rows="3" placeholder="Maximum 300 characters" maxlength="300"></textarea>
+          </div>
+        </div>
+      <div class="mt-3" style="display: flex;">
+          <div class="col-6">
+              <label for="formFileSm" class="form-label" style="font-weight: 600; margin-left: 2px; margin-bottom: 5px;">Primary Product Image :</label><small> * Mandatory field</small>
+              <div style="width: 80%;" >
+                  <input class="form-control form-control-sm" id="formFileSm" type="file" (change)="onSingleFileSelected($event)"><small>Maximum image size: 10KB</small>
+                  <div *ngIf="imageError" style="color: red;">Image size exceeds 10 KB</div>
+              </div>
+          </div>
+          <div class="col-6">
+            <label for="formFileSm" class="form-label" style="font-weight: 600; margin-left: 3px; margin-bottom: 5px;">Additional Images</label><small> * Mandatory field</small>
+            <div style="width: 80%;">
+                <input class="form-control form-control-sm" id="formFileSm" type="file" multiple (change)="onMultipleFilesSelected($event)">
+                <div *ngIf="imageErrors" style="color: red;">One or more images exceed 30 KB</div>
+            </div>
+        </div>
+             
+      </div>
+      <button class="mt-4 btn btn-outline-dark" style="padding: 7px; width: 80px; margin-bottom: 20px;">Submit</button>
+  </form>
+  

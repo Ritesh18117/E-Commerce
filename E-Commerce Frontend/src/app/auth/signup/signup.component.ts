@@ -26,12 +26,12 @@ export class SignupComponent {
       (data) => {
         console.log(data);
         this.clearUserData();
-        this.toastr.success("Seller Account Created Successfully!!", "success", {
+        this.toastr.success("Customer Account Created Successfully!!", "success", {
           timeOut: 500, // Toast will disappear after 0.5 seconds
         });
       }, (error) =>{
         console.error(error);
-        this.toastr.error("Seller Account Created Error!!", "error", {
+        this.toastr.error("Customer Account Created Error!!", "error", {
           timeOut: 500, // Toast will disappear after 0.5 seconds
         });
       } 

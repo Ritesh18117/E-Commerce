@@ -9,3 +9,9 @@ opacity:.8;
 @media screen and (max-width: 768px) {
 .carousel-body { padding-top: 150px; }
 }
+
+
+.carousel-item img { /* Adjust image size if needed */
+  object-fit: cover; /* This will maintain aspect ratio and ensure images fill the container */
+  height: 225px; /* Set image height to 100% of the carousel-body */
+}

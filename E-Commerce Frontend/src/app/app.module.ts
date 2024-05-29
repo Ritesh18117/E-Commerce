@@ -31,6 +31,8 @@ import { AuthService } from './auth/auth.service';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { AdminModule } from './admin/admin.module';
 import { ReviewsComponent } from './Customer/container/dashboard/reviews/reviews.component';
+import { WishlistComponent } from './Customer/container/wishlist/wishlist.component';
+
 
 
 @NgModule({
@@ -65,7 +67,9 @@ import { ReviewsComponent } from './Customer/container/dashboard/reviews/reviews
     MyOrdersComponent,
     MyAddressComponent,
     PlaceOrderComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    WishlistComponent
+
   ],
     providers: [
     AuthService,
