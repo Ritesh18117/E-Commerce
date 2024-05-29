@@ -188,7 +188,8 @@ export class AddedItemsComponent {
       }
     )
     this.size_quant = [];
-    this.addQuantityShowMethod(product_id);
+    this.editQuantityId= null;
+    this.showQuantityButton = true;  
   }
 
   getCategory() {
