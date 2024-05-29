@@ -15,6 +15,8 @@ import { OrderPlacedComponent } from './Customer/container/place-order/order-pla
 import { MyAddressComponent } from './Customer/container/dashboard/my-address/my-address.component';
 import { PricingComponent } from './Seller/pricing/pricing.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { WishlistComponent } from './Customer/container/wishlist/wishlist.component';
+
 
  
 
@@ -53,6 +55,8 @@ const routes: Routes = [
     { path:'placeOrder', component:PlaceOrderComponent, canActivate:[authGuard] },
     { path: 'pricing', component: PricingComponent },
     { path: 'legal', component: TermsConditionsComponent },
+        { path:'wishlist', component:WishlistComponent, canActivate:[authGuard] },
+
     { path: '**', redirectTo: ''} // Wild Card Route
 ];
 

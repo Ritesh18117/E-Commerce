@@ -40,7 +40,7 @@ export class ProfileComponent {
         console.log(data);
         this.profile = data;
         this.editProfile = !this.editProfile;
-        this.toastr.success('Product Added!!', 'Success', {
+        this.toastr.success('Profile Updated!', 'Success', {
           timeOut: 500, // Toast will disappear after 0.5 seconds
         });
       },

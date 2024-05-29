@@ -313,7 +313,7 @@ img{
 
 
     .cookie-card {
-  max-width: 450px;
+  width: 450px;
   padding: 1rem;
   background-color: #fff;
   border-radius: 10px;
@@ -401,6 +401,7 @@ img{
     flex-direction: column; /* Stack vertically */
     align-items: center; /* Center horizontally */
     margin: 0 auto; /* Center the container horizontally */
+  
   }
   
   .cookie-card {
