@@ -163,6 +163,7 @@
 // }
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/Services/category.service';
 import { ProductServiceService } from 'src/app/Services/product-service.service';
 
@@ -172,6 +173,7 @@ import { ProductServiceService } from 'src/app/Services/product-service.service'
   styleUrls: ['./add-shoes.component.css']
 })
 export class AddShoesComponent {
+  addProductForm: FormGroup;
   size: string = "";
   quantity: string = "";
   img: string = "";
@@ -213,8 +215,20 @@ export class AddShoesComponent {
     // Add more basic colors as needed
   ];
 
-  constructor(private toastr: ToastrService, private _categoryService: CategoryService, 
-    private _productService: ProductServiceService) { }
+  constructor(private fb: FormBuilder, private toastr: ToastrService, private _categoryService: CategoryService, 
+    private _productService: ProductServiceService) {
+      this.addProductForm = this.fb.group({
+        name: ['', [Validators.required, Validators.maxLength(50)]],
+        category: ['', Validators.required],
+        gender: [''],
+        color: [''],
+        price: ['', [Validators.required, Validators.min(0)]],
+        discount: [0],
+        description: ['', Validators.maxLength(300)],
+        primaryImage: [null, Validators.required],
+        additionalImages: [null]
+      })
+     }
 
   ngOnInit() {
     this.getCategory();
@@ -283,7 +297,7 @@ export class AddShoesComponent {
 
   onSingleFileSelected(event: any) {
     const file = event.target.files ? event.target.files[0] : null;
-    if (file && file.size > 10 * 1024) {
+    if (file && file.size > 100 * 1024) {
       this.imageError = true;
       this.singleImage = null;
     } else {
