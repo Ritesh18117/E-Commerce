@@ -169,7 +169,7 @@
 
 </div>
 
-{{sum}}
+
 
 <!--  -->
 
@@ -203,6 +203,7 @@
 
 <!--  -->
 
+
 <div class="review">
   <div class="cookie-card-container" *ngIf="reviews && reviews.length">
     <h3>Product Reviews</h3>
@@ -223,7 +224,7 @@
           </span>
         </div>
         <p class="description">{{ review.comment }}</p>
-        <a *ngIf="role !== 'ROLE_SELLER' || role === 'ROLE_ADMIN' " (click)="deleteReviewByProductId(review.id)" class="btn btn-danger del mt-3">Delete</a> Added delete button
+        <a *ngIf="role !== 'ROLE_SELLER' || review.customer.user.username === userId" (click)="deleteReviewByProductId(review.id)" class="btn btn-danger del mt-3">Delete</a>
 
       </div>
     </div>
@@ -233,6 +234,34 @@
   </div>
 </div>
 
+<!-- <div class="review">
+  <div class="cookie-card-container" *ngIf="reviews && reviews.length">
+    <h3>Product Reviews</h3>
+    <div class="cookie-cards">
+      <div class="cookie-card" *ngFor="let review of reviews">
+        <span class="title">
+          <span class="material-symbols-outlined">account_circle</span>
+          {{ review.customer?.name }}
+        </span>
+        <div class="actions">
+          <span class="stars">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <i
+                class="fa"
+                [ngClass]="star <= review.stars ? 'fa-star' : 'fa-star-o'"
+              ></i>
+            </ng-container>
+          </span>
+        </div>
+        <p class="description">{{ review.comment }}</p>
+        <a *ngIf="canDeleteReview(review)" (click)="deleteReview(review.id)" class="btn btn-danger del mt-3">Delete</a>
+      </div>
+    </div>
+  </div>
+  <div class="cookie-card-container" *ngIf="!reviews || reviews.length === 0">
+    <p>No reviews available for this product.</p>
+  </div>
+</div> -->
 
 
 

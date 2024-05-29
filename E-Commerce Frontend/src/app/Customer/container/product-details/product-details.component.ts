@@ -39,6 +39,8 @@ export class ProductDetailsComponent {
   productId: string | null = null;
   reviews: any ;
   sum:number=0;
+  userId: string | null=null;
+
 
   // Variables for card Items
   selectedSize: any;
@@ -54,8 +56,9 @@ export class ProductDetailsComponent {
     this.productId = this.route.snapshot.paramMap.get('id');
     this.getProductById();
     this.getProductReviews(); 
-    this.getProductLength();
-    
+    this.getProductLength();   
+   this.userId = this._authService.getUserIdFromToken();
+
   }
  
 getProductLength(){

@@ -15,7 +15,7 @@
       <th scope="row">{{review.id}}</th>
       <td>{{review.stars}}</td>
       <td>{{review.comment}}</td>
-      <td>{{review.product?.name}}</td>
+      <td><a href="/product/{{review.product.id}}">{{review.product?.name}}</a></td>
       <td>
         <button (click)="deleteReview(review.id)" class="btn btn-danger btn-sm">Delete</button> <!-- Added delete button -->
       </td>
