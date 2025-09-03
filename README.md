@@ -50,6 +50,8 @@ E-Commerce/
 │ ├── src/main/resources/ # Configurations
 │ └── pom.xml # Maven build file
 │
+|
+|
 └── frontend/ # Angular Application
 ├── src/ # Angular components, services, etc.
 ├── angular.json # Angular configuration
