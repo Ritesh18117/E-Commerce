@@ -44,3 +44,13 @@ The system is designed with **role-based access control** using **Spring Securit
 
 ## 📂 Project Structure
 
+E-Commerce/
+├── backend/ # Spring Boot Application
+│ ├── src/main/java/... # Java source code
+│ ├── src/main/resources/ # Configurations
+│ └── pom.xml # Maven build file
+│
+└── frontend/ # Angular Application
+├── src/ # Angular components, services, etc.
+├── angular.json # Angular configuration
+└── package.json # Node dependencies
